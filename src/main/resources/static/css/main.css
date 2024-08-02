@@ -410,3 +410,39 @@ header{
     background-color: var(--color3);
     color: var(--white);
 }
+
+/* select */
+.select{
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+    padding: 25px 0;
+    display: flex;
+    align-items: center;
+}
+
+/* IE */
+select::-ms-expand { 
+    display: none;
+}
+select {
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+select{
+    background: url(../image/svg/down.svg) no-repeat 90% 50%;
+    background-size: 16px;
+    padding: 14px 20px;
+    width: 160px;
+    border: 1px solid var(--gray1);
+    border-radius: 10px;
+    outline: none;
+    color: var(--gray1);
+    font-size: 16px;
+}
+select>option{
+    border-radius: 10px;
+}
