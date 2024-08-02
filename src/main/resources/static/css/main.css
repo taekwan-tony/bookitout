@@ -187,17 +187,13 @@ header{
 }
 
 /* main */
-.content{
-    height: 100vh;
-}
 .main-visual-wrap img{
     width: 100%;
-}/* Swiper slider */
+}
+/* Swiper slider */
 .main_visual_wrap{
     width: 100%;
-}
-.swiper-wrapper, .swper-slide {
-	height: 600px !important;
+    height: auto;
 }
 .swiper-slide {
 	width: 100%;

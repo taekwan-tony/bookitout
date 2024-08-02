@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http/www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>1:1문의</title>
+<style>
+	
+</style>
+<link rel="stylesheet" href="/css/customercenter.css">
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main class="content">
+		<div class="customer-main-wrap">
+			<div class="customer-list-wrap">
+				<div class="content-msg">
+					<h2>고객센터</h2>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/FAQ/customermain">메인</a>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="#">자주 묻는 질문</a>
+						<li><a href="#">BEST 10</a></li>
+						<li><a href="#">반품/교환/환불</a></li>
+						<li><a href="#">주문/결제</a></li>
+						<li><a href="#">배송/수령일 안내</a></li>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="#">1:1 문의</a>
+						<li><a href="#">1:1 문의 접수</a></li>
+						<li><a href="#">1:1 문의 내역</a></li>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="#">공지사항</a>
+					</ul>
+				</div>
+			</div>
+			<div class="customer-content-wrap">
+				<div class="content-msg customer-main-msg">
+					<h2>자주묻는질문</h2>
+				</div>
+				<div class="search-design-form">
+					<form action="/FAQ/searchFaq">
+						<input type="text" name="question" placeholder="내용을 입력해주세요.">
+						<button type="submit" class="btn-type2 btn" >검색</button>
+					</form>
+				</div>
+				<div class="question-list-box">
+					<div>
+						<span>BEST 10</span>
+					</div>
+					<div>
+						<span>반품/교환/환불</span>
+					</div>
+					<div>
+						<span>주문/결제</span>
+					</div>
+					<div>
+						<span>배송/수령일 안내</span>
+					</div>
+				</div>
+				<div class="question-content-box">
+					<div>
+						<p>BEST10</p>
+					</div>
+				</div>
+				<th:block th:each="faq : ${list}">
+					<div class="btn-content-box">
+						<button type="button" ><span th:text="${faq.faqTitle}"></span></button>
+					</div>
+				</th:block>"
+			</div>
+		</div>
+	</main>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>
