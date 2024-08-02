@@ -1,4 +1,4 @@
-package kr.co.iei;
+package kr.co.bookItOut;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
