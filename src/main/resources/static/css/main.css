@@ -387,3 +387,99 @@ header{
     background-color: var(--color3);
     color: var(--white);
 }
+/*adminHeader*/
+/*
+.nav{
+    width: 100%;
+    background-color: var(--color2);
+}
+.nav>div{
+    padding-top: 13px;
+    padding-bottom: 67px;
+}
+.nav .gnb>ul>li{
+    float: left;
+    padding: 15px;
+}
+*/
+.header-main1{
+    width: 100%;
+    background-color: var(--gray1);
+    
+}
+.header-main1>div{
+    display: flex;
+    align-items: center;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+.header-main1>div>*{
+    float: left;
+}
+.nav1{
+	height : 100vh;
+	width : 230px;
+	border-right: 1px solid var(--gray1);
+	border-top: 1px solid var(--gray1)
+}
+.nav1>div{
+	float: left;
+}
+.icons-menu{
+	height : 100vh;
+	width : 60px;
+	background-color: var(--gray3);
+	
+}
+.icons-menu li{
+	padding-top: 20px;
+}
+.logo1>a{
+    font-family: 'Tenada';
+    font-size: 48px;
+    color: black;
+}
+.admin-menu>ul>li>a{
+	padding-left:10px; 
+	font-family: 'Tenada';
+	font-size: 27px;
+	
+}
+.admin-meun{
+	flex:1;
+}
+.admin-meun > ul{
+	display: flex;
+	align-items: center;
+}
+.admin-menu>ul>li{
+	padding-top: 15px;
+}
+.admin-menu .sub-menu{
+	display: none;
+  width: 130px;
+  background-color: #fff;
+  border: 1px solid var(--main2);
+  border-radius: 5px;
+  right : 15px;
+  z-index: 1;
+}
+
+.sub-menu > li > a {
+  color: var(--main2);
+  padding: 10px;
+  display: block;
+}
+.admin-menu > ul > li:hover > .sub-menu {
+  display: block;
+}
+.admin-menu .sub-menu a{
+	transition-duration: 10s;
+}
+
+
+
+
+
+
+

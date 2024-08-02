@@ -14,6 +14,11 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
+	@GetMapping(value="/index")
+	public String index() {
+		return "adminIndex";
+	}
+	
 //	@GetMapping(value = "/adminList")
 //	public String list(Model model,int rePage) {
 		
