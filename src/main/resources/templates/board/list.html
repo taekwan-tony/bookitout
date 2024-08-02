@@ -3,6 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <title>자유게시판</title>
+<style>
+	.page-title{
+		font-size: xx-large;
+		font-weight: bold;
+		text-align: center;
+		margin-top: 100px;
+		margin-bottom: 50px;
+	}
+	.select{
+		display:inline-block;
+		float: right;
+	}
+	.list-header{
+		width: 100%;
+		float: right;
+	}
+	.inputsubmit{
+		float: right;
+	}
+	.input-item{
+		width: 100%;
+	}
+	.tbl{
+		width: 100%;
+		margin-top: 50px;
+	}
+	#searchFrm{
+		width: 50%;
+		float: right;
+		
+	}
+	#searchFrm>*{
+	}
+	.selection{
+		display: inline-block;
+	}
+	select{
+	}
+</style>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
@@ -13,7 +52,7 @@
 				<a class="btn" id="write-btn" href="/board/writeFrm">글쓰기</a>
 				<form action="/board/search" method="get" id="searchFrm">
 					<div class="input-item">	
-						<div class="select">
+						<div class="selection">
 							<select name="type">
 								<th:block th:if="${type=='title' || type==null}">
 									<option value="title" selected>제목</option>
@@ -41,9 +80,11 @@
 								</th:block>
 							</select>
 						</div>
-						<input type="text" name="keyword">
-						<input type="hidden" name="reqPage" value="1">
-						<button type="submit" class="btn">조회</button>
+						<div class="inputsubmit">
+							<input type="text" name="keyword">
+							<input type="hidden" name="reqPage" value="1">
+							<button type="submit" class="btn">조회</button>
+						</div>
 					</div>
 				</form>
 			</div>

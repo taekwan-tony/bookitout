@@ -3,8 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.notice-write-container{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.notice-write-wrap .input-item>input[type=text]{
+		border-bottom: none;
+		padding: 0;
+	}
+	.notice-write-wrap .input-item>textarea {
+		height: 300px;
+	}
+</style>
 </head>
 <body>
-
+	<th:block th:include="common/header"></th:block>
+	<main class="content-board-write-container">
+		<section class="section board-write-wrap">
+			<div class="page-title">공지사항 작성</div>
+				<form action="/board/write" method="post" enctype="multipart/form-data">
+					<table class="tbl">
+						<tr>
+							<th>제목</th>
+							<td colspan="3">
+								<div class="input-item">
+									<input type="text" name="boardTitle">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th style="width: 10%">작성자</th>
+							<td style="width: 40%">
+								<span th:text="${session.member.memberId}"></span>
+								<input type="hidden" name="memberId" th:value="${session.member.memberId}">
+							</td>
+						</tr>
+						<tr>
+							<th style="width: 10%">파일</th>
+							<td style="width: 40%">
+								<input type="file" name="upfile" multiple>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<div class="input-item">
+									<textarea name="boardContent"></textarea>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<button type="submit" class="btn">공지사항 작성</button>
+							</td>
+						</tr>		
+					</table>
+				</form>
+		</section>
+	</main>
+	<th:block th:include="common/footer"></th:block>
 </body>
 </html>
