@@ -77,10 +77,6 @@ a {
 	padding: 20px;
 }
 
-.information>h1 {
-	text-align: center;
-}
-
 .info-wrap {
 	margin: 50px;
 	width: 700px;
@@ -90,8 +86,26 @@ a {
 	margin-bottom: 20px;
 }
 
+.info-wrap>h3 {
+	margin-bottom: 10px;
+}
+
 .tbl {
-	text-align: left;
+	width: 100%;
+}
+
+.tbl {
+	border: 2px solid;
+	border-collapse: collapse;
+}
+
+th {
+	font-size: larger;
+	background-color: #AF8F6F;
+}
+
+th, td {
+	border: 2px solid;
 }
 </style>
 </head>
@@ -104,7 +118,8 @@ a {
 			<div class="navigation">
 				<span class="icon"></span>
 				<ul>
-					<li><a href="/member/myInfo"> <span class="title">내 정보</span>
+					<li><a href="/member/myInfo"> <span class="title">내
+								정보</span>
 					</a></li>
 					<li><a href="/member/myOrder"> <span class="title">주문조회</span>
 					</a></li>
@@ -117,35 +132,17 @@ a {
 		</div>
 		<div class="information">
 			<div class="info-wrap">
-				<h1>내 정보</h1>
+				<h1>주문조회</h1>
+				<h3>전체 주문 내역</h3>
 				<table class="tbl">
 					<tr>
-						<td>
-							<h2>프로필</h2>
-						</td>
+						<th>주문일</th>
+						<th>주문번호</th>
+						<th>수령인</th>
+						<th>주문상품</th>
+						<th>배송지</th>
 					</tr>
-					<tr>
-						<th><img src="image/kawa.png" style="width: 150px;" id="previewImg"></th>
-					</tr>
-					<tr>
-						<input type="file" name="imageFile" accept=".jpg,.png,.jpeg"
-							onchange="loadImg(this)">
-					</tr>
-					<tr>
-						<th>이름 :</th>
-					</tr>
-					<tr>
-						<th>나이 :</th>
-					</tr>
-					<tr>
-						<th>아이디 :</th>
-					</tr>
-					<tr>
-						<th>전화번호 :</th>
-					</tr>
-					<tr>
-						<th>가입일 :</th>
-					</tr>
+					<tr></tr>
 				</table>
 			</div>
 		</div>
