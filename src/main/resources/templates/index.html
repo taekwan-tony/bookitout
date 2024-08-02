@@ -1,10 +1,145 @@
 <!DOCTYPE html>
-<html xmlns:th="http/www.thymeleaf.org">
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <!-- Swiper -->
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
 <body>
-	
+    <header>
+        <div class="main-header-wrap">
+            <div class="header-main">
+                <div class="inner">
+                    <div class="logo-box">
+                        <h1 class="logo">
+                            <a href="#">책키라웃</a>
+                        </h1>
+                    </div>
+                    <div class="search">
+                        <input type="text" name="search">
+                        <button class="search-btn" type="button">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                    <div class="lnb">
+                        <ul>
+                            <li>
+                                <a href="#">장바구니</a>
+                            </li>
+                            <li>
+                                <a href="#">회원가입</a>
+                            </li>
+                            <li>
+                                <a href="#">로그인</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="nav">
+                <div class="inner">
+                    <div class="gnb">
+                        <ul>
+                            <li><a href="#">menu1</a></li>
+                            <li><a href="#">menu2</a></li>
+                            <li><a href="#">menu3</a></li>
+                            <li><a href="#">menu4</a></li>
+                            <li><a href="#">menu5</a></li>
+                            <li><a href="#">menu6</a></li>
+                            <li><a href="#">menu7</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="content">
+        <div class="main-visual-wrap">
+            <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide">
+                        <a href="javascript:void(0)">
+                            <img src="image/visual_1.jpg" alt="">
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="javascript:void(0)">
+                            <img src="image/visual_2.jpg" alt="">
+                        </a>
+                    </div>
+                    <div class="swiper-slide">
+                        <a href="javascript:void(0)">
+                            <img src="image/visual_3.jpg" alt="">
+                        </a>
+                    </div>
+                </div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="main-footer-wrap">
+            <div class="footer-main">
+                <div class="inner">
+                    <div class="logo-box">
+                        <h1 class="logo">
+                            <a href="#">책키라웃</a>
+                        </h1>
+                    </div>
+                    <div class="info">
+                        <h2>(주)책키라웃</h2>
+                        <p>대표자 : 책키원 | 주소 : 07212 서울특별시 영등포구 선유동2로 57 이레빌딩</p>
+                        <p>전화 : 02-123-4567 | 이메일 : <a href="mailto:bookitout@gmail.com">bookitout@gmail.com</a></p>
+                        <p>사업자등록번호 : 001-01-00001 | 통신판매업 신고 : 2024-서울영등-0001호</p>
+                    </div>
+                    <div class="customer">
+                        <h2>고객센터 1234-1234</h2>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    1 : 1 문의
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-angles-right"></i></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    자주 묻는 질문
+                                    <span><i class="fa-solid fa-angles-right"></i></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <div class="inner">
+                    <h4>COPYRIGHT &copy;책키라웃 ALL RIGHTS RESERVED.</h4>
+                </div>
+            </div>
+        </div>
+    </footer>
+        
+    <div id="scroll-btn">
+        <button id="top-btn">
+            <i style="--fa-bounce-start-scale-x: 1;--fa-bounce-start-scale-y: 1;--fa-bounce-jump-scale-x: 1;--fa-bounce-jump-scale-y: 1;--fa-bounce-land-scale-x: 1;--fa-bounce-land-scale-y: 1;--fa-bounce-rebound: 0;" class="fa-solid fa-angles-up fa-bounce"></i>
+        </button>
+    </div>
+    
+    <script src="js/main.js"></script>
 </body>
 </html>
