@@ -4,17 +4,43 @@ body{
 	font-family: 'Pretendard';
 	font-weight: 400;
 }
+
 *{
     margin: 0;
     padding: 0;
+	border: 0;
     color: var(--black);
 }
-ul{
-    list-style: none;
+
+ol, ul {
+	list-style: none;
+	padding: 0;
 }
+
+/* 글자 태그 기본 폰트 사이즈, 굵기 */
 a{
     text-decoration: none;
     color: var(--black);
+}
+
+h1{
+	font-size:32px;
+	font-weight:500;
+}
+
+h2{
+	font-size:24px;
+	font-weight:400;
+}
+
+h3{
+	font-size:18px;
+	font-weight:400;
+}
+
+p{
+	font-size:16px;
+	font-weight:300;
 }
 
 .inner{
@@ -24,6 +50,7 @@ a{
 }
 
 .clear {
+    content: '';
     clear: both;
     display: block;
     overflow: hidden;
