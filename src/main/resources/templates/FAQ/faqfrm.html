@@ -3,10 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <title>1:1문의</title>
+<link rel="stylesheet" href="/css/customercenter.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <style>
+	.total-faq-box{
+		border-bottom : 0.5px solid var(--gray2);
+	}
+	.question-icon-color{
+		color: var(--color2);
+		font-size: 15px;
+	}
+	.btn-content-box{
+		position: relative;
+	}
+	.question-box{
+		height : 60px;
+		width:100%;
+		background-color : transparent;
+		border : none;
+
+		text-align: left;
+		overflow : hidden;
+	}
+	.question-box>div:first-child{
+		float:left;
+	}
+	#faqTitle{
+		font-size: 17px;
+		font-family: Tenada;
+	}
+	.question-btn{
+		position: absolute;
+		left: 0;
+		top: 0;
+		height : 100%;
+		width: 100%;
+		background: none;
+		border: none;
+		
+	}
+	.right-btn{
+		float : right;
+	}
+	.content-box>div{
+		display : flex;
+		
+	}
+	.down-box{
+		display : none;
+	}
+	
 	
 </style>
-<link rel="stylesheet" href="/css/customercenter.css">
+
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
@@ -73,13 +123,49 @@
 					</div>
 				</div>
 				<th:block th:each="faq : ${list}">
-					<div class="btn-content-box">
-						<button type="button" ><span th:text="${faq.faqTitle}"></span></button>
+					<div class="total-faq-box">
+						<div class="btn-content-box">
+							<div class="question-box">
+								<div>
+									<span class="material-icons question-icon-color">help_outline</span>
+									<span th:text="${faq.faqTitle}" id="faqTitle"></span>							
+								</div>
+								<div>
+									<span class="material-icons right-btn">expand_more</span>
+								</div>
+							</div>
+							<button type="button" class="question-btn" id="btn-check" >
+							</button>
+						</div>
+						<div class="content-box down-box">
+							<div>
+								<div>
+									<span class="material-icons">east</span>
+								</div>
+								<div  th:utext="${faq.faqContent}"></div>
+							</div>
+						</div>
 					</div>
-				</th:block>"
+					
+				</th:block>
 			</div>
 		</div>
 	</main>
 	<th:block th:include="common/footer"></th:block>
+	<script>
+		$("#btn-check").on("click",function(){
+			$(".right-btn").text("expand_more");
+			$(".content-box").addClass("down-box");
+			const spanCheck = $(this).prev().children().next().children().text();
+			if(spanCheck == "expand_more"){
+				$(this).prev().children().next().children().text("expand_less");
+			}else{
+				$(this).prev().children().next().children().text("expand_more");
+					
+			}
+			$(this).parent().next().toggle();
+			
+		});
+	</script>
 </body>
 </html>
