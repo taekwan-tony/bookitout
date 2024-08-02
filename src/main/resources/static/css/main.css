@@ -1,11 +1,8 @@
 @charset "UTF-8";
 /* reset */
-/* logo-font */
-@font-face {
-    font-family: 'Tenada';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+body{
+	font-family: 'Pretendard';
+	font-weight: 400;
 }
 *{
     margin: 0;
@@ -45,6 +42,13 @@ a{
     --gray1: #777;
     --gray2: #eee;
     --gray3: #ddd;
+}
+/* logo-font */
+@font-face {
+    font-family: 'Tenada';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 
 /* 탑버튼 */
