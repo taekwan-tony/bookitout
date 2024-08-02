@@ -187,9 +187,6 @@ header{
 }
 
 /* main */
-.content{
-    height: 100vh;
-}
 .main-visual-wrap img{
     width: 100%;
 }/* Swiper slider */
