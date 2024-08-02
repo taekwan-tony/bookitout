@@ -80,6 +80,19 @@ a {
 .information>h1 {
 	text-align: center;
 }
+
+.info-wrap {
+	margin: 50px;
+	width: 700px;
+}
+
+.info-wrap>h1 {
+	margin-bottom: 20px;
+}
+
+.tbl {
+	text-align: left;
+}
 </style>
 </head>
 <body>
@@ -91,7 +104,7 @@ a {
 			<div class="navigation">
 				<span class="icon"></span>
 				<ul>
-					<li><a href="/member/myInfo"> <span class="title">내 정보</span>
+					<li><a href="#"> <span class="title">내 정보</span>
 					</a></li>
 					<li><a href="#"> <span class="title">주문조회</span>
 					</a></li>
@@ -103,10 +116,54 @@ a {
 			</div>
 		</div>
 		<div class="information">
-			<h1>마이페이지</h1>
+			<div class="info-wrap">
+				<h1>내 정보</h1>
+				<table class="tbl">
+					<tr>
+						<td>
+							<h2>프로필</h2>
+						</td>
+					</tr>
+					<tr>
+						<th><img src="image/kawa.png" style="width: 150px;" id="previewImg"></th>
+					</tr>
+					<tr>
+						<input type="file" name="imageFile" accept=".jpg,.png,.jpeg"
+							onchange="loadImg(this)">
+					</tr>
+					<tr>
+						<th>이름 :</th>
+					</tr>
+					<tr>
+						<th>나이 :</th>
+					</tr>
+					<tr>
+						<th>아이디 :</th>
+					</tr>
+					<tr>
+						<th>전화번호 :</th>
+					</tr>
+					<tr>
+						<th>가입일 :</th>
+					</tr>
+				</table>
+			</div>
 		</div>
 		<div class="clear"></div>
 	</main>
+	<script>
+		function loadImg(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					document.getElementById('previewImg').src = e.target.result;
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+	</script>
+	<th:block th:include="common/footer"></th:block>
+	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>
