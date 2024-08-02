@@ -2,12 +2,80 @@
 <html xmlns:th="http/www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>1:1문의</title>
+<style>
+	.customer-main-wrap{
+		max-width: 1470px;
+		margin: 0 auto;
+	}
+	.content>div{
+		display: flex;
+		overflow: hidden;
+		margin: 0 auto;
+		
+	}
+
+	.customer-list-wrap{
+		width: 20%;
+		height: 100vh;
+	}
+	.customer-content-wrap{
+		width: 80%;
+		height: 100vh;
+	}
+	.customer-list-wrap{
+		padding-top: 150px;
+	}
+	.customer-list-wrap>div{
+		display: flex;
+		padding-left: 30px;
+		padding-bottom: 20px;
+	}
+	.customer-list-wrap ul{
+		font-size: 20px;
+		font-weight: 700;
+	}
+	
+	.customer-list-wrap li{
+		padding: 10px;
+		font-size: 15px;
+	}
+	.customer-list-wrap li>a{
+		color: var(--gray1);
+	}
+	.content-msg{
+		margin-bottom: 100px;
+	}
+</style>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
-
-
+	<main class="content">
+		<div class="customer-main-wrap">
+			<div class="customer-list-wrap">
+				<div class="content-msg">
+					<h2>고객센터</h2>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="#">메인</a>
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<a href="#">테스트</a>
+						<li><a href="#">aaa</a></li>
+						<li><a href="#">aaa</a></li>
+						<li><a href="#">aaa</a></li>
+						<li><a href="#">aaa</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="customer-content-wrap">
+				
+			</div>
+		</div>
+	</main>
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>
