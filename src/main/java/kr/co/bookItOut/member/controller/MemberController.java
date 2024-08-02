@@ -18,4 +18,9 @@ public class MemberController {
 	private String myPage() {
 		return "myPage/myPage";
 	}
+	
+	@GetMapping(value = "/myInfo")
+	private String myInfo() {
+		return "myPage/myInfo";
+	}
 }
