@@ -1,23 +1,42 @@
 @charset "UTF-8";
 /* reset */
-/* logo-font */
-@font-face {
-    font-family: 'Tenada';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+body{
+	font-family: 'Pretendard';
+	font-weight: 400;
 }
+
 *{
     margin: 0;
     padding: 0;
+	border: 0;
     color: var(--black);
 }
-ul{
-    list-style: none;
+
+ol, ul {
+	list-style: none;
+	padding: 0;
 }
+
+/* 글자 태그 기본 폰트 사이즈, 굵기 */
 a{
     text-decoration: none;
     color: var(--black);
+}
+
+h1{
+	font-size:32px;
+}
+
+h2{
+	font-size:24px;
+}
+
+h3{
+	font-size:18px;
+}
+
+p{
+	font-size:16px;
 }
 
 .inner{
@@ -27,6 +46,7 @@ a{
 }
 
 .clear {
+    content: '';
     clear: both;
     display: block;
     overflow: hidden;
@@ -45,6 +65,13 @@ a{
     --gray1: #777;
     --gray2: #eee;
     --gray3: #ddd;
+}
+/* logo-font */
+@font-face {
+    font-family: 'Tenada';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 
 /* 탑버튼 */
@@ -305,4 +332,81 @@ header{
 }
 .copyright h4{
     line-height: 84px;
+}
+
+/* 페이지네이션 */
+.pagination{
+    margin: 0 auto;
+    width: 100%;
+    max-width: 645px;
+    padding: 25px 0;
+}
+.pagination li{
+    float: left;
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+}
+.pagination li:last-child{
+    margin-right: 0;
+}
+.pagination li>a.page-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    color: var(--color2);
+    background-color: var(--color1);
+    border-radius: 25px;
+}
+.pagination li a.page-btn, .pagination li a.page-btn{
+    background-color: var(--white);
+    color: var(--color4);
+}
+.pagination li>a.active-page{
+    color: var(--white);
+    background-color: var(--color2);
+}
+.pagination li>a>span>i{
+    color: var(--color4);
+    font-weight: 900;
+    font-size: 24px;
+}
+
+/* 기본 버튼 디자인 */
+.btnBox{
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 25px 0;
+}
+[class^="btn-"] {
+    cursor: pointer;
+    padding: 9px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: ns-b;
+    text-align:center;
+    box-sizing: border-box;
+}
+.btn-type1{
+    border: 1px solid var(--gray1);
+    background-color: var(--white);
+    color: var(--gray1);
+}
+.btn-type2{
+    border: 1px solid var(--color2);
+    background-color: var(--white);
+    color: var(--color2);
+}
+.btn-type3{
+    background-color: var(--color2);
+    color: var(--white);
+}
+.btn-type4{
+    background-color: var(--color3);
+    color: var(--white);
 }
