@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<body>
+	<th:block th:include="common/header"></th:block>
+	
+	<script src="/summernote/summernote-lite.js"></script>
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/summernote/summernote-lite.css">
+	<main class="content board-write-container">
+		<section class="section board-writer-wrap">
+			<div class="page-title">게시물 작성</div>
+			<form action="/board/write" method="post" enctype="multipart/form-data">
+				<table class="tbl">
+					<tr>
+						<th>제목</th>
+						<td colspan="3">
+							<div class="input-item">
+								<input type="text" name="boardTitle">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th style="width:10%;">작성자</th>
+						<td style="width:40%;">
+							<span th:text="${session.member.memberId}"></span>
+							<input type="hidden" name="memberId" th:value="${session.member.memberId}">
+						</td>
+						<th style="width:10%;">첨부파일</th>
+						<td style="width:40%;">
+							<input type="file" name="upfile" multiple>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4" class="left">
+								<textarea name="boardContent" id="boardContent"></textarea>
+							
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<button type="submit" class="btn-primary lg">공지사항 작성</button>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</section>
+	</main>
+	<script>
+		$("#boardContent").summernote({
+			height:500,
+			lang : "ko-KR",
+			disableResize : true,
+			disableResizeEditor : true,
+			resize : false,
+			callbacks :{
+				onImageUpload : function(files){
+					uploadImage(files[0],this);		
+				}
+			}
+		});
+		function uploadImage(file, editor){
+			const form = new FormData();
+			form.append("upfile",file);
+			 $.ajax({
+				 url : "/board/editorImage",
+				 type : "post",
+				 data : form,
+				 processData : false,
+				 contentType : false,
+				 success : function(data){
+					 $(editor).summernote("insertImage",data);
+				 },
+				 error : function(){
+					 console.log("에러");
+				 }
+			 });
+		}
+	</script>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</body>
+</html>
