@@ -13,5 +13,8 @@ public class BookController {
 	@Autowired
 	private BookService bookService;
 	
-	
+	@GetMapping(value="/detail")
+	public String detail() {
+		return "book/detail";
+	}
 }
