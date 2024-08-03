@@ -17,4 +17,5 @@ public class BookController {
 	public String detail() {
 		return "book/detail";
 	}
+	
 }
