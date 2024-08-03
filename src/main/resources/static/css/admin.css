@@ -1,0 +1,568 @@
+@charset "UTF-8";
+/* reset */
+body {
+  font-family: "Pretendard";
+  font-weight: 400;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  /* border: 0; */
+  color: var(--black);
+}
+
+ol,
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* 글자 태그 기본 폰트 사이즈, 굵기 */
+a {
+  text-decoration: none;
+  color: var(--black);
+}
+
+h1 {
+  font-size: 32px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+p {
+  font-size: 16px;
+}
+
+.left {
+  text-align: left;
+  float: left;
+}
+.right {
+  text-align: right;
+  float: right;
+}
+
+.inner {
+  width: 100%;
+  max-width: 1470px;
+  margin: 0 auto;
+}
+
+.clear {
+  content: "";
+  clear: both;
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+:root {
+  --color1: #f8f4e1;
+  --color2: #af8f6f;
+  --color3: #74512d;
+  --color4: #543310;
+  --black: #1a1a1a; /* 기본 검정 글씨 */
+  --white: #fff;
+  --gray1: #777;
+  --gray2: #eee;
+  --gray3: #ddd;
+}
+/* logo-font */
+@font-face {
+  font-family: "Tenada";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 탑버튼 */
+#scroll-top {
+  display: none;
+}
+#scroll-btn {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  z-index: 9998;
+}
+#scroll-btn > button {
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--color1);
+  border-radius: 25px;
+  background: var(--white);
+  transition: all 0.35s;
+  cursor: pointer;
+}
+#scroll-btn > button:hover {
+  background-color: var(--color3);
+}
+#scroll-btn > button > i {
+  font-size: 24px;
+}
+#scroll-btn > button:hover > i {
+  color: var(--white);
+}
+
+/* 요소 스타일 시작 */
+/* body, .wrap{
+    height: 100vh;
+} */
+header {
+  /* position: -webkit-sticky;
+    position: sticky;
+    top: 0; */
+  z-index: 9999;
+}
+/* .main-header-wrap{
+    height: 180px !important;
+} */
+.header-main {
+  width: 100%;
+  background-color: var(--color1);
+}
+.header-main > div {
+  display: flex;
+  align-items: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+.header-main > div > * {
+  float: left;
+}
+.logo-box {
+  width: 30%;
+}
+.logo {
+}
+.logo > a {
+  font-family: "Tenada";
+  font-size: 48px;
+  color: var(--color4);
+}
+.search {
+  width: 40%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+.search > input,
+.search > .search-btn {
+  border: 0;
+  background-color: transparent;
+}
+.search > input {
+  border-bottom: 1px solid var(--black);
+  width: 450px;
+  height: 30px;
+  margin-right: 10px;
+}
+.search > .search-btn {
+  cursor: pointer;
+}
+.search > .search-btn > i {
+  font-size: 30px;
+}
+.lnb {
+  width: 30%;
+}
+.lnb > ul {
+  float: right;
+}
+.lnb > ul > li {
+  float: left;
+  padding: 0 15px;
+}
+
+.nav {
+  width: 100%;
+  background-color: var(--color2);
+}
+.nav > div {
+  padding-top: 13px;
+  padding-bottom: 67px;
+}
+.nav .gnb > ul > li {
+  float: left;
+  padding: 15px;
+}
+
+/* main */
+/* .content{
+    height: 100vh;
+} */
+.main-visual-wrap img {
+  width: 100%;
+} /* Swiper slider */
+.main_visual_wrap {
+  width: 100%;
+}
+.swiper-slide {
+  width: 100%;
+  background-color: #eee;
+}
+.swiper-slide-active .text-wrap {
+  top: 44%;
+  opacity: 1;
+  transition: 0.5s;
+}
+.swiper-pagination-bullet {
+  width: 40px;
+  height: 3px;
+  border-radius: 0;
+  background-color: #fff;
+}
+.swiper-pagination-bullet-active {
+  background: #fff;
+  width: 80px;
+}
+.swiper-pagination-bullet {
+  background: var(--white) !important;
+}
+.swiper-pagination-bullet-active {
+  background: var(--color3) !important;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  top: 50% !important;
+}
+.swiper-button-next.swiper-button-disabled,
+.swiper-button-prev.swiper-button-disabled {
+  opacity: 0;
+}
+.swiper-button-next,
+.swiper-button-prev {
+  width: 40px !important;
+  height: 40px !important;
+  background-color: rgba(240, 240, 240, 0.7);
+  backdrop-filter: blur(3px);
+  background-size: 18px;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 2;
+  border-radius: 50%;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  position: absolute;
+}
+.swiper-button-prev:after,
+.swiper-rtl .swiper-button-next:after,
+.swiper-button-next:after,
+.swiper-rtl .swiper-button-prev:after {
+  display: none;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: var(--color3);
+  box-shadow: 0 4px 12px var(--color3);
+}
+
+.swiper-button-prev {
+  background-image: url(../image/svg/icon-arrow-left.svg);
+  left: 20px;
+}
+
+.swiper-button-prev:hover {
+  background-image: url(../image/svg/icon-arrow-left-w.svg);
+}
+
+.swiper-button-next {
+  background-image: url(../image/svg/icon-arrow-right.svg);
+  right: 20px;
+}
+
+.swiper-button-next:hover {
+  background-image: url(../image/svg/icon-arrow-right-w.svg);
+}
+
+.swiper-slide > a > img {
+  width: 100%;
+}
+
+/* footer */
+.footer-main {
+  width: 100%;
+  padding: 30px 0;
+  background-color: var(--color1);
+}
+.footer-main > div {
+  display: flex;
+  /* align-items: center; */
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+.footer-main > div > * {
+  float: left;
+}
+.footer-main .logo-box {
+  width: 15%;
+  display: flex;
+  align-items: flex-end;
+}
+.footer-main .info {
+  width: 50%;
+}
+.info > h2,
+.customer > h2 {
+  margin-bottom: 10px;
+}
+.footer-main .customer {
+  width: 35%;
+}
+.customer li {
+  float: left;
+  margin-right: 20px;
+  width: 180px;
+  height: 45px;
+  background-color: var(--gray3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+.customer li > a {
+  font-size: 18px;
+  font-weight: 700;
+}
+.customer li:last-child {
+  margin-right: 0;
+}
+.copyright {
+  width: 100%;
+  background-color: var(--color2);
+}
+.copyright h4 {
+  line-height: 84px;
+}
+
+/* 페이지네이션 */
+.pagination {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 645px;
+  padding: 25px 0;
+}
+.pagination li {
+  float: left;
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+}
+.pagination li:last-child {
+  margin-right: 0;
+}
+.pagination li > a.page-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 20px;
+  color: var(--color2);
+  background-color: var(--color1);
+  border-radius: 25px;
+}
+.pagination li a.page-btn,
+.pagination li a.page-btn {
+  background-color: var(--white);
+  color: var(--color4);
+}
+.pagination li > a.active-page {
+  color: var(--white);
+  background-color: var(--color2);
+}
+.pagination li > a > span > i {
+  color: var(--color4);
+  font-weight: 900;
+  font-size: 24px;
+}
+
+/* 기본 버튼 디자인 */
+.btnBox {
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  padding: 25px 0;
+}
+[class^="btn-"] {
+  cursor: pointer;
+  padding: 9px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: ns-b;
+  text-align: center;
+  box-sizing: border-box;
+}
+.btn-type1 {
+  border: 1px solid var(--gray1);
+  background-color: var(--white);
+  color: var(--gray1);
+}
+.btn-type2 {
+  border: 1px solid var(--color2);
+  background-color: var(--white);
+  color: var(--color2);
+}
+.btn-type3 {
+  background-color: var(--color2);
+  color: var(--white);
+}
+.btn-type4 {
+  background-color: var(--color3);
+  color: var(--white);
+}
+
+/* select */
+.select {
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
+  padding: 25px 0;
+  display: flex;
+  align-items: center;
+}
+
+/* IE */
+select::-ms-expand {
+  display: none;
+}
+select {
+  -o-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+select {
+  background: url(../image/svg/down.svg) no-repeat 90% 50%;
+  background-size: 16px;
+  padding: 14px 20px;
+  width: 160px;
+  border: 1px solid var(--gray1);
+  border-radius: 10px;
+  outline: none;
+  color: var(--gray1);
+  font-size: 16px;
+}
+select > option {
+  border-radius: 10px;
+}
+
+/* badge */
+.badge-box {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 90px;
+}
+.badge {
+  padding: 5px;
+  background-color: var(--gray2);
+  border-radius: 0.375rem;
+  font-size: 0.75em;
+  font-weight: 600;
+  color: var(--color3);
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.badge:last-child {
+  margin-right: 0;
+}
+/*adminHeader*/
+/*
+.nav{
+    width: 100%;
+    background-color: var(--color2);
+}
+.nav>div{
+    padding-top: 13px;
+    padding-bottom: 67px;
+}
+.nav .gnb>ul>li{
+    float: left;
+    padding: 15px;
+}
+*/
+.header-main1 {
+  width: 100%;
+  background-color: var(--gray1);
+}
+.header-main1 > div {
+  display: flex;
+  align-items: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+.header-main1 > div > * {
+  float: left;
+}
+.nav1 {
+  height: 100vh;
+  width: 230px;
+  border-right: 1px solid var(--gray1);
+  border-top: 1px solid var(--gray1);
+}
+.nav1 > div {
+  float: left;
+}
+.icons-menu {
+  height: 100vh;
+  width: 60px;
+  background-color: var(--gray3);
+}
+.icons-menu li {
+  padding-top: 20px;
+}
+.logo1 > a {
+  font-family: "Tenada";
+  font-size: 48px;
+  color: black;
+}
+.admin-menu > ul > li > a {
+  padding-left: 10px;
+  font-family: "Tenada";
+  font-size: 27px;
+}
+.admin-meun {
+  flex: 1;
+}
+.admin-meun > ul {
+  display: flex;
+  align-items: center;
+}
+.admin-menu > ul > li {
+  padding-top: 15px;
+}
+.admin-menu .sub-menu {
+  display: none;
+  width: 130px;
+  background-color: #fff;
+  border: 1px solid var(--main2);
+  border-radius: 5px;
+  right: 15px;
+  z-index: 1;
+}
+
+.sub-menu > li > a {
+  color: var(--main2);
+  padding: 10px;
+  display: block;
+}
+.admin-menu > ul > li:hover > .sub-menu {
+  display: block;
+}
+.admin-menu .sub-menu a {
+  transition-duration: 10s;
+}
