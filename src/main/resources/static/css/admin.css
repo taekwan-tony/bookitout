@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/*adminHeader*/
+/*adminindex*/
 /*
 .nav{
     width: 100%;
@@ -31,6 +31,7 @@
 .header-main1 > div > * {
   float: left;
 }
+/*사이드 창 */
 .nav1 {
   position: fixed;
   top: 0;
@@ -48,18 +49,16 @@
   width: 60px;
   background-color: var(--color2);
 }
-.icons-menu li {
-  padding-top: 20px;
-}
+
 .logo1 > a {
   font-family: "Tenada";
-  font-size: 48px;
+  font-size: 50px;
   color: black;
 }
 .admin-menu > ul > li > a {
   padding-left: 10px;
   font-family: "Tenada";
-  font-size: 27px;
+  font-size: 40px;
 }
 .nav1,
 .content {
@@ -81,12 +80,16 @@
 }
 .admin-menu .sub-menu {
   display: none;
-  width: 130px;
+  width: 250px;
   background-color: #fff;
   border: 1px solid var(--main2);
   border-radius: 5px;
   right: 15px;
   z-index: 1;
+}
+.sub-menu li a {
+	font-size: 25px;
+	
 }
 
 .sub-menu > li > a {
@@ -105,8 +108,48 @@
 }
 .logo-box{
 	width: 100% !important;
+	padding:40px 0px 40px 10px;
 }
 .search{
 	width: 70% !important;
 	text-align: left !important;
+}
+.inner{
+	margin:0px 225px 0px 125px !important;
+	max-width: 1770px !important; 
+}
+.icons-menu li{
+	font-size: 30px;
+}
+.arrow{
+	padding: 50px 0px 45px 10px;
+}
+.icon1{
+	padding :25px 0px 0px 12px;
+}
+
+.lnb ul li a{
+	font-family: "Tenada";
+	font-size: 20px;
+}
+/*판매점 리스트*/
+.container{
+	padding:50px 0px 30px 0;
+	margin: 0 auto;
+	width: 70%;
+	height: 400px;
+	background-color: var(--color1);
+	
+}
+.page-title{
+	text-align: center;
+	font-family: "Tenada";
+	font-size: 20px;
+}
+.box-shadow{
+	width:50%;
+	display:flex;
+	background-color: var(--color3);
+	box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.1);
+	
 }
