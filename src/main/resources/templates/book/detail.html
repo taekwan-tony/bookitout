@@ -6,9 +6,69 @@
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
+	
 	<main class="content">
-		
-	</main>
+        <div class="inner">
+            <div class="info-wrap">
+                <div class="book">
+                    <ul>
+                        <li><h2>도서 제목</h2></li>
+                        <li><p><span>도서 저자</span> / <span>도서 출판일</span></p></li>
+                        <li>
+                            <img src="/image/book-sample.jpg" alt="도서 이미지">
+                        </li>
+                    </ul>
+                </div>
+                <div class="info">
+                    <div>
+                        <span class="badge">무료배송</span>
+                        <span class="badge">소득공제</span>
+                    </div>
+                    <div>
+                        <h3>19,800원</h3>
+                    </div>
+                    <div>
+                        <span class="left">배송안내</span>
+                        <span class="right">무료배송</span>
+                    </div>
+                    <div>
+                        <span class="badge">무료배송</span>
+                        <span>내일(8/1, 목 오전 7시 전) 도착</span>
+                    </div>
+                    <div>
+                        <span class="right">기본배송지 기준</span>
+                    </div>
+                    <div>
+                        <button class="btn-type1 btn" type="button">
+                            <i class="fa-solid fa-location-dot"></i>
+                            매장 재고·위치
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="clear"></div>
+
+            <hr>
+            
+            <div class="clear"></div>
+            
+            <div class="book-detail-img">
+                <img src="/image/book-detail.jpg">
+            </div>
+            
+            <div class="clear"></div>
+
+            <hr>
+            
+            <div class="clear"></div>
+
+            <div class="comment">
+                
+            </div>
+        </div>
+    </main>
+
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>
