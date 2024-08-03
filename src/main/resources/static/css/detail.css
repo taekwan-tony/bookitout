@@ -1,0 +1,49 @@
+@charset "UTF-8";
+:root{
+    --color1: #F8F4E1;
+    --color2: #AF8F6F;
+    --color3: #74512D;
+    --color4: #543310;
+    --black: #1A1A1A;/* 기본 검정 글씨 */
+    --white: #fff;
+    --gray1: #777;
+    --gray2: #eee;
+    --gray3: #ddd;
+}
+.info-wrap, .book-detail-img{
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 105px;
+    margin-bottom: 100px;
+    display: flex;
+    justify-content: center;
+}
+.info-wrap>div{
+    float: left;
+    margin-right: 95px;
+}
+.info-wrap>div:last-child{
+    margin-right: 0;
+}
+.info{
+    width: 305px;
+    margin-top: 40px;
+}
+.info>div{
+    padding: 0 10px;
+    align-content: center;
+    height: 57px;
+    border-bottom: 1px solid var(--gray1);
+}
+.btn{
+    width: 100%;
+    color: var(--gray1);
+}
+.btn i{
+    color: var(--gray1);
+}
+
+.book-detail-img>img{
+    width: 800px;
+}
