@@ -138,7 +138,6 @@
 	margin: 0 auto;
 	width: 70%;
 	height: 400px;
-	background-color: var(--color1);
 	
 }
 .page-title{
@@ -146,10 +145,16 @@
 	font-family: "Tenada";
 	font-size: 20px;
 }
-.box-shadow{
-	width:50%;
-	display:flex;
-	background-color: var(--color3);
+
+.center-list-wrap .box-shadow{
+	width:100%;
 	box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.1);
-	
+	background-color: var(--color2);
+	font-family: "Tenada";
+	font-size: 20px;
 }
+.hover{
+	width: 100%;
+}
+
+
