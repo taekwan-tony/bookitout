@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.bookItOut.admin.model.dto.AdminListData;
 import kr.co.bookItOut.admin.model.service.AdminService;
 
 @Controller
@@ -15,14 +16,13 @@ public class AdminController {
 	private AdminService adminService;
 	
 	@GetMapping(value="/index")
-	public String index() {
+	public String index(Model model,int rePage) {
+		AdminListData ald = adminService.selectAdminList(rePage);
+		
 		return "adminIndex";
 	}
 	
-//	@GetMapping(value = "/adminList")
-//	public String list(Model model,int rePage) {
-		
-//	}
+	
 	
 	
 }
