@@ -1,154 +1,144 @@
 <!DOCTYPE html>
-
-<link rel="stylesheet" href="/css/admin.css" />
+<html lang="ko">
+<head>
 <link rel="stylesheet" href="/css/main.css" />
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-/>
-
-<div>
-  <div class="nav1">
-    <div class="icons-menu">
-      <ul>
-      	<li class="arrow">
-          <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
-        </li>
-        <li class="icon1">
-          <a href="#"><i class="fa-solid fa-house"></i></a>
-        </li>
-        <li class="icon1">
-          <a href="#"><i class="fa-solid fa-book-open"></i></a>
-        </li>
-        <li class="icon1">
-          <a href="#"><i class="fa-solid fa-circle-user"></i></a>
-        </li>
-        <li class="icon1">
-          <a href="#"><i class="fa-brands fa-android"></i></a>
-        </li>
-      </ul>
-    </div>
-    <div class="admin-menu">
-      <ul>
-        <li>
-          <div class="logo-box">
-            <h1 class="logo1">
-              <a href="/adminIndex">책키라웃 관리자</a>
-            </h1>
-          </div>
-        </li>
-        <li>
-          <a href="#">판매점 관리</a>
-          <ul class="sub-menu">
-            <li><a href="#">판매점 리스트</a></li>
-            <li><a href="#">판매점 등록</a></li>
-            <li><a href="#">비밀번호 수정</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="#">책 관리</a>
-          <ul class="sub-menu">
-            <li><a href="#">책 리스트</a></li>
-            <li><a href="#">책 등록</a></li>
-            <li><a href="#">책 정보 수정</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="#">1대1 문의</a>
-        </li>
-        <li>
-          <a href="#">챗봇</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="content">
-    <div class="main-header-wrap">
-      <div class="header-main1">
-        <div class="inner">
-          <div class="search">
-            <input type="text" name="search" />
-            <button class="search-btn" type="button">
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-          </div>
-          <div class="lnb">
+<link rel="stylesheet" href="/css/admin.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+</head>
+<body>
+    <div class="nav1">
+        <div class="icons-menu">
             <ul>
-              <li>
-                <a href="#">관리자</a>
-              </li>
-              <li>
-                <a href="#">비밀번호 변경</a>
-              </li>
-              <li>
-                <a href="#">로그아웃</a>
-              </li>
+                <li class="arrow">
+                    <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
+                </li>
+                <li class="icon1">
+                    <a href="#"><i class="fa-solid fa-house"></i></a>
+                </li>
+                <li class="icon1">
+                    <a href="#"><i class="fa-solid fa-book-open"></i></a>
+                </li>
+                <li class="icon1">
+                    <a href="#"><i class="fa-solid fa-circle-user"></i></a>
+                </li>
+                <li class="icon1">
+                    <a href="#"><i class="fa-brands fa-android"></i></a>
+                </li>
             </ul>
-          </div>
         </div>
-      </div>
-    </div>
-    <!-- 헤더 -->
-    <!-- 컨텐츠 영역 
-    -->
-    <main class="container">
-    	  	<section class="section center-list-wrap">
-    	  		<div class="page-title"><h1>판매점 관리</h1></div>
-    	  		<div class= "box-shadow">
-    	  			<table class="table-all">
-    	  				<thead class="head">
-							<tr>
-								<th style="width:7%;">매장번호</th>
-								<th style="width:8%;">매장명</th>
-								<th style="width:45%;">매장주소</th>
-								<th style="width:20%;">입접일</th>
-								<th style="width:20%;">이메일</th>
-							</tr>    	  			
-    	  				</thead>
-    	  				<tbody class="tbody">
-    	  					<tr>
-    	  						<td>10</td>
-    	  						<td>풍무점</td>
-    	  						<td>경기도 김포시</td>
-    	  						<td>1999/2/17</td>
-    	  						<td>mda@208.naver.com</td>
-    	  					</tr>
-    	  				</tbody>
-    	  			</table>
-    	  		</div>
-    	  	</section>
-    
-    </main>
-    
-    
-    
-    
-    
-	<!-- footer 시작  헤더 풋더 다 끌어와서 쓰면 됨 -->
-    <div class="main-footer-wrap">
-      <div class="copyright">
-        <div class="inner">
-          <h4>COPYRIGHT &copy;책키라웃 ALL RIGHTS RESERVED.</h4>
+        <div class="admin-menu">
+        <ul>
+            <li>
+                <h1 class="logo1">
+                    <a href="/adminIndex">책키라웃 관리자</a>
+                </h1>
+            </li>
+            <li>
+            <a href="#">판매점 관리</a>
+            <ul class="sub-menu">
+                <li><a href="#">판매점 리스트</a></li>
+                <li><a href="#">판매점 등록</a></li>
+                <li><a href="#">비밀번호 수정</a></li>
+            </ul>
+            </li>
+            <li>
+            <a href="#">책 관리</a>
+            <ul class="sub-menu">
+                <li><a href="#">책 리스트</a></li>
+                <li><a href="#">책 등록</a></li>
+                <li><a href="#">책 정보 수정</a></li>
+            </ul>
+            </li>
+            <li>
+            <a href="#">1대1 문의</a>
+            </li>
+            <li>
+            <a href="#">챗봇</a>
+            </li>
+        </ul>
         </div>
-      </div>
     </div>
-    <!-- footer 끝 -->
-  </div>
+    <!-- 네비 사이드 메뉴 끝 -->
 
-  <div id="scroll-btn">
-    <button id="top-btn">
-      <i
-        style="
-          --fa-bounce-start-scale-x: 1;
-          --fa-bounce-start-scale-y: 1;
-          --fa-bounce-jump-scale-x: 1;
-          --fa-bounce-jump-scale-y: 1;
-          --fa-bounce-land-scale-x: 1;
-          --fa-bounce-land-scale-y: 1;
-          --fa-bounce-rebound: 0;
-        "
-        class="fa-solid fa-angles-up fa-bounce"
-      ></i>
-    </button>
-  </div>
-</div>
+    <div class="wrap">
+        <!-- 헤더 -->
+        <div>
+            <div class="main-header-wrap">
+                <div class="header-main1">
+                    <div class="inner">
+                        <div class="search">
+                            <input type="text" name="search" />
+                            <button class="search-btn" type="button">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                        <div class="lnb">
+                            <ul>
+                            <li>
+                                <a href="#">관리자</a>
+                            </li>
+                            <li>
+                                <a href="#">비밀번호 변경</a>
+                            </li>
+                            <li>
+                                <a href="#">로그아웃</a>
+                            </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 헤더 -->
+        </div>
+
+        <!-- 컨텐츠 영역 -->
+        <div class="content">
+            <div class="inner">
+                <div class="container">
+                    <div class="page-title">
+                        <h1>판매점 관리</h1>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width:10%;">매장번호</th>
+                                <th style="width:10%;">매장명</th>
+                                <th style="width:45%;">매장주소</th>
+                                <th style="width:15%;">입접일</th>
+                                <th style="width:20%;">이메일</th>
+                            </tr>
+                        </thead>
+                        <tbody>                            
+                            <tr>
+                                <td style="width:10%;">매장번호</td>
+                                <td style="width:10%;">매장명</td>
+                                <td style="width:45%;">매장주소</td>
+                                <td style="width:15%;">입접일</td>
+                                <td style="width:20%;">이메일</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer 시작  헤더 풋더 다 끌어와서 쓰면 됨 -->
+        <div>
+            <div class="main-footer-wrap">
+                <div class="copyright">
+                    <div class="inner">
+                    <h4>COPYRIGHT &copy;책키라웃 ALL RIGHTS RESERVED.</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer 끝 -->
+
+        <div id="scroll-btn">
+            <button id="top-btn">
+                <i style=" --fa-bounce-start-scale-x: 1; --fa-bounce-start-scale-y: 1; --fa-bounce-jump-scale-x: 1; --fa-bounce-jump-scale-y: 1; --fa-bounce-land-scale-x: 1; --fa-bounce-land-scale-y: 1; --fa-bounce-rebound: 0;" class="fa-solid fa-angles-up fa-bounce" ></i>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
