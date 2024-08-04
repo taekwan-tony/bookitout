@@ -98,106 +98,61 @@
                     <div class="page-title">
                         <h1>판매점 관리</h1>
                     </div>
-                    <form action="">
                     <table>
                         <thead>
                             <tr>
-                                <th style="width: 3%">
-                                	<label></label>
-                                	<input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
-                                </th>
-              					<th style="width: 7%">매장번호</th>
+                                <th style="width: 3%">input</th>
+              					<th style="width: 7%">매장번</th>
               					<th style="width: 10%">매장명</th>
               					<th style="width: 30%">매장주소</th>
-              					<th style="width: 10%">입접일</th>
+              					<th style="width: 20%">입접일</th>
               					<th style="width: 20%">이메일</th>
               					<th style="width: 10%">관리</th>
-              					<th style="width: 10%">수정/삭제</th>
                             </tr>
                         </thead>
                         <tbody>                            
                             <tr>
-                                <td>
-                                <input type="checkbox" name="chk[]" value="1">
-                                </td>
-              					<td>1</td>
+                                <td>input</td>
+              					<td>10</td>
               					<td>풍무점</td>
               					<td>경기도 김포시</td>
              					<td>1999/2/17</td>
               					<td>mda@208.naver.com</td>
               					<td>책 관리</td>
-              					<td>
-              					<button class="btn-type2 btn">삭제</button>
-              					<button class="btn-type2 btn">수정</button>
-              					</td>
                             </tr>
                             <tr>
-                                <td>
-                                <input type="checkbox" name="chk[]" value="1">
-                                </td>
-              					<td>2</td>
+                                <td>input</td>
+              					<td>10</td>
               					<td>풍무점</td>
               					<td>경기도 김포시</td>
              					<td>1999/2/17</td>
               					<td>mda@208.naver.com</td>
               					<td>책 관리</td>
-              					<td>
-              					<button class="btn-type2 btn">삭제</button>
-              					<button class="btn-type2 btn">수정</button>
-              					</td>
                             </tr>
                             <tr>
-                                <td>
-                                <input type="checkbox" name="chk[]" value="1">
-                                </td>
-              					<td>3</td>
+                                <td>input</td>
+              					<td>10</td>
               					<td>풍무점</td>
               					<td>경기도 김포시</td>
              					<td>1999/2/17</td>
               					<td>mda@208.naver.com</td>
               					<td>책 관리</td>
-              					<td>
-              					<button class="btn-type2 btn">삭제</button>
-              					<button class="btn-type2 btn">수정</button>
-              					</td>
-              					
                             </tr>
                             <tr>
-                                <td>
-                                <input type="checkbox" name="chk[]" value="1">
-                                </td>
-              					<td>4</td>
-              					<td>당산</td>
+                                <td>input</td>
+              					<td>10</td>
+              					<td>풍무점</td>
               					<td>경기도 김포시</td>
              					<td>1999/2/17</td>
               					<td>mda@208.naver.com</td>
               					<td>책 관리</td>
-              					<td>
-              					<button class="btn-type2 btn">삭제</button>
-              					<button class="btn-type2 btn">수정</button>
-              					</td>
                             </tr>
                         </tbody>
                     </table>
-                   </form>
                 </div>
             </div>
-        <!--페이지 넘기는 부분 (책리스트,매장리스트)-->
-        <div class="pagination">
-            <ul>
-                <!-- <li><a class="page-item" href="#"><span><i class="fa-solid fa-angles-left"></i></span></a></li> -->
-                <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-left"></i></span></a></li>
-                <li><a class="page-item active-page" href="#">1</a></li>
-                <li><a class="page-item" href="#">2</a></li>
-                <li><a class="page-item" href="#">3</a></li>
-                <li><a class="page-item" href="#">4</a></li>
-                <li><a class="page-item" href="#">5</a></li>
-                <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-right"></i></span></a></li>
-                <!-- <li><a class="page-item" href="#"><span><i class="fa-solid fa-angles-right"></i></span></a></li> -->
-            </ul>
         </div>
-		<!--페이지 넘기는 부분 종료 -->
-        </div>
+
         <!-- footer 시작  헤더 풋더 다 끌어와서 쓰면 됨 -->
         <div>
             <div class="main-footer-wrap">
@@ -216,15 +171,5 @@
             </button>
         </div>
     </div>
-    <script>
-    function check_all(f)
-    {
-        var chk = document.getElementsByName("chk[]");
-
-        for (i=0; i<chk.length; i++)
-            chk[i].checked = f.chkall.checked;
-    }
-    
-    </script>
 </body>
 </html>
