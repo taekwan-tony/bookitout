@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.bookItOut.FAQ.model.dto.FaqListData;
 import kr.co.bookItOut.FAQ.model.service.FaqService;
 
 @Controller
@@ -17,9 +18,10 @@ public class FaqController {
 	private FaqService faqService;
 	
 	@GetMapping(value="/faqfrm")
-	public String faqFrm(int type,int reqpage,Model model) {
-		List list = faqService.selectAllFaq(type,reqpage);
-		model.addAttribute("list",list);
+	public String faqFrm(int type,int reqPage,Model model) {
+		FaqListData fld = faqService.selectAllFaq(type,reqPage);
+		model.addAttribute("list",fld.getList());
+		model.addAttribute("navi",fld.getPageNavi());
 		return "FAQ/faqfrm";
 	}
 }
