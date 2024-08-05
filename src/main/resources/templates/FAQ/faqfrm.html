@@ -110,8 +110,15 @@
 					<h2>자주묻는질문</h2>
 				</div>
 				<div class="search-design-form">
-					<form action="/FAQ/searchFaq">
-						<input type="text" name="question" placeholder="내용을 입력해주세요.">
+					<form action="/FAQ/searchFaq" method="get">
+						<input type="hidden" name="type" value="0">
+						<input type="hidden" name="reqPage" value="1">
+						<th:block th:if="${searchQna}==null">
+							<input type="text" name="searchQna" placeholder="내용을 입력해주세요.">
+						</th:block>
+						<th:block th:if="${searchQna}!=null">
+							<input type="text" name="searchQna" th:value="${searchQna}">
+						</th:block>
 						<button type="submit" class="btn-type2 btn" >검색</button>
 					</form>
 				</div>
