@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 <link rel="stylesheet" href="/css/main.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 .join-wrap{
     display: block;
@@ -143,6 +144,10 @@
 img{
     margin-top: 10px;
 }
+.pw-check-msg{
+	text-align:left;
+	margin-left:50px;
+}
 </style>
 </head>
 <body>
@@ -190,7 +195,7 @@ img{
                         <div class="input-item">
                             <input type="password" name="memberPwRe" id="memberPwRe">
                         </div>
-                        <p class="input-msg pw-check-msg"></p>
+                        <p class="pw-check-msg"></p>
                     </div>
                     <div class="input-wrap">
                         <div class="input-title">
@@ -253,7 +258,20 @@ img{
         </div>
 		<div class="clear"></div>
     </main>
-    
+    <script>
+	$("#memberPwRe").on("change",function(){
+		const pwValue = $("#memberPw").val();
+		const pwReValue = $("#memberPwRe").val();
+		if(pwValue===pwReValue){
+			$(".pw-check-msg").text("비밀번호가 일치합니다.");
+			$(".pw-check-msg").css("color","green");
+		}else{
+			$(".pw-check-msg").text("비밀번호가 일치하지 않습니다.");
+			$(".pw-check-msg").css("color","red");
+			
+		}
+	});
+	</script>
     
   
     
