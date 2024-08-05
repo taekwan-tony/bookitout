@@ -19,6 +19,11 @@
 		background-color: transparent;
 		margin-bottom: 100px;
 		border: #74512D dashed;
+		box-sizing: border-box;
+		overflow: hidden;
+	}
+	.tbl *{
+		box-sizing: border-box;
 	}
 	.last{
 		text-align: center;
@@ -35,7 +40,6 @@
 		padding:none;
 		width: 100%;
 		border: none;
-		height: 200px;
 	}
 	th, td {
    		border: 1px solid #74512D;
@@ -49,7 +53,7 @@
 	}
 	.left{
 		padding: 0;
-		width: 1005%;
+		width:1005%;
 	}
 	input:focus{
 		outline: none;
@@ -60,7 +64,6 @@
 <body>
 	<body>
 	<th:block th:include="common/header"></th:block>
-	
 	<script src="/summernote/summernote-lite.js"></script>
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/summernote/summernote-lite.css">
