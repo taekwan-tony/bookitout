@@ -3,12 +3,146 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
+<style>
+
+.welcome{
+    width:50%;
+    height: 800px;
+    background-color: #74512D;
+    float: left;
+}
+#welcome{
+    margin-top: 250px;
+}
+
+.login-input{
+    height: 800px;
+    background-color: #fff;
+    float: left;
+}
+.text-wrap{
+    line-height: 250px;
+}
+h1{
+    color: #F8F4E1;
+}
+#welcome{
+    text-align:center;
+    font-size: 70px;
+    text-align: center;
+}
+#book{
+    color: #F8F4E1;
+    font-size: 90px;
+    text-align: center;
+}
+
+.login-input{
+        display: flex;
+		justify-content: center;
+		align-items: center;
+        margin-left: 7%;
+}
+label{
+    font-size: 30px;
+    
+}
+input{
+    width: 400px;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    outline: 1px solid #777777;
+    padding-left: 15px;
+    font-size: 20px;
+    
+}
+input:focus{
+    outline: 1px solid #777777;
+}
+.login-button-box>button{
+    background-color: #AF8F6F;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 9px 20px;
+    border-radius: 16px;
+    font-size: 20px;
+    box-sizing: border-box;
+    border: none;
+    width: 415px;
+    height: 50px;
+}
+.member-link-box{
+    float: right;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+#log{
+    color: black;
+    font-size: 40px;
+    margin-bottom: 90px;
+}
+.radio>input{
+    width: auto;
+    height: auto;
+    border: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    margin-bottom: 10px;
+    margin-right: 5px;
+}
+.radio>label{
+    font-size: 15px;
+}
+</style>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
-	<main class="login-wrap">
-			
-	</main>
-	<th:block th:include="common/footer"></th:block>
+	 <main>
+        <div class="welcome">
+                <h1 id="welcome">welcome to</h1>
+                <h1 id="book">Book It Out</h1>
+		</div>	
+		<div class="login-input">
+			<form action="/member/login" method="post" autocomplete="off">
+				<h1 id="log">Login</h1>
+				<div class="radio">
+					<input type="radio" name="role" id="consumer" value="1"><label for="consumer">일반 회원</label>
+					<input type="radio" name="role" id="seller" value="2"><label for="seller">판매자</label>
+				</div>
+				<div class="input-wrap">
+					<div class="input-title">
+						<label for="memberId">ID</label>
+					</div>
+					<div class="input-item">
+						<input type="text" name="memberId" id="memberId">
+					</div>
+				</div>
+				<div class="input-wrap">
+					<div class="input-title">
+						<label for="memberPw">Password</label>
+					</div>
+					<div class="input-item">
+						<input type="password" name="memberPw" id="memberPw">
+					</div>
+				</div>
+				<div class="member-link-box">
+					<a href="/member/joinFrm">회원가입</a>
+					<a href="#">아이디 / 비밀번호 찾기</a>
+				</div>
+				<div class="login-button-box">
+					<button type="submit">Login</button>
+				</div>
+				
+			</form>
+		</div>
+		
+		
+		<div class="clear"></div>
+    </main>
+    <th:block th:include="common/footer"></th:block>
 </body>
 </html>

@@ -18,10 +18,40 @@ public class FaqDao {
 	
 	
 	
-	public List selectAllFaq(int type, int reqpage) {
-		String query = "select * from(select rownum as rnum, f.* from (select * from faq order by faq_read_count desc)f) where  rnum between 1 and 10";
-		List list = jdbc.query(query, faqRowMapper);
+	public List selectAllFaq(String faqType,int type,int start,int end) {
+		String query = null;
+		if(type==0) {
+			query = "select * from(select rownum as rnum, f.* from (select * from faq where faq_title like '%'||?||'%' order by faq_no desc)f) where  rnum between ? and ?";
+		}else {
+			query = "select * from(select rownum as rnum, f.* from (select * from faq where faq_type like '%'||?||'%' order by faq_no desc)f) where  rnum between ? and ?";			
+		}
+		Object[] params = {faqType,start,end};
+		List list = jdbc.query(query, faqRowMapper,params);
 		
 		return list;
+	}
+
+
+
+	public int totalCountBoard(String faqType,int type) {
+		String query = null;
+		if(type==0) {
+			query ="select count(*) from faq where faq_title like '%'||?||'%'";
+		}else {
+			
+			query = "select count(*) from faq where faq_type like '%'||?||'%'";
+		}
+		Object[] params = {faqType};
+		int totalCount = jdbc.queryForObject(query, Integer.class,params);
+		return totalCount;
+	}
+
+
+
+	public int insertFaq(Faq f) {
+		String query = "insert into faq values(faq_seq.nextval,?,?,?)";
+		Object[] params = {f.getFaqType(),f.getFaqTitle(),f.getFaqContent()};
+		int result = jdbc.update(query,params);
+		return result;
 	}
 }

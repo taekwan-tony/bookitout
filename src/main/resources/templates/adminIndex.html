@@ -130,60 +130,27 @@
               					<button class="btn-type2 btn">수정</button>
               					</td>
                             </tr>
-                            <tr>
-                                <td>
-                                <input type="checkbox" name="chk[]" value="1">
-                                </td>
-              					<td>2</td>
-              					<td>풍무점</td>
-              					<td>경기도 김포시</td>
-             					<td>1999/2/17</td>
-              					<td>mda@208.naver.com</td>
+                            <tr th:each="admin :${list}">
+                            	<td th:text="${admin.adminNo}"></td>
+              					<td th:text="${admin.adminName}"></td>
+              					<td th:text="${admin.adminAddr}"></td>
+             					<td th :text="${admin.openingDay}"></td>
+              					<td th :text="${admin.adminEmail}"></td>
               					<td>상품재고관리</td>
               					<td>
               					<button class="btn-type2 btn">삭제</button>
               					<button class="btn-type2 btn">수정</button>
               					</td>
                             </tr>
-                            <tr>
-                                <td>
-                                <input type="checkbox" name="chk[]" value="1">
-                                </td>
-              					<td>3</td>
-              					<td>풍무점</td>
-              					<td>경기도 김포시</td>
-             					<td>1999/2/17</td>
-              					<td>mda@208.naver.com</td>
-              					<td>상품재고관리</td>
-              					<td>
-              					<button class="btn-type2 btn">삭제</button>
-              					<button class="btn-type2 btn">수정</button>
-              					</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                <input type="checkbox" name="chk[]" value="1">
-                                </td>
-              					<td>4</td>
-              					<td>당산</td>
-              					<td>경기도 김포시</td>
-             					<td>1999/2/17</td>
-              					<td>mda@208.naver.com</td>
-              					<td>상품재고관리</td>
-              					<td>
-              					<button class="btn-type2 btn">삭제</button>
-              					<button class="btn-type2 btn">수정</button>
-              					</td>
-                            </tr>
+                            	
                         </tbody>
                     </table>
                    </form>
                 </div>
             </div>
-        <!--페이지 넘기는 부분 (책리스트,매장리스트)-->
+        <!--페이지 넘기는 부분 (책리스트,매장리스트)
         <div class="pagination">
             <ul>
-                <!-- <li><a class="page-item" href="#"><span><i class="fa-solid fa-angles-left"></i></span></a></li> -->
                 <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-left"></i></span></a></li>
                 <li><a class="page-item active-page" href="#">1</a></li>
                 <li><a class="page-item" href="#">2</a></li>
@@ -191,9 +158,11 @@
                 <li><a class="page-item" href="#">4</a></li>
                 <li><a class="page-item" href="#">5</a></li>
                 <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-right"></i></span></a></li>
-                <!-- <li><a class="page-item" href="#"><span><i class="fa-solid fa-angles-right"></i></span></a></li> -->
             </ul>
         </div>
+        -->
+		<div id="pageNavi" th:utext="${pageNavi}">
+	  	</div>
 		<!--페이지 넘기는 부분 종료 -->
         </div>
         <!-- footer 시작  헤더 풋더 다 끌어와서 쓰면 됨 -->

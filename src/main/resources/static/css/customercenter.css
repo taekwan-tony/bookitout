@@ -17,7 +17,7 @@
     width: 80%;
 }
 .customer-list-wrap{
-    padding-top: 150px;
+    padding-top: 70px;
     padding-bottom: 150px;
 }	
 .customer-list-wrap>div{
@@ -44,7 +44,7 @@
     margin-top: 50px;
 }
 .customer-content-wrap{
-    padding-top: 150px;
+    padding-top: 70px;
     padding-bottom: 150px;
 }
 
@@ -94,5 +94,6 @@
 .question-content-box>div:first-child{
     font-weight: 800;
     border-bottom: 1px solid;
-    padding-bottom: 15px;
+    padding-bottom: 15px;   
 }
+

@@ -12,5 +12,4 @@ public class Faq {
 	private String faqType;
 	private String faqTitle;
 	private String faqContent;
-	private int faqReadCount;
 }

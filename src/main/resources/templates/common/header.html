@@ -21,17 +21,45 @@
                         </button>
                     </div>
                     <div class="lnb">
+                    <th:block th:if="${session.member == null and session.admin == null}">
                         <ul>
                             <li>
                                 <a href="#">장바구니</a>
                             </li>
                             <li>
-                                <a href="#">회원가입</a>
+                                <a href="/member/joinFrm">회원가입</a>
                             </li>
                             <li>
                                 <a href="/member/loginFrm">로그인</a>
                             </li>
                         </ul>
+                        </th:block>
+                        <th:block th:if="${session.member!=null}">
+                        <ul>
+                            <li>
+                                <a href="#">장바구니</a>
+                            </li>
+                            <li>
+                                <a href="/myPage/myPage" th:text="${session.member.memberName}"></a>
+                            </li>
+                            <li>
+                                <a href="/member/logout">로그아웃</a>
+                            </li>
+                        </ul>
+                        </th:block>
+                        <th:block th:if="${session.admin!=null}">
+                        <ul>
+                            <li>
+                                <a href="#">장바구니</a>
+                            </li>
+                            <li>
+                                <a href="/admin/myPage" th:text="${session.admin.adminName}"></a>
+                            </li>
+                            <li>
+                                <a href="/admin/logout">로그아웃</a>
+                            </li>
+                        </ul>
+                        </th:block>
                     </div>
                 </div>
             </div>
