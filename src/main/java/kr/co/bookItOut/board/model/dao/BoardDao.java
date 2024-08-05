@@ -23,116 +23,172 @@ public class BoardDao {
 	private BoardFileRowMapper boardFileRowMapper;
 	@Autowired
 	private BoardCommentRowMapper boardCommentRowMapper;
+
 	public List selectBoardList(int start, int end) {
 		String query = "select * from (select rownum as rnum, n.* from (select * from board order by 1 desc)n) where rnum between ? and ?";
-		Object[] params = {start, end};
+		Object[] params = { start, end };
 		List list = jdbc.query(query, boardRowMapper, params);
 		return list;
 	}
+
 	public int selectBoardTotalCount() {
 		String query = "select count(*) from board";
 		int totalCount = jdbc.queryForObject(query, Integer.class);
 		return totalCount;
 	}
+
 	public int insertBoard(Board b) {
 		String query = "insert into board values(board_seq.nextval,?,?,?,0,to_char(sysdate,'YYYY-MM-DD'))";
-		Object[] params = {b.getBoardTitle(),b.getMemberId(),b.getBoardContent()};
-		int result = jdbc.update(query,params);
+		Object[] params = { b.getBoardTitle(), b.getMemberId(), b.getBoardContent() };
+		int result = jdbc.update(query, params);
 		return result;
 	}
+
 	public int selectBoardNo() {
 		String query = "select max(board_no) from board";
 		int boardNo = jdbc.queryForObject(query, Integer.class);
 		return boardNo;
 	}
+
 	public int insertBoard(BoardF‎ile boardF‎ile) {
 		String query = "insert into board_file values(board_file_seq.nextval,?,?,?)";
-		Object[] params = {boardF‎ile.getBoardNo(),boardF‎ile.getFilename(),boardF‎ile.getFilepath()};
-		int result = jdbc.update(query,params);
+		Object[] params = { boardF‎ile.getBoardNo(), boardF‎ile.getFilename(), boardF‎ile.getFilepath() };
+		int result = jdbc.update(query, params);
 		return result;
 	}
+
 	public Board selectOneBoard(int boardNo) {
 		String query = "select * from board where board_no=?";
-		Object[] params = {boardNo};
+		Object[] params = { boardNo };
 		List list = jdbc.query(query, boardRowMapper, params);
-		if(list.isEmpty()) {
+		if (list.isEmpty()) {
 			return null;
-		}else {
-			return (Board)list.get(0);
+		} else {
+			return (Board) list.get(0);
 		}
 	}
+
 	public int updateReadCount(int boardNo) {
 		String query = "update board set read_count = read_count+1 where board_no=?";
-		Object[] params = {boardNo};
-		int result = jdbc.update(query,params);
+		Object[] params = { boardNo };
+		int result = jdbc.update(query, params);
 		return result;
 	}
+
 	public List selectBoardFile(int boardNo) {
 		String query = "select * from board_file where board_no=?";
-		Object[] params = {boardNo};
+		Object[] params = { boardNo };
 		List list = jdbc.query(query, boardFileRowMapper, params);
 		return list;
 	}
+
 	public List<BoardComment> selectCommentList(int boardNo, int memberNo) {
-		String query = "select bc.*,\r\n" + 
-				"(select count(*) from board_comment_like where board_comment_no=bc.board_comment_no) as like_count,\r\n" + 
-				"(select count(*) from board_comment_like where board_comment_no=bc.board_comment_no and member_no=?) as is_like\r\n" + 
-				"from board_comment nc\r\n" + 
-				"where board_ref=? and board_comment_ref is null order by 1";
-		Object[] params = {memberNo,boardNo};
+		String query = "select bc.*,\r\n"
+				+ "(select count(*) from board_comment_like where board_comment_no=bc.board_comment_no) as like_count,\r\n"
+				+ "(select count(*) from board_comment_like where board_comment_no=bc.board_comment_no and member_no=?) as is_like\r\n"
+				+ "from board_comment bc\r\n" + "where board_ref=? and board_comment_ref is null order by 1";
+		Object[] params = { memberNo, boardNo };
 		List list = jdbc.query(query, boardCommentRowMapper, params);
 		return list;
 	}
+
 	public List selectReCommentList(int boardNo, int memberNo) {
-		String query = "select bc.*,\r\n" + 
-				"(select count(*) from board_comment_like where board_comment_no=bc.board_comment_no) as like_count,\r\n" + 
-				"(select count(*) from board_comment_like where board_comment_no=bc.board_comment_no and member_no=?) as is_like\r\n" + 
-				"from board_comment nc\r\n" + 
-				"where board_ref=? and board_comment_ref is not null order by 1";
-		Object[] params = {memberNo,boardNo};
+		String query = "select bc.*,\r\n"
+				+ "(select count(*) from board_comment_like where board_comment_no=bc.board_comment_no) as like_count,\r\n"
+				+ "(select count(*) from board_comment_like where board_comment_no=bc.board_comment_no and member_no=?) as is_like\r\n"
+				+ "from board_comment bc\r\n" + "where board_ref=? and board_comment_ref is not null order by 1";
+		Object[] params = { memberNo, boardNo };
 		List list = jdbc.query(query, boardCommentRowMapper, params);
 		return list;
 	}
+
 	public List searchBoard(String type, String keyword, int start, int end) {
 		String query = "";
-		if(type.equals("title")) {
+		if (type.equals("title")) {
 			query = "select * from (select rownum as rnum, n.* from (select * from board where board_title like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
-		}else if(type.equals("writer")) {
+		} else if (type.equals("writer")) {
 			query = "select * from (select rownum as rnum, n.* from (select * from board where member_id like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
-		}else if(type.equals("titleContent")) {
+		} else if (type.equals("titleContent")) {
 			query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' or board_title like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
-			Object[] params = {keyword,keyword,start,end};
+			Object[] params = { keyword, keyword, start, end };
 			List list = jdbc.query(query, boardRowMapper, params);
 			return list;
-		}else if(type.equals("content")) {
+		} else if (type.equals("content")) {
 			query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
 		}
-		Object[] params = {keyword,start,end};
+		Object[] params = { keyword, start, end };
 		List list = jdbc.query(query, boardRowMapper, params);
 		return list;
 	}
+
 	public int deleteBoard(int boardNo) {
 		String query = "delete from board where board_no=?";
-		Object[] params = {boardNo};
-		int result = jdbc.update(query,params);
+		Object[] params = { boardNo };
+		int result = jdbc.update(query, params);
 		return result;
 	}
+
 	public int updateBoard(Board b) {
 		String query = "update board set board_title=?, board_content=?, read_count = read_count-1 where board_no=?";
-		Object[] params = {b.getBoardTitle(),b.getBoardContent(),b.getBoardNo()};
-		int result = jdbc.update(query,params);
+		Object[] params = { b.getBoardTitle(), b.getBoardContent(), b.getBoardNo() };
+		int result = jdbc.update(query, params);
 		return result;
 	}
+
 	public BoardF‎ile selectOneBoardFile(int fileNo) {
 		String query = "select * from board_file where file_no=?";
-		Object[] params = {fileNo};
-		List list=jdbc.query(query, boardFileRowMapper,params);
-		return (BoardF‎ile)list.get(0);
+		Object[] params = { fileNo };
+		List list = jdbc.query(query, boardFileRowMapper, params);
+		return (BoardF‎ile) list.get(0);
 	}
+
 	public int deleteBoardFile(int fileNo) {
 		String query = "delete from board_file where file_no=?";
-		Object[] params = {fileNo};
-		int result = jdbc.update(query,params);
+		Object[] params = { fileNo };
+		int result = jdbc.update(query, params);
 		return result;
+	}
+
+	public int insertComment(BoardComment bc) {
+		String query = "insert into board_comment values(board_comment_seq.nextval,?,?,to_char(sysdate,'YYYY-MM-DD'),?,?)";
+		String boardCommentRef = bc.getBoardCommentRef() == 0 ? null : String.valueOf(bc.getBoardCommentRef());
+		Object[] params = { bc.getMemberId(), bc.getBoardCommentContent(), bc.getBoardRef(), boardCommentRef };
+		int result = jdbc.update(query, params);
+		return result;
+	}
+
+	public int updateComment(BoardComment bc) {
+		String query = "update board_comment set board_comment_content=? where board_comment_no=?";
+		Object[] params = { bc.getBoardCommentContent(), bc.getBoardCommentNo() };
+		int result = jdbc.update(query, params);
+		return result;
+	}
+
+	public int deleteComment(BoardComment bc) {
+		String query = "delete from board_comment where board_comment_no=?";
+		Object[] params = { bc.getBoardCommentNo() };
+		int result = jdbc.update(query, params);
+		return result;
+	}
+
+	public int insertBoardCommentLike(int boardCommentNo, int memberNo) {
+		String query = "insert into board_comment_like values(?,?)";
+		Object[] params = { boardCommentNo, memberNo };
+		int result = jdbc.update(query, params);
+		return result;
+	}
+
+	public int deleteBoardCommentLike(int boardCommentNo, int memberNo) {
+		String query = "delete from board_comment_like where board_comment_no=? and member_no=?";
+		Object[] params = { boardCommentNo, memberNo };
+		int result = jdbc.update(query, params);
+		return result;
+	}
+
+	public int selectBoardCommentLikeCount(int boardCommentNo) {
+		String query = "select count(*) from board_comment_like where board_comment_no=?";
+		Object[] params = { boardCommentNo };
+		int likeCount = jdbc.queryForObject(query, Integer.class, params);
+		return likeCount;
 	}
 }

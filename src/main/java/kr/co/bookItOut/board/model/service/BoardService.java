@@ -181,7 +181,17 @@ public class BoardService {
 	}
 	@Transactional
 	public int likePush(int boardCommentNo, int isLike, int memberNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		if(isLike == 0) {
+			result = boardDao.insertBoardCommentLike(boardCommentNo, memberNo);
+		}else if(isLike == 1){
+			result = boardDao.deleteBoardCommentLike(boardCommentNo, memberNo);
+		}
+		if(result > 0) {
+			int likeCount = boardDao.selectBoardCommentLikeCount(boardCommentNo);
+			return likeCount;
+		}else {
+			return -1;
+		}
 	}
 }
