@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.bookItOut.FAQ.model.dao.FaqDao;
 import kr.co.bookItOut.FAQ.model.dto.Faq;
@@ -18,18 +19,23 @@ public class FaqService {
 
 	public FaqListData selectAllFaq(int type, int reqPage) {
 		String faqType = null;
+		String faqTypePage = null;
 		switch(type) {
 		case 1 : 
 			faqType = "회원";
+			faqTypePage = "회원가입/탈퇴";
 			break;
 		case 2 : 
 			faqType = "반품";
+			faqTypePage = "반품/교환/환불";
 			break;
 		case 3 : 
 			faqType = "주문";
+			faqTypePage = "주문/결제";
 			break;
 		case 4 : 
 			faqType = "배송";
+			faqTypePage = "배송/수령일 안내";
 			break;
 		}
 		int numPerPage = 10;
@@ -76,7 +82,14 @@ public class FaqService {
 		pageNavi +="</ul>";
 		pageNavi +="</ul></div>";
 		
-		FaqListData fld = new FaqListData(list, pageNavi);
+		FaqListData fld = new FaqListData(list, pageNavi,faqTypePage);
 		return fld;
+	}
+
+	@Transactional
+	public int writeFaq(Faq f) {
+		int result = faqDao.insertFaq(f);
+		
+		return result;
 	}
 }

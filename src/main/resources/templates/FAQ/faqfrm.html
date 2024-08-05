@@ -61,6 +61,12 @@
 		animation-duration : 10s;
 		animation-delay: 10s;
 	}
+	.question-content-box{
+		overflow:hidden;
+	}
+	.write-btn{
+		float:right;
+	}
 </style>
 
 </head>
@@ -125,7 +131,10 @@
 				</div>
 				<div class="question-content-box">
 					<div>
-						<p>회원</p>
+						<p th:text="${type}"></p>
+					</div>
+					<div class="write-btn">
+						<button type="button" class="btn-type3 btn"><a href="/FAQ/writeFaqFrm">글쓰기</a></button>
 					</div>
 				</div>
 				<th:block th:each="faq : ${list}">

@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class FaqListData {
 	private List list;
 	private String pageNavi;
+	private String faqType;
 	
 }

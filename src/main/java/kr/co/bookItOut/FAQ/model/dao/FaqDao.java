@@ -34,4 +34,13 @@ public class FaqDao {
 		int totalCount = jdbc.queryForObject(query, Integer.class,params);
 		return totalCount;
 	}
+
+
+
+	public int insertFaq(Faq f) {
+		String query = "insert into faq values(faq_seq.nextval,?,?,?)";
+		Object[] params = {f.getFaqType(),f.getFaqTitle(),f.getFaqContent()};
+		int result = jdbc.update(query,params);
+		return result;
+	}
 }
