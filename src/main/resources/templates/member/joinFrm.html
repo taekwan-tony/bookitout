@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>로그인</title>
+<style>
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	 <main class="content">
+        <section class="section join-wrap">
+			<div class="page-title">회원가입</div>
+			
+			<form action="/member/checkId" name="checkIdFrm" method="post">
+				<input type="hidden" name="checkId">
+			</form>
+			
+			<form action="/member/join" method="post" autocomplete="off">
+				<div class="input-wrap">
+					<div class="input-title">
+						<label for="memberId">아이디</label>
+					</div>
+					<div class="input-item">
+						<input type="text" name="memberId" id="memberId">
+						<button type="button" class="btn-primary id-check-btn">중복체크</button>
+					</div>
+					<p class="input-msg id-check-msg"></p>
+				</div>
+				<div class="input-wrap">
+					<div class="input-title">
+						<label for="memberPw">비밀번호</label>
+					</div>
+					<div class="input-item">
+						<input type="password" name="memberPw" id="memberPw">
+					</div>
+				</div>
+				<div class="input-wrap">
+					<div class="input-title">
+						<label for="memberPwRe">비밀번호 확인</label>
+					</div>
+					<div class="input-item">
+						<input type="password" name="memberPwRe" id="memberPwRe">
+					</div>
+					<p class="input-msg pw-check-msg"></p>
+				</div>
+				<div class="input-wrap">
+					<div class="input-title">
+						<label for="memberName">이름</label>
+					</div>
+					<div class="input-item">
+						<input type="text" name="memberName" id="memberName">
+					</div>
+				</div>
+				<div class="input-wrap">
+					<div class="input-title">
+						<label for="memberPhone">전화번호</label>
+					</div>
+					<div class="input-item">
+						<input type="text" name="memberPhone" id="memberPhone">
+					</div>
+				</div>
+				<div class="input-wrap">
+					<div class="input-title">
+						<label for="memberAddr">주소</label>
+					</div>
+					<div class="input-item">
+						<input type="text" name="memberAddr" id="memberAddr">
+					</div>
+				</div>
+				<div class="join-button-box">
+					<button type="submit" class="btn-primary lg" onclick="return checkValue();">회원가입</button>
+				</div>
+			</form>
+		</section>
+		<div class="clear"></div>
+    </main>
+    <script>
+		//비밀번호 확인 input의 값이 변경되면 비밀번호와 같은지 확인
+		$("#memberPwRe").on("change",function(){
+			$(".pw-check-msg").removeClass("valid").removeClass("invalid");
+			const pwValue = $("#memberPw").val();
+			const pwReValue = $("#memberPwRe").val();
+			if(pwValue === pwReValue) {
+				$(".pw-check-msg").text("비밀번호가 일치합니다.");
+				$(".pw-check-msg").addClass("valid");
+			} else {
+				$(".pw-check-msg").text("비밀번호가 일치하지 않습니다.");
+				$(".pw-check-msg").addClass("invalid");
+			}
+		});
+		
+		$(".id-check-btn").on("click", function(){
+			//window.open(param1,param2,parma3)
+			//param1 : 새 창에서 띄울 페이지
+			//param2 : 새 창의 이름
+			//param3 : 새 창의 옵션
+			window.open("","checkId","width=600, height=300");
+			//새창과 아이디 중복체크용 창을 연결
+			$("[name=checkIdFrm]").attr("target","checkId");
+			//아이디 중복체크용 form태그의 내부의 input에 사용자가 입력한 아이디를 세팅
+			const inputId = $("#memberId").val();
+			$("#memberId").removeClass("valid");
+			$("[name=checkId]").val(inputId);
+			$("[name=checkIdFrm]").submit();
+		});
+		
+		function checkValue() {
+			const valid = $(".valid");
+			if(valid.length != 2) {
+				swal({
+					title:"입력값 확인",
+					text:"입력값이 올바르지 않습니다.",
+					icon:"warning"
+				});
+				return false;
+			}
+		}
+		
+		$("#memberId").on("change", function() {
+			$(".id-check-msg").removeClass("valid").removeClass("invalid")
+			const memberId = $(this).val();
+			//정규표현식
+			const idReg = /^[a-zA-Z0-9]{4,20}$/;
+			if(idReg.test(memberId)){
+				//정규표현식에 만족 -> ajax로 아이디 중복체크
+				$.ajax({
+					url : "/member/ajaxCheckId",
+					type : "get",
+					data : {memberId : memberId},
+					success : function(data){
+						if(data == 0) {
+							//사용가능
+							$(".id-check-msg").text("사용 가능한 아이디입니다.");
+							$(".id-check-msg").addClass("valid");
+						} else {
+							$(".id-check-msg").text("이미 사용중인 아이디입니다.");
+							$(".id-check-msg").addClass("invalid");
+						}
+					},
+					error : function() {
+						console.log("에러 발생");
+					}
+				});
+			} else {
+				//정규표현식에 만족하지 못한 경우
+				$(".id-check-msg").text("아이디는 영어+숫자로 4~20글자 입니다.");
+				$(".id-check-msg").addClass("invalid");
+			}
+		});
+	</script>
+    <th:block th:include="common/footer"></th:block>
+</body>
+</html>

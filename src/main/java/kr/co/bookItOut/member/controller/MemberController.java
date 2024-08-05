@@ -39,6 +39,11 @@ public class MemberController {
 		return "member/login";
 	}
 	
+	@GetMapping(value="/joinFrm")
+	public String joinFrm() {
+		return "member/joinFrm";
+	}
+	
 //	@PostMapping(value = "/login")
 //	public String login(Member m, Model model, HttpSession session) {
 //		// service를 이용해서 DB에 입력받은 아이디/패스워드가 일치하는 회원 조회
