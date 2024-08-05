@@ -10,6 +10,7 @@
 		text-align: center;
 		margin-top: 100px;
 		margin-bottom: 50px;
+		color: #74512D;
 	}
 	.select{
 		display:inline-block;
@@ -18,6 +19,7 @@
 	.list-header{
 		width: 100%;
 		float: right;
+		margin-bottom: 30px;
 	}
 	.inputsubmit{
 		float: right;
@@ -30,17 +32,72 @@
 		margin-top: 50px;
 	}
 	#searchFrm{
-		width: 50%;
 		float: right;
-		
 	}
 	#searchFrm>*{
 	}
 	.selection{
 		display: inline-block;
 	}
-	select{
+	#inputText{
+		height: 40px;
+		box-sizing: border-box;
+		background-color: #F8F4E1;
+		border-radius: 10px;  
+		border-color: #F8F4E1;
+		width: 200px;
 	}
+	.btn{
+		width: 80px;
+		height: 40px;
+		box-sizing: border-box;
+		background-color: #AF8F6F;
+		border-color: #AF8F6F;
+		border-radius: 10px;
+	}
+	.tbl{
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+	th{
+		background-color: #AF8F6F;
+		color: white;
+	}
+	#write-btn{
+		background-color: #AF8F6F;
+		border-radius: 10px;
+	}
+	#sel{
+		box-sizing: border-box;
+		width:150px;
+		background-color: #AF8F6F;
+		color: white;
+		height: 40px;
+		font-size: 15px;
+		padding-top: 0;
+		padding-bottom: 0;
+		border-color: #AF8F6F; 
+	}
+	.pagination li>a.page-item {
+	}
+	#sel option{
+		border-radius: 10px;
+	}
+	tr:nth-child() {
+		background-color: #F8F4E1; 
+	}
+	table {
+	    width: 100%;
+	    border-top: 1px solid #AF8F6F;
+	    border-collapse: collapse;
+  	}
+ 	th, td {
+   		border-bottom: 1px solid #AF8F6F;
+    	padding: 10px;
+  	}
+  	.footer-main{
+  		margin-top: 100px;
+  	}
 </style>
 </head>
 <body>
@@ -49,11 +106,11 @@
 		<section class="section board-list-wrap">
 			<div class="page-title">자유게시판</div>
 			<div class="list-header">
-				<a class="btn" id="write-btn" href="/board/writeFrm">글쓰기</a>
+				<button th:if="${session.member != null}" class="btn" id="write-btn"><a href="/board/editorFrm">글쓰기</a></button>
 				<form action="/board/search" method="get" id="searchFrm">
 					<div class="input-item">	
 						<div class="selection">
-							<select name="type">
+							<select id="sel" name="type">
 								<th:block th:if="${type=='title' || type==null}">
 									<option value="title" selected>제목</option>
 									<option value="writer">작성자</option>
@@ -81,7 +138,7 @@
 							</select>
 						</div>
 						<div class="inputsubmit">
-							<input type="text" name="keyword">
+							<input type="text" name="keyword" id="inputText">
 							<input type="hidden" name="reqPage" value="1">
 							<button type="submit" class="btn">조회</button>
 						</div>

@@ -3,6 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.page-title{
+		font-size: xx-large;
+		font-weight: bold;
+		text-align: center;
+		margin-top: 100px;
+		margin-bottom: 50px;
+		color: #74512D;
+	}
+	.tbl{
+		width:80%;
+		margin-left:10%;
+		margin-right:10%;
+		background-color: transparent;
+		margin-bottom: 100px;
+		border: #74512D dashed;
+	}
+	.last{
+		text-align: center;
+	}
+	.last>*{
+		background-color: #AF8F6F;
+	}
+	.input-item>*{
+		background-color: #F8F4E1;
+		border: none;
+	}
+	#boardContent{
+		background-color: #F8F4E1;
+		padding:none;
+		width: 100%;
+		border: none;
+		height: 300px;
+	}
+	th, td {
+   		border: 1px solid #74512D;
+    	padding: 10px;
+  	}
+  	td{
+		background-color: #F8F4E1; 
+	}
+	th{
+		background-color: #AF8F6F;
+	}
+	.left{
+		padding: 0;
+		width: 1005%;
+	}
+	input:focus{
+		outline: none;
+		border: none;
+	}
+</style>
 </head>
 <body>
 	<body>
@@ -20,15 +73,15 @@
 						<th>제목</th>
 						<td colspan="3">
 							<div class="input-item">
-								<input type="text" name="boardTitle">
+								<input type="text" name="boardTitle" id="boardTitle">
 							</div>
 						</td>
 					</tr>
 					<tr>
 						<th style="width:10%;">작성자</th>
 						<td style="width:40%;">
-							<span th:text="${session.member.memberId}"></span>
-							<input type="hidden" name="memberId" th:value="${session.member.memberId}">
+							<!--<span th:text="${session.member.memberId}"></span>
+							<input type="hidden" name="memberId" th:value="${session.member.memberId}"> -->
 						</td>
 						<th style="width:10%;">첨부파일</th>
 						<td style="width:40%;">
@@ -37,13 +90,12 @@
 					</tr>
 					<tr>
 						<td colspan="4" class="left">
-								<textarea name="boardContent" id="boardContent"></textarea>
-							
+							<textarea name="boardContent" id="boardContent"></textarea>
 						</td>
 					</tr>
 					<tr>
-						<td colspan="4">
-							<button type="submit" class="btn-primary lg">공지사항 작성</button>
+						<td class="last" colspan="4">
+							<button type="submit" class="btn-primary lg">게시물 작성</button>
 						</td>
 					</tr>
 				</table>
