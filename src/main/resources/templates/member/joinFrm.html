@@ -4,259 +4,320 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 <link rel="stylesheet" href="/css/main.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-.join-wrap{
-    display: block;
-    width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid black;
+.join-wrap {
+	display: block;
+	width: 500px;
+	margin: 0 auto;
+	padding: 20px;
+	border: 1px solid black;
 }
+
 .input-item input {
-    width: 400px;
-    box-sizing: border-box;
-    padding: 10px;
+	width: 400px;
+	box-sizing: border-box;
+	padding: 10px;
 }
-.center>h1{
-    float: left;
-    padding: 20px;
-    text-align: center;
+
+.center>h1 {
+	float: left;
+	padding: 20px;
+	text-align: center;
 }
+
 .join-button-box {
-    padding: 20px 50px;
-    display : flex;
+	padding: 20px 50px;
+	display: flex;
 }
-.join-button-box >button {
-    background-color: var(--color3);
-    color: #fff;
-    cursor: pointer;
-    padding: 9px 20px;
-    border-radius: 16px;
-    font-size: 20px;
-    box-sizing: border-box;
-    border: none;
-    width: 400px;
-    height: 50px;
+
+.join-button-box>button {
+	background-color: var(--color3);
+	color: #fff;
+	cursor: pointer;
+	padding: 9px 20px;
+	border-radius: 16px;
+	font-size: 20px;
+	box-sizing: border-box;
+	border: none;
+	width: 400px;
+	height: 50px;
 }
-.input-wrap{
-    text-align: center;
+
+.input-wrap {
+	text-align: center;
 }
+
 .input-title {
-    text-align: left;
-    margin-bottom: 5px;
-    margin-left: 50px;
+	text-align: left;
+	margin-bottom: 5px;
+	margin-left: 50px;
 }
 
-.logo{
-    text-align: center;
-    margin: 20px;
-    margin-left: 34px;
-    float: left;
+.logo {
+	text-align: center;
+	margin: 20px;
+	margin-left: 34px;
+	float: left;
 }
 
 #memberId {
-    width: 60%;
-    padding: 10px;
-    box-sizing: border-box;
+	width: 60%;
+	padding: 10px;
+	box-sizing: border-box;
 }
+
 #memberAddr {
-    width: 60%;
-    padding: 10px;
-    box-sizing: border-box;
+	width: 60%;
+	padding: 10px;
+	box-sizing: border-box;
 }
-.addr-btn{
-    padding: 10px; /* 내부 여백 */
-    box-sizing: border-box;
-    cursor: pointer;
-    background-color: var(--color3);
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    margin-left: 10px;
-    height: auto;
-    width: 80px;
+
+.addr-btn {
+	padding: 10px; /* 내부 여백 */
+	box-sizing: border-box;
+	cursor: pointer;
+	background-color: var(--color3);
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	margin-left: 10px;
+	height: auto;
+	width: 80px;
 }
-.id-check-btn {
-    padding: 10px; /* 내부 여백 */
-    box-sizing: border-box;
-    cursor: pointer;
-    background-color: var(--color3);
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    margin-left: 10px;
-    height: auto;
-    width: 80px;
-}
-.join-box{
-	margin:100px;
+
+.join-box {
+	margin: 100px;
 }
 
 #memberId {
-    width: 60%;
-    padding: 10px;
-    box-sizing: border-box;
-}
-.id-check-btn {
-    padding: 10px; /* 내부 여백 */
-    box-sizing: border-box;
-    cursor: pointer;
-    background-color: var(--color3);
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    margin-left: 10px;
-    height: auto;
-    width: 80px;
-}
-.radio>input{
-    display: none;
-}
-.radio{
-    margin-left: 3px;
-}
-.radio input[type=radio]+label{
-    margin-top: 14px;
-    display: inline-block;
-    cursor: pointer;
-    height: 40px;
-    width: 150px;
-    border: 1px solid var(--color3);
-    line-height: 24px;
-    font-size: 17px;
-    box-sizing: border-box;
-    padding: 5px;
+	width: 80%;
 }
 
-.radio{
-    width: 400px;
-    text-align: center;
+.id-check-btn {
+	padding: 10px; /* 내부 여백 */
+	box-sizing: border-box;
+	cursor: pointer;
+	background-color: var(--color3);
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	margin-left: 10px;
+	height: auto;
+	width: 80px;
 }
-.radio input[type=radio]+label{
-    background-color: #fff;
-    color: var(--color3);
+
+.radio>input {
+	display: none;
 }
-.radio input[type=radio]:checked+label{
-    background-color: var(--color3);
-    color: #fff;
+
+.radio {
+	margin-left: 3px;
 }
-img{
-    margin-top: 10px;
+
+.radio input[type=radio]+label {
+	margin-top: 14px;
+	display: inline-block;
+	cursor: pointer;
+	height: 40px;
+	width: 150px;
+	border: 1px solid var(--color3);
+	line-height: 24px;
+	font-size: 17px;
+	box-sizing: border-box;
+	padding: 5px;
+}
+
+.radio {
+	width: 400px;
+	text-align: center;
+}
+
+.radio input[type=radio]+label {
+	background-color: #fff;
+	color: var(- -color3);
+}
+
+.radio input[type=radio]:checked+label {
+	background-color: var(--color3);
+	color: #fff;
+}
+
+img {
+	margin-top: 10px;
+}
+
+.pw-check-msg {
+	text-align: left;
+	margin-left: 50px;
+}
+
+.id-check-msg {
+	text-align: left;
+	margin-left: 50px;
 }
 </style>
 </head>
 <body>
 
-    <header>
-        <h1 class="logo">
-            <a href="/">책키라웃</a>
-        </h1>
-        <div class="center">
-            <h1>회원가입</h1>
-        </div>
-    </header>
-    <main class="content">
-        <div class="clear"></div>
-        <div class="join-box">
-            <section class="section join-wrap">
-                <form action="/member/checkId" name="checkIdFrm" method="post">
-                    <input type="hidden" name="checkId">
-                </form>
-                
-                <form action="/member/join" method="post" autocomplete="off">
-                    <div class="input-wrap">
-                        
-                        <div class="input-title">
-                            <label for="memberId">아이디</label>
-                        </div>
-                        <div class="input-item">
-                            <input type="text" name="memberId" id="memberId">
-                            <button type="button" class="id-check-btn">중복체크</button>
-                        </div>
-                        <p class="input-msg id-check-msg"></p>
-                    </div>
-                    <div class="input-wrap">
-                        <div class="input-title">
-                            <label for="memberPw">비밀번호</label>
-                        </div>
-                        <div class="input-item">
-                            <input type="password" name="memberPw" id="memberPw">
-                        </div>
-                    </div>
-                    <div class="input-wrap">
-                        <div class="input-title">
-                            <label for="memberPwRe">비밀번호 확인</label>
-                        </div>
-                        <div class="input-item">
-                            <input type="password" name="memberPwRe" id="memberPwRe">
-                        </div>
-                        <p class="input-msg pw-check-msg"></p>
-                    </div>
-                    <div class="input-wrap">
-                        <div class="input-title">
-                            <label for="memberName">이름</label>
-                        </div>
-                        <div class="input-item">
-                            <input type="text" name="memberName" id="memberName">
-                        </div>
-                    </div>
-                    <div class="input-wrap">
-                        <div class="input-title">
-                            <label for="memberAge">나이</label>
-                        </div>
-                        <div class="input-item">
-                            <input type="text" name="memberAge" id="memberAge">
-                        </div>
-                    </div>
-                    <div class="input-wrap">
-                        <div class="input-title">
-                            <label for="memberPhone">전화번호</label>
-                        </div>
-                        <div class="input-item">
-                            <input type="text" name="memberPhone" id="memberPhone">
-                        </div>
-                    </div>
-                    <div class="input-wrap">
-                        <div class="input-title">
-                            <label for="memberAddr">주소</label>
-                        </div>
-                        <div class="input-item">
-                            <input type="text" name="memberAddr" id="memberAddr">
-                            <button type="button" class="addr-btn">검색</button>
-                        </div>
-                    </div>
-                    <div class="input-wrap">
-                        <div class="input-title">
-                            <label for="memberAddrRE">상세주소</label>
-                        </div>
-                        <div class="input-item">
-                            <input type="text" name="memberAddrRE" id="memberAddrRE">
-                        </div>
-                    </div>
-                    <div class="input-item">
-                        <div class="radio">
-                            <input type="radio" name="gender" id="man"><label for="man">남자</label>
-                            <input type="radio" name="gender" id="woman"><label for="woman">여자</label>
-                        </div>
-                    </div>
-                    <div class="input-item">
-                        <div class="input-title">
-                            <label for="memberImg">프로필</label>
-                        </div>
-                        <img src="" alt="">
-                    </div>
-                    <div class="join-button-box">
-                        <button type="submit" onclick="return checkValue();">회원가입</button>
-                    </div>
-                </form>
-            </section>
-        </div>
+	<header>
+		<h1 class="logo">
+			<a href="/">책키라웃</a>
+		</h1>
+		<div class="center">
+			<h1>회원가입</h1>
+		</div>
+	</header>
+	<main class="content">
 		<div class="clear"></div>
-    </main>
-    
-    
-  
-    
-    <th:block th:include="common/footer"></th:block>
+		<div class="join-box">
+			<section class="section join-wrap">
+				<form action="/member/checkId" name="checkIdFrm" method="post">
+					<input type="hidden" name="checkId">
+				</form>
+
+				<form action="/member/join" method="post" autocomplete="off">
+					<div class="input-wrap">
+
+						<div class="input-title">
+							<label for="memberId">아이디</label>
+						</div>
+						<div class="input-item">
+							<input type="text" name="memberId" id="memberId">
+						</div>
+						<p class="id-check-msg"></p>
+					</div>
+					<div class="input-wrap">
+						<div class="input-title">
+							<label for="memberPw">비밀번호</label>
+						</div>
+						<div class="input-item">
+							<input type="password" name="memberPw" id="memberPw">
+						</div>
+					</div>
+					<div class="input-wrap">
+						<div class="input-title">
+							<label for="memberPwRe">비밀번호 확인</label>
+						</div>
+						<div class="input-item">
+							<input type="password" name="memberPwRe" id="memberPwRe">
+						</div>
+						<p class="pw-check-msg"></p>
+					</div>
+					<div class="input-wrap">
+						<div class="input-title">
+							<label for="memberName">이름</label>
+						</div>
+						<div class="input-item">
+							<input type="text" name="memberName" id="memberName">
+						</div>
+					</div>
+					<div class="input-wrap">
+						<div class="input-title">
+							<label for="memberAge">나이</label>
+						</div>
+						<div class="input-item">
+							<input type="text" name="memberAge" id="memberAge">
+						</div>
+					</div>
+					<div class="input-wrap">
+						<div class="input-title">
+							<label for="memberPhone">전화번호</label>
+						</div>
+						<div class="input-item">
+							<input type="text" name="memberPhone" id="memberPhone">
+						</div>
+					</div>
+					<div class="input-wrap">
+						<div class="input-title">
+							<label for="memberAddr">주소</label>
+						</div>
+						<div class="input-item">
+							<input type="text" name="memberAddr" id="memberAddr">
+							<button type="button" class="addr-btn">검색</button>
+						</div>
+					</div>
+					<div class="input-wrap">
+						<div class="input-title">
+							<label for="memberAddrRE">상세주소</label>
+						</div>
+						<div class="input-item">
+							<input type="text" name="memberAddrRE" id="memberAddrRE">
+						</div>
+					</div>
+					<div class="input-item">
+						<div class="radio">
+							<input type="radio" name="memberGender" id="man" value="남자"><label for="man">남자</label> 
+							<input type="radio" name="memberGender" id="woman" value="여자"><label for="woman">여자</label>
+						</div>
+					</div>
+					<div class="input-item">
+						<div class="input-title">
+							<label for="memberImg">프로필</label>
+						</div>
+						<img src="" alt="">
+					</div>
+					<div class="join-button-box">
+						<button type="submit" onclick="return checkValue();">회원가입</button>
+					</div>
+				</form>
+			</section>
+		</div>
+		<div class="clear"></div>
+	</main>
+	<script>
+		$("#memberPwRe").on("change", function() {
+			const pwValue = $("#memberPw").val();
+			const pwReValue = $("#memberPwRe").val();
+			if (pwValue === pwReValue) {
+				$(".pw-check-msg").text("비밀번호가 일치합니다.");
+				$(".pw-check-msg").css("color", "green");
+			} else {
+				$(".pw-check-msg").text("비밀번호가 일치하지 않습니다.");
+				$(".pw-check-msg").css("color", "red");
+
+			}
+		});
+		$("#memberId").on("change", function() {
+			const memberId = $(this).val();
+			//사용자 작성 값 변수로 저장
+
+			const idReg = /^[a-zA-Z0-9]{4,20}$/;
+			//정규식
+			//영어 대문자, 소문자, 숫자로만 이루어진 4자리에서 20자리 사이의 문자열
+			if (idReg.test(memberId)) {
+				//정규표현식에 만족 -> ajax로 아이디 중복체크
+				$.ajax({
+					url : "/member/ajaxCheckId",
+					type : "get",
+					data : {
+						memberId : memberId
+					},
+					success : function(data) {
+						console.log(data);
+						if (data == 0) {
+							//사용가능
+							$(".id-check-msg").text("사용 가능한 아이디입니다.");
+							$(".id-check-msg").css("color", "green");
+						} else {
+							$(".id-check-msg").text("이미 사용중인 아이디입니다.");
+							$(".id-check-msg").css("color", "red");
+						}
+					},
+					error : function() {
+						console.log("에러 발생");
+					}
+				});
+			} else {
+				//정규표현식에 만족하지 못한 경우
+				$(".id-check-msg").text("아이디는 영어+숫자로 4~20글자 입니다.");
+				$(".id-check-msg").css("color", "red");
+			}
+		});
+	</script>
+
+
+
+	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

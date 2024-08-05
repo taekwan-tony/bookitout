@@ -25,5 +25,21 @@ public class MemberDao {
 			return (Member)list.get(0);
 		}
 	}
+	public Member selectOneMember(String checkId) {
+		String query = "select * from member_tbl where member_id=?";
+		Object[] params = {checkId};
+		List list = jdbc.query(query, memberRowMapper,params);
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return (Member)list.get(0);
+		}
+	}
+	public int insertMember(Member m) {
+		String query = "insert into member_tbl values(member_seq.nextval,?,?,?,?,?,?,?,?,to_char(sysdate,'yyyy-mm-dd'))";
+		Object[] params = {m.getMemberId(),m.getMemberPw(),m.getMemberName(), m.getMemberGender(), m.getMemberAge(), m.getMemberAddr(),m.getMemberPhone(),m.getMemberImg()};
+		int result = jdbc.update(query, params);
+		return result;
+	}
 	
 }

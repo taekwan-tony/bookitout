@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpSession;
@@ -66,6 +67,29 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
+	}
+	
+	@ResponseBody
+	@GetMapping(value = "/ajaxCheckId")
+	public int ajaxCheckId(String memberId) {
+		Member member = memberService.selectOneMember(memberId);
+		if(member == null) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
+	
+	@PostMapping(value="/join")
+	public String logout(Member m, Model model) {
+		int result = memberService.insertMember(m);
+		if(result>0) {
+			System.out.println("회원가입 성공");
+			return "redirect:/";
+		}else {
+			System.out.println("회원가입 실패");
+			return "redirect:/";
+		}
 	}
 	
 //	@PostMapping(value = "/login")

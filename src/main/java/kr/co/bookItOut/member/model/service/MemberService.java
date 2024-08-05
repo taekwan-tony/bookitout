@@ -16,5 +16,15 @@ public class MemberService {
 		Member member = memberDao.selectOneMember(memberId, memberPw);
 		return member;
 	}
+
+	public Member selectOneMember(String checkId) {
+		Member member = memberDao.selectOneMember(checkId);
+		return member;
+	}
+
+	public int insertMember(Member m) {
+		int result = memberDao.insertMember(m);
+		return result;
+	}
 	
 }
