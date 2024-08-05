@@ -16,7 +16,6 @@ public class FaqRowMapper implements RowMapper<Faq>{
 		f.setFaqNo(rs.getInt("FAQ_NO"));
 		f.setFaqTitle(rs.getString("FAQ_TITLE"));
 		f.setFaqType(rs.getString("FAQ_TYPE"));
-		f.setFaqReadCount(rs.getInt("FAQ_READ_COUNT"));
 		return f;
 	}
 	
