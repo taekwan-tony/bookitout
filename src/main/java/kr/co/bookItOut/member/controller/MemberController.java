@@ -39,6 +39,21 @@ public class MemberController {
 		return "member/login";
 	}
 	
+	@PostMapping(value="/login")
+	public String login(String memberId, String memberPw, int role) {
+		
+		System.out.println(role);
+		
+		
+		if(role==1) {
+		Member member = memberService.selectOneMember(memberId,memberPw);
+		System.out.println(member);
+		return "redirect:/";
+		}else{
+			return "redirect:/admin/login?memberId="+memberId+"&memberPw="+memberPw;
+		}
+	}
+	
 	@GetMapping(value="/joinFrm")
 	public String joinFrm() {
 		return "member/joinFrm";

@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.bookItOut.admin.model.dao.AdminDao;
+import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.admin.model.dto.AdminListData;
+import kr.co.bookItOut.member.model.dto.Member;
 
 @Service
 public class AdminService {
@@ -69,5 +71,10 @@ public class AdminService {
 		AdminListData ald = new AdminListData(list,pageNavi);
 		
 		return ald;
+	}
+
+	public Admin selectOneMember(String memberId, String memberPw) {
+		Admin admin = adminDao.selectOneMember(memberId, memberPw);
+		return admin;
 	}
 }

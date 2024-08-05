@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.admin.model.dto.AdminRowMapper;
 
 @Repository
@@ -25,6 +26,16 @@ public class AdminDao {
 		
 		int totalCount = jdbc.queryForObject(qurey,Integer.class);
 		return totalCount;
+	}
+	public Admin selectOneMember(String memberId, String memberPw) {
+		String query = "select * from admin_tbl where admin_id=? and admin_pw=?";
+		Object[] params = {memberId, memberPw};
+		List list = jdbc.query(query, adminRowMapper,params);
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return (Admin)list.get(0);
+		}
 	}
 	
 	
