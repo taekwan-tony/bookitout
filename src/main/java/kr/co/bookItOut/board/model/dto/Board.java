@@ -1,5 +1,7 @@
 package kr.co.bookItOut.board.model.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,4 +16,7 @@ public class Board {
 	private int readCount;
 	private String regDate;
 	private String memberId;
+	private List<BoardF‎ile> fileList;
+	private List<BoardComment> commentList;
+	private List<BoardComment> reCommentList;
 }

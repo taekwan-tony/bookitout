@@ -41,7 +41,7 @@ public class FaqService {
 		int numPerPage = 10;
 		int end = reqPage*numPerPage;
 		int start = end - numPerPage +1;
-		int totalCount = faqDao.totalCountBoard(faqType);
+		int totalCount = faqDao.totalCountBoard(faqType,type);
 		int totalPage = 0;
 		if(totalCount%numPerPage ==0) {
 			totalPage = totalCount/numPerPage;
@@ -49,7 +49,7 @@ public class FaqService {
 			totalPage = totalCount/numPerPage + 1;
 		}
 		
-		List list = faqDao.selectAllFaq(faqType,reqPage,start,end);	
+		List list = faqDao.selectAllFaq(faqType,type,start,end);	
 		int pageNaviSize = 5;
 		int pageNo = (reqPage-1)/pageNaviSize*pageNaviSize + 1;
 		String pageNavi = "<div class='pagination'><ul>";
@@ -91,5 +91,55 @@ public class FaqService {
 		int result = faqDao.insertFaq(f);
 		
 		return result;
+	}
+
+	public FaqListData searchFaq(int type, int reqPage, String searchQna) {
+		String faqTypePage = "조회 결과";
+		int numPerPage = 10;
+		int end = reqPage*numPerPage;
+		int start = end - numPerPage +1;
+		int totalCount = faqDao.totalCountBoard(searchQna,type);
+		int totalPage = 0;
+		if(totalCount%numPerPage ==0) {
+			totalPage = totalCount/numPerPage;
+		}else {
+			totalPage = totalCount/numPerPage + 1;
+		}
+		
+		List list = faqDao.selectAllFaq(searchQna,type,start,end);	
+		int pageNaviSize = 5;
+		int pageNo = (reqPage-1)/pageNaviSize*pageNaviSize + 1;
+		String pageNavi = "<div class='pagination'><ul>";
+		if(pageNo !=1) {
+			pageNavi += "<li>";
+			pageNavi += "<a class ='page-item page-btn' href='/FAQ/faqfrm?type="+type+"&reqPage="+(pageNo-1)+"&searchQna="+searchQna+"'>";
+			pageNavi += "<span><i class='fa-solid fa-angle-left'></i></span>";
+			pageNavi += "</a></li>";
+		}
+		for(int i =0;i<pageNaviSize;i++) {
+			pageNavi += "<li>";
+			if(pageNo==reqPage) {
+				pageNavi += "<a class ='page-item active-page' href='/FAQ/faqfrm?type="+type+"&reqPage="+pageNo+"&searchQna="+searchQna+"'>";
+			}else {
+				pageNavi += "<a class ='page-item' href='/FAQ/faqfrm?type="+type+"&reqPage="+pageNo+"&searchQna="+searchQna+"'>";
+			}
+			pageNavi += pageNo;
+			pageNavi += "</a></li>";
+			pageNo++;
+			if(pageNo>totalPage) {
+				break;
+			}
+		}
+		if(pageNo <= totalPage) {
+			pageNavi += "<li>";
+			pageNavi += "<a class ='page-item page-btn' href='/FAQ/faqfrm?type="+type+"&reqPage="+pageNo+"&searchQna="+searchQna+"'>";
+			pageNavi += "<span><i class='fa-solid fa-angle-right'></i></span>";
+			pageNavi += "</a></li>";
+		}
+		pageNavi +="</ul>";
+		pageNavi +="</ul></div>";
+		
+		FaqListData fld = new FaqListData(list, pageNavi,faqTypePage);
+		return fld;
 	}
 }

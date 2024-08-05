@@ -42,4 +42,14 @@ public class FaqController {
 			return "redirect:/FAQ/faqfrm?type=1&reqPage=1";			
 		}
 	}
+	
+	@GetMapping(value="/searchFaq")
+	public String searchFaq(int type,int reqPage,String searchQna,Model model) {
+		FaqListData fld = faqService.searchFaq(type,reqPage,searchQna);
+		model.addAttribute("list",fld.getList());
+		model.addAttribute("navi",fld.getPageNavi());
+		model.addAttribute("type",fld.getFaqType());
+		model.addAttribute("searchQna",searchQna);
+		return "FAQ/faqfrm";
+	}
 }

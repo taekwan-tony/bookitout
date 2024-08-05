@@ -18,8 +18,13 @@ public class FaqDao {
 	
 	
 	
-	public List selectAllFaq(String faqType, int reqpage,int start,int end) {
-		String query = "select * from(select rownum as rnum, f.* from (select * from faq where faq_type like '%'||?||'%' order by faq_no desc)f) where  rnum between ? and ?";
+	public List selectAllFaq(String faqType,int type,int start,int end) {
+		String query = null;
+		if(type==0) {
+			query = "select * from(select rownum as rnum, f.* from (select * from faq where faq_title like '%'||?||'%' order by faq_no desc)f) where  rnum between ? and ?";
+		}else {
+			query = "select * from(select rownum as rnum, f.* from (select * from faq where faq_type like '%'||?||'%' order by faq_no desc)f) where  rnum between ? and ?";			
+		}
 		Object[] params = {faqType,start,end};
 		List list = jdbc.query(query, faqRowMapper,params);
 		
@@ -28,8 +33,14 @@ public class FaqDao {
 
 
 
-	public int totalCountBoard(String faqType) {
-		String query = "select count(*) from faq where faq_type like '%'||?||'%'";
+	public int totalCountBoard(String faqType,int type) {
+		String query = null;
+		if(type==0) {
+			query ="select count(*) from faq where faq_title like '%'||?||'%'";
+		}else {
+			
+			query = "select count(*) from faq where faq_type like '%'||?||'%'";
+		}
 		Object[] params = {faqType};
 		int totalCount = jdbc.queryForObject(query, Integer.class,params);
 		return totalCount;
