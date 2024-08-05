@@ -1,5 +1,6 @@
 package kr.co.bookItOut.member.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpSession;
 import kr.co.bookItOut.member.model.dto.Member;
 import kr.co.bookItOut.member.model.service.MemberService;
@@ -40,7 +42,7 @@ public class MemberController {
 	}
 	
 	@PostMapping(value="/login")
-	public String login(String memberId, String memberPw, int role) {
+	public String login(String memberId, String memberPw, int role, HttpSession session) {
 		
 		System.out.println(role);
 		
@@ -48,6 +50,8 @@ public class MemberController {
 		if(role==1) {
 		Member member = memberService.selectOneMember(memberId,memberPw);
 		System.out.println(member);
+		session.setAttribute("member", member);
+		
 		return "redirect:/";
 		}else{
 			return "redirect:/admin/login?memberId="+memberId+"&memberPw="+memberPw;
@@ -57,6 +61,11 @@ public class MemberController {
 	@GetMapping(value="/joinFrm")
 	public String joinFrm() {
 		return "member/joinFrm";
+	}
+	@GetMapping(value="/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 //	@PostMapping(value = "/login")

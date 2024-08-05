@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.servlet.http.HttpSession;
 import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.admin.model.dto.AdminListData;
 import kr.co.bookItOut.admin.model.service.AdminService;
@@ -26,18 +27,20 @@ public class AdminController {
 	}
 	
 	@GetMapping(value="/login")
-	public String login(String memberId, String memberPw) {
+	public String login(String memberId, String memberPw, HttpSession session) {
 		System.out.println(memberId);
 		System.out.println(memberPw);
 		Admin admin = adminService.selectOneMember(memberId,memberPw);
 		System.out.println(admin);
-		if(admin == null) {
-			
-		}
+		session.setAttribute("admin", admin);
 		return "redirect:/";
 	}
 	
-	
+	@GetMapping(value="/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
 	
 	
 	
