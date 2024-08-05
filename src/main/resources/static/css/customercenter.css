@@ -94,5 +94,6 @@
 .question-content-box>div:first-child{
     font-weight: 800;
     border-bottom: 1px solid;
-    padding-bottom: 15px;
+    padding-bottom: 15px;   
 }
+
