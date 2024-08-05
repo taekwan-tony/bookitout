@@ -92,6 +92,23 @@ public class MemberController {
 		}
 	}
 	
+	
+	@PostMapping(value="/updateInfo")
+	public String updateInfo(Member m, String memberId) {
+		Member member = memberService.selectOneMember(m.getMemberId());
+		
+		System.out.println(member);
+		int result = memberService.updateMember(member, m);
+		
+		System.out.println(member);
+		if(result>0) {
+			System.out.println("수정 성공");
+			return "redirect:/";
+		}else {
+			System.out.println("수정 실패");
+			return "redirect:/";
+		}
+	}
 //	@PostMapping(value = "/login")
 //	public String login(Member m, Model model, HttpSession session) {
 //		// service를 이용해서 DB에 입력받은 아이디/패스워드가 일치하는 회원 조회

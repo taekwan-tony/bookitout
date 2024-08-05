@@ -117,36 +117,64 @@ a {
 		</div>
 		<div class="information">
 			<div class="info-wrap">
+			
+			
 				<h1>내 정보</h1>
+				
+				<form action="/member/updateInfo" name="updateInfo" method="post">
 				<table class="tbl">
 					<tr>
 						<td>
 							<h2>프로필</h2>
 						</td>
 					</tr>
+					
+					
+					
 					<tr>
+						<input type="file" name="imageFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this)">
 						<th><img src="image/kawa.png" style="width: 150px;" id="previewImg"></th>
 					</tr>
+					
+					
 					<tr>
-						<input type="file" name="imageFile" accept=".jpg,.png,.jpeg"
-							onchange="loadImg(this)">
+						<th>이름</th>
+						<td>
+						<input type="text" name="memberName" th:value="${session.member.memberName}">
+						</td>
+					</tr>
+					
+					
+					<tr>
+						<th>나이</th>
+						<td>
+						<input type="text" name="memberAge" th:value="${session.member.memberAge}">
+						</td>
+					</tr>
+					
+					
+					<tr>
+						<th>아이디</th>
+						<td th:text="${session.member.memberId}"></td>
+						<input type="hidden" name="memberId" th:value="${session.member.memberId}">
+					</tr>
+					
+					
+					<tr>
+						<th>전화번호</th>
+						<td>
+						<input type="text" name="memberPhone" th:value="${session.member.memberPhone}">
+						</td>
 					</tr>
 					<tr>
-						<th>이름 :</th>
+						<th>가입일</th>
+						<td th:text="${session.member.EnrollDate}"></td>
 					</tr>
 					<tr>
-						<th>나이 :</th>
-					</tr>
-					<tr>
-						<th>아이디 :</th>
-					</tr>
-					<tr>
-						<th>전화번호 :</th>
-					</tr>
-					<tr>
-						<th>가입일 :</th>
+						<td><button type="submit">수정</button></td>
 					</tr>
 				</table>
+				</form>
 			</div>
 		</div>
 		<div class="clear"></div>

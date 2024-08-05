@@ -26,5 +26,10 @@ public class MemberService {
 		int result = memberDao.insertMember(m);
 		return result;
 	}
+
+	public int updateMember(Member member, Member m) {
+		int result = memberDao.updateMember(member, m);
+		return result;
+	}
 	
 }

@@ -42,4 +42,11 @@ public class MemberDao {
 		return result;
 	}
 	
+	public int updateMember(Member member, Member m) {
+		String query = "update member_tbl set member_name=?, member_age=?, member_phone=? where member_no = ?";
+		Object[] params = {m.getMemberName(),  m.getMemberAge(), m.getMemberPhone(), member.getMemberNo()};
+		int result = jdbc.update(query, params);
+		return result;
+	}
+	
 }
