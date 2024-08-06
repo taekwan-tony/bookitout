@@ -94,15 +94,19 @@ public class MemberController {
 	
 	
 	@PostMapping(value="/updateInfo")
-	public String updateInfo(Member m, String memberId) {
+	public String updateInfo(Member m, HttpSession session) {
 		Member member = memberService.selectOneMember(m.getMemberId());
-		
-		System.out.println(member);
+
 		int result = memberService.updateMember(member, m);
 		
-		System.out.println(member);
 		if(result>0) {
 			System.out.println("수정 성공");
+			session.setAttribute("member", memberService.selectOneMember(m.getMemberId()));
+			//사용자의 세션 데이터를 업데이트하는 코드
+			//session 객체는 현재 사용자의 세션, setAttribute 메서드는 세션에 속성을 저장하거나 업데이트할 때 사용
+			//매개변수 1 세션에 저장할 속성의 이름
+			//매개변수 2 세션에 저장할 실제 데이터
+			
 			return "redirect:/";
 		}else {
 			System.out.println("수정 실패");
