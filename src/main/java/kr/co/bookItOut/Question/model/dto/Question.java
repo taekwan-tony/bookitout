@@ -14,5 +14,6 @@ public class Question {
 	private String questionContent;
 	private String questionAnswer;
 	private int memberNo;
+	private String questionEmail;
 	
 }
