@@ -120,12 +120,14 @@ public class BoardController {
 				File delFile = new File(savepath+file.getFilepath());
 				delFile.delete();
 			}
-			model.addAttribute("title", "삭제 성공");
+			/*model.addAttribute("title", "삭제 성공");
 			model.addAttribute("msg", "게시글이 삭제되었습니다.");
 			model.addAttribute("icon", "success");
 			model.addAttribute("loc", "/board/list?reqPage=1");
 		}
-		return "common/msg";
+		return "common/msg";*/
+		}
+		return "/board/list?reqPage=1";
 	}
 	@PostMapping(value="/update")
 	public String update(Board b, MultipartFile[] upfile, int[] delFileNo, Model model) {
@@ -171,7 +173,7 @@ public class BoardController {
 	}
 		model.addAttribute("loc", "/board/view?boardNo="+bc.getBoardRef());
 		return "common/msg";*/
-		return "/board/view?boardNo="+bc.getBoardRef();
+		return "redirect:/board/view?boardNo="+bc.getBoardRef();
 	}
 	@PostMapping(value="/updateComment")
 	public String updateComment(BoardComment bc, Model model) {
@@ -186,7 +188,7 @@ public class BoardController {
 			model.addAttribute("icon", "warning");
 		}
 		model.addAttribute("loc", "/board/view?check=1&boardNo="+bc.getBoardRef());*/
-		return "/board/view?boardNo="+bc.getBoardRef();
+		return "redirect:/board/view?boardNo="+bc.getBoardRef();
 	}
 	@GetMapping(value="/deleteComment")
 	public String deleteComment(BoardComment bc, Model model) {
@@ -201,7 +203,7 @@ public class BoardController {
 			model.addAttribute("icon", "warning");
 		}
 		model.addAttribute("loc", "/board/view?check=1&boardNo="+bc.getBoardRef());*/
-		return "/board/view?boardNo="+bc.getBoardRef();
+		return "redirect:/board/view?boardNo="+bc.getBoardRef();
 	}
 	
 	@ResponseBody
