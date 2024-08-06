@@ -49,7 +49,7 @@ public class QuestionController {
 		}
 		int result = questionService.insertQuestion(q,fileList); 
 		
-		return "redirect:/FAQ/faqfrm?type=1&reqPage=1";
+		return "redirect:/Question/questionList?type=1&reqPage=1";
 	}
 	
 	@ResponseBody
@@ -59,5 +59,12 @@ public class QuestionController {
 		String filepath = fileUtils.upload(savepath, upfile);
 		return "/upload/editor/"+filepath;
 	}
+	
+	@GetMapping(value="/questionList")
+	public String questionList(int type,int reqPage) {
+		return "question/questionList";
+	}
+	
+	
 	
 }

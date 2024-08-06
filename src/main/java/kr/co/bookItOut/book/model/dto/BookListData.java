@@ -1,5 +1,7 @@
 package kr.co.bookItOut.book.model.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,10 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class BookContent {
-	 private int bookCommentNo;
-	 private int bookNo;
-	 private int memberNo;
-	 private String bookCommentContent;
-	 private String bookCommentDate;
+public class BookListData {
+	private List list;
+	private String pageNavi;
+
 }

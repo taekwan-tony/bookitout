@@ -26,13 +26,10 @@
 		float: right;
 	}
 	.input-item{
-		width: 444px;
+		width: 500px;
 		height: 40px;
 		box-sizing: border-box;
-	}
-	.tbl{
-		width: 100%;
-		margin-top: 50px;
+		display: inline;
 	}
 	#searchFrm{
 		float: right;
@@ -58,6 +55,7 @@
 		border-color: #AF8F6F;
 		border-radius: 10px;
 		border: none;
+		color: white;
 	}
 	.tbl{
 		width: 80%;
@@ -65,6 +63,7 @@
 	    margin-right:10%;
 	    border-top: 1px solid #AF8F6F;
 	    border-collapse: collapse;
+	    border: #74512D solid;
 	}
 	th{
 		background-color: #AF8F6F;
@@ -86,24 +85,44 @@
 		border-color: #AF8F6F;
 		line-height: 40px;
 	}
+	#sele{
+		box-sizing: border-box;
+		width:150px;
+		background-color: #AF8F6F;
+		color: white;
+		height: 40px;
+		font-size: 15px;
+		padding-top: 0;
+		padding-bottom: 0;
+		border-color: #AF8F6F;
+		line-height: 40px;
+	}
 	.pagination li>a.page-item {
 	}
 	#sel option{
 		border-radius: 10px;
 	}
-	tr:nth-child() {
+	tr:nth-child(2n) {
 		background-color: #F8F4E1; 
 	}
  	th, td {
    		border-bottom: 1px solid #AF8F6F;
     	padding: 10px;
+    	text-align: center;
   	}
   	.footer-main{
   		margin-top: 100px;
   	}
-  	.selecetion{
-  		
+  	.btn>a{
+  		color: white;
   	}
+  	input:focus{
+		outline: none;
+		border: none;
+	}
+	td:nth-child(2) {
+		text-align: left;
+	}
 </style>
 </head>
 <body>
@@ -114,32 +133,69 @@
 			<div class="list-header">
 				<button th:if="${session.member != null}" class="btn" id="write-btn"><a href="/board/editorFrm">글쓰기</a></button>
 				<form action="/board/search" method="get" id="searchFrm">
-					<div class="input-item">	
+					<div class="input-item">
 						<select id="sel" name="type">
-							<th:block th:if="${type=='title' || type==null}">
+							<th:block th:if="${type=='none'||type==null}">
+								<option value="none" selected>카테고리</option>
+								<option value="title">제목</option>
+								<option value="writer">작성자</option>
+								<option value="titleContent">제목 및 내용</option>
+								<option value="content">내용</option>
+							</th:block>
+							<th:block th:if="${type=='title'}">
+								<option value="none">카테고리</option>
 								<option value="title" selected>제목</option>
 								<option value="writer">작성자</option>
 								<option value="titleContent">제목 및 내용</option>
 								<option value="content">내용</option>
 							</th:block>
 							<th:block th:if="${type=='writer'}">
+								<option value="none">카테고리</option>
 								<option value="title">제목</option>
 								<option value="writer" selected>작성자</option>
 								<option value="titleContent">제목 및 내용</option>
 								<option value="content">내용</option>
 							</th:block>
 							<th:block th:if="${type=='titleContent'}">
+								<option value="none">카테고리</option>
 								<option value="title">제목</option>
 								<option value="writer">작성자</option>
 								<option value="titleContent" selected>제목 및 내용</option>
 								<option value="content">내용</option>
 							</th:block>
 							<th:block th:if="${type=='content'}">
+								<option value="none">카테고리</option>
 								<option value="title">제목</option>
 								<option value="writer">작성자</option>
 								<option value="titleContent">제목 및 내용</option>
 								<option value="content" selected>내용</option>
 							</th:block>
+						</select>
+						<select id="sele" name="option">
+							<th:block th:if="${option=='new' || option==null}">
+								<option value="new" selected>최신순</option>
+								<option value="old">오래된순</option>
+								<option value="readCount">조회수 순</option>
+								<!--<option th:value="${type}">가나다 순</option>-->
+							</th:block>
+							<th:block th:if="${option=='old'}">
+								<option value="new">최신순</option>
+								<option value="old" selected>오래된순</option>
+								<option value="readCount">조회수 순</option>
+								<!--<option th:value="${type}">가나다 순</option>-->
+							</th:block>
+							<th:block th:if="${option=='read_Count desc'}">
+								<option value="new">최신순</option>
+								<option value="old">오래된순</option>
+								<option value="readCount" selected>조회수 순</option>
+								<!--<option th:value="${type}">가나다 순</option>-->
+							</th:block>
+							<!--<th:block th:if="${option==type}">
+								<option value="new">최신순</option>
+								<option value="old">오래된순</option>
+								<option value="readCount">조회수 순</option>
+								<option th:value="${type}" selected>가나다 순</option>
+							</th:block>-->
 						</select>
 						<input type="text" name="keyword" id="inputText">
 						<input type="hidden" name="reqPage" value="1">
@@ -159,7 +215,7 @@
 					<tr th:each="board : ${list}">
 						<td th:text="${board.boardNo}"></td>
 						<td><a th:href="@{/board/view(boardNo=${board.boardNo})}" th:text="${board.boardTitle}"></a></td>
-						<td th:text="${board.memberId}"></td>
+						<td th:text="${board.boardWriter}"></td>
 						<td th:text="${board.regDate}"></td>
 						<td th:text="${board.readCount}"></td>
 					</tr>

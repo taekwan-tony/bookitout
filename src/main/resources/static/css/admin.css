@@ -40,6 +40,7 @@
 }
 .logo1 {
 	padding-top: 8px;
+	padding-bottom: 5px;
 } 
 .logo1 > a {
     font-family: "Tenada";
@@ -50,7 +51,7 @@
 .admin-menu > ul > li > a {
     /* padding-left: 10px; */
     font-family: "Tenada";
-    font-size: 20px;
+    font-size: 25px;
 }
 .admin-menu {
     padding-left: 10px;
@@ -67,17 +68,19 @@
     display: grid;
     align-items: center;
 }
+/*
 .admin-menu .sub-menu {
     display: none;
-}
-.admin-menu > ul > li:hover > .sub-menu {
-    display: block;
 }
 .admin-menu > ul > li > .sub-menu {
     transition: all 0.35s;
 }
 .admin-menu .sub-menu a {
     transition-duration: 10s;
+}
+*/
+.admin-menu > ul > li .sub-menu>li>a:hover{
+   color: var(--color3);
 }
 
 .icons-menu {
@@ -109,10 +112,10 @@
 }
 
 .sub-menu > li > a {
-    color: var(--main2);
+    color: var(--gray3);
     padding: 8px;
     display: block;
-    font-size: 15px;
+    font-size: 20px;
 }
 .logo-box{
     width: 18% !important;
@@ -162,6 +165,7 @@
 }
 
 table{
+	border: 3px solid var(--color3);
     width:100%;
 	text-align: center;
 }
@@ -174,7 +178,10 @@ table thead tr th{
     
 }
 table tbody tr td{
-	border: 1px solid black;
+	border: 1px solid var(--color2);
+}
+table tbody tr:nth-child(2n){
+	background-color: var(--color1);	
 }
 .pagination{
 	justify-content: center;
