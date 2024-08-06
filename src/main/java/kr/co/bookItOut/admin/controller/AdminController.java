@@ -19,21 +19,23 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
-	@GetMapping(value="/index")
+	@GetMapping(value="/adminIndex")
 	public String index(Model model,int rePage) {
 		AdminListData ald = adminService.selectAdminList(rePage);
+		model.addAttribute("list",ald.getList());
+		model.addAttribute("pageNavi",ald.getPageNavi());
 		
 		return "adminIndex";
 	}
 	
 	@GetMapping(value="/login")
-	public String login(String memberId, String memberPw, HttpSession session) {
+	public String login(String memberId, String memberPw, HttpSession session,Model model) {
 		System.out.println(memberId);
 		System.out.println(memberPw);
 		Admin admin = adminService.selectOneMember(memberId,memberPw);
 		System.out.println(admin);
 		session.setAttribute("admin", admin);
-		return "redirect:/";
+		return "redirect:/admin/adminIndex?rePage=1";
 	}
 	
 	@GetMapping(value="/logout")

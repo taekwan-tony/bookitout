@@ -35,11 +35,11 @@ public class AdminService {
 		
 		int pageNo = ((rePage-1)/pagNavSize)*pagNavSize+1;
 		
-		String pageNavi = "<div class 'pagination'> <ul>";
+		String pageNavi = "<div class = 'pagination'> <ul>";
 		
 		if(pageNo != 1) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/adminIndex?reqPage="+pageNo+"'>";
+			pageNavi += "<a class='page-item' href='/admin/adminIndex?rePage="+pageNo+"'>";
 			pageNavi += "<span><i class='fa-solid fa-angle-left'></i></span>";
 			pageNavi += "</a></li>";
 		}
@@ -47,9 +47,9 @@ public class AdminService {
 		for(int i=0;i<pagNavSize;i++) {
 			pageNavi +="<li>";
 			if(pageNo == rePage) {
-				pageNavi += "<a class='page-item active-page' href='/admin/adminIndex?reqPage="+pageNo+"'>";
+				pageNavi += "<a class='page-item active-page' href='/admin/adminIndex?rePage="+pageNo+"'>";
 			}else {
-				pageNavi +="<a class='page-item' href='/adminIndex?reqPage="+pageNo+"'>";
+				pageNavi +="<a class='page-item' href='/admin/adminIndex?rePage="+pageNo+"'>";
 			}
 			pageNavi += pageNo;
 			pageNavi += "</a></li>";
@@ -61,7 +61,7 @@ public class AdminService {
 		
 		if(pageNo <= totalPage) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/admin/adminIndex?reqPage="+pageNo+"'>";
+			pageNavi += "<a class='page-item' href='/admin/adminIndex?rePage="+pageNo+"'>";
 			pageNavi += "<span><i class='fa-solid fa-angle-right'></i></span>";
 			pageNavi += "</a></li>";
 			
