@@ -38,7 +38,7 @@ public class BoardService {
 			if(pageNo == reqPage) {
 				pageNavi += "<a class='page-item active-page' href='/board/list?reqPage="+pageNo+"'>";
 			}else {
-				pageNavi += "<a class='page-item' href='/notice/list?reqPage="+pageNo+"'>";
+				pageNavi += "<a class='page-item' href='/board/list?reqPage="+pageNo+"'>";
 			}
 			
 			pageNavi += pageNo;
@@ -50,7 +50,7 @@ public class BoardService {
 		}
 		if(pageNo <= totalPage) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/notice/list?reqPage="+pageNo+"'>";
+			pageNavi += "<a class='page-item' href='/board/list?reqPage="+pageNo+"'>";
 			pageNavi += "<span class='material-icons'>chevron_right</span>";
 			pageNavi += "</a></li>";
 		}
@@ -65,7 +65,7 @@ public class BoardService {
 			int boardNo=boardDao.selectBoardNo();
 			for(BoardF‎ile boardF‎ile: fileList) {
 				boardF‎ile.setBoardNo(boardNo);
-				result+=boardDao.insertBoard(boardF‎ile);
+				result+=boardDao.insertBoardFile(boardF‎ile);
 			}
 		}
 		return result;
@@ -87,11 +87,11 @@ public class BoardService {
 		return b;
 	}
 
-	public BoardListData search(String type, String keyword, int reqPage) {
+	public BoardListData search(String type, String keyword, int reqPage, String option) {
 		int numPerPage = 10;
 		int end = reqPage*numPerPage;
 		int start = end - numPerPage + 1;
-		List list=boardDao.searchBoard(type, keyword, start, end);
+		List list=boardDao.searchBoard(type, keyword, start, end, option);
 		int totalCount=boardDao.selectBoardTotalCount();
 		int totalPage = 0;
 		if(totalCount%numPerPage == 0) {
@@ -104,16 +104,19 @@ public class BoardService {
 		String pageNavi = "<ul class='pagination circle-style'>";
 		if(pageNo != 1) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/board/list?reqPage="+(pageNo-1)+"'>";
+			pageNavi += "<a class='page-item' href='/board/search?type="+type+"&option="+option+
+			"keyword="+keyword+"reqPage="+(pageNo-1)+"'>";
 			pageNavi += "<span class='material-icons'>chevron_left</span>";
 			pageNavi += "</a></li>";
 		}
 		for(int i=0;i<pageNaviSize;i++) {
 			pageNavi += "<li>";
 			if(pageNo == reqPage) {
-				pageNavi += "<a class='page-item active-page' href='/board/list?reqPage="+pageNo+"'>";
+				pageNavi += "<a class='page-item active-page' href='/board/search?type="+type+"&option="+option+
+			"&keyword="+keyword+"&reqPage="+(pageNo)+"'>";
 			}else {
-				pageNavi += "<a class='page-item' href='/board/list?reqPage="+pageNo+"'>";
+				pageNavi += "<a class='page-item' href='/board/search?type="+type+"&option="+option+
+			"&keyword="+keyword+"&reqPage="+(pageNo)+"'>";
 			}	
 			pageNavi += pageNo;
 			pageNavi += "</a></li>";
@@ -124,7 +127,8 @@ public class BoardService {
 		}
 		if(pageNo <= totalPage) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/board/list?reqPage="+pageNo+"'>";
+			pageNavi += "<a class='page-item' href='/board/search?type="+type+"&option="+option+
+			"&keyword="+keyword+"&reqPage="+(pageNo)+"'>";
 			pageNavi += "<span class='material-icons'>chevron_right</span>";
 			pageNavi += "</a></li>";
 		}
@@ -147,7 +151,7 @@ public class BoardService {
 		int result = boardDao.updateBoard(b);
 		if(result > 0) {
 			for(BoardF‎ile boardFile : fileList) {
-				result += boardDao.insertBoard(boardFile);
+				result += boardDao.insertBoardFile(boardFile);
 			}
 			if(delFileNo != null) {
 				for(int fileNo : delFileNo) {
@@ -193,5 +197,11 @@ public class BoardService {
 		}else {
 			return -1;
 		}
+	}
+	public Board getOneBoard(int boardNo) {
+		Board b= boardDao.selectOneBoard(boardNo);
+		List list = boardDao.selectBoardFile(boardNo);
+		b.setFileList(list);
+		return b;
 	}
 }
