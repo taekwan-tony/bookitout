@@ -71,7 +71,6 @@ a {
 	margin-left: 50px;
 	margin-right: 50px;
 	width: 100%;
-	height: 500px;
 	background-color: #F8F4E1;
 	color: white;
 	padding: 20px;
@@ -121,7 +120,7 @@ a {
 			
 				<h1>내 정보</h1>
 				
-				<form action="/member/updateInfo" name="updateInfo" method="post">
+				<form action="/member/updateInfo" name="updateInfo" method="post" enctype="multipart/form-data">
 				<table class="tbl">
 					<tr>
 						<td>
@@ -132,8 +131,11 @@ a {
 					
 					
 					<tr>
-						<input type="file" name="imageFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this)">
-						<th><img src="image/kawa.png" style="width: 150px;" id="previewImg"></th>
+						 <img style="width: 200px;" id="previewImg"
+            			 th:src="@{/photo/{filename}(filename=${session.member.memberImg})}" alt="프로필 이미지">
+					</tr>
+					<tr>
+						<td><input type="file" name="imageFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this)"></td>
 					</tr>
 					
 					
@@ -180,17 +182,18 @@ a {
 		<div class="clear"></div>
 	</main>
 	<script>
-		function loadImg(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
+		function loadImg(input) {//input 타입이 file인 요소를 매개변수로 받음
+			if (input.files && input.files[0]) {//input.files >> 첨부한 파일 정보 볼 수 있음
+				const reader = new FileReader();//첨부파일 경로에는 접근 불가능(/) > 파일 데이터를 읽어오는 js 객체
 				reader.onload = function(e) {
-					document.getElementById('previewImg').src = e.target.result;
+					//document.getElementById('previewImg').src = e.target.result;
+					$("#previewImg").attr("src",e.target.result);
 				}
 				reader.readAsDataURL(input.files[0]);
+			}else{
+				$("#previewImg").attr("src","");
 			}
 		}
-	</script>
-	<th:block th:include="common/footer"></th:block>
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
