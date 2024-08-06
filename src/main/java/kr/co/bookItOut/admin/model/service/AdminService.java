@@ -17,7 +17,7 @@ public class AdminService {
 	private AdminDao adminDao;
 
 	public AdminListData selectAdminList(int rePage) {
-		int numperPage=10;
+		int numperPage=7;
 		int end = rePage*numperPage;
 		int start = end - numperPage+1;
 		List list = adminDao.selectAdminList(start,end); 
@@ -31,7 +31,7 @@ public class AdminService {
 			totalPage = totalCount/numperPage+1;
 		}
 		
-		int pagNavSize = 5;
+		int pagNavSize = 3;
 		
 		int pageNo = ((rePage-1)/pagNavSize)*pagNavSize+1;
 		
