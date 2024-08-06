@@ -122,7 +122,7 @@ img {
 .book-second {
     margin-bottom: 10px;
 }
-.book-bublisher {
+.book-publisher {
     margin-left: 87px;
 }
 .publication-date {
@@ -174,26 +174,28 @@ button {
 
                     <div class="book-info">
                         <table class="book-info-tbl">
-                            <tr>
+                        
+                             <tr th:each="book : ${list}">
+                             
                                 <td class="check-box" style="width:5%; vertical-align: baseline;">
                                     <input type="checkbox" name="checkbox" id="checkbox">
                                 </td>
 
                                 <td style="width:20%;">
-                                    <img src="Thinking of You .jpg">
+                                    <img src="Thinking of You .jpg"> <!-- ?? -->
                                 </td>
 
                                 <td style="vertical-align: baseline;">
                                     <div class="book-details">
-                                        <div class="book-first" style="width:60%;" th:text="${#}">책이름</div>
+                                        <div class="book-first" style="width:60%;" th:text="${book.bookName}"></div>
                                         <div class="book-second">
-                                            <span class="book-writer" th:text="${#}">책저자</span>
-                                            <span class="book-bublisher" th:text="${#}">출판사</span>
+                                            <span class="book-writer" th:text="${book.bookWriter}"></span>
+                                            <span class="book-publisher" th:text="${book.bookPublisher}"></span>
                                         </div>
                                         <div class="book-third">
-                                            <span class="book-price" th:text="${#}">판매가격</span>
-                                            <span class="publication-date" th:text="${#}">출판일</span>
-                                            <span class="enroll-date" th:text="${#}">등록일</span>
+                                            <span class="book-price" th:text="${book.bookPrice}"></span>
+                                            <span class="publication-date" th:text="${book.publicationDate}"></span>
+                                            <span class="enroll-date" th:text="${book.enrollDate}"></span>
                                         </div>
                                     </div>
                                 </td>
@@ -202,12 +204,13 @@ button {
                                     <button type="button" id="list-cart">장바구니</button>
                                     <button type="button" id="list-buy">바로구매</button>
                                 </td>
-                            </tr>
+                            </tr>                  
+                            		
                         </table>
                     </div>
                 </div>
 
-                <div class="list-page"></div>
+                <div id ="pageNavi" th:utext="${pageNavi}"></div>
 
             </div>
         </section>

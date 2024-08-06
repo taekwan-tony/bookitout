@@ -36,17 +36,25 @@ public class MemberDao {
 		}
 	}
 	public int insertMember(Member m) {
-		String query = "insert into member_tbl values(member_seq.nextval,?,?,?,?,?,?,?,?,to_char(sysdate,'yyyy-mm-dd'))";
-		Object[] params = {m.getMemberId(),m.getMemberPw(),m.getMemberName(), m.getMemberGender(), m.getMemberAge(), m.getMemberAddr(),m.getMemberPhone(),m.getMemberImg()};
+		String query = "insert into member_tbl values(member_seq.nextval,?,?,?,?,?,?,?,?,to_char(sysdate,'yyyy-mm-dd'),?)";
+		Object[] params = {m.getMemberId(),m.getMemberPw(),m.getMemberName(), m.getMemberGender(), m.getMemberAge(), m.getMemberAddr(),m.getMemberPhone(),m.getMemberImg(),m.getMemberMail()};
 		int result = jdbc.update(query, params);
 		return result;
 	}
 	
-	public int updateMember(Member member, Member m) {
+	public int updateMember(Member member, Member m, int sel) {
+		if(sel==1) {
+			
 		String query = "update member_tbl set member_name=?, member_age=?, member_phone=?, member_img=? where member_no = ?";
 		Object[] params = {m.getMemberName(),  m.getMemberAge(), m.getMemberPhone(), m.getMemberImg(), member.getMemberNo()};
 		int result = jdbc.update(query, params);
 		return result;
+		}else{
+			String query = "update member_tbl set member_name=?, member_age=?, member_phone=? where member_no = ?";
+			Object[] params = {m.getMemberName(),  m.getMemberAge(), m.getMemberPhone(), member.getMemberNo()};
+			int result = jdbc.update(query, params);
+			return result;
+		}
 	}
 	
 }
