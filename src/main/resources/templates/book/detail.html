@@ -86,7 +86,7 @@
                                                 <td>서울특별시 영등포구 선유동2로 57 이레빌딩1</td>
                                                 <td>153개</td>
                                             </tr>
-                                            <tr>
+                            	                <tr>
                                                 <td>지점명4</td>
                                                 <td>서울특별시 영등포구 선유동2로 57 이레빌딩1</td>
                                                 <td>42개</td>
@@ -200,121 +200,6 @@
             <div class="clear"></div>
 
             <hr>
-            
-            <div class="clear"></div>
-
-            <div class="comment">
-                <!-- 댓글 입력 -->
-                <div class="inputCommentBox">
-                    <form action="/book/insertBookComment" method="post">
-                        <ul>
-                            <li>
-                                <!-- <span class="material-icons">account_box</span> -->
-                                <span class="user-icon"><i class="fa-solid fa-circle-user"></i></span>
-                            </li>
-                            <li>
-                                <input type="hidden" name="noticeCommentWriter" th:value="${session.member.memberId}">
-                                <input type="hidden" name="noticeRef" th:value="${n.noticeNo}">
-                                <div class="input-item">
-                                    <textarea name="noticeCommentContent" placeholder="댓글을 입력하세요!"></textarea>
-                                </div>
-                            </li>
-                            <li>
-                                <button class="btn-point" type="submit">등록</button>
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-                <!-- 댓글 출력 -->
-                <div class="commentBox">
-                    <th:block th:each="nc : ${n.commentList}">
-                        <ul class="posting-comment">
-                            <li>
-                                <!-- <span class="material-icons">account_box</span> -->
-                                <span class="user-icon"><i class="fa-solid fa-circle-user"></i></span>
-                            </li>
-                            <li>
-                                <p class="comment-info">
-                                    <span th:text="${nc.noticeCommentWriter}"></span>
-                                    <span th:text="${nc.noticeCommentDate}"></span>
-                                    <span class="like-box">
-                                        <!-- <span class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);"><i class="fa-solid fa-heart"></i></span>
-                                        <span class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);"><i class="fa-regular fa-heart"></i></span> -->
-                                        <span th:if="${nc.isLike == 1}" class="material-icons heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);">thumb_up_alt</span>
-                                        <span th:if="${nc.isLike == 0}" class="material-icons heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);">thumb_up_off_alt</span>
-                                        <span th:text="${nc.likeCount}"></span>
-                                    </span>
-                                </p>
-                                <p class="comment-content" th:text="${nc.noticeCommentContent}"></p>
-                                <div style="display: none;" class="input-item">
-                                    <textarea name="noticeCommentContent" th:text="${nc.noticeCommentContent}"></textarea>
-                                </div>
-                                <p class="comment-link">
-                                    <th:block th:if="${session.member != null}">
-                                        <th:block th:if="${session.member.memberId == nc.noticeCommentWriter}">
-                                            <a href="javascript:void(0)" th:onclick="modifyComment(this, [[${nc.noticeCommentNo}]], [[${n.noticeNo}]]);">수정</a>
-                                            <a href="javascript:void(0)" th:onclick="deleteComment(this, [[${nc.noticeCommentNo}]], [[${n.noticeNo}]]);">삭제</a>
-                                        </th:block>
-                                        <a class="recShow" href="javascript:void(0)">답글달기</a>
-                                    </th:block>
-                                </p>
-                            </li>
-                        </ul>
-                        <!-- 대댓글 작성 양식 -->
-                        <div th:if="${session.member != null}" class="inputCommentBox inputRecommentBox">
-                            <form action="/notice/insertComment" method="post">
-                                <ul>
-                                    <li>
-                                        <!-- <span class="material-icons">subdirectory_arrow_right</span> -->
-                                        <span class="comment-icon"><i class="fa-solid fa-arrow-turn-up"></i></span>
-                                    </li>
-                                    <li>
-                                        <input type="hidden" name="noticeCommentWriter" th:value="${session.member.memberId}">
-                                        <input type="hidden" name="noticeRef" th:value="${n.noticeNo}">
-                                        <input type="hidden" name="noticeCommentRef" th:value="${nc.noticeCommentNo}">
-                                        <div class="input-item">
-                                            <textarea name="noticeCommentContent"></textarea>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <button class="btn-point" type="submit">등록</button>
-                                    </li>
-                                </ul>
-                            </form>
-                        </div>
-                        <!-- 출력한 댓글의 대댓글 출력 -->
-                        <ul class="posting-comment reply" th:each="ncc : ${n.reCommentList}" th:if="${nc.noticeCommentNo == ncc.noticeCommentRef}">
-                            <li>
-                                <span style="margin-right: 20px;" class="comment-icon"><i class="fa-solid fa-arrow-turn-up"></i></span>
-                                <span class="user-icon"><i class="fa-solid fa-circle-user"></i></span>
-                            </li>
-                            <li>
-                                <p class="comment-info">
-                                    <span th:text="${ncc.noticeCommentWriter}"></span>
-                                    <span th:text="${ncc.noticeCommentDate}"></span>
-                                    <span class="like-box">
-                                        <!-- <span class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);"><i class="fa-solid fa-heart"></i></span>
-                                        <span class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);"><i class="fa-regular fa-heart"></i></span> -->
-                                        <span th:if="${ncc.isLike == 1}" class="material-icons heart-icon" th:onclick="likePush(this, [[${ncc.noticeCommentNo}]]);">thumb_up_alt</span>
-                                        <span th:if="${ncc.isLike == 0}" class="material-icons heart-icon" th:onclick="likePush(this, [[${ncc.noticeCommentNo}]]);">thumb_up_off_alt</span>
-                                        <span th:text="${ncc.likeCount}"></span>
-                                    </span>
-                                </p>
-                                <p class="comment-content" th:text="${ncc.noticeCommentContent}"></p>
-                                <div style="display: none;" class="input-item">
-                                    <textarea name="noticeCommentContent" th:text="${ncc.noticeCommentContent}"></textarea>
-                                </div>
-                                <p class="comment-link">
-                                    <th:block th:if="${session.member != null && session.member.memberId == ncc.noticeCommentWriter}">
-                                        <a href="javascript:void(0)" th:onclick="modifyComment(this, [[${ncc.noticeCommentNo}]], [[${n.noticeNo}]])">수정</a>
-                                        <a href="javascript:void(0)" th:onclick="deleteComment(this, [[${ncc.noticeCommentNo}]], [[${n.noticeNo}]])">삭제</a>
-                                    </th:block>
-                                </p>
-                            </li>
-                        </ul>
-                    </th:block>
-                </div>
-            </div>
             
             <div class="clear"></div>
 
