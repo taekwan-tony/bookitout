@@ -184,5 +184,8 @@ table tbody tr:nth-child(2n){
 	background-color: var(--color1);	
 }
 .pagination{
+	display:flex;
 	justify-content: center;
+	max-width: 100% !important;
+	
 }
