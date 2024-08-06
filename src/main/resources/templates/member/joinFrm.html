@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>로그인</title>
+<title>회원가입</title>
 <link rel="stylesheet" href="/css/main.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
@@ -71,6 +71,44 @@
 	width: 60%;
 	padding: 10px;
 	box-sizing: border-box;
+}
+
+#memberMail {
+	width: 54%;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.mail-btn {
+	padding: 10px; /* 내부 여백 */
+	box-sizing: border-box;
+	cursor: pointer;
+	background-color: var(--color3);
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	margin-left: 10px;
+	height: auto;
+	width: 115px;
+}
+
+#check {
+	width: 60%;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.check-btn {
+	padding: 10px; /* 내부 여백 */
+	box-sizing: border-box;
+	cursor: pointer;
+	background-color: var(--color3);
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	margin-left: 10px;
+	height: auto;
+	width: 80px;
 }
 
 .addr-btn {
@@ -230,6 +268,24 @@ img {
 						</div>
 						<div class="input-item">
 							<input type="text" name="memberPhone" id="memberPhone">
+						</div>
+					</div>
+					<div class="input-wrap">
+						<div class="input-title">
+							<label for="memberMail">메일</label>
+						</div>
+						<div class="input-item">
+							<input type="text" name="memberMail" id="memberMail">
+							<button type="button" class="mail-btn">인증코드 발송</button>
+						</div>
+					</div>
+					<div class="input-wrap">
+						<div class="input-title">
+							<label for="check">인증코드</label>
+						</div>
+						<div class="input-item">
+							<input type="text" id="check">
+							<button type="button" class="check-btn">확인</button>
 						</div>
 					</div>
 					<div class="input-wrap">

@@ -15,6 +15,7 @@ public class Admin {
 	private String openingDay;
 	private String adminAddr;
 	private String adminEmail;
+	private String adminPhone;
 	private int adminType;
 	
 }
