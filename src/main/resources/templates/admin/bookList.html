@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="/css/admin.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 </head>
-<!-- 처음 부터 다시 복붙 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
 <body>
     <div class="nav1">
         <div class="icons-menu">
@@ -14,10 +13,10 @@
                     <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
                 </li>
                 <li class="icon1">
-                    <a href="#"><i class="fa-solid fa-house"></i></a>
+                    <a href="/admin/adminIndex?rePage=1"><i class="fa-solid fa-house"></i></a>
                 </li>
                 <li class="icon1">
-                    <a href="#"><i class="fa-solid fa-book-open"></i></a>
+                    <a href="/admin/bookList"><i class="fa-solid fa-book-open"></i></a>
                 </li>
                 <li class="icon1">
                     <a href="#"><i class="fa-solid fa-circle-user"></i></a>
@@ -31,23 +30,24 @@
         <ul>
             <li>
                 <h1 class="logo1">
-                    <a href="/adminIndex">책키라웃 관리자</a>
+                    <a href="/admin/adminIndex?rePage=1">책키라웃 관리자</a>
                 </h1>
             </li>
             <li>
-            <a href="#">판매점 관리</a>
+            <a href="/admin/adminIndex?rePage=1">판매점 관리</a>
             <ul class="sub-menu">
-                <li><a href="#">판매점 리스트</a></li>
-                <li><a href="#">판매점 등록</a></li>
-                <li><a href="/admin/updatePw">비밀번호변경</a></li>
+                <li><a href="/admin/adminIndex?rePage=1">판매점 리스트</a></li>
+                <li><a href="/admin/insertAdmin">판매점 등록</a></li>
+                <li><a href="/admin/updateAdmin">판매점 정보 수정</a></li>
+                <li><a href="/admin/updatePw">비밀번호 변경</a></li>
             </ul>
             </li>
             <li>
             <a href="#">책 관리</a>
             <ul class="sub-menu">
-                <li><a href="#">책 리스트</a></li>
-                <li><a href="#">책 등록</a></li>
-                <li><a href="#">책 정보 수정</a></li>
+                <li><a href="/admin/bookList">책 리스트</a></li>
+                <li><a href="/admin/insertBook">책 등록</a></li>
+                <li><a href="/admin/bookList">책 정보 수정</a></li>
             </ul>
             </li>
             <li>
@@ -75,13 +75,13 @@
                         <div class="lnb">
                             <ul>
                             <li>
-                                <a href="#">관리자</a>
+                                <a href="/admin/adminIndex?rePage=1">판매점</a>
                             </li>
                             <li>
-                                <a href="#">비밀번호 변경</a>
+                                <a href="/admin/updatePw">비밀번호 변경</a>
                             </li>
                             <li>
-                                <a href="#">로그아웃</a>
+                                <a href="/admin/logout">로그아웃</a>
                             </li>
                             </ul>
                         </div>
@@ -106,18 +106,34 @@
                                 	<label></label>
                                 	<input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
                                 </th>
-              					<th style="width: 7%">책번호</th>
-              					<th style="width: 10%">책이름</th>
-              					<th style="width: 30%"></th>
-              					<th style="width: 10%">입접일</th>
-              					<th style="width: 20%">이메일</th>
+              					<th style="width: 6%">매장번호</th>
+              					<th style="width: 10%">매장명</th>
+              					<th style="width: 25%">매장주소</th>
+              					<th style="width: 8%">개업일</th>
+              					<th style="width: 15%">이메일</th>
+              					<th style="width: 13%">전화번호</th>
               					<th style="width: 10%">관리</th>
               					<th style="width: 10%">수정/삭제</th>
                             </tr>
                         </thead>
                         <tbody>                            
-
-
+                            <tr th:each="admin :${list}"><!-- -->                            	
+                            	<td>
+                                <input type="checkbox" name="chk[]" value="1">
+                                </td>
+                            	<td th:text="${admin.adminNo}"></td>
+              					<td th:text="${admin.adminName}"></td>
+              					<td th:text="${admin.adminAddr}"></td>
+             					<td th:text="${admin.openingDay}"></td>
+              					<td th:text="${admin.adminEmail}"></td>
+              					<td th:text="${admin.adminPhone}"></td>
+              					<td><a href="/admin/bookList">책 재고관리</a></td>
+              					<td>
+              					<button class="btn-type2 btn">수정</button>
+              					<button class="btn-type2 btn">삭제</button>
+              					</td>
+                            </tr>
+                            	
                         </tbody>
                     </table>
                    </form>
@@ -160,7 +176,7 @@
     </div>
     
     <script>
-    <!--전체 선택 로직 -->
+    <!--input 전체 선택 로직 -->
     function check_all(f)
     {
         var chk = document.getElementsByName("chk[]");

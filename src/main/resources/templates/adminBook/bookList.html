@@ -13,10 +13,10 @@
                     <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
                 </li>
                 <li class="icon1">
-                    <a href="#"><i class="fa-solid fa-house"></i></a>
+                    <a href="/admin/adminIndex?rePage=1"><i class="fa-solid fa-house"></i></a>
                 </li>
                 <li class="icon1">
-                    <a href="#"><i class="fa-solid fa-book-open"></i></a>
+                    <a href="/admin/bookList"><i class="fa-solid fa-book-open"></i></a>
                 </li>
                 <li class="icon1">
                     <a href="#"><i class="fa-solid fa-circle-user"></i></a>
@@ -30,23 +30,24 @@
         <ul>
             <li>
                 <h1 class="logo1">
-                    <a href="/adminIndex">책키라웃 관리자</a>
+                    <a href="/admin/adminIndex?rePage=1">책키라웃 관리자</a>
                 </h1>
             </li>
             <li>
-            <a href="#">판매점 관리</a>
+            <a href="/admin/adminIndex?rePage=1">판매점 관리</a>
             <ul class="sub-menu">
-                <li><a href="#">판매점 리스트</a></li>
-                <li><a href="#">판매점 등록</a></li>
-                <li><a href="#">비밀번호 수정</a></li>
+                <li><a href="/admin/adminIndex?rePage=1">판매점 리스트</a></li>
+                <li><a href="/admin/insertAdmin">판매점 등록</a></li>
+                <li><a href="/admin/updateAdmin">판매점 정보 수정</a></li>
+                <li><a href="/admin/updatePw">비밀번호 변경</a></li>
             </ul>
             </li>
             <li>
             <a href="#">책 관리</a>
             <ul class="sub-menu">
-                <li><a href="#">책 리스트</a></li>
-                <li><a href="#">책 등록</a></li>
-                <li><a href="#">책 정보 수정</a></li>
+                <li><a href="/admin/bookList">책 리스트</a></li>
+                <li><a href="/admin/insertBook">책 등록</a></li>
+                <li><a href="/admin/bookList">책 정보 수정</a></li>
             </ul>
             </li>
             <li>
@@ -59,7 +60,6 @@
         </div>
     </div>
     <!-- 네비 사이드 메뉴 끝 -->
-
     <div class="wrap">
         <!-- 헤더 -->
         <div>
@@ -75,13 +75,13 @@
                         <div class="lnb">
                             <ul>
                             <li>
-                                <a href="#">관리자</a>
+                                <a href="/admin/adminIndex?rePage=1">판매점</a>
                             </li>
                             <li>
-                                <a href="#">비밀번호 변경</a>
+                                <a href="/admin/updatePw">비밀번호 변경</a>
                             </li>
                             <li>
-                                <a href="#">로그아웃</a>
+                                <a href="/admin/logout">로그아웃</a>
                             </li>
                             </ul>
                         </div>
@@ -98,61 +98,64 @@
                     <div class="page-title">
                         <h1>판매점 관리</h1>
                     </div>
+                    <form action="">
                     <table>
                         <thead>
                             <tr>
-                                <th style="width: 3%">input</th>
-              					<th style="width: 7%">매장번</th>
+                                <th style="width: 3%">
+                                	<label></label>
+                                	<input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
+                                </th>
+              					<th style="width: 6%">매장번호</th>
               					<th style="width: 10%">매장명</th>
-              					<th style="width: 30%">매장주소</th>
-              					<th style="width: 20%">입접일</th>
-              					<th style="width: 20%">이메일</th>
+              					<th style="width: 25%">매장주소</th>
+              					<th style="width: 8%">개업일</th>
+              					<th style="width: 15%">이메일</th>
+              					<th style="width: 13%">전화번호</th>
               					<th style="width: 10%">관리</th>
+              					<th style="width: 10%">수정/삭제</th>
                             </tr>
                         </thead>
                         <tbody>                            
-                            <tr>
-                                <td>input</td>
-              					<td>10</td>
-              					<td>풍무점</td>
-              					<td>경기도 김포시</td>
-             					<td>1999/2/17</td>
-              					<td>mda@208.naver.com</td>
-              					<td>책 관리</td>
+                            <tr th:each="admin :${list}"><!-- -->                            	
+                            	<td>
+                                <input type="checkbox" name="chk[]" value="1">
+                                </td>
+                            	<td th:text="${admin.adminNo}"></td>
+              					<td th:text="${admin.adminName}"></td>
+              					<td th:text="${admin.adminAddr}"></td>
+             					<td th:text="${admin.openingDay}"></td>
+              					<td th:text="${admin.adminEmail}"></td>
+              					<td th:text="${admin.adminPhone}"></td>
+              					<td><a href="/admin/bookList">책 재고관리</a></td>
+              					<td>
+              					<button class="btn-type2 btn">수정</button>
+              					<button class="btn-type2 btn">삭제</button>
+              					</td>
                             </tr>
-                            <tr>
-                                <td>input</td>
-              					<td>10</td>
-              					<td>풍무점</td>
-              					<td>경기도 김포시</td>
-             					<td>1999/2/17</td>
-              					<td>mda@208.naver.com</td>
-              					<td>책 관리</td>
-                            </tr>
-                            <tr>
-                                <td>input</td>
-              					<td>10</td>
-              					<td>풍무점</td>
-              					<td>경기도 김포시</td>
-             					<td>1999/2/17</td>
-              					<td>mda@208.naver.com</td>
-              					<td>책 관리</td>
-                            </tr>
-                            <tr>
-                                <td>input</td>
-              					<td>10</td>
-              					<td>풍무점</td>
-              					<td>경기도 김포시</td>
-             					<td>1999/2/17</td>
-              					<td>mda@208.naver.com</td>
-              					<td>책 관리</td>
-                            </tr>
+                            	
                         </tbody>
                     </table>
+                   </form>
                 </div>
             </div>
+        <!--페이지 넘기는 부분 (책리스트,매장리스트)
+        <div class="pagination">
+            <ul>
+                <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-left"></i></span></a></li>
+                <li><a class="page-item active-page" href="#">1</a></li>
+                <li><a class="page-item" href="#">2</a></li>
+                <li><a class="page-item" href="#">3</a></li>
+                <li><a class="page-item" href="#">4</a></li>
+                <li><a class="page-item" href="#">5</a></li>
+                <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-right"></i></span></a></li>
+            </ul>
         </div>
-
+        -->
+		<div id="pageNavi" th:utext="${pageNavi}">
+	  	</div>
+		<!--페이지 넘기는 부분 종료 -->
+        </div>
         <!-- footer 시작  헤더 풋더 다 끌어와서 쓰면 됨 -->
         <div>
             <div class="main-footer-wrap">
@@ -171,5 +174,199 @@
             </button>
         </div>
     </div>
+    
+    <script>
+    <!DOCTYPE html>
+    <html lang="ko">
+    <head>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/admin.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    </head>
+    <body>
+        <div class="nav1">
+            <div class="icons-menu">
+                <ul>
+                    <li class="arrow">
+                        <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
+                    </li>
+                    <li class="icon1">
+                        <a href="/admin/adminIndex?rePage=1"><i class="fa-solid fa-house"></i></a>
+                    </li>
+                    <li class="icon1">
+                        <a href="/admin/bookList"><i class="fa-solid fa-book-open"></i></a>
+                    </li>
+                    <li class="icon1">
+                        <a href="#"><i class="fa-solid fa-circle-user"></i></a>
+                    </li>
+                    <li class="icon1">
+                        <a href="#"><i class="fa-brands fa-android"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="admin-menu">
+            <ul>
+                <li>
+                    <h1 class="logo1">
+                        <a href="/admin/adminIndex?rePage=1">책키라웃 관리자</a>
+                    </h1>
+                </li>
+                <li>
+                <a href="/admin/adminIndex?rePage=1">판매점 관리</a>
+                <ul class="sub-menu">
+                    <li><a href="/admin/adminIndex?rePage=1">판매점 리스트</a></li>
+                    <li><a href="/admin/insertAdmin">판매점 등록</a></li>
+                    <li><a href="/admin/updateAdmin">판매점 정보 수정</a></li>
+                    <li><a href="/admin/updatePw">비밀번호 변경</a></li>
+                </ul>
+                </li>
+                <li>
+                <a href="#">책 관리</a>
+                <ul class="sub-menu">
+                    <li><a href="/admin/bookList">책 리스트</a></li>
+                    <li><a href="/admin/insertBook">책 등록</a></li>
+                    <li><a href="/admin/bookList">책 정보 수정</a></li>
+                </ul>
+                </li>
+                <li>
+                <a href="#">1대1 문의</a>
+                </li>
+                <li>
+                <a href="#">챗봇</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+        <!-- 네비 사이드 메뉴 끝 -->
+        <div class="wrap">
+            <!-- 헤더 -->
+            <div>
+                <div class="main-header-wrap">
+                    <div class="header-main1">
+                        <div class="inner">
+                            <div class="search">
+                                <input type="text" name="search" />
+                                <button class="search-btn" type="button">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </div>
+                            <div class="lnb">
+                                <ul>
+                                <li>
+                                    <a href="/admin/adminIndex?rePage=1">판매점</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/updatePw">비밀번호 변경</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/logout">로그아웃</a>
+                                </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 헤더 -->
+            </div>
+
+            <!-- 컨텐츠 영역 -->
+            <div class="content">
+                <div class="inner">
+                    <div class="container">
+                        <div class="page-title">
+                            <h1>판매점 관리</h1>
+                        </div>
+                        <form action="">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 3%">
+                                    	<label></label>
+                                    	<input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
+                                    </th>
+                  					<th style="width: 6%">매장번호</th>
+                  					<th style="width: 10%">매장명</th>
+                  					<th style="width: 25%">매장주소</th>
+                  					<th style="width: 8%">개업일</th>
+                  					<th style="width: 15%">이메일</th>
+                  					<th style="width: 13%">전화번호</th>
+                  					<th style="width: 10%">관리</th>
+                  					<th style="width: 10%">수정/삭제</th>
+                                </tr>
+                            </thead>
+                            <tbody>                            
+                                <tr th:each="admin :${list}"><!-- -->                            	
+                                	<td>
+                                    <input type="checkbox" name="chk[]" value="1">
+                                    </td>
+                                	<td th:text="${admin.adminNo}"></td>
+                  					<td th:text="${admin.adminName}"></td>
+                  					<td th:text="${admin.adminAddr}"></td>
+                 					<td th:text="${admin.openingDay}"></td>
+                  					<td th:text="${admin.adminEmail}"></td>
+                  					<td th:text="${admin.adminPhone}"></td>
+                  					<td><a href="/admin/bookList">책 재고관리</a></td>
+                  					<td>
+                  					<button class="btn-type2 btn">수정</button>
+                  					<button class="btn-type2 btn">삭제</button>
+                  					</td>
+                                </tr>
+                                	
+                            </tbody>
+                        </table>
+                       </form>
+                    </div>
+                </div>
+            <!--페이지 넘기는 부분 (책리스트,매장리스트)
+            <div class="pagination">
+                <ul>
+                    <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-left"></i></span></a></li>
+                    <li><a class="page-item active-page" href="#">1</a></li>
+                    <li><a class="page-item" href="#">2</a></li>
+                    <li><a class="page-item" href="#">3</a></li>
+                    <li><a class="page-item" href="#">4</a></li>
+                    <li><a class="page-item" href="#">5</a></li>
+                    <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-right"></i></span></a></li>
+                </ul>
+            </div>
+            -->
+    		<div id="pageNavi" th:utext="${pageNavi}">
+    	  	</div>
+    		<!--페이지 넘기는 부분 종료 -->
+            </div>
+            <!-- footer 시작  헤더 풋더 다 끌어와서 쓰면 됨 -->
+            <div>
+                <div class="main-footer-wrap">
+                    <div class="copyright">
+                        <div class="inner">
+                        <h4>COPYRIGHT &copy;책키라웃 ALL RIGHTS RESERVED.</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- footer 끝 -->
+
+            <div id="scroll-btn">
+                <button id="top-btn">
+                    <i style=" --fa-bounce-start-scale-x: 1; --fa-bounce-start-scale-y: 1; --fa-bounce-jump-scale-x: 1; --fa-bounce-jump-scale-y: 1; --fa-bounce-land-scale-x: 1; --fa-bounce-land-scale-y: 1; --fa-bounce-rebound: 0;" class="fa-solid fa-angles-up fa-bounce" ></i>
+                </button>
+            </div>
+        </div>
+        
+        <script>
+        <!--input 전체 선택 로직 -->
+        function check_all(f)
+        {
+            var chk = document.getElementsByName("chk[]");
+
+            for (i=0; i<chk.length; i++)
+                chk[i].checked = f.chkall.checked;
+        }
+        
+        </script>
+    </body>
+    </html>
+    
+    </script>
 </body>
 </html>
