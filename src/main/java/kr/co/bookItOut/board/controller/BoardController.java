@@ -222,8 +222,8 @@ public class BoardController {
 		}
 	}
 	@GetMapping(value="/search")
-	public String search(String type, String keyword, int reqPage, Model model) {
-		BoardListData bld  = boardService.search(type,keyword,reqPage);
+	public String search(String type, String option, String keyword, int reqPage, Model model) {
+		BoardListData bld  = boardService.search(type,keyword,reqPage,option);
 		model.addAttribute("list" ,bld.getList());
 		model.addAttribute("pageNavi" ,bld.getPageNavi());
 		return "board/list";

@@ -4,69 +4,69 @@
 <meta charset="UTF-8">
 <title>자유게시판</title>
 <style>
-.page-title {
-	font-size: xx-large;
-	font-weight: bold;
-	text-align: center;
-	margin-top: 100px;
-	margin-bottom: 50px;
-	color: #74512D;
-}
-
-.board-view-wrap {
-	width: 1200px;
-	margin: 0 auto
-}
-
-.boardContent {
-	min-height: 300px;
-}
-
-th, td {
-	border: 1px solid #74512D;
-	padding: 10px;
-}
-
-td {
-	background-color: #F8F4E1;
-}
-
-th {
-	background-color: #AF8F6F;
-	color: white;
-}
-
-.tbl {
-	width: 80%;
-	margin-left: 10%;
-	margin-right: 10%;
-	background-color: transparent;
-	margin-bottom: 100px;
-	border: #74512D solid;
-	box-sizing: border-box;
-	overflow: hidden;
-}
-
-.boardContent {
-	background-color: #F8F4E1;
-	padding: none;
-	width: 100%;
-	border: none;
-}
-
-#update {
-	background-color: #AF8F6F;
-	color: white;
-}
-
-#delete {
-	background-color: #AF8F6F;
-	color: white;
-}
-
-#hide {
-	text-align: center;
-}
+	.page-title {
+		font-size: xx-large;
+		font-weight: bold;
+		text-align: center;
+		margin-top: 100px;
+		margin-bottom: 50px;
+		color: #74512D;
+	}
+	
+	.board-view-wrap {
+		width: 1200px;
+		margin: 0 auto
+	}
+	
+	.boardContent {
+		min-height: 300px;
+	}
+	
+	th, td {
+		border: 1px solid #74512D;
+		padding: 10px;
+	}
+	
+	td {
+		background-color: #F8F4E1;
+	}
+	
+	th {
+		background-color: #AF8F6F;
+		color: white;
+	}
+	
+	.tbl {
+		width: 80%;
+		margin-left: 10%;
+		margin-right: 10%;
+		background-color: transparent;
+		margin-bottom: 100px;
+		border: #74512D solid;
+		box-sizing: border-box;
+		overflow: hidden;
+	}
+	
+	.boardContent {
+		background-color: #F8F4E1;
+		padding: none;
+		width: 100%;
+		border: none;
+	}
+	
+	#update {
+		background-color: #AF8F6F;
+		color: white;
+	}
+	
+	#delete {
+		background-color: #AF8F6F;
+		color: white;
+	}
+	
+	#hide {
+		text-align: center;
+	}
 </style>
 </head>
 <body>
@@ -76,7 +76,7 @@ th {
 			<div class="page-title">게시물 상세보기</div>
 			<table class="tbl board-view">
 				<tr>
-					<th colspan="6" th:text="${b.boardTitle}"></th>
+					<th colspan="6" style="font-size: x-large;" th:text="${b.boardTitle}"></th>
 				</tr>
 				<tr>
 					<th style="width: 20%;">작성자</th>
@@ -179,7 +179,6 @@ th {
 							</ul>
 						</form>
 					</div>
-					<!-- 출력한 댓글의 대댓글 출력 -->
 					<ul class="posting-comment reply"
 						th:each="bcc : ${b.reCommentList}"
 						th:if="${bc.boardCommentNo == bcc.boardCommentRef}">

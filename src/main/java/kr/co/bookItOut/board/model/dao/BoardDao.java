@@ -102,19 +102,62 @@ public class BoardDao {
 		return list;
 	}
 
-	public List searchBoard(String type, String keyword, int start, int end) {
+	public List searchBoard(String type, String keyword, int start, int end, String option) {
 		String query = "";
-		if (type.equals("title")) {
-			query = "select * from (select rownum as rnum, n.* from (select * from board where board_title like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
+		if(type.equals("none")) {
+			if(option.equals("new")) {				
+				query = "select * from (select rownum as rnum, n.* from (select * from board order by 1 desc)n) where rnum between ? and ? ";
+			}else if(option.equals("old")){
+				query = "select * from (select rownum as rnum, n.* from (select * from board order by 1)n) where rnum between ? and ? ";
+			}else if(option.equals("readCount")){
+				query = "select * from (select rownum as rnum, n.* from (select * from board order by read_count desc)n) where rnum between ? and ? ";
+			}
+			Object[] params = { start, end };
+			List list = jdbc.query(query, boardRowMapper, params);
+			return list;
+		} else if (type.equals("title")) {
+			if(option.equals("new")) {	
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_title like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
+			}else if(option.equals("old")){
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_title like '%'||?||'%' order by 1)n) where rnum between ? and ? ";
+			}else if(option.equals("readCount")){
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_title like '%'||?||'%' order by read_count desc)n) where rnum between ? and ? ";
+			}else if(option.equals(type)){
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_title like '%'||?||'%' order by board_title)n) where rnum between ? and ? ";
+			}	
 		} else if (type.equals("writer")) {
-			query = "select * from (select rownum as rnum, n.* from (select * from board where board_writer like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
+			if(option.equals("new")) {	
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_writer like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
+			}else if(option.equals("old")){
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_writer like '%'||?||'%' order by 1)n) where rnum between ? and ? ";
+			}else if(option.equals("readCount")){
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_writer like '%'||?||'%' order by read_count desc)n) where rnum between ? and ? ";
+			}else if(option.equals(type)){
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_writer like '%'||?||'%' order by board_writer)n) where rnum between ? and ? ";
+			}	
 		} else if (type.equals("titleContent")) {
-			query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' or board_title like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
+			if(option.equals("new")) {	
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' or board_title like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
+			}else if(option.equals("old")){
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' or board_title like '%'||?||'%' order by 1)n) where rnum between ? and ? ";
+			}else if(option.equals("readCount")){
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' or board_title like '%'||?||'%' order by read_count desc)n) where rnum between ? and ? ";
+			}else if(option.equals(type)){
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' or board_title like '%'||?||'%' order by board_title)n) where rnum between ? and ? ";
+			}	
 			Object[] params = { keyword, keyword, start, end };
 			List list = jdbc.query(query, boardRowMapper, params);
 			return list;
 		} else if (type.equals("content")) {
-			query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
+			if(option.equals("new")) {	
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
+			}else if(option.equals("old")){
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' order by 1)n) where rnum between ? and ? ";
+			}else if(option.equals("readCount")){
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' order by read_count desc)n) where rnum between ? and ? ";
+			}else if(option.equals(type)){
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' order by board_content)n) where rnum between ? and ? ";
+			}	
 		}
 		Object[] params = { keyword, start, end };
 		List list = jdbc.query(query, boardRowMapper, params);
