@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>장바구니</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+	rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<style>
+.content {
+	text-align: center;
+}
+
+.tbl {
+	width: 900px;
+	text-align: center;
+	margin: auto;
+	margin-top: 50px;
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+}
+
+.tbl tr:nth-child(1) {
+	border-bottom: 2px solid black;
+}
+
+.tbl tr:nth-child(2) {
+	border-bottom: 1px solid black;
+}
+
+.tbl2 {
+	width: 900px;
+	text-align: left;
+	margin: auto;
+}
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main class="content">
+
+		<form action="" method="post">
+			<div style="margin-top: 60px;">
+				<h1>장바구니</h1>
+			</div>
+			<table style="border-collapse: collapse;" class="tbl">
+				<tr style="height: 50px;">
+					<th style="width: 3%"><span class="material-icons-outlined">check_circle</span>
+					</th>
+					<th style="width: 20%" colspan="2">책정보</th>
+					<th style="width: 20%">수량</th>
+					<th style="width: 20%">가격</th>
+					<th style="width: 20%">선택</th>
+				</tr>
+				<tr>
+					<td><span class="material-icons-outlined">check_circle</span></td>
+					<td>책표지</td>
+					<td>제목</td>
+					<td><button>+</button></td>
+					<td>가격</td>
+					<td>
+						<button>바로구매</button>
+						<button>삭제</button>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="5" style="text-align: left; padding: 10px;">
+						<button class="btn-type1 btn">선택 삭제</button>
+					</td>
+				</tr>
+			</table>
+			<table class="tbl2">
+				<tr>
+					<td rowspan="5" style="text-align: left; vertical-align: top;">
+						<h2>총 주문 금액</h2>
+					</td>
+				</tr>
+				<tr>
+					<td>주문상품 수</td>
+					<td style="width: 200px;"></td>
+				</tr>
+				<tr>
+					<td>주문 금액</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>배송비</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>최종결제금액</td>
+					<td></td>
+				</tr>
+			</table>
+			<span class="btn-type2 btn" style="margin-right: 5px">
+            	  <a href="/">쇼핑하러 가기</a>
+            </span>
+			<input type="submit" class="btn-type3 btn" value="선택상품 구매">
+			<input type="submit" class="btn-type4 btn" value="전체상품 구매">
+		</form>
+
+		<div class="clear"></div>
+	</main>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>

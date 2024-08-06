@@ -18,5 +18,6 @@ public class Member {
 	private String memberPhone;
 	private String memberImg;
 	private String enrollDate;
+	private String memberMail;
 	
 }

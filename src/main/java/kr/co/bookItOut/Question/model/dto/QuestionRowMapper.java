@@ -18,6 +18,7 @@ public class QuestionRowMapper implements RowMapper<Question>{
 		q.setQuestionNo(rs.getInt("question_no"));
 		q.setQuestionTitle(rs.getString("question_title"));
 		q.setQuestionType(rs.getString("question_type"));
+		q.setQuestionEmail(rs.getString("question_email"));
 		return q;
 	}
 	
