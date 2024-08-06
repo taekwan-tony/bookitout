@@ -7,12 +7,18 @@ import org.springframework.stereotype.Service;
 
 
 import kr.co.bookItOut.book.model.dao.BookDao;
+import kr.co.bookItOut.book.model.dto.BookContent;
 import kr.co.bookItOut.book.model.dto.BookListData;
 
 @Service
 public class BookService {
 	@Autowired
 	private BookDao bookDao;
+
+//	public int insertComment(BookContent bc) {
+//		int result = bookDao.insertComment(bc);
+//		return 0;
+//	}
 
 	public BookListData selectBookList(int reqPage) {
 		int numPerPage = 10;
@@ -68,4 +74,5 @@ public class BookService {
 		
 		return bld;
 	}
+
 }

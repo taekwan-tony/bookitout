@@ -276,7 +276,7 @@ img {
 						</div>
 						<div class="input-item">
 							<input type="text" name="memberMail" id="memberMail">
-							<button type="button" class="mail-btn">인증코드 발송</button>
+							<button type="button" class="mail-btn" id="mail-btn">인증코드 발송</button>
 						</div>
 					</div>
 					<div class="input-wrap">
@@ -368,6 +368,21 @@ img {
 				$(".id-check-msg").text("아이디는 영어+숫자로 4~20글자 입니다.");
 				$(".id-check-msg").css("color", "red");
 			}
+		});
+		
+		$("#mail-btn").on("click",function(){
+			const receiver = $("#memberMail").val();
+			$.ajax({
+				url : "/member/sendCode",
+				data : {receiver : receiver},
+				type : "post",
+				success : function(data){
+					console.log(data);
+				},
+				error : function(){
+					console.log("에러");
+				}
+			});
 		});
 	</script>
 

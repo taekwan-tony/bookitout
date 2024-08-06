@@ -83,9 +83,9 @@
 				</div>
 				<div class="content-main-text">
 					<ul>
-						<a href="#">1:1 문의</a>
-						<li><a href="#">1:1 문의 접수</a></li>
-						<li><a href="#">1:1 문의 내역</a></li>
+						<a href="/Question/questionList?type=1&reqPage=1">1:1 문의</a>
+						<li><a href="/Question/writeQuestionFrm">1:1 문의 접수</a></li>
+						<li><a href="/Question/questionList?type=1&reqPage=1">1:1 문의 내역</a></li>
 					</ul>
 				</div>
 				<div class="content-main-text">
@@ -136,8 +136,7 @@
 							<table class="question-tbl tbl">
 								<tr>
 									<th>이메일</th>
-									<td><input type="text" name="questionEmail" id="questionEmail" placeholder="이메일을 입력하세요."></td>
-									<!-- <td><input type="text" name="questionEmail" id="questionEmail" th:value="${session.member.memberMail}"></td> -->
+									<td><input type="text" name="questionEmail" id="questionEmail" th:value="${session.member.memberMail}"></td>
 								
 								</tr>
 							</table>

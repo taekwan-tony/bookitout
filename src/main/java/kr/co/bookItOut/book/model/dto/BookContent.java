@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class BookContent {
 	 private int bookCommentNo;
-	 private String boardCommentContent;
-	 private String boardCommentDate;
-	 private int boardNoRef;
 	 private int bookNo;
 	 private int memberNo;
+	 private String bookCommentContent;
+	 private String bookCommentDate;
 }
