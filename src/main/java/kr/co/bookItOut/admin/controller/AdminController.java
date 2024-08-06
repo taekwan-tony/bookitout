@@ -44,7 +44,7 @@ public class AdminController {
 		return "redirect:/";
 	}
 	//판매점 등록
-	@PostMapping(value = "/insertAdmin")
+	@GetMapping(value = "/insertAdmin")
 	public String insertAdmin() {
 		return "/admin/insertAdmin";
 	}
