@@ -61,7 +61,8 @@ public class QuestionController {
 	}
 	
 	@GetMapping(value="/questionList")
-	public String questionList(int type,int reqPage) {
+	public String questionList(int memberNo,int type,int reqPage,Model model) {
+		
 		return "question/questionList";
 	}
 	

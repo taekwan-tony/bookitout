@@ -6,52 +6,47 @@
 <link rel="stylesheet" href="/css/customercenter.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
-	.question-tbl{
+	
+	.tab-btn{
+		border:none;
+		background : none;
+	}
+	.tab-ul{
+		display: flex;
+		align-items : center;
+		justify-content : left;
+		height:44px;
+		border-bottom:1px solid black;
+	}
+	.tab-ul>li{
+		border:1px solid var(--gray2);
+		border-top-left-radius : 10px;
+		border-top-right-radius : 10px;
+		min-width: 160px;
+		padding : 0;
+		text-align:center;
+		height:100%;
+		border-bottom:1px solid black;
+	}
+	.tab-ul>.click{
+		border-top :1px solid black;
+		border-left : 1px solid black;
+		border-right : 1px solid black;
+		border-bottom: 1px solid white;
+		
+	}
+	.tab-ul>li>button{
 		width:100%;
+		height:100%;
 	}
-	.question-tbl tr{
-		height : 100px;
+	.tab-ul>li>button>span{
+		line-height:46px;
+		font-size:20px;
+		font-family:Tenada;
 	}
-	.question-tbl tr>td>*{
-		width:90%;
-	}
-	#questionTitle{
-		border-radius:10px;
-		height: 47px;
-		border:1px solid var(--gray1);
-		padding-left : 15px;
-	}
-	.question-tbl tr>td>#questionEmail{
-		width:60%;
-	}
-	#questionEmail{
-		border-radius:10px;
-		height: 47px;
-		border:1px solid var(--gray1);
-		padding-left : 15px;
-	}
-	.question-btn-wrap>button{
-		width:30%;
-	}
-	.question-tbl tr>th>sup{
-		color : red;
-	}
-	.answer-method-wrap{
-		border-bottom : 1px solid var(--gray1);
-		border-top : 1px solid var(--gray1);
-	}
-	.answer-method-wrap{
-		padding: 15px 0;
-	}
-	.question-btn-wrap{
-		padding : 20px; 
-		display : flex;
-		gap : 10px;
-		justify-content : center;	
-		align-items: center;	
-	}
-	.answer-method-wrap>div:first-child{
-		padding-left : 15px;
+	.tab-list-wrap{
+		padding-bottom : 50px;
+		border-bottom : 1px solid var(--gray2);
 	}
 </style>
 </head>
@@ -83,9 +78,9 @@
 				</div>
 				<div class="content-main-text">
 					<ul>
-						<a href="/Question/questionList?type=1&reqPage=1">1:1 문의</a>
+						<a th:href="@{/Question/questionList(memberNo=${session.member.memberNo},type=1,reqPage=1)}">1:1 문의</a>
 						<li><a href="/Question/writeQuestionFrm">1:1 문의 접수</a></li>
-						<li><a href="/Question/questionList?type=1&reqPage=1">1:1 문의 내역</a></li>
+						<li><a th:href="@{/Question/questionList(memberNo=${session.member.memberNo},type=1,reqPage=1)}">1:1 문의 내역</a></li>
 					</ul>
 				</div>
 				<div class="content-main-text">
@@ -96,55 +91,54 @@
 			</div>
 			<div class="customer-content-wrap">
 				<div class="content-msg customer-main-msg">
-					<h2>1:1 문의 접수</h2>
+					<h2>1:1 문의 내역</h2>
 				</div>
 				<div class="write-question-wrap">
-					<form action="/Question/insertQuestion"  method="post" class="write-form" enctype="multipart/form-data" >
-						<table class="question-tbl tbl">
-							<tr>
-								<th style="width:20%;">문의 유형 <sup>*</sup></th>
-								<td style="width:80%;">
-									<select class="select-width" name="questionType" required>
-										<option value="회원가입/탈퇴">회원가입/탈퇴</option>
-										<option value="반품/교환/환불">반품/교환/환불</option>
-										<option value="주문/결제">주문/결제</option>
-										<option value="배송/수령일 안내">배송/수령일 안내</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<th>문의 제목 <sup>*</sup> </th>
-								<td><input type="text" name="questionTitle" id="questionTitle" placeholder="제목을 입력해 주세요." required></td>
-							</tr>
-							<tr>
-								<th></th>
-								<td><textarea name="questionContent" id="questionContent"></textarea></td>
-							</tr>
-							<tr>
-								<th>사진첨부</th>
-								<td>
-									<input type="file" name="upfile" accept=".gif,.jpg,.png" multiple>
-										<input type="hidden" name="memberNo" id="memberNo" th:value="${session.member.memberNo}">
-								</td>
-							</tr>
-							
-						</table>
-						<div class="answer-method-wrap">
-							<div>
-								<h3>문의에 대한 답변 등록 시 알려드립니다.</h3>
+					<div class="tab-list-wrap">
+						<ul class="tab-ul">
+							<li class="tab-item ui-state-active click">
+								<button class="tab-btn">
+									<span><a href="#">전체</a></span>
+								</button>
+							</li>
+							<li class="tab-item ui-state-active">
+								<button class="tab-btn">
+									<span><a href="#">처리중</a></span>
+								</button>
+							</li>
+							<li class="tab-item ui-state-active">
+								<button class="tab-btn">
+									<span><a href="#">완료</a></span>
+								</button>
+							</li>			
+						</ul>
+					</div>
+					<th:block th:each="faq : ${list}">
+					<div class="total-faq-box">
+						<div class="btn-content-box">
+							<div class="question-box">
+								<div>
+									<span class="material-icons question-icon-color">help_outline</span>
+									<span th:text="${faq.faqTitle}" id="faqTitle"></span>							
+								</div>
+								<div>
+									<span class="material-icons right-btn">expand_more</span>
+								</div>
 							</div>
-							<table class="question-tbl tbl">
-								<tr>
-									<th>이메일</th>
-									<td><input type="text" name="questionEmail" id="questionEmail" th:value="${session.member.memberMail}"></td>
-								</tr>
-							</table>
+							<button type="button" class="question-btn" id="btn-check" onclick="checkQuestion(this)">
+							</button>
 						</div>
-						<div class="question-btn-wrap">
-							<button type="button" class="btn-type2 btn" onclick="location.href='/FAQ/faqfrm?type=1&reqPage=1'">취소</button>
-							<button type="submit" class="btn-type3 btn">FAQ 작성</button>	
+						<div class="content-box down-box">
+							<div>
+								<div>
+									<span class="material-icons">east</span>
+								</div>
+								<div th:utext="${faq.faqContent}"></div>
+							</div>
 						</div>
-					</form>
+					</div>
+					</th:block>
+					<th:block th:utext="${navi}"></th:block>
 				</div>
 			</div>
 		</div>
@@ -152,4 +146,21 @@
 	
 	<th:block th:include="common/footer"></th:block>
 </body>
+<script>
+	function checkQuestion(obj){
+		if($(".left").index() != 0){
+			$(".left").parent().next().hide();
+	}
+	$(".right-btn").removeClass("left");
+	$(obj).addClass("left");
+	
+	$(".right-btn").text("expand_more");
+		if($(obj).prev().children().next().children().text()=="expand_more"){
+			$(obj).prev().children().next().children().text("expand_less");
+			$(obj).parent().next().toggle(300);
+		}else{
+			$(obj).prev().children().next().children().text("expand_more");
+		}
+	}
+</script>
 </html>
