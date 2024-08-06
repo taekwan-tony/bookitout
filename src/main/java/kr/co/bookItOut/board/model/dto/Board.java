@@ -13,9 +13,9 @@ public class Board {
 	private int boardNo;
 	private String boardTitle;
 	private String boardContent;
+	private String boardWriter;
 	private int readCount;
 	private String regDate;
-	private String memberId;
 	private List<BoardF‎ile> fileList;
 	private List<BoardComment> commentList;
 	private List<BoardComment> reCommentList;

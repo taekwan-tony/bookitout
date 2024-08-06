@@ -20,4 +20,7 @@ public class Book {
 	private String bookDetailContent;
 	private String bookDetailWriter;
 	private String bookDetailImg;
+	private String bookType;
+	private String bookGenre;
+	private int bookCount;
 }

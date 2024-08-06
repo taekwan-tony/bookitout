@@ -48,6 +48,11 @@ public class AdminController {
 	public String insertAdmin() {
 		return "/admin/insertAdmin";
 	}
+	//판매점 비밀번호 찾기
+	@GetMapping(value = "/updatePw")
+	public String updatePw() {
+		return "/admin/updatePw";
+	}
 	
 	
 	
