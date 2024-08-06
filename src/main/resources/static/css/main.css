@@ -474,3 +474,10 @@ select>option{
 .badge:last-child{
     margin-right: 0;
 }
+
+
+/* 챗봇 */
+.dIkpba{
+	bottom: 115px;
+	right: 48px;
+}
