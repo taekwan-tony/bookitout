@@ -2,7 +2,7 @@
 <html xmlns:th="http/www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>1:1문의</title>
+<title>1:1문의 내역</title>
 <link rel="stylesheet" href="/css/customercenter.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
@@ -136,9 +136,7 @@
 							<table class="question-tbl tbl">
 								<tr>
 									<th>이메일</th>
-									<td><input type="text" name="questionEmail" id="questionEmail" placeholder="이메일을 입력하세요."></td>
-									<!-- <td><input type="text" name="questionEmail" id="questionEmail" th:value="${session.member.memberMail}"></td> -->
-								
+									<td><input type="text" name="questionEmail" id="questionEmail" th:value="${session.member.memberMail}"></td>
 								</tr>
 							</table>
 						</div>
@@ -154,38 +152,4 @@
 	
 	<th:block th:include="common/footer"></th:block>
 </body>
-<script>
-		$("#questionContent").summernote({
-			height : 500,
-			width : 800,
-			lang : "ko-KR",
-			disableResize : true,
-			disableResizeEditor : true,
-			resize : false
-		});
-		function uploadImage(file,editor){
-			
-			const form = new FormData();
-			form.append("upfile",file);
-			
-			 $.ajax({
-				 url : "/Question/editorImage",
-				 type : "post",
-				 data : form,
-				 processData : false,
-				 contentType : false,
-				 success : function(data){
-					 $(editor).summernote("insertImage",data);
-				 },
-				 error : function(){
-					 console.log("에러");
-				 }
-			 });
-			//processData : 데이터 전송 시 기본적으로 문자열로 전송하게 세팅 -> 그 기본세팅을 무효화
-			//contentType : enctype="application/x-www-form-urlencoded;charset=utf-8"
-			//				-> enctype 기본값 해제
-			//processData, contentType 기본설정을 해제해야 파일전송 가능
-			// enctype="multipart/form-data"
-		}
-</script>
 </html>
