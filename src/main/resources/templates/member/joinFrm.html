@@ -270,15 +270,27 @@ img {
 							<input type="text" name="memberPhone" id="memberPhone">
 						</div>
 					</div>
-					<div class="input-wrap">
-						<div class="input-title">
-							<label for="memberMail">메일</label>
+					
+					
+					
+					
+					
+						<div class="input-wrap">
+							<div class="input-title">
+								<label for="memberMail">메일</label>
+							</div>
+							
+							<div class="input-item">
+								<input type="text" name="memberMail" id="memberMail">
+								<button type="submit" class="mail-btn">인증코드 발송</button>
+							</div>
 						</div>
-						<div class="input-item">
-							<input type="text" name="memberMail" id="memberMail">
-							<button type="button" class="mail-btn">인증코드 발송</button>
-						</div>
-					</div>
+					
+					
+					
+					
+					
+					
 					<div class="input-wrap">
 						<div class="input-title">
 							<label for="check">인증코드</label>
@@ -369,6 +381,28 @@ img {
 				$(".id-check-msg").css("color", "red");
 			}
 		});
+		
+		$(document).ready(function() {
+            $('#sendMailBtn').click(function() {
+                var memberMail = $('#memberMail').val();
+
+                $.ajax({
+                    url: '/sendMail',
+                    type: 'POST',
+                    data: {
+                        memberMail: memberMail
+                    },
+                    success: function(response) {
+                        console.log('이메일 전송 성공:', response);
+                        alert('인증 코드가 발송되었습니다.');
+                    },
+                    error: function(error) {
+                        console.log('에러 발생:', error);
+                        alert('이메일 전송에 실패했습니다. 다시 시도해 주세요.');
+                    }
+                });
+            });
+        });
 	</script>
 
 
