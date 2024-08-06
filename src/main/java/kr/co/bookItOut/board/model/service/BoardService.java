@@ -194,4 +194,10 @@ public class BoardService {
 			return -1;
 		}
 	}
+	public Board getOneBoard(int boardNo) {
+		Board b= boardDao.selectOneBoard(boardNo);
+		List list = boardDao.selectBoardFile(boardNo);
+		b.setFileList(list);
+		return b;
+	}
 }

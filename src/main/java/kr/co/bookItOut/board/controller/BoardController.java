@@ -120,14 +120,18 @@ public class BoardController {
 				File delFile = new File(savepath+file.getFilepath());
 				delFile.delete();
 			}
-			/*model.addAttribute("title", "삭제 성공");
+			model.addAttribute("title", "삭제 성공");
 			model.addAttribute("msg", "게시글이 삭제되었습니다.");
 			model.addAttribute("icon", "success");
 			model.addAttribute("loc", "/board/list?reqPage=1");
 		}
-		return "common/msg";*/
-		}
-		return "/board/list?reqPage=1";
+		return "common/msg";
+	}
+	@GetMapping(value="/updateFrm")
+	public String updateFrm(int boardNo, Model model) {
+		Board b = boardService.getOneBoard(boardNo);
+		model.addAttribute("b", b);
+		return "board/updateFrm";
 	}
 	@PostMapping(value="/update")
 	public String update(Board b, MultipartFile[] upfile, int[] delFileNo, Model model) {

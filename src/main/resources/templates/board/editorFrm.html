@@ -50,14 +50,14 @@
 	}
 	th{
 		background-color: #AF8F6F;
-	}
-	.left{
-		padding: 0;
-		width:1005%;
+		color: white;
 	}
 	input:focus{
 		outline: none;
 		border: none;
+	}
+	#sub{
+		color: white;
 	}
 </style>
 </head>
@@ -92,13 +92,13 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="4" class="left">
+						<td colspan="4">
 							<textarea name="boardContent" id="boardContent"></textarea>
 						</td>
 					</tr>
 					<tr>
 						<td class="last" colspan="4">
-							<button type="submit" class="btn-primary lg">게시물 작성</button>
+							<button type="submit" class="btn-primary lg" id="sub">게시물 작성</button>
 						</td>
 					</tr>
 				</table>
