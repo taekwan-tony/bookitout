@@ -12,7 +12,33 @@
 	padding: 15px;
 	border-radius: 10px; 
 }
-
+.container div label{
+	font-family: "Tenada";
+	font-size: 20px;
+}
+.container>div{
+	border: 1px solid var(--color1);
+}
+.container div{
+	padding: 10px;
+}
+.container .input-item{
+	padding-left: 70px;
+}
+.container .input-item input{
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.1);
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	width:  70%;
+	font-size: 20px;
+}
+.container .admin-button-box{
+	text-align: center;
+}
+.nav1{
+height: 100vh !important;
+}
 
 </style>
 </head>
@@ -49,7 +75,7 @@
             <ul class="sub-menu">
                 <li><a href="/admin/adminIndex?rePage=1">판매점 리스트</a></li>
                 <li><a href="/admin/insertAdmin">판매점 등록</a></li>
-                <li><a href="#">비밀번호 수정</a></li>
+                <li><a href="#">비밀번호 변경</a></li>
             </ul>
             </li>
             <li>
@@ -111,12 +137,38 @@
                     <form action="/admin/insertAdmin" method="post" autocomplete="off">
 			 	<div class="input-wrap">
 			 		<div class="input-title">
-			 			<label for="adminName">이메일 입력</label>
+			 			<label for="adminId">판매점 아이디 입력</label>
 			 		</div>
 			 		<div class="input-item">
-			 			<input type="text" name="adminName" id="adminName">
+			 			<input type="text" name="adminId" id="adminId">
 			 		</div>
 			 	</div>
+				<div class="input-wrap">
+			 		<div class="input-title">
+			 			<label for="adminPw">판매점 비밀번호 입력</label>
+			 		</div>
+			 		<div class="input-item">
+			 			<input type="text" name="adminPw" id="adminPw">
+			 		</div>
+			 	</div>
+			 	<!-- 숨겼다가 아이디 비번 맞으면 보여줌 -->
+			 	<div class="input-wrap">
+			 		<div class="input-title">
+			 			<label for="newAdminPw">새 비밀번호 입력</label>
+			 		</div>
+			 		<div class="input-item">
+			 			<input type="text" name="newAdminPw" id="newAdminPw">
+			 		</div>
+			 	</div>
+			 	<div class="input-wrap">
+			 		<div class="input-title">
+			 			<label for="rNewAdminPw">비밀번호 확인</label>
+			 		</div>
+			 		<div class="input-item">
+			 			<input type="text" name="rNewAdminPw" id="rNewAdminPw">
+			 		</div>
+			 	</div>
+			 	<!-- 숨김---끝 -->
 			 	<div class="admin-button-box">
 			 		<button type="submit" class="btn-type4 btn" onclick="return checkValue();">비밀번호 변경</button>
 			 	</div>
@@ -153,7 +205,6 @@
         for (i=0; i<chk.length; i++)
             chk[i].checked = f.chkall.checked;
     }
-    
     </script>
 </body>
 </html>
