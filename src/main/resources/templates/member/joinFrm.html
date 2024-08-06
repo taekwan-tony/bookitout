@@ -285,12 +285,20 @@ img {
 								<button type="submit" class="mail-btn">인증코드 발송</button>
 							</div>
 						</div>
+<<<<<<< Updated upstream
 					
 					
 					
 					
 					
 					
+=======
+						<div class="input-item">
+							<input type="text" name="memberMail" id="memberMail">
+							<button type="button" class="mail-btn" id="mail-btn">인증코드 발송</button>
+						</div>
+					</div>
+>>>>>>> Stashed changes
 					<div class="input-wrap">
 						<div class="input-title">
 							<label for="check">인증코드</label>
@@ -382,6 +390,7 @@ img {
 			}
 		});
 		
+<<<<<<< Updated upstream
 		$(document).ready(function() {
             $('#sendMailBtn').click(function() {
                 var memberMail = $('#memberMail').val();
@@ -403,6 +412,22 @@ img {
                 });
             });
         });
+=======
+		$("#mail-btn").on("click",function(){
+			const receiver = $("#memberMail").val();
+			$.ajax({
+				url : "/member/sendCode",
+				data : {receiver : receiver},
+				type : "post",
+				success : function(data){
+					console.log(data);
+				},
+				error : function(){
+					console.log("에러");
+				}
+			});
+		});
+>>>>>>> Stashed changes
 	</script>
 
 
