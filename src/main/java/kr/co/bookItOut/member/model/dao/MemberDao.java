@@ -36,8 +36,8 @@ public class MemberDao {
 		}
 	}
 	public int insertMember(Member m) {
-		String query = "insert into member_tbl values(member_seq.nextval,?,?,?,?,?,?,?,?,to_char(sysdate,'yyyy-mm-dd'))";
-		Object[] params = {m.getMemberId(),m.getMemberPw(),m.getMemberName(), m.getMemberGender(), m.getMemberAge(), m.getMemberAddr(),m.getMemberPhone(),m.getMemberImg()};
+		String query = "insert into member_tbl values(member_seq.nextval,?,?,?,?,?,?,?,?,to_char(sysdate,'yyyy-mm-dd'),?)";
+		Object[] params = {m.getMemberId(),m.getMemberPw(),m.getMemberName(), m.getMemberGender(), m.getMemberAge(), m.getMemberAddr(),m.getMemberPhone(),m.getMemberImg(),m.getMemberMail()};
 		int result = jdbc.update(query, params);
 		return result;
 	}

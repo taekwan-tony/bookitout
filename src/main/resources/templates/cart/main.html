@@ -4,31 +4,38 @@
 <meta charset="UTF-8">
 <title>장바구니</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+	rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
 <style>
-	.content{
-		text-align: center;
-	}
-	.tbl{
-		width: 900px;
-		text-align: center;
-		margin: auto;
-		margin-top: 50px;
-		border-top: 2px solid black;
-		border-bottom: 2px solid black;
-	}
-	.tbl tr:nth-child(1){
-		border-bottom: 2px solid black;
-	}
-	.tbl tr:nth-child(2){
-		border-bottom: 1px solid black;
-	}
-	.tbl2{
-		width: 900px;
-		text-align: left;
-		margin: auto;
-	}
+.content {
+	text-align: center;
+}
+
+.tbl {
+	width: 900px;
+	text-align: center;
+	margin: auto;
+	margin-top: 50px;
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+}
+
+.tbl tr:nth-child(1) {
+	border-bottom: 2px solid black;
+}
+
+.tbl tr:nth-child(2) {
+	border-bottom: 1px solid black;
+}
+
+.tbl2 {
+	width: 900px;
+	text-align: left;
+	margin: auto;
+}
 </style>
 </head>
 <body>
@@ -61,7 +68,7 @@
 				</tr>
 				<tr>
 					<td colspan="5" style="text-align: left; padding: 10px;">
-						<button>선택삭제</button>
+						<button class="btn-type1 btn">선택 삭제</button>
 					</td>
 				</tr>
 			</table>
@@ -88,8 +95,11 @@
 					<td></td>
 				</tr>
 			</table>
-			<button>쇼핑하러가기</button>
-			<input type="submit"> <input type="submit">
+			<span class="btn-type2 btn" style="margin-right: 5px">
+            	  <a href="/">쇼핑하러 가기</a>
+            </span>
+			<input type="submit" class="btn-type3 btn" value="선택상품 구매">
+			<input type="submit" class="btn-type4 btn" value="전체상품 구매">
 		</form>
 
 		<div class="clear"></div>
