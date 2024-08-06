@@ -7,12 +7,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpSession;
 import kr.co.bookItOut.member.model.dto.Member;
 import kr.co.bookItOut.member.model.service.MemberService;
+import kr.co.bookItOut.util.FileUtils;
 
 @Controller
 @RequestMapping(value = "/member")
@@ -20,6 +23,11 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Value("${file.root}")
+	private String root;
+	@Autowired
+	private FileUtils fileUtils;
 
 	@GetMapping(value = "/mypage")
 	private String myPage() {
@@ -94,9 +102,16 @@ public class MemberController {
 	
 	
 	@PostMapping(value="/updateInfo")
-	public String updateInfo(Member m, HttpSession session) {
+	public String updateInfo(Member m, HttpSession session, MultipartFile imageFile) {
+		
+		
+		//이미지 파일 저장 경로 지정
+		String savepath = root+"/photo/";
+		String filepath = fileUtils.upload(savepath, imageFile);
+		m.setMemberImg(filepath);
+		
+		//사용자 정보 업데이트
 		Member member = memberService.selectOneMember(m.getMemberId());
-
 		int result = memberService.updateMember(member, m);
 		
 		if(result>0) {
@@ -113,17 +128,4 @@ public class MemberController {
 			return "redirect:/";
 		}
 	}
-//	@PostMapping(value = "/login")
-//	public String login(Member m, Model model, HttpSession session) {
-//		// service를 이용해서 DB에 입력받은 아이디/패스워드가 일치하는 회원 조회
-//		// 조회조건에 아이디가 포함되어있으므로 조회결과는 회원1명 또는 0명 -> Member타입으로 결과 받기
-//		Member member = memberService.selectOneMember(m);
-//		if (member == null) {
-//			
-//			return "member/logIn";
-//		} else {
-//			session.setAttribute("member", member);
-//			return "redirect:/";
-//		}
-//	}
 }
