@@ -104,11 +104,13 @@ public class MemberController {
 	@PostMapping(value="/updateInfo")
 	public String updateInfo(Member m, HttpSession session, MultipartFile imageFile) {
 		
-		
+		System.out.println(imageFile);
 		//이미지 파일 저장 경로 지정
-		String savepath = root+"/photo/";
-		String filepath = fileUtils.upload(savepath, imageFile);
-		m.setMemberImg(filepath);
+		if(imageFile !=null) {
+			String savepath = root+"/photo/";
+			String filepath = fileUtils.upload(savepath, imageFile);
+			m.setMemberImg(filepath);			
+		}
 		
 		//사용자 정보 업데이트
 		Member member = memberService.selectOneMember(m.getMemberId());
