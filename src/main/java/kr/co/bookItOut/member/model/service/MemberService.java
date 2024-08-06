@@ -27,8 +27,8 @@ public class MemberService {
 		return result;
 	}
 
-	public int updateMember(Member member, Member m) {
-		int result = memberDao.updateMember(member, m);
+	public int updateMember(Member member, Member m, int sel) {
+		int result = memberDao.updateMember(member, m, sel);
 		return result;
 	}
 	
