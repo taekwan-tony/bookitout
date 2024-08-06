@@ -203,6 +203,32 @@
             
             <div class="clear"></div>
 
+            <div class="comment">
+                <!-- 댓글 입력 -->
+                <div th:if="${session.member != null}" class="inputCommentBox">
+                    <form action="/book/insertComment" method="post">
+                        <ul>
+                            <li>
+                                <!-- <span class="material-icons">account_box</span> -->
+                                <span class="user-icon"><i class="fa-solid fa-circle-user"></i></span>
+                            </li>
+                            <li>
+                                <input type="hidden" name="noticeCommentWriter" th:value="${session.member.memberId}">
+                                <input type="hidden" name="noticeRef" th:value="${n.noticeNo}">
+                                <div class="input-item">
+                                    <textarea name="noticeCommentContent" placeholder="댓글을 입력하세요!"></textarea>
+                                </div>
+                            </li>
+                            <li>
+                                <button class="btn-point" type="submit">등록</button>
+                            </li>
+                        </ul>
+                    </form>
+                </div>                
+            </div>
+            
+            <div class="clear"></div>
+
             <div class="buy-info">
                 <div class="inner">
                     <div class="price-info">
