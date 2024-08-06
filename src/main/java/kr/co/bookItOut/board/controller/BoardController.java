@@ -73,14 +73,15 @@ public class BoardController {
 			}
 		}
 		int result = boardService.insertBoard(b,fileList);
-		if(result > 0) {
+		System.out.println(result);
+		/*if(result > 0) {
 			model.addAttribute("title","작성성공!");
 			model.addAttribute("msg", "게시물 작성에 성공했습니다.");
 			model.addAttribute("icon", "success");
 			model.addAttribute("loc", "/board/list?reqPage=1");
 			return "common/msg";
-		}
-		return "redirect:/board/writeFrm";
+		}*/
+		return "redirect:/board/list?reqPage=1";
 	}
 	@GetMapping(value="/view")
 	public String view(int boardNo, String check, Model model, @SessionAttribute(required = false) Member member) {
@@ -159,7 +160,7 @@ public class BoardController {
 	@PostMapping(value="/insertComment")
 	public String insertComment(BoardComment bc, Model model) {
 		int result = boardService.insertComment(bc);
-		if(result > 0) {	
+	/*	if(result > 0) {	
 		model.addAttribute("title", "댓글작성");
 		model.addAttribute("msg", "댓글이 작성되었습니다");
 		model.addAttribute("icon", "success");
@@ -169,12 +170,13 @@ public class BoardController {
 		model.addAttribute("icon", "warning");
 	}
 		model.addAttribute("loc", "/board/view?boardNo="+bc.getBoardRef());
-		return "common/msg";
+		return "common/msg";*/
+		return "/board/view?boardNo="+bc.getBoardRef();
 	}
 	@PostMapping(value="/updateComment")
 	public String updateComment(BoardComment bc, Model model) {
 		int result = boardService.updateComment(bc);
-		if(result > 0) {
+		/*if(result > 0) {
 			model.addAttribute("title", "성공");
 			model.addAttribute("msg", "댓글이 수정되었습니다.");
 			model.addAttribute("icon", "success");
@@ -183,13 +185,13 @@ public class BoardController {
 			model.addAttribute("msg", "잠시후 다시 시도해주세요.");
 			model.addAttribute("icon", "warning");
 		}
-		model.addAttribute("loc", "/board/view?check=1&boardNo="+bc.getBoardRef());
-		return "common/msg";
+		model.addAttribute("loc", "/board/view?check=1&boardNo="+bc.getBoardRef());*/
+		return "/board/view?boardNo="+bc.getBoardRef();
 	}
 	@GetMapping(value="/deleteComment")
 	public String deleteComment(BoardComment bc, Model model) {
 		int result = boardService.deleteComment(bc);
-		if(result > 0) {
+		/*if(result > 0) {
 			model.addAttribute("title", "성공");
 			model.addAttribute("msg", "댓글이 삭제되었습니다.");
 			model.addAttribute("icon", "success");
@@ -198,8 +200,8 @@ public class BoardController {
 			model.addAttribute("msg", "잠시후 다시 시도해주세요.");
 			model.addAttribute("icon", "warning");
 		}
-		model.addAttribute("loc", "/board/view?check=1&boardNo="+bc.getBoardRef());
-		return "common/msg";
+		model.addAttribute("loc", "/board/view?check=1&boardNo="+bc.getBoardRef());*/
+		return "/board/view?boardNo="+bc.getBoardRef();
 	}
 	
 	@ResponseBody

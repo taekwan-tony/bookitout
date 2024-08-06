@@ -39,7 +39,7 @@ public class BoardDao {
 
 	public int insertBoard(Board b) {
 		String query = "insert into board values(board_seq.nextval,?,?,?,0,to_char(sysdate,'YYYY-MM-DD'))";
-		Object[] params = { b.getBoardTitle(), b.getMemberId(), b.getBoardContent() };
+		Object[] params = { b.getBoardTitle(), b.getBoardContent(), b.getBoardWriter()};
 		int result = jdbc.update(query, params);
 		return result;
 	}
@@ -50,7 +50,7 @@ public class BoardDao {
 		return boardNo;
 	}
 
-	public int insertBoard(BoardF‎ile boardF‎ile) {
+	public int insertBoardFile(BoardF‎ile boardF‎ile) {
 		String query = "insert into board_file values(board_file_seq.nextval,?,?,?)";
 		Object[] params = { boardF‎ile.getBoardNo(), boardF‎ile.getFilename(), boardF‎ile.getFilepath() };
 		int result = jdbc.update(query, params);
@@ -107,7 +107,7 @@ public class BoardDao {
 		if (type.equals("title")) {
 			query = "select * from (select rownum as rnum, n.* from (select * from board where board_title like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
 		} else if (type.equals("writer")) {
-			query = "select * from (select rownum as rnum, n.* from (select * from board where member_id like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
+			query = "select * from (select rownum as rnum, n.* from (select * from board where board_writer like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
 		} else if (type.equals("titleContent")) {
 			query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' or board_title like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
 			Object[] params = { keyword, keyword, start, end };
@@ -152,7 +152,7 @@ public class BoardDao {
 	public int insertComment(BoardComment bc) {
 		String query = "insert into board_comment values(board_comment_seq.nextval,?,?,to_char(sysdate,'YYYY-MM-DD'),?,?)";
 		String boardCommentRef = bc.getBoardCommentRef() == 0 ? null : String.valueOf(bc.getBoardCommentRef());
-		Object[] params = { bc.getMemberId(), bc.getBoardCommentContent(), bc.getBoardRef(), boardCommentRef };
+		Object[] params = { bc.getBoardCommentWriter(), bc.getBoardCommentContent(), bc.getBoardRef(), boardCommentRef };
 		int result = jdbc.update(query, params);
 		return result;
 	}

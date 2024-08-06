@@ -38,7 +38,7 @@ public class BoardService {
 			if(pageNo == reqPage) {
 				pageNavi += "<a class='page-item active-page' href='/board/list?reqPage="+pageNo+"'>";
 			}else {
-				pageNavi += "<a class='page-item' href='/notice/list?reqPage="+pageNo+"'>";
+				pageNavi += "<a class='page-item' href='/board/list?reqPage="+pageNo+"'>";
 			}
 			
 			pageNavi += pageNo;
@@ -50,7 +50,7 @@ public class BoardService {
 		}
 		if(pageNo <= totalPage) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/notice/list?reqPage="+pageNo+"'>";
+			pageNavi += "<a class='page-item' href='/board/list?reqPage="+pageNo+"'>";
 			pageNavi += "<span class='material-icons'>chevron_right</span>";
 			pageNavi += "</a></li>";
 		}
@@ -65,7 +65,7 @@ public class BoardService {
 			int boardNo=boardDao.selectBoardNo();
 			for(BoardF‎ile boardF‎ile: fileList) {
 				boardF‎ile.setBoardNo(boardNo);
-				result+=boardDao.insertBoard(boardF‎ile);
+				result+=boardDao.insertBoardFile(boardF‎ile);
 			}
 		}
 		return result;
@@ -147,7 +147,7 @@ public class BoardService {
 		int result = boardDao.updateBoard(b);
 		if(result > 0) {
 			for(BoardF‎ile boardFile : fileList) {
-				result += boardDao.insertBoard(boardFile);
+				result += boardDao.insertBoardFile(boardFile);
 			}
 			if(delFileNo != null) {
 				for(int fileNo : delFileNo) {

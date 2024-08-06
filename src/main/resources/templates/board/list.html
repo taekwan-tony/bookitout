@@ -65,6 +65,7 @@
 	    margin-right:10%;
 	    border-top: 1px solid #AF8F6F;
 	    border-collapse: collapse;
+	    border: #74512D solid;
 	}
 	th{
 		background-color: #AF8F6F;
@@ -91,12 +92,13 @@
 	#sel option{
 		border-radius: 10px;
 	}
-	tr:nth-child() {
+	tr:nth-child(2n) {
 		background-color: #F8F4E1; 
 	}
  	th, td {
    		border-bottom: 1px solid #AF8F6F;
     	padding: 10px;
+    	text-align: center;
   	}
   	.footer-main{
   		margin-top: 100px;
@@ -159,7 +161,7 @@
 					<tr th:each="board : ${list}">
 						<td th:text="${board.boardNo}"></td>
 						<td><a th:href="@{/board/view(boardNo=${board.boardNo})}" th:text="${board.boardTitle}"></a></td>
-						<td th:text="${board.memberId}"></td>
+						<td th:text="${board.boardWriter}"></td>
 						<td th:text="${board.regDate}"></td>
 						<td th:text="${board.readCount}"></td>
 					</tr>
