@@ -20,6 +20,7 @@ public class AdminRowMapper implements RowMapper<Admin>{
 		ad.setAdminPw(rs.getString("admin_pw"));
 		ad.setAdminType(rs.getInt("admin_type"));
 		ad.setOpeningDay(rs.getString("opening_day"));
+		ad.setAdminPhone(rs.getString("admin_phone"));
 		
 		return ad;
 	}
