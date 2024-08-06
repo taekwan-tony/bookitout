@@ -284,8 +284,8 @@ img {
 							<label for="check">인증코드</label>
 						</div>
 						<div class="input-item">
-							<input type="text" id="check">
-							<button type="button" class="check-btn">확인</button>
+							<input type="text" id="check" placeholder="인증번호 입력">
+							<button type="button" class="check-btn">인증하기</button>
 						</div>
 					</div>
 					<div class="input-wrap">
@@ -370,6 +370,7 @@ img {
 			}
 		});
 		
+		let mailCode = null;
 		$("#mail-btn").on("click",function(){
 			const receiver = $("#memberMail").val();
 			$.ajax({
@@ -377,7 +378,8 @@ img {
 				data : {receiver : receiver},
 				type : "post",
 				success : function(data){
-					console.log(data);
+					mailCode = data;
+					authTime();
 				},
 				error : function(){
 					console.log("에러");
