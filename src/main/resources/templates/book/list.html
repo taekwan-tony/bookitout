@@ -20,7 +20,7 @@
 }
 .list-header {
     width: 200px;
-    height: 800px;
+    height: 790px;
     float: left;
     margin-top: 25px;
     background-color: #F8F4E1;
@@ -95,6 +95,9 @@ img {
 .btn {
     float: left;
 }
+.book-info-tbl{
+	height: 700px;
+}
 .book-info-tbl>td {
     height: 30px;
 }
@@ -161,10 +164,10 @@ button {
 
                 <div class="list-contect">
                     <div class="list-array-title">
-                        <p>이 분야에 ?개의 상품이 있습니다.</p>
-
+                        <!-- <p>이 분야에 <span th:text="${list.length}"></span>개의 상품이 있습니다.</p> -->
+	
                         <ul class="array-title">
-                            <li><a href="#"></a>상품명순</li>
+                            <li><a href="/book/bookNameArray"></a>상품명순</li>
                             <li><a href="#"></a>출간일순</li>
                             <li><a href="#"></a>등록일순</li>
                             <li><a href="#"></a>저가격순</li>
@@ -182,7 +185,7 @@ button {
                                 </td>
 
                                 <td style="width:20%;">
-                                    <img src="Thinking of You .jpg"> <!-- ?? -->
+                                    <img th:src="${#}"> <!-- ?? -->
                                 </td>
 
                                 <td style="vertical-align: baseline;">
