@@ -27,7 +27,7 @@ public class EmailSender {
  			//메일 전송 날짜
  			helper.setSentDate(new Date());
  			//보내는 사람 정보
- 			helper.setFrom(new InternetAddress("moonjw4220@gmail.com", "KH 당산 A클래스"));
+ 			helper.setFrom(new InternetAddress("gtkwan2@gmail.com", "BookItOut"));
  			//받는사람 이메일 주소
  			helper.setTo(receiver);
  			//제목 설정
