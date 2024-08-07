@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import kr.co.bookItOut.book.model.dao.BookDao;
-import kr.co.bookItOut.book.model.dto.BookContent;
+import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookListData;
 
 @Service
@@ -15,9 +15,9 @@ public class BookService {
 	@Autowired
 	private BookDao bookDao;
 
-	public List selectAllCenterInventory() {
-		List CenterInventory = bookDao.selectAllCenterInventory();
-		return CenterInventory;
+	public List selectAllCenterInventory(Book bookNo) {
+		List centerList = bookDao.selectAllCenterInventory(bookNo);
+		return centerList;
 	}
 
 //	public int insertComment(BookContent bc) {

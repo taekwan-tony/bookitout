@@ -47,7 +47,7 @@
                         </P>
                     </div>
                     <div class="container">
-                        <button class="btn-type1 btn open-btn" type="button">
+                        <button id="modalBtn" class="btn-type1 btn open-btn" type="button">
                             <i class="fa-solid fa-location-dot"></i>
                             	매장 재고·위치
                         </button>
@@ -56,7 +56,8 @@
                     <div class="modal-container">
                         <div class="modal">
                             <div class="content">
-                                <div class="text-wrap">
+                                <div class="text-wrap" id="modal-data-wrap">
+                                	<!-- 
                                     <h2>당신이 누군가를 죽였다</h2>
                                     <table class="center_inventory">
                                         <thead>
@@ -67,13 +68,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="center : ${CenterInventory}">
+                                            <tr th:each="center : ${list}">
                                                 <td th:text="${center.admin_name}"></td>
                                                 <td th:text="${center.admin_addr}"></td>
                                                 <td th:text="${center.centerBookCount}"></td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                    -->
                                 </div>
                             </div>
                             <button class="close-btn">닫기</button>
@@ -143,6 +145,75 @@
             <div class="clear"></div>
         </div>
     </main>
+    <script>
+    	$("#modalBtn").on("click", function(){
+    		$("#modal-data-wrap").empty();
+    		$.ajax({
+    			url : "/book/ajax1",
+    			type : "get",
+    			dataType : "json",
+    			success : function(data){
+    				console.log(data);
+    				for(let i = 0; i < data.length; i++){
+    					const h2 = $("<h2 th:text=th:text='${book.bookName}'></h2>");
+    					
+    					const table = $("<table class='center_inventory'>");
+    					
+    					const thead = $("<thead>");
+    					const tr1 = $("<tr>");
+    					
+    					const th1 = $("<th style='width: 20%;'>");//<th style="width: 20%;"></th>
+    					th1.text("지점명");//<th style="width: 20%;">지점명</th>
+    					tr1.append(th1);
+    					
+    					const th2 = $("<th style='width: 65%;'>");
+    					th2.text("주소");
+    					tr1.append(th2);
+    					
+    					const th3 = $("<th style='width: 15%;'>");
+    					th3.text("재고 수량");
+    					tr1.append(th3);
+    					
+    					thead.append(tr1);
+    					/*
+    					<th style="width: 20%;">지점명</th>
+                        <th style="width: 65%;">주소</th>
+                        <th style="width: 15%;">재고 수량</th>
+    					*/
+    					
+    					const tbody = $("<tbody>");
+    					const tr2 = $("<tr th:each='center : ${list}'>");//<tr></tr>
+    					
+    					const td1 = $("<td>");//<td></td>
+    					td1.append(data[i].adminName);
+    					tr2.append(td1);
+    					const td2 = $("<td>");
+    					td2.append(data[i].adminAddr);
+    					tr2.append(td2);
+    					const td3 = $("<td>");
+    					td3.append(data[i].centerBookCount);
+    					tr2.append(td3);
+    					
+    					tbody.append(tr2);
+    					
+    					/*
+    					<td th:text="${center.adminName}"></td>
+                        <td th:text="${center.adminAddr}"></td>
+                        <td th:text="${center.centerBookCount}"></td>
+    					*/
+    					
+    					table.append(thead);
+    					table.append(tbody);
+    					
+    					$("#modal-data-wrap").append(table);
+    				}
+    			},
+    			error : function(){
+    				console.log("에러");
+    			}
+    		});
+    	});
+    </script>
 
 	<th:block th:include="common/footer"></th:block>
 </body>
