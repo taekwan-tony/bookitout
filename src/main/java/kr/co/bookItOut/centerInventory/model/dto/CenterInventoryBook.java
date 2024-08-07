@@ -1,4 +1,4 @@
-package kr.co.bookItOut.book.model.dto;
+package kr.co.bookItOut.centerInventory.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

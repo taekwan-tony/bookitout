@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import kr.co.bookItOut.book.model.dto.BookContent;
+import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookRowMapper;
-import kr.co.bookItOut.book.model.dto.CenterInventoryBookRowMapper;
+import kr.co.bookItOut.centerInventory.model.dto.CenterInventoryBookRowMapper;
 
 
 @Repository
@@ -22,10 +22,12 @@ public class BookDao {
 	@Autowired
 	private CenterInventoryBookRowMapper centerInventoryBookRowMapper;
 
-	public List selectAllCenterInventory() {
-		String query = "select admin_name, admin_addr, center_book_count from admin_tbl join center_inventory using (admin_no)";
-		List CenterInventory = jdbc.query(query, centerInventoryBookRowMapper);
-		return CenterInventory;
+	public List selectAllCenterInventory(Book bookNo) {
+		String query = "select admin_name, admin_addr, center_book_count from admin_tbl join center_inventory using (admin_no) join book on (book_no = book_no2) where book_no = ?";
+		Object[] params = {};
+		List centerList = jdbc.query(query, centerInventoryBookRowMapper, params);
+		
+		return centerList;
 	}
 
 //	public int insertComment(BookContent bc) {
