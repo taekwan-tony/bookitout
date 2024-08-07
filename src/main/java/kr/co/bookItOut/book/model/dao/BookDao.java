@@ -24,8 +24,8 @@ public class BookDao {
 
 	public List selectAllCenterInventory() {
 		String query = "select admin_name, admin_addr, center_book_count from admin_tbl join center_inventory using (admin_no)";
-		List list = jdbc.query(query, centerInventoryBookRowMapper);
-		return list;
+		List CenterInventory = jdbc.query(query, centerInventoryBookRowMapper);
+		return CenterInventory;
 	}
 
 //	public int insertComment(BookContent bc) {
