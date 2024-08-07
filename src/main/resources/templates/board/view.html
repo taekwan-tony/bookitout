@@ -67,7 +67,73 @@
 	#hide {
 		text-align: center;
 	}
+	.material-icons{
+		color: #AF8F6F;
+		margin-right: 20px;
+	}
+	.inputCommentBox{
+		margin-left: 10%;
+	}
+	.commentBox{
+		margin-left: 10%
+	}
+	.comment{
+		overflow: hidden;
+		margin-bottom: 40px;
+		width: 1000px;
+	}
+	.comment>*{
+		float: left;
+		display: block;
+	}
+	.comment *{
+		height: 39px;
+	}
+	#inputComment{
+		background-color: #AF8F6F;
+		color: white;
+		margin-left: 20px;
+	}
+	textarea{
+		width: 600px;
+		box-sizing: border-box;
+	}
+	.input-item{
+	}
+	#right{
+		font-size: 39px;
+		margin-left: 40px;
+	}
+	#account-box{
+		font-size: 39px;
+	}
+	#subdirectory{
+		font-size: 39px;
+		margin-left: 40px;
+	}
+	#account{
+		font-size: 39px;
+	}
+	#accountbox{
+		font-size: 39px;
+	}
+	#rid{
+		display: inline;
+	}
+	#float{
+	}
+	.heart{
+		margin: 0;
+	}
+	.rid>*{
+		float: left;
+	}
+	.like-box{
+		margin-right: 10px;
+	}
 </style>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
@@ -112,31 +178,31 @@
 			</table>
 			<div th:if="${session.member != null}" class="inputCommentBox">
 				<form action="/board/insertComment" method="post">
-					<ul>
-						<li><span class="material-icons">account_box</span></li>
+					<ul class="comment">
+						<li><span class="material-icons" id="account">account_box</span></li>
 						<li><input type="hidden" name="boardCommentWriter"
 							th:value="${session.member.memberId}"> <input
 							type="hidden" name="boardRef" th:value="${b.boardNo}">
 							<div class="input-item">
-								<textarea name="boardCommentContent"></textarea>
+								<textarea name="boardCommentContent" id="boardCommentContent"></textarea>
 							</div></li>
-						<li>
-							<button type="submit" class="btn-primary">등록</button>
+						<li class="inp">
+							<button type="submit" class="btn-primary" id="inputComment">등록</button>
 						</li>
 					</ul>
 				</form>
 			</div>
 			<div class="commentBox">
 				<th:block th:each="bc : ${b.commentList}">
-					<ul class="posting-comment">
-						<li><span class="material-icons">account_box</span></li>
+					<ul class="comment">
+						<li><span class="material-icons" id="accountbox">account_box</span></li>
 						<li>
-							<p class="comment-info">
+							<p class="comment-info" id="comment-info">
 								<span th:text="${bc.boardCommentWriter}"></span> <span
 									th:text="${bc.boardCommentDate}"></span> <span class="like-box">
-									<span th:if="${bc.isLike == 1}" class="material-icons"
+									<span th:if="${bc.isLike == 1}" class="material-icons heart"
 									th:onclick="likePush(this,[[${bc.boardCommentNo}]]);">favorite</span>
-									<span th:if="${bc.isLike == 0}" class="material-icons"
+									<span th:if="${bc.isLike == 0}" class="material-icons heart"
 									th:onclick="likePush(this,[[${bc.boardCommentNo}]]);">favorite_border</span>
 									<span th:text="${bc.likeCount}"></span>
 								</span>
@@ -162,8 +228,8 @@
 					</ul>
 					<div th:if="${session.member != null}" class="">
 						<form action="/board/insertComment" method="post">
-							<ul>
-								<li><span class="material-icons">subdirectory_arrow_right</span>
+							<ul class="comment">
+								<li><span class="material-icons" id="subdirectory">subdirectory_arrow_right</span>
 								</li>
 								<li><input type="hidden" name="boardCommentWriter"
 									th:value="${session.member.memberId}"> <input
@@ -173,8 +239,8 @@
 									<div class="input-item">
 										<textarea name="boardCommentContent"></textarea>
 									</div></li>
-								<li>
-									<button type="submit" class="btn-primary">등록</button>
+								<li class="inp">
+									<button type="submit" class="btn-primary" id="inputComment">등록</button>
 								</li>
 							</ul>
 						</form>
@@ -182,16 +248,15 @@
 					<ul class="posting-comment reply"
 						th:each="bcc : ${b.reCommentList}"
 						th:if="${bc.boardCommentNo == bcc.boardCommentRef}">
-						<li><span class="material-icons">subdirectory_arrow_right</span>
-							<span class="material-icons">account_box</span></li>
-						<li>
+						<li class="rid"><span class="material-icons" id="right">subdirectory_arrow_right</span>
+							<span class="material-icons" id="account-box">account_box</span>
 							<p class="comment-info">
 								<span th:text="${bcc.boardCommentWriter}"></span> <span
 									th:text="${bcc.boardCommentDate}"></span> <span
 									class="like-box"> <span th:if="${bcc.isLike == 1}"
-									class="material-icons"
+									class="material-icons heart"
 									th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite</span>
-									<span th:if="${bcc.isLike == 0}" class="material-icons"
+									<span th:if="${bcc.isLike == 0}" class="material-icons heart"
 									th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite_border</span>
 									<span th:text="${bcc.likeCount}">0</span>
 								</span>
