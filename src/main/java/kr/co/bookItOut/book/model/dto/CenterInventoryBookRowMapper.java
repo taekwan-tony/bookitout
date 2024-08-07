@@ -1,4 +1,4 @@
-package kr.co.bookItOut.centerInventory.model.dto;
+package kr.co.bookItOut.book.model.dto;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -15,6 +15,11 @@ public class BookService {
 	@Autowired
 	private BookDao bookDao;
 
+	public List selectAllCenterInventory() {
+		List list = bookDao.selectAllCenterInventory();
+		return list;
+	}
+
 //	public int insertComment(BookContent bc) {
 //		int result = bookDao.insertComment(bc);
 //		return 0;
