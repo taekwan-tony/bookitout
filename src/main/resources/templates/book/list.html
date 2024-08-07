@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>도서 목록 </title>
+<link rel="stylesheet" href="/css/main.css">
 <style>
 	* {
     padding: 0;
@@ -14,17 +15,15 @@
     margin: 0 auto;
 }
 .book-list {
-    width: 1000px;
     overflow: hidden;
-    margin: 0 auto;
 }
 .list-header {
-    width: 200px;
-    height: 790px;
+    width: 20%;
     float: left;
     margin-top: 25px;
     background-color: #F8F4E1;
     border-radius: 10px;
+    margin-right: 5%;
 }
 .list-header>p {
     text-align: center;
@@ -44,8 +43,7 @@
     color: #777777;
 }
 .list-contect {
-    float: right;
-    width: 700px;
+    width: 100%;
     margin-top: 25px;
 }
 .image>img {
@@ -68,9 +66,8 @@ a {
     border-bottom: 1px solid #111;
 }
 .array-title>li {
-    float: right;
-    width: 100;
-    margin: 5px 35px;
+    float: left;
+    margin: 5px 58px;
 }
 
 .list-array {
@@ -96,7 +93,7 @@ img {
     float: left;
 }
 .book-info-tbl{
-	height: 700px;
+	width: 75%;
 }
 .book-info-tbl>td {
     height: 30px;
@@ -152,7 +149,6 @@ button {
 		<main class="content">
         <section class="section book-list-wrap">
             <div class="book-list">
-
                 <div class="list-header">
                     <p><a href="#"></a>국내 도서</p>
                     <ul>
@@ -164,8 +160,8 @@ button {
 
                 <div class="list-contect">
                     <div class="list-array-title">
-                        <p>이 분야에 <span th:text="${list.length}"></span>개의 상품이 있습니다.</p>
-	
+                        <!-- <p>이 분야에 <span th:text="${list.length}"></span>개의 상품이 있습니다.</p> -->
+
                         <ul class="array-title">
                             <li><a href="/book/bookNameArray"></a>상품명순</li>
                             <li><a href="#"></a>출간일순</li>
@@ -176,16 +172,14 @@ button {
                     </div>
 
                     <div class="book-info">
-                        <table class="book-info-tbl">
-                        
-                             <tr th:each="book : ${list}">
-                             
+                        <table class="book-info-tbl">                        
+                            <tr th:each="book : ${list}">                             
                                 <td class="check-box" style="width:5%; vertical-align: baseline;">
                                     <input type="checkbox" name="checkbox" id="checkbox">
                                 </td>
 
                                 <td style="width:20%;">
-                                    <img th:src="${#}"> <!-- ?? -->
+                                    <!-- <img th:src="${#}"> -->
                                 </td>
 
                                 <td style="vertical-align: baseline;">
@@ -207,13 +201,14 @@ button {
                                     <button type="button" id="list-cart">장바구니</button>
                                     <button type="button" id="list-buy">바로구매</button>
                                 </td>
-                            </tr>                  
-                            		
+                            </tr>
                         </table>
                     </div>
                 </div>
+                
+                <div class=clear></div>
 
-                <div id ="pageNavi" th:utext="${pageNavi}"></div>
+                <div class="pagination" id="pageNavi" th:utext="${pageNavi}"></div>
 
             </div>
         </section>

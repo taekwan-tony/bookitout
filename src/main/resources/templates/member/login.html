@@ -110,7 +110,7 @@ input:focus{
 			<form action="/member/login" method="post" autocomplete="off">
 				<h1 id="log">Login</h1>
 				<div class="radio">
-					<input type="radio" name="role" id="consumer" value="1"><label for="consumer">일반 회원</label>
+					<input type="radio" name="role" id="consumer" value="1" checked><label for="consumer">일반 회원</label>
 					<input type="radio" name="role" id="seller" value="2"><label for="seller">판매자</label>
 				</div>
 				<div class="input-wrap">
@@ -131,7 +131,7 @@ input:focus{
 				</div>
 				<div class="member-link-box">
 					<a href="/member/joinFrm">회원가입</a>
-					<a href="#">아이디 / 비밀번호 찾기</a>
+					<a href="/member/searchIdFrm">아이디 / 비밀번호 찾기</a>
 				</div>
 				<div class="login-button-box">
 					<button type="submit">Login</button>

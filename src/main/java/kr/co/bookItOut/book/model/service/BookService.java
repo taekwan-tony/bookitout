@@ -7,13 +7,18 @@ import org.springframework.stereotype.Service;
 
 
 import kr.co.bookItOut.book.model.dao.BookDao;
-import kr.co.bookItOut.book.model.dto.BookContent;
+import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookListData;
 
 @Service
 public class BookService {
 	@Autowired
 	private BookDao bookDao;
+
+	public List selectAllCenterInventory(Book bookNo) {
+		List centerList = bookDao.selectAllCenterInventory(bookNo);
+		return centerList;
+	}
 
 //	public int insertComment(BookContent bc) {
 //		int result = bookDao.insertComment(bc);
@@ -38,7 +43,7 @@ public class BookService {
 		int pageNaviSize = 10;		
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
 		
-		String pageNavi = "<ul class = 'pagination circle-style'>";
+		String pageNavi = "<div class='inner'><ul>";
 		if(pageNo !=1) {
 			pageNavi += "<li>";
 			pageNavi += "<a class='page-item' href='book/list?reqPage=" + (pageNo - 1) +"'>";
@@ -68,7 +73,7 @@ public class BookService {
 			pageNavi += "<span class='material-icons'>chevron_right</span>";
 			pageNavi += "</a></li>";
 		}
-		pageNavi += "</ul>";
+		pageNavi += "</ul></div>";
 		
 		BookListData bld = new BookListData(list, pageNavi);		
 		

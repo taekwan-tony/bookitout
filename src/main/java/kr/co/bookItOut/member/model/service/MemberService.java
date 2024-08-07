@@ -31,5 +31,10 @@ public class MemberService {
 		int result = memberDao.updateMember(member, m, sel);
 		return result;
 	}
+
+	public Member selectSearchId(Member m) {
+		Member member = memberDao.selectSearchId(m);
+		return member;
+	}
 	
 }
