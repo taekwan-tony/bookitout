@@ -46,14 +46,10 @@
                             <span class="right">기본배송지 기준</span>
                         </P>
                     </div>
-                    <!-- <div>
-                    </div>
-                    <div>
-                    </div> -->
                     <div class="container">
                         <button class="btn-type1 btn open-btn" type="button">
                             <i class="fa-solid fa-location-dot"></i>
-                            매장 재고·위치
+                            	매장 재고·위치
                         </button>
                     </div>
     
@@ -71,113 +67,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>지점명1</td>
-                                                <td>서울특별시 영등포구 선유동2로 57 이레빌딩1</td>
-                                                <td>100개</td>
-                                            </tr>
-                                            <tr>
-                                                <td>지점명2</td>
-                                                <td>서울특별시 영등포구 선유동2로 57 이레빌딩1</td>
-                                                <td>205개</td>
-                                            </tr>
-                                            <tr>
-                                                <td>지점명3</td>
-                                                <td>서울특별시 영등포구 선유동2로 57 이레빌딩1</td>
-                                                <td>153개</td>
-                                            </tr>
-                            	                <tr>
-                                                <td>지점명4</td>
-                                                <td>서울특별시 영등포구 선유동2로 57 이레빌딩1</td>
-                                                <td>42개</td>
-                                            </tr>
-                                            <tr>
-                                                <td>지점명5</td>
-                                                <td>서울특별시 영등포구 선유동2로 57 이레빌딩1</td>
-                                                <td>16개</td>
-                                            </tr>
-                                            <tr>
-                                                <td>지점명6</td>
-                                                <td>서울특별시 영등포구 선유동2로 57 이레빌딩1</td>
-                                                <td>99개</td>
-                                            </tr>
-                                            <tr>
-                                                <td>지점명7</td>
-                                                <td>서울특별시 영등포구 선유동2로 57 이레빌딩1</td>
-                                                <td>87개</td>
-                                            </tr>
-                                            <tr>
-                                                <td>지점명8</td>
-                                                <td>서울특별시 영등포구 선유동2로 57 이레빌딩1</td>
-                                                <td>64개</td>
-                                            </tr>
-                                            <tr>
-                                                <td>지점명9</td>
-                                                <td>서울특별시 영등포구 선유동2로 57 이레빌딩1</td>
-                                                <td>71개</td>
-                                            </tr>
-                                            <tr>
-                                                <td>지점명10</td>
-                                                <td>서울특별시 영등포구 선유동2로 57 이레빌딩1</td>
-                                                <td>7개</td>
+                                            <tr th:each="center : ${list}">
+                                                <td th:text="${center.admin_name}"></td>
+                                                <td th:text="${center.admin_addr}"></td>
+                                                <td th:text="${center.centerBookCount}"></td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <ul style="display: none;">
-                                        <li>
-                                            <h2>당신이 누군가를 죽였다</h2>
-                                        </li>
-                                        <li>
-                                            <span>지점명1</span>
-                                            <span>서울특별시 영등포구 선유동2로 57 이레빌딩1</span>
-                                            <span>100개</span>
-                                        </li>
-                                        <li>
-                                            <span>지점명2</span>
-                                            <span>서울특별시 영등포구 선유동2로 57 이레빌딩1</span>
-                                            <span>205개</span>
-                                        </li>
-                                        <li>
-                                            <span>지점명3</span>
-                                            <span>서울특별시 영등포구 선유동2로 57 이레빌딩1</span>
-                                            <span>153개</span>
-                                        </li>
-                                        <li>
-                                            <span>지점명4</span>
-                                            <span>서울특별시 영등포구 선유동2로 57 이레빌딩1</span>
-                                            <span>42개</span>
-                                        </li>
-                                        <li>
-                                            <span>지점명5</span>
-                                            <span>서울특별시 영등포구 선유동2로 57 이레빌딩1</span>
-                                            <span>16개</span>
-                                        </li>
-                                        <li>
-                                            <span>지점명6</span>
-                                            <span>서울특별시 영등포구 선유동2로 57 이레빌딩1</span>
-                                            <span>99개</span>
-                                        </li>
-                                        <li>
-                                            <span>지점명7</span>
-                                            <span>서울특별시 영등포구 선유동2로 57 이레빌딩1</span>
-                                            <span>87개</span>
-                                        </li>
-                                        <li>
-                                            <span>지점명8</span>
-                                            <span>서울특별시 영등포구 선유동2로 57 이레빌딩1</span>
-                                            <span>64개</span>
-                                        </li>
-                                        <li>
-                                            <span>지점명9</span>
-                                            <span>서울특별시 영등포구 선유동2로 57 이레빌딩1</span>
-                                            <span>71개</span>
-                                        </li>
-                                        <li>
-                                            <span>지점명10</span>
-                                            <span>서울특별시 영등포구 선유동2로 57 이레빌딩1</span>
-                                            <span>7개</span>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                             <button class="close-btn">닫기</button>
