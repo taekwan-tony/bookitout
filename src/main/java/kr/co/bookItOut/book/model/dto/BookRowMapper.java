@@ -26,7 +26,7 @@ public class BookRowMapper implements RowMapper<Book> {
 		b.setBookDetailImg(rs.getString("BOOK_DETAIL_IMG"));
 		b.setBookType(rs.getString("BOOK_TYPE"));
 		b.setBookGenre(rs.getString("BOOK_GENRE"));
-		b.setBookCount(rs.getInt("READ_COUNT"));
+		b.setReadCount(rs.getInt("READ_COUNT"));
 		return b;
 //		BOOK_NO
 //		BOOK_NAME
