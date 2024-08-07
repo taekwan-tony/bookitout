@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.admin.model.dto.AdminListData;
 import kr.co.bookItOut.admin.model.service.AdminService;
+import kr.co.bookItOut.book.model.dto.BookListData;
 import kr.co.bookItOut.member.model.dto.Member;
 
 @Controller
@@ -44,14 +45,29 @@ public class AdminController {
 		return "redirect:/";
 	}
 	//판매점 등록
-	@GetMapping(value = "/insertAdmin")
-	public String insertAdmin() {
+	@GetMapping(value = "/insertAdminFrm")
+	public String insertAdminFrm() {
 		return "/admin/insertAdmin";
 	}
 	//판매점 비밀번호 찾기
-	@GetMapping(value = "/updatePw")
-	public String updatePw() {
+	@GetMapping(value = "/updatePwFrm")
+	public String updatePwFrm() {
 		return "/admin/updatePw";
+	}
+	//책 리스트 보여주는 화면
+	@GetMapping(value = "/bookListFrm")
+	public String bookListFrm(Model model,int rePage) {
+		BookListData bld = adminService.selectbookList(rePage);
+		model.addAttribute("bookList",bld.getList());
+		model.addAttribute("pageNavi",bld.getPageNavi());
+		
+		return "/admin/bookList";
+	}
+	
+	@PostMapping(value = "/bookList")
+	public String bookList() {
+		
+		return "/admin/bookList";
 	}
 	
 	
