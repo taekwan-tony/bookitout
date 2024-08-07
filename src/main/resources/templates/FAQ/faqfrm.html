@@ -67,6 +67,11 @@
 	.write-btn{
 		float:right;
 	}
+	.customer-content-wrap>.page-wrap>div{
+		display : flex;
+		align-items:center;
+		justify-content : center;
+	}
 </style>
 
 </head>
@@ -94,9 +99,9 @@
 				</div>
 				<div class="content-main-text">
 					<ul>
-						<a th:href="@{/Question/questionList(memberNo=${session.member.memberNo},type=1,reqPage=1)}">1:1 문의</a>
+						<a href="/Question/questionList?type=1&reqPage=1">1:1 문의</a>
 						<li><a href="/Question/writeQuestionFrm">1:1 문의 접수</a></li>
-						<li><a th:href="@{/Question/questionList(memberNo=${session.member.memberNo},type=1,reqPage=1)}">1:1 문의 내역</a></li>
+						<li><a href="/Question/questionList?type=1&reqPage=1">1:1 문의 내역</a></li>
 					</ul>
 				</div>
 				<div class="content-main-text">
@@ -162,14 +167,16 @@
 						<div class="content-box down-box">
 							<div>
 								<div>
-									<span class="material-icons">east</span>
+									<span class="material-icons">subdirectory_arrow_right</span>
 								</div>
 								<div  th:utext="${faq.faqContent}"></div>
 							</div>
 						</div>
 					</div>
 				</th:block>
-				<th:block th:utext="${navi}"></th:block>
+				<div class="page-wrap">
+					<th:block th:utext="${navi}"></th:block>
+				</div>
 			</div>
 		</div>
 	</main>

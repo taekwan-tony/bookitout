@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>상세페이지</title>
-<link rel="stylesheet" href="/css/detail.css">
-    
+<link rel="stylesheet" href="/css/detail.css">    
 <!-- jQuery CDN -->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="/js/detail.js"></script>
@@ -135,6 +134,12 @@
                         <span class="price">19,800원</span>
                     </div>
                     <div class="bottom-btnBox">
+                        <span>
+                            <!-- 장바구니 수량 증감 -->
+                            <button onclick="minus();">-</button>
+                            <input type="text" id="count" value="1" style="width: 20px;">
+                            <button onclick="plus();">+</button>
+                        </span>
                         <button class="btn-type1 btn"><span><i class="fa-solid fa-gift"></i></span>선물하기</button>
                         <button class="btn-type2 btn">장바구니</button>
                         <button class="btn-type3 btn">바로구매</button>
@@ -146,16 +151,42 @@
         </div>
     </main>
     <script>
+    	// 구매 수량 증감
+		function minus(){
+		    const count = document.querySelector("#count");
+		    const currentCount = count.value;//value속성으로 읽어오면 문자열타입
+		    if(currentCount == 1){
+		        alert("최소 주문 수량은 1개 입니다.");
+		    }else{
+		        count.value = Number(currentCount) - 1;
+		    }
+		}
+		
+		function plus(){
+		    const count = document.querySelector("#count");
+		    const currentCount = count.value;//value속성으로 읽어오면 문자열타입
+		    if(currentCount == 10){
+		        alert("최대 주문 수량은 10개 입니다.");
+		    }else{
+		        count.value = Number(currentCount) + 1;
+		    }
+		}    	
+    	
+    	// 재고 위치 조회
     	$("#modalBtn").on("click", function(){
+    		//const bookNo = $("#").val();
     		$("#modal-data-wrap").empty();
     		$.ajax({
     			url : "/book/ajax1",
     			type : "get",
+				data : bookNo,
     			dataType : "json",
     			success : function(data){
+    				console.log("서버 요청 성공");
     				console.log(data);
     				for(let i = 0; i < data.length; i++){
-    					const h2 = $("<h2 th:text=th:text='${book.bookName}'></h2>");
+    					const h2 = $("<h2></h2>");
+    					h2.text();
     					
     					const table = $("<table class='center_inventory'>");
     					
@@ -182,7 +213,7 @@
     					*/
     					
     					const tbody = $("<tbody>");
-    					const tr2 = $("<tr th:each='center : ${list}'>");//<tr></tr>
+    					const tr2 = $("<tr>");//<tr></tr>
     					
     					const td1 = $("<td>");//<td></td>
     					td1.append(data[i].adminName);
