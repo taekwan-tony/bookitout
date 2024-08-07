@@ -68,7 +68,7 @@
 		text-align: center;
 	}
 	.material-icons{
-		color: #AF8F6F;
+		color: #74512D;
 		margin-right: 20px;
 	}
 	.inputCommentBox{
@@ -78,19 +78,27 @@
 		margin-left: 10%
 	}
 	.comment{
-		overflow: hidden;
-		margin-bottom: 40px;
+		overflow:hidden;
 		width: 1000px;
+		margin-bottom: 10px;
 	}
 	.comment>*{
 		float: left;
 		display: block;
 	}
 	.comment *{
+		float: left;
 		height: 39px;
+		margin-right: 10px;
+	}
+	.comment span{
+		line-height: 39px;
+	}
+	.comment a{
+		line-height: 39px;
 	}
 	#inputComment{
-		background-color: #AF8F6F;
+		background-color: #74512D;
 		color: white;
 		margin-left: 20px;
 	}
@@ -103,6 +111,7 @@
 	#right{
 		font-size: 39px;
 		margin-left: 40px;
+		margin-right: 0;
 	}
 	#account-box{
 		font-size: 39px;
@@ -122,14 +131,27 @@
 	.heart{
 		margin: 0;
 	}
-	#rid *{
-		display: inline;
+	.rid {
+		height: 39px;
+		box-sizing: border-box;
+		margin-bottom: 10px;
+		line-height: 39px;
+	}
+	.rid *{
+		display: inline-block;
 	}
 	.like-box{
 		margin-right: 10px;
 	}
 	.bottom{
 		margin-bottom: 100px;
+	}
+	.inputRecommentBox{
+		display: none;
+	}
+	.comment-content{
+		width: 400px;
+		margin-left: 40px;
 	}
 </style>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -223,25 +245,26 @@
 											th:onclick="modifyComment(this,[[${bc.boardCommentNo}]],[[${b.boardNo}]]);">수정</a>
 										<a href="javascript:void(0)"
 											th:onclick="deleteComment(this,[[${bc.boardCommentNo}]],[[${b.boardNo}]]);">삭제</a>
+										<a href="javascript:void(0)" class="recShow">답글달기</a>
 									</th:block>
-									<a href="javascript:void(0)" class="recShow">답글달기</a>
 								</th:block>
 							</p>
 						</li>
 					</ul>
-					<div th:if="${session.member != null}" class="">
+					<div th:if="${session.member != null}" class="inputRecommentBox">
 						<form action="/board/insertComment" method="post">
 							<ul class="comment">
-								<li><span class="material-icons" id="subdirectory">subdirectory_arrow_right</span>
+								<li>
+									<span class="material-icons" id="subdirectory">subdirectory_arrow_right</span>
 								</li>
-								<li><input type="hidden" name="boardCommentWriter"
-									th:value="${session.member.memberId}"> <input
-									type="hidden" name="boardRef" th:value="${b.boardNo}">
-									<input type="hidden" name="boardCommentRef"
-									th:value="${bc.boardCommentNo}">
+								<li>
+									<input type="hidden" name="boardCommentWriter" th:value="${session.member.memberId}"> 
+									<input type="hidden" name="boardRef" th:value="${b.boardNo}">
+									<input type="hidden" name="boardCommentRef" th:value="${bc.boardCommentNo}">
 									<div class="input-item">
 										<textarea name="boardCommentContent"></textarea>
-									</div></li>
+									</div>
+								</li>
 								<li class="inp">
 									<button type="submit" class="btn-primary" id="inputComment">등록</button>
 								</li>
@@ -263,9 +286,9 @@
 									th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite</span>
 									<span th:if="${bcc.isLike == 0}" class="material-icons heart"
 									th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite_border</span>
-									<span th:text="${bcc.likeCount}">0</span>
-									<span class="comment-content" th:text="${bcc.boardCommentContent}"></span>
+									<span th:text="${bcc.likeCount}"></span>
 								</span>
+									<span class="comment-content" th:text="${bcc.boardCommentContent}"></span>
 							</p>
 							<div class="input-item" style="display: none;">
 								<textarea name="boardCommentContent"
