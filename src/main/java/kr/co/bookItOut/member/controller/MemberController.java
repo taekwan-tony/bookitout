@@ -141,12 +141,8 @@ public class MemberController {
 	}
 	
 	@PostMapping(value = "/searchId")
-	public String searchId(Member m, int role, Model model) {
-		if(role == 1) {
+	public String searchId(Member m, Model model) {
 			Member member = memberService.selectSearchId(m);
-			System.out.println("member"+member);
-			System.out.println("m"+m);
-			System.out.println("role"+role);
 			
 			String memberId = member.getMemberId();
 			if(memberId == null) {
@@ -154,11 +150,6 @@ public class MemberController {
 			}
 			model.addAttribute("memberId", memberId);
 			return "member/searchId";
-		}else {
-			String memberMail = m.getMemberMail();
-			String memberName = m.getMemberName();
-			return "redirect:/admin/searchId?adminMail=" + memberMail + "&adminName=" + memberName;
-		}
 	}
 
 	@PostMapping(value = "/updateInfo")

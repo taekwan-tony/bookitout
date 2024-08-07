@@ -60,15 +60,4 @@ public class AdminDao {
 		return totalCount;
 	}
 	
-	
-	public Admin selectSearchId(String adminName, String adminMail) {
-		String query = "select * from admin_tbl where admin_name=? and admin_mail=?";
-		Object[] params = {adminName, adminMail};
-		List list = jdbc.query(query, adminRowMapper,params);
-		if(list.isEmpty()) {
-			return null;
-		}else {
-			return (Admin)list.get(0);
-		}
-	}
 }

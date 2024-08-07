@@ -81,11 +81,6 @@ public class AdminService {
 		return admin;
 	}
 	
-	public Admin selectSearchId(String adminName, String adminMail) {
-		Admin admin = adminDao.selectSearchId(adminName, adminMail);
-		return admin;
-	}
-	
 //---------book 서비스--------------------------------------------------------------------------------
 	
 public BookListData selectbookList(int rePage) {
