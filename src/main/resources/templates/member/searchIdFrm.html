@@ -115,6 +115,7 @@ button{
 		<div class="search-wrap">
 		
 		
+				<form action="/member/searchId" method="post" autocomplete="off">
 			<div class="radio">
 				<input type="radio" name="role" id="consumer" value="1" checked>
 				<label for="consumer">일반 회원</label>
@@ -122,7 +123,6 @@ button{
 				<label for="seller">판매자</label>
 			</div>
 			<section class="section searchId">
-				<form action="/member/searchId" method="post" autocomplete="off">
 
 
 
@@ -145,8 +145,7 @@ button{
 						<div class="input-item">
 							<input type="text" name="memberMail" id="memberMail"
 								placeholder="메일주소 입력">
-							<button type="button" class="mail-btn" id="mail-btn">인증코드
-								발송</button>
+							<button type="button" class="mail-btn" id="mail-btn">인증코드 발송</button>
 						</div>
 					</div>
 					<div class="input-wrap">
@@ -154,11 +153,10 @@ button{
 							<label for="check">인증코드</label>
 						</div>
 						<div class="input-item">
-							<input type="text" id="check" placeholder="인증번호 입력"> <span
-								id="timezone"></span>
+							<input type="text" id="check" placeholder="인증번호 입력">
 							<button type="button" class="check-btn">인증하기</button>
 						</div>
-					<input type="submit" value="아이디 찾기" id="submit">
+					<input type="submit" value="아이디 찾기" id="submit" onclick="return checkValue();">
 					</div>
 
 
@@ -168,7 +166,63 @@ button{
 		<div class="clear"></div>
 	</main>
 	<script>
-		
+	
+	let name = null;
+	let mail = 0;
+	let mailCode = null;
+	$("#mail-btn").on("click",function(){
+		const receiver = $("#memberMail").val();
+		$.ajax({
+			url : "/member/sendCode",
+			data : {receiver : receiver},
+			type : "post",
+			success : function(data){
+				console.log(data);
+				mailCode = data;
+			},
+			error : function(){
+				console.log("에러");
+			}
+		});
+		alert("메일이 발송되었습니다.");
+	});
+    
+
+    $(".check-btn").on("click",function(){
+         const authCode = $("#check").val();
+         if(authCode == mailCode){
+            alert("인증되었습니다.");
+            $("#check").text("인증완료");
+            
+            $("#memberMail").prop("readonly", true);
+            $("#mail-btn").prop("disabled", true);
+            $("#check").prop("readonly", true);
+            $(".check-btn").prop("disabled", true);
+            
+            mail = 1;
+         }else{
+            alert("인증번호를 확인하세요.");
+         }
+         
+       });
+    
+    function checkValue(){
+    	 const memberName = $("#memberName").val();
+    	    
+    	    // memberName이 비어 있는지 확인
+    	    if (!memberName) {
+    	        alert("이름을 입력해주세요.");
+    	        return false; // 폼 제출을 중단
+    	    }else if(mail == 0){
+    	    	alert("메일인증을 완료해주세요.");
+    	        return false; // 폼 제출을 중단
+    	    }else{
+    	    	return true;
+    	    }
+    	    
+    	    
+    }
+    
 	</script>
 
 

@@ -139,6 +139,27 @@ public class MemberController {
 		
 		return "member/searchIdFrm";
 	}
+	
+	@PostMapping(value = "/searchId")
+	public String searchId(Member m, int role, Model model) {
+		if(role == 1) {
+			Member member = memberService.selectSearchId(m);
+			System.out.println("member"+member);
+			System.out.println("m"+m);
+			System.out.println("role"+role);
+			
+			String memberId = member.getMemberId();
+			if(memberId == null) {
+				memberId = "아이디가 존재하지 않습니다.";
+			}
+			model.addAttribute("memberId", memberId);
+			return "member/searchId";
+		}else {
+			String memberId = m.getMemberId();
+			String memberName = m.getMemberName();
+			return "redirect:/admin/searchId?adminId=" + memberId + "&adminName=" + memberName;
+		}
+	}
 
 	@PostMapping(value = "/updateInfo")
 	public String updateInfo(Member m, HttpSession session, MultipartFile imageFile) {
