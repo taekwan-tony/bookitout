@@ -80,7 +80,7 @@
 	.comment{
 		overflow:hidden;
 		width: 1000px;
-		margin-bottom: 10px;
+		margin-bottom: 20px;
 	}
 	.comment>*{
 		float: left;
@@ -138,7 +138,8 @@
 		line-height: 39px;
 	}
 	.rid *{
-		display: inline-block;
+		float: left;
+		margin-right: 10px;
 	}
 	.like-box{
 		margin-right: 10px;
@@ -193,11 +194,12 @@
 				<tr
 					th:if="${session.member !=null && session.member.memberId == b.boardWriter}"
 					id="hide">
-					<td colspan="6"><a
+					<td colspan="6">
+						<a
 						th:href="@{/board/updateFrm(boardNo=${b.boardNo})}" id="update"
 						class="btn-primary">수정</a>
-						<button class="btn-primary" id="delete"
-							th:onclick="boardDelete([[${b.boardNo}]]);">삭제</button></td>
+						<button class="btn-primary" id="delete" th:onclick="boardDelete([[${b.boardNo}]]);">삭제</button>
+					</td>
 				</tr>
 			</table>
 			<div th:if="${session.member != null}" class="inputCommentBox">
