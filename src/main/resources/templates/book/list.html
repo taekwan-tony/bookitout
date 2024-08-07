@@ -152,7 +152,6 @@ button {
 		<main class="content">
         <section class="section book-list-wrap">
             <div class="book-list">
-
                 <div class="list-header">
                     <p><a href="#"></a>국내 도서</p>
                     <ul>
@@ -164,8 +163,8 @@ button {
 
                 <div class="list-contect">
                     <div class="list-array-title">
-                        <p>이 분야에 <span th:text="${list.length}"></span>개의 상품이 있습니다.</p>
-	
+                        <!-- <p>이 분야에 <span th:text="${list.length}"></span>개의 상품이 있습니다.</p> -->
+
                         <ul class="array-title">
                             <li><a href="/book/bookNameArray"></a>상품명순</li>
                             <li><a href="#"></a>출간일순</li>
@@ -176,10 +175,8 @@ button {
                     </div>
 
                     <div class="book-info">
-                        <table class="book-info-tbl">
-                        
-                             <tr th:each="book : ${list}">
-                             
+                        <table class="book-info-tbl">                        
+                            <tr th:each="book : ${list}">                             
                                 <td class="check-box" style="width:5%; vertical-align: baseline;">
                                     <input type="checkbox" name="checkbox" id="checkbox">
                                 </td>
@@ -207,8 +204,7 @@ button {
                                     <button type="button" id="list-cart">장바구니</button>
                                     <button type="button" id="list-buy">바로구매</button>
                                 </td>
-                            </tr>                  
-                            		
+                            </tr>
                         </table>
                     </div>
                 </div>
