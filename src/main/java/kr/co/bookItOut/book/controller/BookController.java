@@ -24,6 +24,14 @@ public class BookController {
 		return "book/detail";
 	}
 	
+	// 매장 위치 재고 조회
+	@GetMapping(value="/detail")
+	public String CenterInventory(Model model) {
+		List list = bookService.selectAllCenterInventory();
+		model.addAttribute("list", list);
+		return "book/detail";
+	}
+	
 //	@PostMapping(value="/insertComment")
 //	public String insertComment(BookContent bc) {
 //		int result = bookService.insertComment(bc);
