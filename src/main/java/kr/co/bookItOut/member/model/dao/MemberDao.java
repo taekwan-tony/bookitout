@@ -56,5 +56,15 @@ public class MemberDao {
 			return result;
 		}
 	}
+	public Member selectSearchId(Member m) {
+		String query = "select * from member_tbl where member_mail=? and member_name=?";
+		Object[] params = {m.getMemberMail(), m.getMemberName()};
+		List list = jdbc.query(query, memberRowMapper,params);
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return (Member)list.get(0);
+		}
+	}
 	
 }

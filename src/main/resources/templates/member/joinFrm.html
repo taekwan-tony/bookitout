@@ -384,6 +384,7 @@ img {
 				data : {receiver : receiver},
 				type : "post",
 				success : function(data){
+					console.log(data);
 					mailCode = data;
 					authTime();
 				},

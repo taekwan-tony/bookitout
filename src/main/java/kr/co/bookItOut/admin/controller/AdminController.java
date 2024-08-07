@@ -38,12 +38,17 @@ public class AdminController {
 		session.setAttribute("admin", admin);
 		return "redirect:/admin/adminIndex?rePage=1";
 	}
+	
+	
 	//로그아웃
 	@GetMapping(value="/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	
+	
 	//판매점 등록
 	@GetMapping(value = "/insertAdminFrm")
 	public String insertAdminFrm() {
@@ -77,6 +82,8 @@ public class AdminController {
 		return "/admin/insertBook";
 	}
 
+	
+	
 	
 	
 	

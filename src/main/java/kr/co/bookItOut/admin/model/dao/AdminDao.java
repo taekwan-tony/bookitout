@@ -33,6 +33,8 @@ public class AdminDao {
 		int totalCount = jdbc.queryForObject(qurey,Integer.class);
 		return totalCount;
 	}
+	
+	
 	//--로그인//
 	public Admin selectOneMember(String memberId, String memberPw) {
 		String query = "select * from admin_tbl where admin_id=? and admin_pw=?";
@@ -57,4 +59,5 @@ public class AdminDao {
 		int totalCount = jdbc.queryForObject(qurey,Integer.class);
 		return totalCount;
 	}
+	
 }
