@@ -56,7 +56,6 @@ public class MemberController {
 
 	@PostMapping(value = "/login")
 	public String login(String memberId, String memberPw, int role, HttpSession session) {
-
 		System.out.println(role);
 
 		if (role == 1) {
@@ -133,6 +132,24 @@ public class MemberController {
 		
 		emailSender.sendMail(emailTitle, receiver, emailContent);
 		return sb.toString();
+	}
+	
+	@GetMapping(value = "/searchIdFrm")
+	public String searchIdFrm() {
+		
+		return "member/searchIdFrm";
+	}
+	
+	@PostMapping(value = "/searchId")
+	public String searchId(Member m, Model model) {
+			Member member = memberService.selectSearchId(m);
+			
+			String memberId = member.getMemberId();
+			if(memberId == null) {
+				memberId = "아이디가 존재하지 않습니다.";
+			}
+			model.addAttribute("memberId", memberId);
+			return "member/searchId";
 	}
 
 	@PostMapping(value = "/updateInfo")

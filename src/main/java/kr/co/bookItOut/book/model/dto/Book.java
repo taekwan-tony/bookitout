@@ -22,5 +22,5 @@ public class Book {
 	private String bookDetailImg;
 	private String bookType;
 	private String bookGenre;
-	private int bookCount;
+	private int readCount;
 }
