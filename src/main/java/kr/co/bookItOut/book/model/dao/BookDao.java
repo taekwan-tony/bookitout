@@ -23,12 +23,6 @@ public class BookDao {
 	@Autowired
 	private CenterInventoryBookRowMapper centerInventoryBookRowMapper;
 
-	public List selectAllBook() {
-		String query = "select * from book order by book_no";
-		List list = jdbc.query(query, bookRowMapper);
-		return list;
-	}
-
 	public List selectAllCenterInventory(Book bookNo, CenterInventory center) {
 		String query = "select admin_name, admin_addr, center_book_count from admin_tbl join center_inventory using (admin_no) join book on (book_no = book_no2) where book_no = ?";
 		Object[] params = {center.getBookNo2()};
