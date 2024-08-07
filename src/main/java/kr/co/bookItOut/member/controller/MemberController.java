@@ -149,10 +149,12 @@ public class MemberController {
 	@PostMapping(value = "/searchId")
 	public String searchId(Member m, Model model) {
 			Member member = memberService.selectSearchPw(m);
+			String memberId;
 			
-			String memberId = member.getMemberId();
-			if(memberId == null) {
+			if(member == null) {
 				memberId = "아이디가 존재하지 않습니다.";
+			}else {				
+				memberId = member.getMemberId();
 			}
 			model.addAttribute("memberId", memberId);
 			return "member/searchId";
@@ -164,7 +166,7 @@ public class MemberController {
 			String memberPw;
 			
 			if(member == null) {
-				memberPw = "아이디가 존재하지 않습니다.";
+				memberPw = "계정이 존재하지 않습니다.";
 			}else {
 				memberPw = member.getMemberPw();				
 			}
