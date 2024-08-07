@@ -131,7 +131,12 @@
 	.like-box{
 		margin-right: 10px;
 	}
+	.posting-comment{
+		display: ;
+	}
 </style>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
     rel="stylesheet">
 </head>
@@ -199,15 +204,16 @@
 						<li>
 							<p class="comment-info" id="comment-info">
 								<span th:text="${bc.boardCommentWriter}"></span> <span
-									th:text="${bc.boardCommentDate}"></span> <span class="like-box">
+									th:text="${bc.boardCommentDate}"></span> 
+								<span class="like-box">
 									<span th:if="${bc.isLike == 1}" class="material-icons heart"
 									th:onclick="likePush(this,[[${bc.boardCommentNo}]]);">favorite</span>
 									<span th:if="${bc.isLike == 0}" class="material-icons heart"
 									th:onclick="likePush(this,[[${bc.boardCommentNo}]]);">favorite_border</span>
 									<span th:text="${bc.likeCount}"></span>
 								</span>
+								<span class="comment-content" th:text="${bc.boardCommentContent}"></span>
 							</p>
-							<p class="comment-content" th:text="${bc.boardCommentContent}"></p>
 							<div class="input-item" style="display: none;">
 								<textarea name="boardCommentContent"
 									th:text="${bc.boardCommentContent}"></textarea>
@@ -251,17 +257,18 @@
 						<li class="rid"><span class="material-icons" id="right">subdirectory_arrow_right</span>
 							<span class="material-icons" id="account-box">account_box</span>
 							<p class="comment-info">
-								<span th:text="${bcc.boardCommentWriter}"></span> <span
-									th:text="${bcc.boardCommentDate}"></span> <span
-									class="like-box"> <span th:if="${bcc.isLike == 1}"
+								<span th:text="${bcc.boardCommentWriter}"></span> 
+								<span th:text="${bcc.boardCommentDate}"></span>
+								<span class="like-box"> 
+								<span th:if="${bcc.isLike == 1}"
 									class="material-icons heart"
 									th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite</span>
 									<span th:if="${bcc.isLike == 0}" class="material-icons heart"
 									th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite_border</span>
 									<span th:text="${bcc.likeCount}">0</span>
+									<span class="comment-content" th:text="${bcc.boardCommentContent}"></span>
 								</span>
 							</p>
-							<p class="comment-content" th:text="${bcc.boardCommentContent}"></p>
 							<div class="input-item" style="display: none;">
 								<textarea name="boardCommentContent"
 									th:text="${bcc.boardCommentContent}"></textarea>
