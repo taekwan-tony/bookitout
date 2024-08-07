@@ -4,6 +4,148 @@
 <meta charset="UTF-8">
 <title>도서 목록 </title>
 <link rel="stylesheet" href="/css/main.css">
+<style>
+	* {
+    padding: 0;
+    margin: 0;
+    outline: none;
+}
+.content {
+    width: 1200px;
+    margin: 0 auto;
+}
+.book-list {
+    width: 1000px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.list-header {
+    width: 200px;
+    height: 790px;
+    float: left;
+    margin-top: 25px;
+    background-color: #F8F4E1;
+    border-radius: 10px;
+}
+.list-header>p {
+    text-align: center;
+    font-weight: bold;
+    padding-top: 30px;
+}
+.list-header>ul {
+    text-align: center;
+    font-weight: bolder;
+    padding: 30px;
+    list-style-type: none;
+}
+.list-header li {
+    margin-top: 10px;
+    text-align: left;
+    padding-left: 30px;
+    color: #777777;
+}
+.list-contect {
+    float: right;
+    width: 700px;
+    margin-top: 25px;
+}
+.image>img {
+    width: 100px;
+    height: 100px;
+}
+a {
+    list-style-type: none;
+}
+.list-array-title {
+    margin-top: 20px;
+}
+.list-array-title>p {
+    padding-bottom: 10px;
+}
+.array-title {
+    overflow: hidden;
+    list-style-type: none;
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+}
+.array-title>li {
+    float: right;
+    width: 100;
+    margin: 5px 35px;
+}
+
+.list-array {
+    overflow: hidden;
+}
+.book-info {
+    padding-top: 20px;
+}
+.chech-box {
+    float: left;
+}
+img {
+    width: 120px;
+    height: 150px;
+    margin-right: 15px;
+    background-color: #F8F4E1;
+}
+.list-book-content {
+    width: 300px;
+    float: left;
+}
+.btn {
+    float: left;
+}
+.book-info-tbl{
+	height: 700px;
+}
+.book-info-tbl>td {
+    height: 30px;
+}
+.check-box {
+    text-align: center;
+}
+#list-btn {
+    text-align: center;
+    border: none;
+}
+#list-buy {
+    background-color: #F8F4E1;
+    border: none;
+}
+#list-cart {
+    background-color: #F8F4E1;
+    border: none;
+}
+.book-details {
+    padding-top: 10px;
+}
+.book-first {
+    margin-bottom: 10px;
+}
+.book-second {
+    margin-bottom: 10px;
+}
+.book-publisher {
+    margin-left: 87px;
+}
+.publication-date {
+    margin-left: 70px;
+}
+.enroll-date {
+    margin-left: 70px;
+}
+button {
+    width: 70px;
+    height: 30px;
+    border-radius: 7px;
+    font-weight: bold;
+}
+#list-cart {
+    margin-bottom: 10px;
+}
+
+</style>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
