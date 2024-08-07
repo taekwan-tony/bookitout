@@ -105,7 +105,7 @@
 								<div class="file-wrap">
 									<div th:each="file:${b.fileList}" class="files">
 										<span class="delFilename" th:text="${file.filename}"></span>
-										<span class="material-icons delBtn" th:onclick="deleteFile(this,[[${file.fileNo}]]);">remove_selection</span>
+										<span class="material-icons delBtn" th:onclick="deleteFile(this,[[${file.fileNo}]]);">delete_sweep</span>
 									</div>
 								</div>
 							</td>

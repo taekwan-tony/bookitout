@@ -117,22 +117,19 @@
 	#accountbox{
 		font-size: 39px;
 	}
-	#rid{
-		display: inline;
-	}
 	#float{
 	}
 	.heart{
 		margin: 0;
 	}
-	.rid>*{
-		float: left;
+	#rid *{
+		display: inline;
 	}
 	.like-box{
 		margin-right: 10px;
 	}
-	.posting-comment{
-		display: ;
+	.bottom{
+		margin-bottom: 100px;
 	}
 </style>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -251,10 +248,11 @@
 							</ul>
 						</form>
 					</div>
-					<ul class="posting-comment reply"
+					<div class="posting-comment reply"
 						th:each="bcc : ${b.reCommentList}"
 						th:if="${bc.boardCommentNo == bcc.boardCommentRef}">
-						<li class="rid"><span class="material-icons" id="right">subdirectory_arrow_right</span>
+						<div class="rid">
+							<span class="material-icons" id="right">subdirectory_arrow_right</span>
 							<span class="material-icons" id="account-box">account_box</span>
 							<p class="comment-info">
 								<span th:text="${bcc.boardCommentWriter}"></span> 
@@ -282,11 +280,12 @@
 										th:onclick="deleteComment(this,[[${bcc.boardCommentNo}]],[[${b.boardNo}]]);">삭제</a>
 								</th:block>
 							</p>
-						</li>
-					</ul>
+						</div>
+					</div>
 				</th:block>
 			</div>
 		</section>
+		<div class="bottom"></div>
 	</main>
 	<script>
 		function modifyComment(obj, boardCommentNo, boardNo) {
