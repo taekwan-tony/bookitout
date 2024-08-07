@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.admin.model.dto.AdminRowMapper;
-import kr.co.bookItOut.book.model.dto.BookContentRowMapper;
 import kr.co.bookItOut.book.model.dto.BookRowMapper;
+import kr.co.bookItOut.centerInventory.model.dto.CenterInventoryRowMapper;
 
 @Repository
 public class AdminDao {
@@ -19,8 +19,10 @@ public class AdminDao {
 	private BookRowMapper bookRowMapper;
 	@Autowired
 	private AdminRowMapper adminRowMapper;
+	@Autowired
+	private CenterInventoryRowMapper centerInventoryRowMapper;
 	
-	
+	//-판매자 리스트
 	public List selectAdminList(int start, int end) {
 		String query = "select * from(select rownum as rnum, n.*from (select * from admin_tbl order by 1 desc)n) where rnum between ? and ?";
 		Object[] params = {start,end};
@@ -33,7 +35,7 @@ public class AdminDao {
 		int totalCount = jdbc.queryForObject(qurey,Integer.class);
 		return totalCount;
 	}
-	
+	//--판매자리스트 끝
 	
 	//--로그인//
 	public Admin selectOneMember(String memberId, String memberPw) {
@@ -46,7 +48,9 @@ public class AdminDao {
 			return (Admin)list.get(0);
 		}
 	}
+	//-로그인 끝
 	
+	//-책 리스트
 	public List selectBookList(int start, int end) {
 		String query = "select * from(select rownum as rnum, n.*from (select * from (select * from book join center_inventory on (book_no = book_no2)) order by 1 desc)n) where rnum between ? and ?";
 		Object[] params = {start,end};
@@ -59,5 +63,6 @@ public class AdminDao {
 		int totalCount = jdbc.queryForObject(qurey,Integer.class);
 		return totalCount;
 	}
+	//-책 리스트 끝
 	
 }
