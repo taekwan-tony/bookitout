@@ -38,7 +38,7 @@ public class BookService {
 		int pageNaviSize = 10;		
 		int pageNo = ((reqPage - 1) / pageNaviSize) * pageNaviSize + 1;
 		
-		String pageNavi = "<ul class = 'pagination circle-style'>";
+		String pageNavi = "<div class='inner'><ul>";
 		if(pageNo !=1) {
 			pageNavi += "<li>";
 			pageNavi += "<a class='page-item' href='book/list?reqPage=" + (pageNo - 1) +"'>";
@@ -68,7 +68,7 @@ public class BookService {
 			pageNavi += "<span class='material-icons'>chevron_right</span>";
 			pageNavi += "</a></li>";
 		}
-		pageNavi += "</ul>";
+		pageNavi += "</ul></div>";
 		
 		BookListData bld = new BookListData(list, pageNavi);		
 		

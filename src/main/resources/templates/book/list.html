@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>도서 목록 </title>
+<link rel="stylesheet" href="/css/main.css">
 <style>
 	* {
     padding: 0;
@@ -213,7 +214,7 @@ button {
                     </div>
                 </div>
 
-                <div id ="pageNavi" th:utext="${pageNavi}"></div>
+                <div class="pagination" id="pageNavi" th:utext="${pageNavi}"></div>
 
             </div>
         </section>
