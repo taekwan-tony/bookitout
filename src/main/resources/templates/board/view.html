@@ -68,7 +68,7 @@
 		text-align: center;
 	}
 	.material-icons{
-		color: #74512D;
+		color: #AF8F6F;
 		margin-right: 20px;
 	}
 	.inputCommentBox{
@@ -98,7 +98,7 @@
 		line-height: 39px;
 	}
 	#inputComment{
-		background-color: #74512D;
+		background-color: #AF8F6F;
 		color: white;
 	}
 	textarea{
@@ -157,9 +157,12 @@
 	}
 	.comment-title{
 		text-align: center;
+		margin-bottom: 50px;
 	}
 	.comment-title>*{
-		font-size: large;
+		font-size: 24px;
+		color: #74512D;
+		font-weight: bold;
 	}
 </style>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -209,7 +212,7 @@
 					</td>
 				</tr>
 			</table>
-			<div class="comment-title"><p>댓글입력</p></div>
+			<div class="comment-title"><p>댓글</p></div>
 			<div th:if="${session.member != null}" class="inputCommentBox">
 				<form action="/board/insertComment" method="post">
 					<ul class="comment">
