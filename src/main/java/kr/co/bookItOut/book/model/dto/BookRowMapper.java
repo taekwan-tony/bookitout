@@ -12,22 +12,37 @@ public class BookRowMapper implements RowMapper<Book> {
 	@Override
 	public Book mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Book b = new Book();
-		b.setBookNo(rs.getInt("book_no"));
-		b.setBookName(rs.getNString("book_name"));
-		b.setBookWriter(rs.getNString("book_writer"));
-		b.setBookPrice(rs.getInt("book_price"));
-		b.setBookPublisher(rs.getNString("book_publisher"));
-		b.setPublicationDate(rs.getString("publication_date"));
-		b.setEnrollDate(rs.getNString("enroll_date"));
-		b.setBookImg(rs.getString("book_img"));
-		b.setAdminNo(rs.getInt("admin_no"));
-		b.setBookDetailContent(rs.getString("book_detail_content"));
-		b.setBookDetailWriter(rs.getNString("book_detail_writer"));
-		b.setBookDetailImg(rs.getNString("book_detail_img"));
-		b.setBookType(rs.getString("book_type"));
-		b.setBookGenre(rs.getString("book_genre"));
-		b.setBookCount(rs.getInt("book_count"));
+		b.setBookNo(rs.getInt("BOOK_NO"));
+		b.setBookName(rs.getString("BOOK_NAME"));
+		b.setBookWriter(rs.getString("BOOK_WRITER"));
+		b.setBookPrice(rs.getInt("BOOK_PRICE"));
+		b.setBookPublisher(rs.getString("BOOK_PUBLISHER"));
+		b.setPublicationDate(rs.getString("PUBLICATION_DATE"));
+		b.setEnrollDate(rs.getString("ENROLL_DATE"));
+		b.setBookImg(rs.getString("BOOK_IMG"));
+		b.setAdminNo(rs.getInt("ADMIN_NO"));
+		b.setBookDetailContent(rs.getString("BOOK_DETAIL_CONTENT"));
+		b.setBookDetailWriter(rs.getString("BOOK_DETAIL_WRITER"));
+		b.setBookDetailImg(rs.getString("BOOK_DETAIL_IMG"));
+		b.setBookType(rs.getString("BOOK_TYPE"));
+		b.setBookGenre(rs.getString("BOOK_GENRE"));
+		b.setBookCount(rs.getInt("READ_COUNT"));
 		return b;
+//		BOOK_NO
+//		BOOK_NAME
+//		BOOK_WRITER
+//		BOOK_PRICE
+//		BOOK_PUBLISHER
+//		PUBLICATION_DATE
+//		ENROLL_DATE
+//		BOOK_IMG
+//		ADMIN_NO
+//		BOOK_DETAIL_CONTENT
+//		BOOK_DETAIL_WRITER
+//		BOOK_DETAIL_IMG
+//		BOOK_TYPE
+//		BOOK_GENRE
+//		READ_COUNT
 	}
 
 }
