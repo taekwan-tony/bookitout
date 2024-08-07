@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.bookItOut.book.model.dto.Book;
+import kr.co.bookItOut.book.model.dto.BookContent;
 import kr.co.bookItOut.book.model.dto.BookListData;
 import kr.co.bookItOut.book.model.service.BookService;
 import kr.co.bookItOut.centerInventory.model.dto.CenterInventory;
@@ -22,18 +24,9 @@ public class BookController {
 	private BookService bookService;
 	
 	@GetMapping(value="/detail")
-	public String detail(Model model) {
-		List list = bookService.selectAllBook();
-		model.addAttribute("list", list);
+	public String detail() {
 		return "book/detail";
 	}
-	
-//	@GetMapping(value="/list")
-//	public String bookList(Model model) {
-//		List list = bookService.selectAllBook();
-//		model.addAttribute("list", list);
-//		return "redirect:/detail";
-//	}	
 	
 	@ResponseBody
 	@GetMapping(value="/ajax1")

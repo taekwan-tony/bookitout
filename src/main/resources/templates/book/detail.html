@@ -46,7 +46,7 @@
                         </P>
                     </div>
                     <div class="container">
-                        <button id="modalBtn" class="btn-type1 btn open-btn" type="button">
+                        <button class="btn-type1 btn open-btn" type="button">
                             <i class="fa-solid fa-location-dot"></i>
                             	매장 재고·위치
                         </button>
@@ -134,11 +134,11 @@
                         <span class="price">19,800원</span>
                     </div>
                     <div class="bottom-btnBox">
-                        <span>
+                        <span class="btn-type1 countPM">
                             <!-- 장바구니 수량 증감 -->
-                            <button onclick="minus();">-</button>
-                            <input type="text" id="count" value="1" style="width: 20px;">
-                            <button onclick="plus();">+</button>
+                            <button class="minus" onclick="minus();">-</button>
+                            <input type="text" id="count" value="1" style="width: 20px;" readonly>
+                            <button class="plus" onclick="plus();">+</button>
                         </span>
                         <button class="btn-type1 btn"><span><i class="fa-solid fa-gift"></i></span>선물하기</button>
                         <button class="btn-type2 btn">장바구니</button>
