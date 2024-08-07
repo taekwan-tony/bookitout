@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookRowMapper;
+import kr.co.bookItOut.centerInventory.model.dto.CenterInventory;
 import kr.co.bookItOut.centerInventory.model.dto.CenterInventoryBookRowMapper;
 
 
@@ -22,9 +23,15 @@ public class BookDao {
 	@Autowired
 	private CenterInventoryBookRowMapper centerInventoryBookRowMapper;
 
-	public List selectAllCenterInventory(Book bookNo) {
+	public List selectAllBook() {
+		String query = "select * from book order by book_no";
+		List list = jdbc.query(query, bookRowMapper);
+		return list;
+	}
+
+	public List selectAllCenterInventory(Book bookNo, CenterInventory center) {
 		String query = "select admin_name, admin_addr, center_book_count from admin_tbl join center_inventory using (admin_no) join book on (book_no = book_no2) where book_no = ?";
-		Object[] params = {};
+		Object[] params = {center.getBookNo2()};
 		List centerList = jdbc.query(query, centerInventoryBookRowMapper, params);
 		
 		return centerList;

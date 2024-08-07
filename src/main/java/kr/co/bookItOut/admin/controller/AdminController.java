@@ -59,7 +59,8 @@ public class AdminController {
 	public String updatePwFrm() {
 		return "/admin/updatePw";
 	}
-	//책 리스트 보여주는 화면
+//책 부분 시작------------------------------------------------------------------------------------------------
+//책 리스트 보여주는 화면
 	@GetMapping(value = "/bookListFrm")
 	public String bookListFrm(Model model,int rePage) {
 		BookListData bld = adminService.selectbookList(rePage);
@@ -74,6 +75,13 @@ public class AdminController {
 		
 		return "/admin/bookList";
 	}
+	//--
+	@GetMapping(value = "/insertBookFrm")
+	public String insertBook() {
+		
+		return "/admin/insertBook";
+	}
+
 	
 	
 	
