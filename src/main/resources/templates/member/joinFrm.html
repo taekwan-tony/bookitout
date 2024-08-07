@@ -67,7 +67,7 @@
 	box-sizing: border-box;
 }
 
-#memberAddr {
+#memberAddrIn {
 	width: 60%;
 	padding: 10px;
 	box-sizing: border-box;
@@ -199,6 +199,7 @@ img {
 }
 
 </style>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 
@@ -291,19 +292,23 @@ img {
 					</div>
 					<div class="input-wrap">
 						<div class="input-title">
-							<label for="memberAddr">주소</label>
+							<label for="memberAddrIn">주소</label>
 						</div>
 						<div class="input-item">
-							<input type="text" name="memberAddr" id="memberAddr">
-							<button type="button" class="addr-btn">검색</button>
+							<input type="text" name="memberAddrIn" id="memberAddrIn" readonly>
+							<input type="hidden" name="memberAddr" id="memberAddr">
+							<button type="button" class="addr-btn" id="addr-btn">검색</button>
 						</div>
 					</div>
 					<div class="input-wrap">
 						<div class="input-title">
-							<label for="memberAddrRE">상세주소</label>
+							<label for="detailAddress">상세주소</label>
 						</div>
 						<div class="input-item">
-							<input type="text" name="memberAddrRE" id="memberAddrRE">
+							<input type="text" name="address" id="address">
+						</div>
+						<div class="input-item" style="margin-top:5px;">
+							<input type="text" name="detailAddress" id="detailAddress">
 						</div>
 					</div>
 					<div class="input-item">
@@ -438,6 +443,25 @@ img {
 	           }
 	           
 	         });
+	      
+	      $("#addr-btn").on("click", function(){
+	    	  new daum.Postcode({
+	    	        oncomplete: function(data) {
+	    	            $("#memberAddrIn").val(data.zonecode);
+	    	            $("#address").val(data.roadAddress);
+	    	        }
+	    	    }).open();
+	      });
+	      
+	      function checkValue() {
+	            const memberAddr = $("#memberAddrIn").val();
+	            const address = $("#address").val();
+	            const detailAddress = $("#detailAddress").val();
+	            
+	            const fullAddress = `${memberAddr} ${address} ${detailAddress}`.trim();
+	            $("#memberAddr").val(fullAddress);
+	            return true; // 폼을 제출하려면 true 반환
+	        }
 	</script>
 
 
