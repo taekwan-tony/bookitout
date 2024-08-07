@@ -33,6 +33,8 @@ public class AdminDao {
 		int totalCount = jdbc.queryForObject(qurey,Integer.class);
 		return totalCount;
 	}
+	
+	
 	//--로그인//
 	public Admin selectOneMember(String memberId, String memberPw) {
 		String query = "select * from admin_tbl where admin_id=? and admin_pw=?";
@@ -56,5 +58,17 @@ public class AdminDao {
 		String qurey = "select count(*) from book";
 		int totalCount = jdbc.queryForObject(qurey,Integer.class);
 		return totalCount;
+	}
+	
+	
+	public Admin selectSearchId(String adminName, String adminMail) {
+		String query = "select * from admin_tbl where admin_name=? and admin_mail=?";
+		Object[] params = {adminName, adminMail};
+		List list = jdbc.query(query, adminRowMapper,params);
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return (Admin)list.get(0);
+		}
 	}
 }

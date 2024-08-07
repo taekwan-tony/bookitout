@@ -155,9 +155,9 @@ public class MemberController {
 			model.addAttribute("memberId", memberId);
 			return "member/searchId";
 		}else {
-			String memberId = m.getMemberId();
+			String memberMail = m.getMemberMail();
 			String memberName = m.getMemberName();
-			return "redirect:/admin/searchId?adminId=" + memberId + "&adminName=" + memberName;
+			return "redirect:/admin/searchId?adminMail=" + memberMail + "&adminName=" + memberName;
 		}
 	}
 

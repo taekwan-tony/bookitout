@@ -38,12 +38,35 @@ public class AdminController {
 		session.setAttribute("admin", admin);
 		return "redirect:/admin/adminIndex?rePage=1";
 	}
+	
+	
 	//로그아웃
 	@GetMapping(value="/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	//아이디찾기
+	@PostMapping(value = "/searchId")
+	public String searchId(String adminName,String adminMail, Model model) {
+			Admin admin = adminService.selectSearchId(adminName, adminMail);
+			System.out.println("adminName"+adminName);
+			System.out.println("adminMail"+adminMail);
+			
+			System.out.println("admin"+admin);
+			
+			String memberId = admin.getAdminId();
+			
+			if(memberId == null) {
+				memberId = "아이디가 존재하지 않습니다.";
+			}
+			model.addAttribute("memberId", memberId);
+			return "member/searchId";
+		
+	}
+	
+	
 	//판매점 등록
 	@GetMapping(value = "/insertAdminFrm")
 	public String insertAdminFrm() {
@@ -69,6 +92,8 @@ public class AdminController {
 		
 		return "/admin/bookList";
 	}
+	
+	
 	
 	
 	

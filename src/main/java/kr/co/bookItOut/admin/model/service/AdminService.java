@@ -73,9 +73,16 @@ public class AdminService {
 		
 		return ald;
 	}
+	
+	//--------------회원 처리---------------------------------------------------------------------------
 
 	public Admin selectOneMember(String memberId, String memberPw) {
 		Admin admin = adminDao.selectOneMember(memberId, memberPw);
+		return admin;
+	}
+	
+	public Admin selectSearchId(String adminName, String adminMail) {
+		Admin admin = adminDao.selectSearchId(adminName, adminMail);
 		return admin;
 	}
 	
@@ -138,4 +145,6 @@ public BookListData selectbookList(int rePage) {
 		
 		return bld;
 	}
+
+
 }
