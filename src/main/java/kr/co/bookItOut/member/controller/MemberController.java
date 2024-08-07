@@ -56,7 +56,6 @@ public class MemberController {
 
 	@PostMapping(value = "/login")
 	public String login(String memberId, String memberPw, int role, HttpSession session) {
-
 		System.out.println(role);
 
 		if (role == 1) {
@@ -133,6 +132,12 @@ public class MemberController {
 		
 		emailSender.sendMail(emailTitle, receiver, emailContent);
 		return sb.toString();
+	}
+	
+	@GetMapping(value = "/searchIdFrm")
+	public String searchIdFrm() {
+		
+		return "member/searchIdFrm";
 	}
 
 	@PostMapping(value = "/updateInfo")

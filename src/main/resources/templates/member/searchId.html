@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>아이디찾기</title>
+<link rel="stylesheet" href="/css/main.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+	.logo {
+	text-align: center;
+	margin: 20px;
+	margin-left: 34px;
+	float: left;
+}
+
+	.search-wrap{
+	display: block;
+	width: 500px;
+	margin: 0 auto;
+	padding: 20px;
+	border: 1px solid black;
+	margin-top : 40px;
+	}
+
+	.center>h1 {
+	float: left;
+	padding: 20px;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+
+	<header>
+		<h1 class="logo">
+			<a href="/">책키라웃</a>
+		</h1>
+		<div class="center">
+			<h1>아이디 찾기</h1>
+		</div>
+	</header>
+	<main class="content">
+		<div class="clear"></div>
+		<div class="search-wrap">
+			<section class="section searchId">
+				<form action="/member/searchId" method="post" autocomplete="off">
+					
+					
+					<div class="input-wrap">
+
+						<div class="input-title">
+							<label for="memberName">이름</label>
+						</div>
+						<div class="input-item">
+							<input type="text" name="memberName" id="memberName" placeholder="이름">
+						</div>
+					</div>
+
+					<div class="input-wrap">
+						<div class="input-title">
+							<label for="memberMail">메일</label>
+						</div>
+						<div class="input-item">
+							<input type="text" name="memberMail" id="memberMail">
+							<button type="button" class="mail-btn" id="mail-btn">인증코드 발송</button>
+						</div>
+					</div>
+					<div class="input-wrap">
+						<div class="input-title">
+							<label for="check">인증코드</label>
+						</div>
+						<div class="input-item">
+							<input type="text" id="check" placeholder="인증번호 입력">
+							<span id="timezone"></span>
+							<button type="button" class="check-btn">인증하기</button>
+						</div>
+					</div>
+					<input type="submit" value="아이디 찾기">
+				</form>
+			</section>
+		</div>
+	<div class="clear"></div>
+	</main>
+	<script>
+		
+	</script>
+
+
+
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>
