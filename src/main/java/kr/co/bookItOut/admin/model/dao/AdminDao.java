@@ -46,7 +46,7 @@ public class AdminDao {
 	}
 	
 	public List selectBookList(int start, int end) {
-		String query = "select * from(select rownum as rnum, n.*from (select * from book order by 1 desc)n) where rnum between ? and ?";
+		String query = "select * from(select rownum as rnum, n.*from (select * from (select * from book join center_inventory on (book_no = book_no2)) order by 1 desc)n) where rnum between ? and ?";
 		Object[] params = {start,end};
 		List list = jdbc.query(query,bookRowMapper,params);
 		return list;
