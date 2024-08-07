@@ -16,8 +16,8 @@ public class BookService {
 	private BookDao bookDao;
 
 	public List selectAllCenterInventory() {
-		List list = bookDao.selectAllCenterInventory();
-		return list;
+		List CenterInventory = bookDao.selectAllCenterInventory();
+		return CenterInventory;
 	}
 
 //	public int insertComment(BookContent bc) {

@@ -25,10 +25,10 @@ public class BookController {
 	}
 	
 	// 매장 위치 재고 조회
-	@GetMapping(value="/detail")
+	@GetMapping(value="/CenterInventory")
 	public String CenterInventory(Model model) {
-		List list = bookService.selectAllCenterInventory();
-		model.addAttribute("list", list);
+		List CenterInventory = bookService.selectAllCenterInventory();
+		model.addAttribute("CenterInventory", CenterInventory);
 		return "book/detail";
 	}
 	
