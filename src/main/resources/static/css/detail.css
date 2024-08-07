@@ -193,6 +193,9 @@ span.price{
     align-items: center;
     justify-content: center;
 }
+.bottom-btnBox>*{
+    margin-right: 5px;
+}
 .countPM{
     padding: 9px 18px;
     margin-right: 5px;
