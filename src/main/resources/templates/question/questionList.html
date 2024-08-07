@@ -44,9 +44,111 @@
 		font-size:20px;
 		font-family:Tenada;
 	}
+	
 	.tab-list-wrap{
 		padding-bottom : 50px;
 		border-bottom : 1px solid var(--gray2);
+	}
+	.total-faq-box{
+		border-bottom : 0.5px solid var(--gray2);
+	}
+	.question-icon-color{
+		color: var(--color2);
+		font-size: 18px;
+	}
+	.btn-content-box{
+		position: relative;
+	}
+	.question-box{
+		height : 60px;
+		width:100%;
+		background-color : transparent;
+		border : none;
+
+		text-align: left;
+		overflow : hidden;
+	}
+	.question-box>div:first-child{
+		float:left;
+	}
+	#faqTitle{
+		font-size: 17px;
+		font-family: Tenada;
+	}
+	.question-btn{
+		position: absolute;
+		left: 0;
+		top: 0;
+		height : 100%;
+		width: 100%;
+		background: none;
+		border: none;
+		
+	}
+	.right-btn{
+		float : right;
+	}
+	.content-box>div{
+		display : flex;
+		
+	}
+	.down-box{
+		display : none;
+	}
+	
+	.customer-content-wrap>div:last:child{
+		margin : 0 auto;
+	}
+	.content-box{
+		animation-duration : 10s;
+		animation-delay: 10s;
+	}
+	.question-content-box{
+		overflow:hidden;
+	}
+	.write-btn{
+		float:right;
+	}
+	.write-question-wrap>.page-wrap>div{
+		display : flex;
+		align-items:center;
+		justify-content : center;
+	}
+	.question-box>div>div{
+		padding-bottom:15px;
+		
+	}
+	.question-box>div>div>p{
+		font-size: 16px;
+		font-family: Tenada;
+		padding-left : 8px;
+	}
+	.content-back-wrap{
+		margin : 10px auto;
+		min-height : 200px;
+		width : 80%;
+		padding:20px;
+		border-radius : 8px;
+		background-color : var(--gray2);
+		position : relative;
+	}
+	
+	.content-btn-box{
+		display : flex;
+		position: absolute;
+		right : 0;
+		bottom : 0;
+		align-items : right;
+		padding : 5px;
+		gap : 10px;
+	}
+	.content-btn-box>*{
+		font-size : 12px;
+		cursor: pointer;
+		
+	}
+	.content-btn-box>a:hover{
+		text-decoration: underline;
 	}
 </style>
 </head>
@@ -78,9 +180,9 @@
 				</div>
 				<div class="content-main-text">
 					<ul>
-						<a th:href="@{/Question/questionList(memberNo=${session.member.memberNo},type=1,reqPage=1)}">1:1 문의</a>
+						<a href="/Question/questionList?type=1&reqPage=1">1:1 문의</a>
 						<li><a href="/Question/writeQuestionFrm">1:1 문의 접수</a></li>
-						<li><a th:href="@{/Question/questionList(memberNo=${session.member.memberNo},type=1,reqPage=1)}">1:1 문의 내역</a></li>
+						<li><a href="/Question/questionList?type=1&reqPage=1">1:1 문의 내역</a></li>
 					</ul>
 				</div>
 				<div class="content-main-text">
@@ -94,32 +196,71 @@
 					<h2>1:1 문의 내역</h2>
 				</div>
 				<div class="write-question-wrap">
-					<div class="tab-list-wrap">
-						<ul class="tab-ul">
-							<li class="tab-item ui-state-active click">
-								<button class="tab-btn">
-									<span><a href="#">전체</a></span>
-								</button>
-							</li>
-							<li class="tab-item ui-state-active">
-								<button class="tab-btn">
-									<span><a href="#">처리중</a></span>
-								</button>
-							</li>
-							<li class="tab-item ui-state-active">
-								<button class="tab-btn">
-									<span><a href="#">완료</a></span>
-								</button>
-							</li>			
+					<div class="tab-list-wrap" th:switch="${click}">
+						<ul class="tab-ul" th:case="전체">
+								<li class="tab-item ui-state-active click">
+									<button for="type1" class="tab-btn">
+										<span><a id="type1" href="/Question/questionList?type=1&reqPage=1">전체</a></span>
+									</button>
+								</li>
+								<li class="tab-item ui-state-active">
+									<button for="type2" class="tab-btn" >
+										<span><a id="type2" href="/Question/questionList?type=2&reqPage=1">처리중</a></span>
+									</button>
+								</li>
+								<li class="tab-item ui-state-active">
+									<button for="type3" class="tab-btn">
+										<span><a id="type3" href="/Question/questionList?type=3&reqPage=1">완료</a></span>
+									</button>
+								</li>
+						</ul>
+						<ul class="tab-ul" th:case="처리중">
+								<li class="tab-item ui-state-active">
+									<button for="type1" class="tab-btn">
+										<span><a id="type1" href="/Question/questionList?type=1&reqPage=1">전체</a></span>
+									</button>
+								</li>
+								<li class="tab-item ui-state-active click">
+									<button for="type2" class="tab-btn" >
+										<span><a id="type2" href="/Question/questionList?type=2&reqPage=1">처리중</a></span>
+									</button>
+								</li>
+								<li class="tab-item ui-state-active">
+									<button for="type3" class="tab-btn">
+										<span><a id="type3" href="/Question/questionList?type=3&reqPage=1">완료</a></span>
+									</button>
+								</li>
+						</ul>
+						<ul class="tab-ul" th:case="완료">
+								<li class="tab-item ui-state-active">
+									<button for="type1" class="tab-btn">
+										<span><a id="type1" href="/Question/questionList?type=1&reqPage=1">전체</a></span>
+									</button>
+								</li>
+								<li class="tab-item ui-state-active">
+									<button for="type2" class="tab-btn" >
+										<span><a id="type2" href="/Question/questionList?type=2&reqPage=1">처리중</a></span>
+									</button>
+								</li>
+								<li class="tab-item ui-state-active click">
+									<button for="type3" class="tab-btn">
+										<span><a id="type3" href="/Question/questionList?type=3&reqPage=1">완료</a></span>
+									</button>
+								</li>
 						</ul>
 					</div>
-					<th:block th:each="faq : ${list}">
+					<th:block th:each="q : ${list}">
 					<div class="total-faq-box">
 						<div class="btn-content-box">
 							<div class="question-box">
 								<div>
-									<span class="material-icons question-icon-color">help_outline</span>
-									<span th:text="${faq.faqTitle}" id="faqTitle"></span>							
+									<div>
+										<p th:text="${q.questionType}"></p>
+									</div>
+									<div>
+										<span class="material-icons question-icon-color">help_outline</span>
+										<span th:text="${q.questionTitle}" id="questionTitle"></span>	
+									</div>					
 								</div>
 								<div>
 									<span class="material-icons right-btn">expand_more</span>
@@ -129,16 +270,23 @@
 							</button>
 						</div>
 						<div class="content-box down-box">
-							<div>
+							<div class="content-back-wrap">
 								<div>
-									<span class="material-icons">east</span>
+									<span class="material-icons">subdirectory_arrow_right</span>
 								</div>
-								<div th:utext="${faq.faqContent}"></div>
+								<div th:utext="${q.questionContent}"></div>
+								<div class="content-btn-box">
+									<a th:href="@{/Question/updateQuestionFrm(questionNo=${q.questionNo})}" id="update">수정</a>
+									<a th:href="@{/Question/deleteQuestionFrm(questionNo=${q.questionNo})}" id="delete">삭제</a>
+								</div>
 							</div>
+							
 						</div>
 					</div>
 					</th:block>
-					<th:block th:utext="${navi}"></th:block>
+					<div class="page-wrap">
+						<th:block th:utext="${navi}"></th:block>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -150,7 +298,7 @@
 	function checkQuestion(obj){
 		if($(".left").index() != 0){
 			$(".left").parent().next().hide();
-	}
+		}
 	$(".right-btn").removeClass("left");
 	$(obj).addClass("left");
 	
@@ -162,5 +310,8 @@
 			$(obj).prev().children().next().children().text("expand_more");
 		}
 	}
+	
+		
+	
 </script>
 </html>

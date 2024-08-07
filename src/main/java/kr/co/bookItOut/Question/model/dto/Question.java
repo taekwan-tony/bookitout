@@ -1,5 +1,7 @@
 package kr.co.bookItOut.Question.model.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +17,5 @@ public class Question {
 	private String questionAnswer;
 	private int memberNo;
 	private String questionEmail;
-	
+	private List<QuestionFile> fileList;
 }
