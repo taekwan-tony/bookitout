@@ -36,5 +36,10 @@ public class MemberService {
 		Member member = memberDao.selectSearchId(m);
 		return member;
 	}
+
+	public Member selectSearchPw(Member m) {
+		Member member = memberDao.selectSearchPw(m);
+		return member;
+	}
 	
 }
