@@ -51,5 +51,12 @@ public class CartDao {
 
 		return result;
 	}
+
+	public int plusCart(int cartNo) {
+		String query = "update cart_tbl set book_cart_count = book_cart_count + 1  where cart_no=?";
+		Object[] params = {cartNo};
+		int result = jdbc.update(query, params);
+		return result;
+	}
 }
 
