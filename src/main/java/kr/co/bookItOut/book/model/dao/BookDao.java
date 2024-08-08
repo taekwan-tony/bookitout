@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookRowMapper;
-import kr.co.bookItOut.centerInventory.model.dto.CenterInventory;
 import kr.co.bookItOut.centerInventory.model.dto.CenterInventoryBookRowMapper;
 
 
