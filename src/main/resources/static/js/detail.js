@@ -24,6 +24,8 @@ $(document).ready(function(){
         $dimLayer.show();
         console.log('show button click');
         
+        //const bookNo = $("")
+        console.log(window.location.href);
         $("#modal-data-wrap").empty();
 		$.ajax({
 			url : "/book/ajax1",
@@ -67,9 +69,11 @@ $(document).ready(function(){
 					const td1 = $("<td>");//<td></td>
 					td1.append(data[i].adminName);
 					tr2.append(td1);
+					
 					const td2 = $("<td>");
 					td2.append(data[i].adminAddr);
 					tr2.append(td2);
+					
 					const td3 = $("<td>");
 					td3.append(data[i].centerBookCount);
 					tr2.append(td3);

@@ -16,8 +16,8 @@
             <div class="info-wrap">
                 <div class="book">
                     <ul>
-                        <li><h2>당신이 누군가를 죽였다</h2></li>
-                        <li><p><span>히가시노 게이고 저자(글) · 최고은 번역</span> / <span>발행(출시)일자: 2024년 07월 23일</span></p></li>
+                        <li><h2 th:text="${book.bookName}"></h2></li>
+                        <li><p><span th:text="${book.bookWriter}"></span> / 발행(출시)일자: <span th:text="${book.publicationDate}"></span></p></li>
                         <li>
                             <img src="/image/book-sample.jpg" alt="도서 이미지">
                         </li>
@@ -29,7 +29,7 @@
                         <span class="badge">소득공제</span>
                     </div>
                     <div>
-                        <h3>19,800원</h3>
+                        <span th:text="${book.bookPrice}" class="price"></span><span>원</span>
                     </div>
                     <div>
                         <p>
@@ -131,7 +131,7 @@
                 <div class="inner">
                     <div class="price-info">
                         <span>총 상품 금액</span>
-                        <span class="price">19,800원</span>
+                        <span class="price" th:text="${book.bookPrice}"></span><span>원</span>
                     </div>
                     <div class="bottom-btnBox">
                         <span class="btn-type1 countPM">
@@ -171,6 +171,25 @@
 		        count.value = Number(currentCount) + 1;
 		    }
 		}
+		
+		// 가격 천단위 콤마 찍기
+		// let price = document.querySelector(".price").innerText();
+		// let result = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		// console.log(result);
+
+		// const price = $(".price").text();
+		// console.log(price.toLocaleString());
+		// 123,456,789
+		// `toLocaleString()`는 인자가 없이 사용을하면 사용자의 PC의 환경 로컬을 따라서 표시를 해줍니다.
+		
+		// console.log(num.toLocaleString('ko-KR'))
+		// 123,456,789
+		// 로컬을 인자로 넣으면 해당 로컬의 포맷으로 표시해줍니다.
+		
+		// const number = 123456789.123456
+		// console.log(number.toLocaleString('ko-KR', { maximumFractionDigits: 4 }))
+		// 123,456,789.1234
+		// option 인자로 전달되는 객체 안에는 maximumFractionDigits 값이 4로 지정되어 있어서 소숫점 4자리까지 표시
     </script>
 
 	<th:block th:include="common/footer"></th:block>

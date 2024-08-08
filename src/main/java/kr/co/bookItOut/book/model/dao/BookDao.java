@@ -23,6 +23,17 @@ public class BookDao {
 	@Autowired
 	private CenterInventoryBookRowMapper centerInventoryBookRowMapper;
 
+	public Book selectOneBook(Book b) {
+		String query = "select * from book where book_no = ?";
+		Object[] params = {b.getBookNo()};
+		List list = jdbc.query(query, bookRowMapper, params);
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return (Book)list.get(0);
+		}
+	}
+
 	// 판매점 위치 ajax 비동기처리
 	public List selectAllCenterInventory(Book bookNo, CenterInventory center) {
 		String query = "select admin_name, admin_addr, center_book_count from admin_tbl join center_inventory using (admin_no) join book on (book_no = book_no2) where book_no = ?";
