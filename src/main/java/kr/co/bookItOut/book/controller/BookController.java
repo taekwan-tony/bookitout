@@ -24,7 +24,7 @@ public class BookController {
 	private BookService bookService;
 	
 	@GetMapping(value="/detail")
-	public String detail() {
+	public String detail(int bookNo) {
 		return "book/detail";
 	}
 	
