@@ -109,7 +109,7 @@ img {
     background-color: #F8F4E1;
     border: none;
 }
-#bookCart {
+#listCart {
     background-color: #F8F4E1;
     border: none;
 }
@@ -131,11 +131,12 @@ img {
 .enroll-date {
     margin-left: 70px;
 }
-button {
+.list-btn {
     width: 70px;
     height: 30px;
     border-radius: 7px;
     font-weight: bold;
+    margin-top: 10px;
 }
 #bookCart {
     margin-bottom: 10px;
@@ -198,8 +199,16 @@ button {
                                 </td>
 
                                 <td id="list-btn" style="width:15%; vertical-align: baseline;">
-                                    <button class ="bookCart"  type="button" id="listCart" name="bookCart">장바구니</button>
-                                    <button type="button" id="listBuy" >바로구매</button>                      
+                                
+                                	<div th:if="${session.member !=null}">
+                                		<button class ="list-btn"  type="button" id="listCart" name="bookCart" th:onclick="addCart([[${book.bookNo}]])">장바구니</button>
+	                                    <button class ="list-btn"  type="button" id="listBuy"  name="bookBuy">바로구매</button>    
+                                	</div>
+                                	<div th:if="${session.member ==null}">
+                                		<button class ="list-btn"  type="button" id="listCart" name="bookCart" onclick="loginMsg()">장바구니</button>
+	                                    <button class ="list-btn"  type="button" id="listBuy"  name="bookBuy" onclick="loginMsg()">바로구매</button>    
+                                	</div>
+	                                                      
                                 </td>
                             </tr>
                         </table>
@@ -215,9 +224,84 @@ button {
     </main>
     
     <script>
-    	
+	    function loginMsg() {
+	    	swal({
+	    		title: "로그인 필요",
+	    		text : "로그인 페이지로 이동하겠습니까?",
+	    		icon : "info",
+	    		buttons : {
+	    			cancel : {
+	    				text : "아니오",
+	    				value : false,
+						visible : true,
+						className : "btn-secondary",
+						closeModel : true
+	    			},	    
+	    			confirm : {
+	    				text : "예",
+	    				value : true,
+						visible : true,
+						className : "btn-primaty",
+						closeModel : true	    				
+	    			}	    						
+	    		}
+	    	}).then(function(isConfirm){
+	    		if(isConfirm) {
+	    			location.href="/member/loginFrm";
+	    		}	    		
+	    	});	    	    		
+    	}
+	   	    
+	    
+    	function addCart(bookNo){    		
+    		
+    		$.ajax({
+    			url : "/cart/selectCart",
+    			type : "get",
+    			data : {bookNo: bookNo},
+    			success : function(data){
+    				const cartNo = data;
+    				if(cartNo==0){
+    					$.ajax({
+    		    			url : "/cart/addCart",
+    		    			type :  "get",
+    		    			data : {bookNo :bookNo}, 
+    		    			success : function(data){    		    				
+    		    				console.log(data);
+    		    				swal({
+    		    					title : "장바구니 담기",
+    		    					text : "해당 책이 장바구니에 담겼습니다.",
+    		    					icon : "info"    		    					
+    		    				});
+    		    				
+    		    				
+    		    			},
+    		    			error : function() {
+    		    				console.log("에러");
+    		    			}
+    		    		});
+    				}else{
+    					console.log(cartNo);
+    					
+    					
+    				}
+    			},
+    			error : function(){
+    				console.log("에러");
+    				
+    			}
+    			
+    		});
+    		
+    		
+    		
+    		/*
+    		
+    		*/
+    		
+    	}
     
-    
+   		
     </script>
 	
 	<th:block th:include="common/footer"></th:block>

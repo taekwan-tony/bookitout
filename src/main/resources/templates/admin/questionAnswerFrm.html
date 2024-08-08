@@ -1,11 +1,76 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http/www.thymeleaf.org">
 <head>
+<meta charset="UTF-8">
+<title>1:1답변 처리</title>
 <link rel="stylesheet" href="/css/main.css" />
 <link rel="stylesheet" href="/css/admin.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="/js/jquery-3.7.1.js"></script>
+<script src="/js/sweetalert.min.js"></script>
 </head>
+<style>
+	.btn-content-box>table>thead>tr>th{
+		height : 70px;
+	}
+	
+	.btn-content-box>table>tbody>tr>td{
+		height : 50px;
+	}
+	
+	.question-tbl{
+		width:100%;
+	}
+	.question-tbl tr{
+		height : 100px;
+	}
+	.question-tbl tr>td>*{
+		width:90%;
+	}
+	#questionTitle{
+		border-radius:10px;
+		height: 47px;
+		border:1px solid var(--gray1);
+		padding-left : 15px;
+	}
+	.question-tbl tr>td>#questionEmail{
+		width:60%;
+	}
+	#questionEmail{
+		border-radius:10px;
+		height: 47px;
+		border:1px solid var(--gray1);
+		padding-left : 15px;
+	}
+	.question-btn-wrap>button{
+		width:30%;
+	}
+	.question-tbl tr>th>sup{
+		color : red;
+	}
+	.answer-method-wrap{
+		border-bottom : 1px solid var(--gray1);
+		border-top : 1px solid var(--gray1);
+	}
+	.answer-method-wrap{
+		padding: 15px 0;
+	}
+	.question-btn-wrap{
+		padding : 20px; 
+		display : flex;
+		gap : 10px;
+		justify-content : center;	
+		align-items: center;	
+	}
+	.answer-method-wrap>div:first-child{
+		padding-left : 15px;
+	}
+</style>
 <body>
+	<script src="/summernote/summernote-lite.js"></script>
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/summernote/summernote-lite.css">
     <div class="nav1">
         <div class="icons-menu">
             <ul>
@@ -95,62 +160,59 @@
             <div class="inner">
                 <div class="container">
                     <div class="page-title">
-                        <h1>판매점 관리</h1>
+                        <h1>1:1문의 답변</h1>
                     </div>
-                    <form action="">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style="width: 3%">
-                                	<label></label>
-                                	<input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
-                                </th>
-              					<th style="width: 6%">매장번호</th>
-              					<th style="width: 10%">매장명</th>
-              					<th style="width: 25%">매장주소</th>
-              					<th style="width: 8%">개업일</th>
-              					<th style="width: 15%">이메일</th>
-              					<th style="width: 13%">전화번호</th>
-              					<th style="width: 10%">관리</th>
-              					<th style="width: 10%">수정/삭제</th>
-                            </tr>
-                        </thead>
-                        <tbody>                            
-                            <tr th:each="admin :${list}"><!-- -->                            	
-                            	<td>
-                                <input type="checkbox" name="chk[]" value="1">
-                                </td>
-                            	<td th:text="${admin.adminNo}"></td>
-              					<td th:text="${admin.adminName}"></td>
-              					<td th:text="${admin.adminAddr}"></td>
-             					<td th:text="${admin.openingDay}"></td>
-              					<td th:text="${admin.adminEmail}"></td>
-              					<td th:text="${admin.adminPhone}"></td>
-              					<td><a href="/admin/bookList">책 재고관리</a></td>
-              					<td>
-              					<button class="btn-type2 btn">수정</button>
-              					<button class="btn-type2 btn">삭제</button>
-              					</td>
-                            </tr>
-                            	
-                        </tbody>
-                    </table>
-                   </form>
+					<div class="write-question-wrap">
+					<form action="/admin/"  method="post" class="write-form" enctype="multipart/form-data" >
+						<table class="question-tbl tbl">
+							<tr>
+								<th style="width:20%;">문의 유형 <sup>*</sup></th>
+								<td style="width:80%;"  th:text="${q.questionType}">
+									
+								</td>
+							</tr>
+							<tr>
+								<th>문의 제목 <sup>*</sup> </th>
+								<td><input type="text" name="questionTitle" id="questionTitle" th:value="${q.questionTitle}" readonly></td>
+							</tr>
+							<tr>
+								<th>문의 내용</th>
+								<td th:utext="${q.questionContent}"></td>
+							</tr>
+							<tr>
+								<th>첨부파일</th>
+								<td>
+									<div class="file-wrap">
+										<div th:each="file : ${q.fileList}" class="files">
+											<img th:src="@{/question/}+${file.filepath}">
+											<p th:text="${file.filepath}"></p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>문의 내용</th>
+								<td ><textarea name="questionAnswer" id="questionAnswer"></textarea></td>
+							</tr>
+						</table>
+						<div class="answer-method-wrap">
+							<table class="question-tbl tbl">
+								<tr>
+									<th>이메일</th>
+									<td><input type="text" name="questionEmail" id="questionEmail" th:value="${q.questionEmail}" readonly></td>
+								</tr>
+							</table>
+						</div>
+						<div class="question-btn-wrap">
+							<button type="button" class="btn-type2 btn" onclick="location.href='/admin/questionAnswer?reqPage=1'">취소</button>
+							<button type="submit" class="btn-type3 btn">답변처리</button>	
+						</div>
+					</form>
+				</div>
+					
                 </div>
             </div>
-        <!--페이지 넘기는 부분 (책리스트,매장리스트)
-        <div class="pagination">
-            <ul>
-                <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-left"></i></span></a></li>
-                <li><a class="page-item active-page" href="#">1</a></li>
-                <li><a class="page-item" href="#">2</a></li>
-                <li><a class="page-item" href="#">3</a></li>
-                <li><a class="page-item" href="#">4</a></li>
-                <li><a class="page-item" href="#">5</a></li>
-                <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-right"></i></span></a></li>
-            </ul>
-        </div>
-        -->
+
 		<div id="pageNavi" th:utext="${pageNavi}">
 	  	</div>
 		<!--페이지 넘기는 부분 종료 -->
@@ -174,16 +236,16 @@
         </div>
     </div>
     
-    <script>
-    <!--input 전체 선택 로직 -->
-    function check_all(f)
-    {
-        var chk = document.getElementsByName("chk[]");
-
-        for (i=0; i<chk.length; i++)
-            chk[i].checked = f.chkall.checked;
-    }
-    
-    </script>
 </body>
+<script>
+	  $("#questionAnswer").summernote({
+		height : 500,
+		width : 900,
+		lang : "ko-KR",
+		disableResize : true,
+		disableResizeEditor : true,
+		resize : false
+	});
+
+</script>
 </html>

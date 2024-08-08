@@ -102,6 +102,21 @@
             <div class="clear"></div>
 
             <div class="comment">
+                <div class="comment-title">
+                    <span><strong>Book리뷰(120개)</strong></span>
+                    
+                    <div class="right">
+                        <!-- <button class="btn-type3 btn">
+                            <i class="fa-solid fa-pen-clip"></i>
+                            리뷰 작성
+                        </button> -->
+                        
+                        <select>
+                            <option>좋아요 순</option>
+                            <option>최신 순</option>
+                        </select>
+                    </div>
+                </div>
                 <!-- 댓글 입력 -->
                 <div th:if="${session.member != null}" class="inputCommentBox">
                     <form action="/book/insertComment" method="post">
@@ -111,11 +126,10 @@
                                 <span class="user-icon"><i class="fa-solid fa-circle-user"></i></span>
                             </li>
                             <li>
-                            <!-- 
-                                <input type="hidden" name="noticeCommentWriter" th:value="${session.member.memberId}">
-                                <input type="hidden" name="noticeRef" th:value="${n.noticeNo}"> -->
+                                <input type="hidden" name="memberNo" th:value="${session.member.memberNo}">
+                                <input type="hidden" name="boardNoRef">
                                 <div class="input-item">
-                                    <textarea name="noticeCommentContent" placeholder="댓글을 입력하세요!"></textarea>
+                                    <textarea name="boardCommentContent" placeholder="리뷰를 작성하세요!"></textarea>
                                 </div>
                             </li>
                             <li>
@@ -123,7 +137,61 @@
                             </li>
                         </ul>
                     </form>
-                </div>                
+                </div>
+                <!-- 댓글 출력 -->
+                <div class="commentBox">
+                    <th:block>
+                        <ul class="posting-comment">
+                            <!-- <li>
+                                <span class="user-icon">
+                                    <i class="fa-solid fa-circle-user"></i>
+                                </span>
+                            </li> -->
+                            <li>
+                                <div class="comment-info">
+                                    <span class="comment-info-left">
+                                        <span class="badge buyer">구매자</span>
+                                        <span>작성자ID</span>
+                                        <span>|</span>
+                                        <span>2024-08-06</span>
+                                    </span>
+                                    <span class="comment-info-right">
+                                        <span>
+                                            <th:block th:if="${session.member.memberId}">
+                                                <span><a href="javascript:void(0)">수정</a></span>
+                                                <span><a href="javascript:void(0)">삭제</a></span>
+                                            </th:block>
+                                            <span><a class="recShow" href="javascript:void(0)">답글달기</a></span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <p class="comment-content">리뷰 댓글 내용 샘플</p>
+                                <div style="display: none;" class="input-item">
+                                    <textarea name="noticeCommentContent"></textarea>
+                                </div>
+                                <p class="comment-link">
+                                    <th:block th:if="${session.member != null}">
+                                        <span class="like-box">
+                                            <!-- <span class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);"><i class="fa-solid fa-heart"></i></span>
+                                            <span class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);"><i class="fa-regular fa-heart"></i></span> -->
+                                            <span class="heart-icon">
+                                                <i class="fa-regular fa-thumbs-up"></i>
+                                            </span>
+                                            <!-- <span th:if="${nc.isLike == 0}" class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);">
+                                                <i class="fa-regular fa-thumbs-down"></i>
+                                            </span> -->
+                                            <span class="likeCount">0</span>
+                                            <span>
+                                                <i class="fa-solid fa-comment-dots"></i>답글
+                                            </span>
+                                            <span class="commentReCount">0</span>
+                                        </span>
+                                    </th:block>
+                                </p>
+                            </li>
+                        </ul>
+                    </th:block>
+                </div>
             </div>
             
             <div class="clear"></div>
