@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookListData;
 import kr.co.bookItOut.book.model.service.BookService;
-import kr.co.bookItOut.centerInventory.model.dto.CenterInventory;
 import kr.co.bookItOut.centerInventory.model.dto.CenterInventoryBook;
 
 @Controller
@@ -29,6 +27,7 @@ public class BookController {
 		return "book/detail";
 	}
 	
+	// 비동기 매장 위치 재고 조회
 	@ResponseBody
 	@GetMapping(value="/ajax1")
 	public List<CenterInventoryBook> ajax1(int bookNo) {
