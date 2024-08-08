@@ -233,7 +233,7 @@ span.price{
 }
 select{
     width: auto !important;
-    padding: 10px 40px 10px 16px;
+    padding: 10px 40px 10px 16px !important;
 }
 .inputCommentBox{
     margin: 50px 0;
