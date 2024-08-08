@@ -85,6 +85,9 @@
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
+	<script src="/summernote/summernote-lite.js"></script>
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/summernote/summernote-lite.css">
 		<main class="content">
 			<section class="section board-update-wrap">
 				<div class="page-title">게시물 수정</div>
@@ -166,6 +169,18 @@
 					}
 				})
 			}
+			$(".boardContent").summernote({
+				height:500,
+				lang : "ko-KR",
+				disableResize : true,
+				disableResizeEditor : true,
+				resize : false,
+				callbacks :{
+					onImageUpload : function(files){
+						uploadImage(files[0],this);		
+					}
+				}
+			});
 		</script>
 	<th:block th:include="common/footer"></th:block>
 	</body>

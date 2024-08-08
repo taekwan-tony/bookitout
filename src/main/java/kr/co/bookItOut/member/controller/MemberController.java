@@ -140,16 +140,39 @@ public class MemberController {
 		return "member/searchIdFrm";
 	}
 	
+	@GetMapping(value = "/searchPwFrm")
+	public String searchPwFrm() {
+		
+		return "member/searchPwFrm";
+	}
+	
 	@PostMapping(value = "/searchId")
 	public String searchId(Member m, Model model) {
-			Member member = memberService.selectSearchId(m);
+			Member member = memberService.selectSearchPw(m);
+			String memberId;
 			
-			String memberId = member.getMemberId();
-			if(memberId == null) {
+			if(member == null) {
 				memberId = "아이디가 존재하지 않습니다.";
+			}else {				
+				memberId = member.getMemberId();
 			}
 			model.addAttribute("memberId", memberId);
 			return "member/searchId";
+	}
+	
+	@PostMapping(value = "/searchPw")
+	public String searchPw(Member m, Model model) {
+			Member member = memberService.selectSearchId(m);
+			String memberPw;
+			
+			if(member == null) {
+				memberPw = "계정이 존재하지 않습니다.";
+			}else {
+				memberPw = member.getMemberPw();				
+			}
+			
+			model.addAttribute("memberPw", memberPw);
+			return "member/searchPw";
 	}
 
 	@PostMapping(value = "/updateInfo")

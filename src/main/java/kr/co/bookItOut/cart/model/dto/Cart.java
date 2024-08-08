@@ -8,10 +8,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class Cart {
-	private int orderNo;
-	private int orderQuntity;
-	private String orderDate;
-	private int orderCheck;
-	private int adminNo;
+	private int cartNo;
 	private int bookNo;
+	private int bookCartCount;//구매 수량
+	private int memberNo;
+	private String bookImg;
+	private String bookName;
+	private int bookPrice;
 }

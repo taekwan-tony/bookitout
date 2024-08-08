@@ -16,13 +16,13 @@ public class BookService {
 	@Autowired
 	private BookDao bookDao;
 
-	public List selectAllBook() {
-		List list = bookDao.selectAllBook();
-		return list;
+	public Book selectOneBook(Book b) {
+		Book book = bookDao.selectOneBook(b);
+		return book;
 	}
 
-	public List selectAllCenterInventory(Book bookNo, CenterInventory center) {
-		List centerList = bookDao.selectAllCenterInventory(bookNo, center);
+	public List selectAllCenterInventory(int bookNo) {
+		List centerList = bookDao.selectAllCenterInventory(bookNo);
 		return centerList;
 	}
 

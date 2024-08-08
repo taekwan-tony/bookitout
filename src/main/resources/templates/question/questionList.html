@@ -276,8 +276,10 @@
 								</div>
 								<div th:utext="${q.questionContent}"></div>
 								<div class="content-btn-box">
-									<a th:href="@{/Question/updateQuestionFrm(questionNo=${q.questionNo})}" id="update">수정</a>
-									<a th:href="@{/Question/deleteQuestionFrm(questionNo=${q.questionNo})}" id="delete">삭제</a>
+									<th:block th:if="${q.questionAnswer}==null">
+										<a th:href="@{/Question/updateQuestionFrm(questionNo=${q.questionNo})}" id="update">수정</a>
+									</th:block>
+									<a id="delete" th:onclick="delQuestion(this,[[${q.questionNo}]])">삭제</a>
 								</div>
 							</div>
 							
@@ -310,7 +312,35 @@
 			$(obj).prev().children().next().children().text("expand_more");
 		}
 	}
-	
+	function delQuestion(obj,questionNo){
+		swal({
+			title:"파일 삭제",
+			msg:"첨부파일을 삭제하시겠습니까?",
+			icon : "info",
+			buttons:{
+				cancel:{
+					text:"취소",
+					value : false,
+					visible : true,
+					className : "btn-type2",
+					closeModal : true
+					
+				},
+				confirm : {
+					text : "삭제",
+					value : true,
+					visible : true,
+					className : "btn-type3",
+					closeModal : true
+					
+				}
+			}
+		}).then(function(isConfirm){
+			if(isConfirm){
+				location.href="/Question/deleteQuestion?questionNo="+questionNo;
+			}
+		});
+	}
 		
 	
 </script>
