@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class BookContent {
+public class BookComment {
 	 private int bookCommentNo;
 	 private int bookNo;
 	 private int memberNo;
