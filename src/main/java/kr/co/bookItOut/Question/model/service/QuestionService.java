@@ -114,4 +114,13 @@ public class QuestionService {
 			return null;
 		}
 	}
+
+	public List<QuestionFile> deleteQuestion(int questionNo) {
+		List<QuestionFile> delFileList = questionDao.selectAllFile(questionNo);
+		if(!delFileList.isEmpty()) {
+			int result = questionDao.deleteQuestion(questionNo);			
+			return delFileList;
+		}
+		return null;
+	}
 }
