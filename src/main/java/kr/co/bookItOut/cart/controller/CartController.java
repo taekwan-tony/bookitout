@@ -60,12 +60,11 @@ public class CartController {
 	
 	@ResponseBody
 	@GetMapping(value="/addCart")
-	public int addCart(int bookNo, @SessionAttribute Member member, Model model) {
+	public int addCart(int bookNo, @SessionAttribute Member member) {
 		System.out.println(bookNo);
 		int memberNo = member.getMemberNo();		
 		System.out.println(memberNo);
-		int result = cartService.insertCart(bookNo,memberNo);	
-		
+		int result = cartService.insertCart(bookNo,memberNo);			
 		return result;
 	}
 	
@@ -79,8 +78,7 @@ public class CartController {
 	@ResponseBody
 	@GetMapping(value="/plusCart")
 	public int plusCart (int cartNo) {
-		int result = cartService.plusCart(cartNo);		
-		
+		int result = cartService.plusCart(cartNo);				
 		return result;
 	}
 	
