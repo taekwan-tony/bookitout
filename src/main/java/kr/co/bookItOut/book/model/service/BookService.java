@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import kr.co.bookItOut.book.model.dao.BookDao;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookListData;
-import kr.co.bookItOut.centerInventory.model.dto.CenterInventory;
 
 @Service
 public class BookService {

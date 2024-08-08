@@ -9,10 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.servlet.http.HttpSession;
 import kr.co.bookItOut.cart.model.dto.Cart;
 import kr.co.bookItOut.cart.model.service.CartService;
+import kr.co.bookItOut.member.model.dto.Member;
+import kr.co.bookItOut.member.model.service.MemberService;
 import kr.co.bookItOut.util.FileUtils;
 
 @Controller
@@ -26,14 +30,40 @@ public class CartController {
 
 	@Autowired
 	private FileUtils fileUtils;// 파일업로드 처리 객체
+	
+	@Autowired
+	private MemberService memberService;
 
-	@PostMapping(value = "/main")
-	public String loginFrm(Model model) {
-
-		List list = cartService.selectAllCart();
-
-		
+	@GetMapping(value = "/main")
+	public String loginFrm(Model model, @SessionAttribute(required=false) Member member) {
+		int memberNo = member.getMemberNo();
+		List list = cartService.selectAllCart(memberNo);
 		model.addAttribute("list", list);
+		
 		return "cart/main";
+	}
+	
+	@GetMapping("/selDel")
+	public String selDel(String name, @SessionAttribute(required=false) Member member, Model model) {
+		
+		int memberNo = member.getMemberNo();
+		boolean result = cartService.selDel(name, memberNo);
+		System.out.println(name);
+		
+		if(result) {
+			System.out.println("삭제 성공");
+			return "redirect:/cart/main";
+		}else {
+			System.out.println("삭제 실패");
+			return "redirect:/cart/main";
+		}
+		
+	}
+	
+	@GetMapping("/selBuy")
+	public String selBuy(String name) {
+		System.out.println(name);
+		
+		return "redirect:/cart/main";
 	}
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.cart.model.dto.CartRowMapper;
 
 @Repository
@@ -15,10 +16,16 @@ public class CartDao {
 	private JdbcTemplate jdbc;
 	@Autowired
 	private CartRowMapper cartRowMapper;
-	public List selectAllCart() {
-		String query = "SELECT cart_no, book_no, book_img, book_name, book_price, book_cart_count, member_no FROM cart_tbl JOIN book using (book_no)";
-		
-		List list = jdbc.query(query, cartRowMapper);
+	public List selectAllCart(int memberNo) {
+		String query = "SELECT cart_no, book_no, book_img, book_name, book_price, book_cart_count, member_no FROM cart_tbl JOIN book using (book_no) where member_no =?";
+		Object[] params = {memberNo};
+		List list = jdbc.query(query, cartRowMapper,params);
 		return list;
+	}
+	public int selDel(Book b, int memberNo) {
+		String query = "delete from cart_tbl WHERE book_no = (SELECT book_no  FROM book WHERE book_name = ?) AND member_no = ?";
+		Object[] params = {b.getBookName(), memberNo};
+		int result = jdbc.update(query,params);
+		return result;
 	}
 }
