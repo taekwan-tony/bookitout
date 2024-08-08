@@ -4,13 +4,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -134,25 +139,19 @@ public class AdminController {
 		
 	}
 	//책 삭제
-	@GetMapping(value = "/delete")
-	public String delete(int bookNo, Model model) {
-		int result = adminService.deleteBook(bookNo);
-		if(result>0) {
-			model.addAttribute("title","삭제 성공!");
-			model.addAttribute("msg","게시글이 삭제되었습니다");
-			model.addAttribute("icon","success");
-			model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
-		}else {
-			model.addAttribute("title","삭제실패");
-			model.addAttribute("msg","존재하지 않는 게시물");
-			model.addAttribute("icon","error");
-			model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
-			return "common/msg";
-		}
-		return "common/msg";
-		//return "admin/insertBook";
-		
-	}
+	@GetMapping("/deleteBook")
+    public String deleteBook(@RequestParam("bookNo") int bookNo, RedirectAttributes redirectAttributes) {
+        boolean isDeleted = adminService.deleteBook(bookNo);
+
+        if (isDeleted) {
+            redirectAttributes.addFlashAttribute("message", "Book deleted successfully");
+        } else {
+            redirectAttributes.addFlashAttribute("message", "Failed to delete book");
+        }
+
+        return "redirect:/admin/bookListFrm?rePage=1"; // 삭제 후 책 목록으로 리다이렉트
+    }
+	
 	
 	
 
