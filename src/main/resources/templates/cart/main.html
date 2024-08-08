@@ -225,9 +225,9 @@
 			});
 
 			//console.log(name);
-
+			
 			//화면 >> 컨트롤러 데이터 전송(배열형태 X 문자열로만 가능)
-			location.href = "/cart/selPay?name=" + name.join("/");
+			location.href = "/cart/selPay?name=" + name.join("/")+"&totalPrice="+$("#finalPrice").text();
 			//join = 자바스크립트에 있는 배열 데이터를 String 타입으로 리턴
 
 			console.log(checked.length);

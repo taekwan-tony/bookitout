@@ -97,7 +97,12 @@ public class CartController {
 	}
 	
 	@GetMapping("/selPay")
-	public String selPay(String name) {
+	public String selPay(String name, String totalPrice, Model model, @SessionAttribute(required=false) Member member) {
+		int memberNo = member.getMemberNo();
+		List list = cartService.selPay(memberNo, name);
+		System.out.println(totalPrice);
+		System.out.println(name);
+		
 		
 		return "cart/selPay";
 	}
