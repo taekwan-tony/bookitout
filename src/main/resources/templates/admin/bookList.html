@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" href="/css/main.css" />
-<link rel="stylesheet" href="/css/admin.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/admin.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <body>
     <div class="nav1">
@@ -115,8 +115,8 @@
               					<th style="width: 7%">등록일</th>
               					<th style="width: 7%">판매가격</th>
               					<th style="width: 10%">수량체크</th>
-              					<th style="width: 7%">삭제</th>
               					<th style="width: 7%">수정/상세수정</th> 
+              					<th style="width: 7%">삭제</th>
                             </tr>
                         </thead>
                         <!-- <div class="input-item">
@@ -135,9 +135,7 @@
                                 <input type="checkbox" name="chk[]" value="1">
                                 </td>
                             	<td th:text="${book.bookNo}"></td>
-              					<td th:text="${book.bookGenre}">
-              					
-              					</td>
+              					<td th:text="${book.bookGenre}"></td>
               					<td th:text="${book.bookType}"></td>
               					<td th:text="${book.bookName}"></td>
              					<td th:text="${book.bookWriter}"></td>
@@ -153,11 +151,11 @@
               						
               					</td>
               					<td>
-              					<button class="btn-type2 btn">수정</button>
+              					<button class="btn-type2 btn" >수정</button>
               					<button class="btn-type2 btn">상세</button>
               					</td>
               					<td>
-              					<button class="btn-type2 btn">삭제</button>
+              					<button class="btn-type2 btn" th:onclick="bookDelete([[${book.bookNo}]]);">삭제</button>
               					</td>
               					<!-- 
               					private int bookNo;
@@ -228,6 +226,36 @@
         for (i=0; i<chk.length; i++)
             chk[i].checked = f.chkall.checked;
     }
+    <!--북리스트 삭제-->
+    function bookDelete(bookNo){
+  		//swal({
+  			//title:"게시글 삭제",
+  			//text:"게시글을 삭제하시겠습니까?",
+  			//icon:"warning",
+  			//buttons:{
+  				//cancel:{
+  					//text:"취소",
+  					//value:false,
+  					//visible:true,
+  					//className:"btn-secondary",
+  					//closeModal:true
+  				//},
+  				//confirm:{
+  					//text:"삭제",
+  					//value:true,
+  					//visible:true,
+  					//className:"btn-point",
+  					//closeModal:true
+  				//}
+  			//}
+  		
+  		//}).then(function(isConfirm){
+  			//if(isConfirm){
+  				//location.href="admin/delete?bookNo="+bookNo;
+  			//}
+  		//});
+  		console.log(100);
+  	}
     
     </script>
 </body>

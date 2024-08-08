@@ -77,5 +77,11 @@ public class AdminDao {
 		int result = jdbc.update(qurey,params);
 		return result;
 	}
+	public int deleteBook(int bookNo) {
+		String query = "delete from book where book_no=?";
+		Object[] params = {bookNo};
+		int result = jdbc.update(query,params);
+		return result;
+	}
 	
 }

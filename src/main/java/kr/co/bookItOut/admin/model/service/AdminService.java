@@ -1,5 +1,6 @@
 package kr.co.bookItOut.admin.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,12 +144,20 @@ public BookListData selectbookList(int rePage) {
 		return bld;
 	}
 
+//북 등록
 @Transactional //변화 있을때 커밋 롤백
 public int insertBook(Book book) {
 	 int result = adminDao.insertBook(book);
 	
 	return result;
 }
+@Transactional
+public int deleteBook(int bookNo) {
+	int result = adminDao.deleteBook(bookNo);
+	return result;
+}
+
+
 
 
 }
