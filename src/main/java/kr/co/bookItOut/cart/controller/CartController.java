@@ -75,12 +75,16 @@ public class CartController {
 		int result = cartService.selectCart(bookNo, memberNo);
 		return result;
 	}
+
 	@ResponseBody
 	@GetMapping(value="/plusCart")
 	public int plusCart (int cartNo) {
 		int result = cartService.plusCart(cartNo);				
 		return result;
 	}
+
+	
+
 	
 
 	@GetMapping("/selDel")
@@ -100,11 +104,15 @@ public class CartController {
 		
 	}
 	
-	@GetMapping("/selBuy")
-	public String selBuy(String name) {
+	@GetMapping("/selPay")
+	public String selPay(String name, String totalPrice, Model model, @SessionAttribute(required=false) Member member) {
+		int memberNo = member.getMemberNo();
+		List list = cartService.selPay(memberNo, name);
+		System.out.println(totalPrice);
 		System.out.println(name);
 		
-		return "redirect:/cart/main";
+		
+		return "cart/selPay";
 	}
 
 }
