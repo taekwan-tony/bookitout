@@ -36,7 +36,8 @@ public class CartDao {
 		String query = "select count(*) from cart_tbl where book_no=? and member_no=?";
 		Object[] params = {bookNo, memberNo};
 		int result = jdbc.queryForObject(query, Integer.class, params);
-
+		return result;
+	}
 	public List selectAllCart(int memberNo) {
 		String query = "SELECT cart_no, book_no, book_img, book_name, book_price, book_cart_count, member_no FROM cart_tbl JOIN book using (book_no) where member_no =?";
 		Object[] params = {memberNo};
