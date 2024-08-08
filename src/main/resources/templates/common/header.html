@@ -1,11 +1,22 @@
 <!DOCTYPE html>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <style>
+    button.cart {
+    background: none;
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
+}
+    </style>
     <!-- Swiper -->
 	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 	<script src="/js/jquery-3.7.1.js"></script>
 	<script src="/js/sweetalert.min.js"></script>
+	
     <header>
         <div class="main-header-wrap">
             <div class="header-main">
@@ -35,7 +46,9 @@
                         <th:block th:if="${session.member!=null}">
                         <ul>
                             <li>
-                                <a href="/cart/main">장바구니</a>
+                                <form id="cartForm" action="/cart/main" method="post">
+                                        <button  class="cart" type="submit" style="">장바구니</button>
+                                </form>
                             </li>
                             <li>
                                 <a href="/myPage/myPage" th:text="${session.member.memberName}"></a>

@@ -55,20 +55,25 @@
 					<th style="width: 20%">가격</th>
 					<th style="width: 20%">선택</th>
 				</tr>
-				<tr>
-					<td><span class="material-icons-outlined">check_circle</span></td>
+
+
+				<tr th:each="c,status : ${list}">
+					<td>
+						<div class="input-wrap">
+							<input type="checkbox" class="chk" th:id="${'chk'+status.count}">
+							<label th:for="${'chk'+status.count}"></label>
+						</div>
+					</td>
 					<td>
 					<img style="width: 200px;" id="previewImg"
-            			 th:src="@{/photo/{filename}(filename=${})}" alt="프로필 이미지">
+            			 th:src="@{/photo/{filename}(filename=${c.bookImg})}" alt="책 표지">
 					</td>
-					<td>제목</td>
-					<td>
-						<span>
-                            <button onclick="minus(event);">-</button>
-                            <input type="text" id="count" value="1" style="width: 20px; text-align: center;">
-                            <button onclick="plus(event);">+</button>
-                        </span>
-					</td>
+					<td th:text="${c.bookImg}"></td>
+					<td><span>
+							<button onclick="minus(event);">-</button> <input type="text"
+							id="count" value="1" style="width: 20px; text-align: center;">
+							<button onclick="plus(event);">+</button>
+					</span></td>
 					<td>가격</td>
 					<td>
 						<button>바로구매</button>
@@ -104,38 +109,36 @@
 					<td></td>
 				</tr>
 			</table>
-			<span class="btn-type2 btn" style="margin-right: 5px">
-            	  <a href="/">쇼핑하러 가기</a>
-            </span>
-			<input type="submit" class="btn-type3 btn" value="선택상품 구매">
+			<span class="btn-type2 btn" style="margin-right: 5px"> <a
+				href="/">쇼핑하러 가기</a>
+			</span> <input type="submit" class="btn-type3 btn" value="선택상품 구매">
 			<input type="submit" class="btn-type4 btn" value="전체상품 구매">
 		</form>
 
 		<div class="clear"></div>
 	</main>
 	<script>
-	function minus(event){
-		event.preventDefault(); // 이벤트가 발생했을 때 기본 동작을 막음(폼 제출, 링크 클릭, 버튼 클릭 등 브라우저의 기본 동작을 방지)
-	    const count = document.querySelector("#count");
-	    const currentCount = count.value;//value속성으로 읽어오면 문자열타입
-	    if(currentCount == 1){
-	        alert("최소 주문 수량은 1개 입니다.");
-	    }else{
-	        count.value = Number(currentCount) - 1;
-	    }
-	}
-	
-	function plus(event){
-		event.preventDefault(); // 폼 제출 방지
-	    const count = document.querySelector("#count");
-	    const currentCount = count.value;//value속성으로 읽어오면 문자열타입
-	    if(currentCount == 10){
-	        alert("최대 주문 수량은 10개 입니다.");
-	    }else{
-	        count.value = Number(currentCount) + 1;
-	    }
-	}  
+		function minus(event) {
+			event.preventDefault(); // 이벤트가 발생했을 때 기본 동작을 막음(폼 제출, 링크 클릭, 버튼 클릭 등 브라우저의 기본 동작을 방지)
+			const count = document.querySelector("#count");
+			const currentCount = count.value;//value속성으로 읽어오면 문자열타입
+			if (currentCount == 1) {
+				alert("최소 주문 수량은 1개 입니다.");
+			} else {
+				count.value = Number(currentCount) - 1;
+			}
+		}
 
+		function plus(event) {
+			event.preventDefault(); // 폼 제출 방지
+			const count = document.querySelector("#count");
+			const currentCount = count.value;//value속성으로 읽어오면 문자열타입
+			if (currentCount == 10) {
+				alert("최대 주문 수량은 10개 입니다.");
+			} else {
+				count.value = Number(currentCount) + 1;
+			}
+		}
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
