@@ -2,13 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<script src="/js/jquery-3.7.1.js"></script>
 <title>장바구니</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-<link
-	href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
 	rel="stylesheet">
-<link rel="stylesheet" href="css/main.css">
 <style>
 .content {
 	text-align: center;
@@ -48,8 +47,7 @@
 			</div>
 			<table style="border-collapse: collapse;" class="tbl">
 				<tr style="height: 50px;">
-					<th style="width: 3%"><span class="material-icons-outlined">check_circle</span>
-					</th>
+					<th style="width: 3%"><span class="material-icons-outlined">check_circle</span></th>
 					<th style="width: 20%" colspan="2">책정보</th>
 					<th style="width: 20%">수량</th>
 					<th style="width: 20%">가격</th>
@@ -57,23 +55,32 @@
 				</tr>
 
 
-				<tr th:each="c,status : ${list}">
+				<tr th:each="c,status : ${list}" id="tr">
 					<td>
-						<div class="input-wrap">
-							<input type="checkbox" class="chk" th:id="${'chk'+status.count}">
-							<label th:for="${'chk'+status.count}"></label>
-						</div>
+						<input type="checkbox" class="chk" id="chk">
 					</td>
+					
+					
+					
 					<td>
 					<img style="width: 200px;" id="previewImg"
             			 th:src="@{/book/{filename}(filename=${c.bookImg})}" alt="책 표지">
 					</td>
+					
+					
+					
 					<td th:text="${c.bookName}"></td>
+					
+					
+					
 					<td><span>
-							<button onclick="minus(event);">-</button> <input type="text"
-							id="count" value="1" style="width: 20px; text-align: center;">
-							<button onclick="plus(event);">+</button>
+							<button onclick="minus(this);">-</button>
+							<input type="text" id="count" value="1" style="width: 20px; text-align: center;">
+							<button onclick="plus(this);">+</button>
 					</span></td>
+					
+					
+					
 					<td th:text="${c.bookPrice}"></td>
 					<td>
 						<button>바로구매</button>
@@ -82,7 +89,7 @@
 				</tr>
 				<tr>
 					<td colspan="5" style="text-align: left; padding: 10px;">
-						<button class="btn-type1 btn">선택 삭제</button>
+						<button type="button" class="btn-type1 btn" id="selDel">선택 삭제</button>
 					</td>
 				</tr>
 			</table>
@@ -118,27 +125,56 @@
 		<div class="clear"></div>
 	</main>
 	<script>
-		function minus(event) {
+		function minus(button) {
 			event.preventDefault(); // 이벤트가 발생했을 때 기본 동작을 막음(폼 제출, 링크 클릭, 버튼 클릭 등 브라우저의 기본 동작을 방지)
-			const count = document.querySelector("#count");
-			const currentCount = count.value;//value속성으로 읽어오면 문자열타입
+			const input = button.parentElement.querySelector("#count");
+			const currentCount = input.value;//value속성으로 읽어오면 문자열타입
 			if (currentCount == 1) {
 				alert("최소 주문 수량은 1개 입니다.");
 			} else {
-				count.value = Number(currentCount) - 1;
+				input.value = Number(currentCount) - 1;
 			}
 		}
 
-		function plus(event) {
+		function plus(button) {
 			event.preventDefault(); // 폼 제출 방지
-			const count = document.querySelector("#count");
-			const currentCount = count.value;//value속성으로 읽어오면 문자열타입
+			const input = button.parentElement.querySelector("#count");
+			
+			const currentCount = input.value;//value속성으로 읽어오면 문자열타입
 			if (currentCount == 10) {
 				alert("최대 주문 수량은 10개 입니다.");
 			} else {
-				count.value = Number(currentCount) + 1;
+				input.value = Number(currentCount) + 1;
 			}
 		}
+		
+		$("#selDel").on("click",function(){
+			const checked = $(".chk:checked");
+			
+			if(checked.length == 0 ){
+				return;
+			}
+			
+			const name = new Array(); //책 이름 저장할 배열
+			
+			checked.each(function(index, item){
+				const bookName = $(item).parent().next().next().text();
+				console.log(bookName);
+				name.push(bookName);
+				
+				console.log(bookName);
+			});
+			
+			//console.log(name);
+			
+			//화면 >> 컨트롤러 데이터 전송(배열형태 X 문자열로만 가능)
+			location.href="/cart/selDel?name="+name.join("/");
+			//join = 자바스크립트에 있는 배열 데이터를 String 타입으로 리턴
+			
+			
+			console.log(checked.length);
+		});
+		
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>

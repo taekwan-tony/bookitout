@@ -27,7 +27,7 @@ public class CartController {
 	@Autowired
 	private FileUtils fileUtils;// 파일업로드 처리 객체
 
-	@PostMapping(value = "/main")
+	@GetMapping(value = "/main")
 	public String loginFrm(Model model) {
 
 		List list = cartService.selectAllCart();
@@ -35,5 +35,12 @@ public class CartController {
 		
 		model.addAttribute("list", list);
 		return "cart/main";
+	}
+	
+	@GetMapping("/selDel")
+	public String selDel(String name) {
+		System.out.println(name);
+		
+		return "redirect:/cart/main";
 	}
 }
