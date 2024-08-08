@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.bookItOut.admin.model.dao.AdminDao;
 import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.admin.model.dto.AdminListData;
+import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookListData;
 import kr.co.bookItOut.member.model.dto.Member;
 
@@ -140,6 +142,13 @@ public BookListData selectbookList(int rePage) {
 		
 		return bld;
 	}
+
+@Transactional //변화 있을때 커밋 롤백
+public int insertBook(Book book) {
+	 int result = adminDao.insertBook(book);
+	
+	return result;
+}
 
 
 }

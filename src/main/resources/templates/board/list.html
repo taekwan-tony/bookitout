@@ -184,7 +184,7 @@
 								<option value="readCount">조회수 순</option>
 								<!--<option th:value="${type}">가나다 순</option>-->
 							</th:block>
-							<th:block th:if="${option=='read_Count desc'}">
+							<th:block th:if="${option=='readCount'}">
 								<option value="new">최신순</option>
 								<option value="old">오래된순</option>
 								<option value="readCount" selected>조회수 순</option>
@@ -197,7 +197,7 @@
 								<option th:value="${type}" selected>가나다 순</option>
 							</th:block>-->
 						</select>
-						<input type="text" name="keyword" id="inputText">
+						<input type="text" name="keyword" id="inputText" th:value="${keyword}">
 						<input type="hidden" name="reqPage" value="1">
 						<button type="submit" class="btn">조회</button>
 					</div>

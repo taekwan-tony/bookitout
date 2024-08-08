@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookListData;
 import kr.co.bookItOut.book.model.service.BookService;
-import kr.co.bookItOut.centerInventory.model.dto.CenterInventory;
 import kr.co.bookItOut.centerInventory.model.dto.CenterInventoryBook;
 
 @Controller
@@ -22,33 +21,20 @@ public class BookController {
 	private BookService bookService;
 	
 	@GetMapping(value="/detail")
-	public String detail(Model model) {
-		List list = bookService.selectAllBook();
-		model.addAttribute("list", list);
+	public String detail(Book b, Model model) {
+		Book book = bookService.selectOneBook(b);
+		model.addAttribute("book", book);
 		return "book/detail";
 	}
 	
-//	@GetMapping(value="/list")
-//	public String bookList(Model model) {
-//		List list = bookService.selectAllBook();
-//		model.addAttribute("list", list);
-//		return "redirect:/detail";
-//	}	
-	
+	// 비동기 매장 위치 재고 조회
 	@ResponseBody
 	@GetMapping(value="/ajax1")
-	public List ajax1(Book bookNo, CenterInventory center) {
-		List<CenterInventoryBook> centerList = bookService.selectAllCenterInventory(bookNo, center);
-		return centerList;
+	public List<CenterInventoryBook> ajax1(int bookNo) {
+		List<CenterInventoryBook> centerList = bookService.selectAllCenterInventory(bookNo);
+		System.out.println(centerList);
+		return centerList;// 출력 가능 데이터 : 재고수량, 지점명, 주소, 책이름
 	}
-	
-	// 매장 위치 재고 조회
-//	@GetMapping(value="/CenterInventory")
-//	public String CenterInventory(Model model) {
-//		List list = bookService.selectAllCenterInventory();
-//		model.addAttribute("CenterInventory", list);
-//		return "book/detail";
-//	}
 	
 //	@PostMapping(value="/insertComment")
 //	public String insertComment(BookContent bc) {

@@ -4,7 +4,18 @@
 <link rel="stylesheet" href="/css/main.css" />
 <link rel="stylesheet" href="/css/admin.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
+<style>
+	.btn-content-box>table>thead>tr>th{
+		height : 70px;
+	}
+	
+	.btn-content-box>table>tbody>tr>td{
+		height : 50px;
+	}
+</style>
 <body>
     <div class="nav1">
         <div class="icons-menu">
@@ -95,62 +106,29 @@
             <div class="inner">
                 <div class="container">
                     <div class="page-title">
-                        <h1>판매점 관리</h1>
+                        <h1>1:1문의 답변</h1>
                     </div>
-                    <form action="">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style="width: 3%">
-                                	<label></label>
-                                	<input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
-                                </th>
-              					<th style="width: 6%">매장번호</th>
-              					<th style="width: 10%">매장명</th>
-              					<th style="width: 25%">매장주소</th>
-              					<th style="width: 8%">개업일</th>
-              					<th style="width: 15%">이메일</th>
-              					<th style="width: 13%">전화번호</th>
-              					<th style="width: 10%">관리</th>
-              					<th style="width: 10%">수정/삭제</th>
-                            </tr>
-                        </thead>
-                        <tbody>                            
-                            <tr th:each="admin :${list}"><!-- -->                            	
-                            	<td>
-                                <input type="checkbox" name="chk[]" value="1">
-                                </td>
-                            	<td th:text="${admin.adminNo}"></td>
-              					<td th:text="${admin.adminName}"></td>
-              					<td th:text="${admin.adminAddr}"></td>
-             					<td th:text="${admin.openingDay}"></td>
-              					<td th:text="${admin.adminEmail}"></td>
-              					<td th:text="${admin.adminPhone}"></td>
-              					<td><a href="/admin/bookList">책 재고관리</a></td>
-              					<td>
-              					<button class="btn-type2 btn">수정</button>
-              					<button class="btn-type2 btn">삭제</button>
-              					</td>
-                            </tr>
-                            	
-                        </tbody>
-                    </table>
-                   </form>
+					<div class="total-faq-box">
+						<div class="btn-content-box">
+							<table>
+								<thead>
+	                            	<tr>
+	              						<th style="width: 30%">문의유형</th>
+	              						<th style="width: 70%">제목</th>
+	                           		</tr>
+	                        	</thead>
+	                       		<tbody>                            
+	                            	<tr th:each="q :${list}"><!-- -->                            	
+	             						<td th:text="${q.questionType}"></td>
+	              						<td><a th:href="@{/admin/questionAnswerFrm(questionNo=${q.questionNo})}" th:text="${q.questionTitle}"></a></td>
+	                           		</tr>
+	                      		</tbody>
+							</table>
+						</div>
+					</div>
                 </div>
             </div>
-        <!--페이지 넘기는 부분 (책리스트,매장리스트)
-        <div class="pagination">
-            <ul>
-                <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-left"></i></span></a></li>
-                <li><a class="page-item active-page" href="#">1</a></li>
-                <li><a class="page-item" href="#">2</a></li>
-                <li><a class="page-item" href="#">3</a></li>
-                <li><a class="page-item" href="#">4</a></li>
-                <li><a class="page-item" href="#">5</a></li>
-                <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-right"></i></span></a></li>
-            </ul>
-        </div>
-        -->
+
 		<div id="pageNavi" th:utext="${pageNavi}">
 	  	</div>
 		<!--페이지 넘기는 부분 종료 -->
@@ -173,17 +151,6 @@
             </button>
         </div>
     </div>
-    
-    <script>
-    <!--input 전체 선택 로직 -->
-    function check_all(f)
-    {
-        var chk = document.getElementsByName("chk[]");
 
-        for (i=0; i<chk.length; i++)
-            chk[i].checked = f.chkall.checked;
-    }
-    
-    </script>
 </body>
 </html>
