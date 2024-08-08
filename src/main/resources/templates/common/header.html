@@ -46,8 +46,8 @@
                         <th:block th:if="${session.member!=null}">
                         <ul>
                             <li>
-                                <form id="cartForm" action="/cart/main" method="post">
-                                        <button  class="cart" type="submit" style="">장바구니</button>
+                                <form id="cartForm" action="/cart/main" method="post" enctype="multipart/form-data">
+                                        <button  class="cart" type="submit">장바구니</button>
                                 </form>
                             </li>
                             <li>

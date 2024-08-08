@@ -66,15 +66,15 @@
 					</td>
 					<td>
 					<img style="width: 200px;" id="previewImg"
-            			 th:src="@{/photo/{filename}(filename=${c.bookImg})}" alt="책 표지">
+            			 th:src="@{/book/{filename}(filename=${c.bookImg})}" alt="책 표지">
 					</td>
-					<td th:text="${c.bookImg}"></td>
+					<td th:text="${c.bookName}"></td>
 					<td><span>
 							<button onclick="minus(event);">-</button> <input type="text"
 							id="count" value="1" style="width: 20px; text-align: center;">
 							<button onclick="plus(event);">+</button>
 					</span></td>
-					<td>가격</td>
+					<td th:text="${c.bookPrice}"></td>
 					<td>
 						<button>바로구매</button>
 						<button>삭제</button>
