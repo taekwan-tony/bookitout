@@ -137,10 +137,12 @@
 		box-sizing: border-box;
 		margin-bottom: 10px;
 		line-height: 39px;
+		overflow: hidden;
 	}
 	.rid *{
 		float: left;
 		margin-right: 10px;
+		line-height: 39px;
 	}
 	.like-box{
 		margin-right: 10px;
@@ -163,6 +165,23 @@
 		font-size: 24px;
 		color: #74512D;
 		font-weight: bold;
+	}
+	.underLine{
+		width: 89%;
+		height: 1px;
+		background-color: #74512D;
+		margin-bottom: 10px;
+	}
+	#el{
+		line-height: 39px;
+		margin: 0;
+	}
+	#la{
+		line-height: 39px;
+		margin: 0;
+	}
+	.updatehidden{
+		width: 750px;
 	}
 </style>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -213,16 +232,18 @@
 				</tr>
 			</table>
 			<div class="comment-title"><p>댓글</p></div>
+			<div th:if="${b.commentList==null}"><p>"댓글이 없습니다."</p></div>
 			<div th:if="${session.member != null}" class="inputCommentBox">
 				<form action="/board/insertComment" method="post">
 					<ul class="comment">
 						<li><span class="material-icons" id="account">account_box</span></li>
 						<li><input type="hidden" name="boardCommentWriter"
-							th:value="${session.member.memberId}"> <input
-							type="hidden" name="boardRef" th:value="${b.boardNo}">
+							th:value="${session.member.memberId}"> 
+							<input type="hidden" name="boardRef" th:value="${b.boardNo}">
 							<div class="input-item">
 								<textarea name="boardCommentContent" id="boardCommentContent"></textarea>
-							</div></li>
+							</div>
+						</li>
 						<li class="inp">
 							<button type="submit" class="btn-primary" id="inputComment">등록</button>
 						</li>
@@ -235,8 +256,8 @@
 						<li><span class="material-icons" id="accountbox">account_box</span></li>
 						<li>
 							<p class="comment-info" id="comment-info">
-								<span th:text="${bc.boardCommentWriter}"></span> <span
-									th:text="${bc.boardCommentDate}"></span> 
+								<span th:text="${bc.boardCommentWriter}"></span> 
+								<span th:text="${bc.boardCommentDate}"></span> 
 								<span class="like-box">
 									<span th:if="${bc.isLike == 1}" class="material-icons heart"
 									th:onclick="likePush(this,[[${bc.boardCommentNo}]]);">favorite</span>
@@ -248,7 +269,7 @@
 							</p>
 							<div class="input-item" style="display: none;">
 								<textarea name="boardCommentContent"
-									th:text="${bc.boardCommentContent}"></textarea>
+									th:text="${bc.boardCommentContent}" class="updatehidden"></textarea>
 							</div>
 							<p class="comment-link">
 								<th:block th:if="${session.member != null}">
@@ -264,6 +285,7 @@
 							</p>
 						</li>
 					</ul>
+					<div class="underLine"></div>
 					<div th:if="${session.member != null}" class="inputRecommentBox">
 						<form action="/board/insertComment" method="post">
 							<ul class="comment">
@@ -283,40 +305,43 @@
 								</li>
 							</ul>
 						</form>
+						<div class="underLine"></div>
 					</div>
 					<div class="posting-comment reply"
 						th:each="bcc : ${b.reCommentList}"
 						th:if="${bc.boardCommentNo == bcc.boardCommentRef}">
-						<div class="rid">
-							<span class="material-icons" id="right">subdirectory_arrow_right</span>
-							<span class="material-icons" id="account-box">account_box</span>
-							<p class="comment-info">
-								<span th:text="${bcc.boardCommentWriter}"></span> 
-								<span th:text="${bcc.boardCommentDate}"></span>
-								<span class="like-box"> 
-								<span th:if="${bcc.isLike == 1}"
-									class="material-icons heart"
-									th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite</span>
-									<span th:if="${bcc.isLike == 0}" class="material-icons heart"
-									th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite_border</span>
-									<span th:text="${bcc.likeCount}"></span>
-								</span>
+						<ul class="rid">
+							<li>
+								<span class="material-icons" id="right">subdirectory_arrow_right</span>
+								<span class="material-icons" id="account-box">account_box</span>
+							</li>
+							<li>
+								<p class="comment-info">
+									<span th:text="${bcc.boardCommentWriter}"></span> 
+									<span th:text="${bcc.boardCommentDate}"></span>
+									<span class="like-box"> 
+										<span th:if="${bcc.isLike == 1}" class="material-icons heart" id="el" th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite</span>
+										<span th:if="${bcc.isLike == 0}" class="material-icons heart" id="la" th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite_border</span>
+										<span th:text="${bcc.likeCount}"></span>
+									</span>
 									<span class="comment-content" th:text="${bcc.boardCommentContent}"></span>
-							</p>
-							<div class="input-item" style="display: none;">
-								<textarea name="boardCommentContent"
-									th:text="${bcc.boardCommentContent}"></textarea>
-							</div>
-							<p class="comment-link">
-								<th:block
-									th:if="${session.member != null && session.member.memberId == bcc.boardCommentWriter}">
-									<a href="javascript:void(0)"
-										th:onclick="modifyComment(this,[[${bcc.boardCommentNo}]],[[${b.boardNo}]]);">수정</a>
-									<a href="javascript:void(0)"
-										th:onclick="deleteComment(this,[[${bcc.boardCommentNo}]],[[${b.boardNo}]]);">삭제</a>
-								</th:block>
-							</p>
-						</div>
+								</p>
+								<div class="input-item" style="display: none;">
+									<textarea name="boardCommentContent"
+										th:text="${bcc.boardCommentContent}" class="updatehidden"></textarea>
+								</div>
+								<p class="comment-link">
+									<th:block
+										th:if="${session.member != null && session.member.memberId == bcc.boardCommentWriter}">
+										<a href="javascript:void(0)"
+											th:onclick="modifyComment(this,[[${bcc.boardCommentNo}]],[[${b.boardNo}]]);">수정</a>
+										<a href="javascript:void(0)"
+											th:onclick="deleteComment(this,[[${bcc.boardCommentNo}]],[[${b.boardNo}]]);">삭제</a>
+									</th:block>
+								</p>
+							</li>
+						</ul>
+						<div class="underLine"></div>
 					</div>
 				</th:block>
 			</div>
@@ -335,7 +360,7 @@
 			$(obj).next().text("수정 취소");
 			$(obj).next().attr(
 					"onclick",
-					"modifyCancel(this," + baordCommentNo + "," + boardNo
+					"modifyCancel(this," + boardCommentNo + "," + boardNo
 							+ ");");
 			$(obj).next().next().hide();
 		}
@@ -418,7 +443,6 @@
 		function likePush(obj, boardCommentNo) {
 			const currentText = $(obj).text();
 			const isLike = (currentText == "favorite_border") ? 0 : 1;
-			console.log(isLike);
 			$.ajax({
 				url : "/board/likePush",
 				data : {
