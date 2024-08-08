@@ -28,17 +28,9 @@ public class BookController {
 		return "book/detail";
 	}
 	
-	//비동기 북리스트
-//	@ResponseBody
-//	@GetMapping(value="/bookList")
-//	public Book bookList(int bookNo) {
-//		Book b = bookService.selectOneBook(bookNo);
-//		return b;
-//	}
-	
 	@ResponseBody
 	@GetMapping(value="/ajax1")
-	public List ajax1(Book bookNo, CenterInventory center) {
+	public List ajax1(Book bookNo, CenterInventory center, Model model) {
 		List<CenterInventoryBook> centerList = bookService.selectAllCenterInventory(bookNo, center);
 		return centerList;
 	}

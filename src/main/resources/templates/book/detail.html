@@ -150,28 +150,7 @@
             <div class="clear"></div>
         </div>
     </main>
-    <script>
-    	// 구매 수량 증감
-		function minus(){
-		    const count = document.querySelector("#count");
-		    const currentCount = count.value;//value속성으로 읽어오면 문자열타입
-		    if(currentCount == 1){
-		        alert("최소 주문 수량은 1개 입니다.");
-		    }else{
-		        count.value = Number(currentCount) - 1;
-		    }
-		}
-		
-		function plus(){
-		    const count = document.querySelector("#count");
-		    const currentCount = count.value;//value속성으로 읽어오면 문자열타입
-		    if(currentCount == 10){
-		        alert("최대 주문 수량은 10개 입니다.");
-		    }else{
-		        count.value = Number(currentCount) + 1;
-		    }
-		}
-		
+    <script>		
 		// 가격 천단위 콤마 찍기
 		// let price = document.querySelector(".price").innerText();
 		// let result = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
