@@ -174,4 +174,12 @@ public class QuestionService {
 		QuestionListData qld = new QuestionListData(list, pageNavi);
 		return qld;
 	}
+
+	public int updateQuestionAnswer(Question q) {
+		int result = questionDao.updateQuestionAnswer(q);
+		if(result>0) {
+			return result;
+		}
+		return 0;
+	}
 }

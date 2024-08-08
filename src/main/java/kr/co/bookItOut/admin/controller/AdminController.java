@@ -23,6 +23,7 @@ import kr.co.bookItOut.admin.model.service.AdminService;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookListData;
 import kr.co.bookItOut.member.model.dto.Member;
+import kr.co.bookItOut.util.EmailSender;
 import kr.co.bookItOut.util.FileUtils;
 
 @Controller
@@ -36,7 +37,8 @@ public class AdminController {
 	 * **/
 	@Autowired
 	private QuestionService questionService;
-
+	@Autowired
+	private EmailSender emailSender;
 	
 	@Value("${file.root}")
 	private String root;//application.properties에 설정되어있는 file.root값을 가지고 와서 문자열로 저장
@@ -148,6 +150,29 @@ public class AdminController {
 		q.setFileList(fileList);
 		model.addAttribute("q",q);
 		return "admin/questionAnswerFrm";
+	}
+	
+	@PostMapping(value="/questionAnswerCompelte")
+	public String questionAnswerCompelte(Question q,Model model) {
+		String emailTitle = "책키라웃 1:1문의 답변 처리 완료 메일 송부의 건";
+		String receiver = q.getQuestionEmail();
+		String emailContent = "1:1문의 답변이 완료되었습니다.";
+		
+		emailSender.sendMail(emailTitle, receiver, emailContent);
+		
+		int result = questionService.updateQuestionAnswer(q);
+		
+		if(result>0) {
+			if(result>0) {
+				model.addAttribute("title","답변완료");
+				model.addAttribute("msg","문의를 처리했습니다.");
+				model.addAttribute("icon","success");
+				model.addAttribute("loc","/admin/questionAnswer?reqPage=1");
+				return "common/msg";
+			}
+		}
+		return "/admin/questionAnswer?reqPage=1";
+		
 	}
 	
 	
