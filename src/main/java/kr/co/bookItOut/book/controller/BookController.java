@@ -26,6 +26,7 @@ public class BookController {
 	@GetMapping(value="/detail")
 	public String detail(int bookNo) {
 		return "book/detail";
+		//model.addAttribute("loc", "/notice/list?reqPage=1");
 	}
 	
 	@ResponseBody
