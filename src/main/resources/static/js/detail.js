@@ -111,7 +111,7 @@ $(document).ready(function(){
 	});
 });
 
-// 장바구니 수량 증감
+// 구매 수량 증감
 function minus(){
     const count = document.querySelector("#count");
     const currentCount = count.value;//value속성으로 읽어오면 문자열타입
