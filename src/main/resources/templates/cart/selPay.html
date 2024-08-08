@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<script src="/js/jquery-3.7.1.js"></script>
+<title>결제하기</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+	rel="stylesheet">
+<style>
+.content {
+	text-align: center;
+}
+
+.bookTbl {
+	width: 900px;
+	text-align: center;
+	margin: auto;
+	margin-top: 50px;
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+}
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main class="content">
+
+		<form action="" method="post">
+			<div style="margin-top: 60px;">
+				<h1>결제하기</h1>
+			</div>
+			<table style="border-collapse: collapse;" class="bookTbl">
+				
+			</table>
+			<input type="submit" class="btn-type4 btn" value="결제하기">
+		</form>
+
+		<div class="clear"></div>
+	</main>
+	<script>
+	
+	</script>
+	<th:block th:include="common/footer"></th:block>
+</body>
+
+</html>

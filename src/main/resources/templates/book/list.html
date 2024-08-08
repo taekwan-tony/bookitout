@@ -180,7 +180,7 @@ img {
                                 </td>
 
                                 <td style="width:20%;">
-                                    <!-- <img th:src="${#}"> -->
+                                	<img id=book_img th:src="@{/book/{filename}(filename=${book.bookImg})}" >                                    
                                 </td>
 
                                 <td style="vertical-align: baseline;">
@@ -282,6 +282,22 @@ img {
     		    		});
     				}else{
     					console.log(cartNo);
+    					$.ajax({
+    						url : "/cart/plusCart",
+    						type : "get",
+    						data : {cartNo:cartNo},
+    						success : function(data){
+    							console.log(data);
+    		    				swal({
+    		    					title : "책 수량 추가",
+    		    					text : "장바구니에 담겨있는 책입니다. 추가 하시겠습니까?",
+    		    					icon : "info"    		    					
+    		    				});    							
+    						},
+    						error : function() {
+    		    				console.log("에러");
+    		    			}
+    					});
     					
     					
     				}

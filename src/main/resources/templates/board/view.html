@@ -105,14 +105,15 @@
 		width: 780px;
 		box-sizing: border-box;
 		background-color: #F8F4E1;
+		height: 39px;
 	}
 	.input-item{
 		margin: 0;
 	}
 	#right{
 		font-size: 39px;
-		margin-left: 40px;
 		margin-right: 0;
+		color: #74512D;
 	}
 	#account-box{
 		font-size: 39px;
@@ -131,16 +132,19 @@
 	}
 	.heart{
 		margin: 0;
+		color: #74512D;
 	}
 	.rid {
 		height: 39px;
 		box-sizing: border-box;
 		margin-bottom: 10px;
 		line-height: 39px;
+		overflow: hidden;
 	}
 	.rid *{
 		float: left;
 		margin-right: 10px;
+		line-height: 39px;
 	}
 	.like-box{
 		margin-right: 10px;
@@ -163,6 +167,31 @@
 		font-size: 24px;
 		color: #74512D;
 		font-weight: bold;
+	}
+	.underLine{
+		width: 89%;
+		height: 1px;
+		background-color: #74512D;
+		margin-bottom: 10px;
+	}
+	#el{
+		line-height: 39px;
+		margin: 0;
+	}
+	#la{
+		line-height: 39px;
+		margin: 0;
+	}
+	.updatehidden{
+		width: 750px;
+	}
+	.noComment{
+		margin-top: 100px;
+		text-align: center;
+	}
+	.noComment>*{
+		font-size: 20px;
+		color: #74512D;
 	}
 </style>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -189,12 +218,13 @@
 				</tr>
 				<tr>
 					<th>첨부파일</th>
-					<td colspan="5"><th:block th:each="file : ${b.fileList}">
+					<td colspan="5">
+						<th:block th:each="file : ${b.fileList}">
 							<img src="/image/file.png" width="16px">
-							<a
-								th:href="@{/board/filedown(filename=${file.filename},filepath=${file.filepath})}"
-								th:text="${file.filename}"></a>
-						</th:block></td>
+							<a th:href="@{/board/filedown(filename=${file.filename},filepath=${file.filepath})}"
+							th:text="${file.filename}"></a>
+						</th:block>
+					</td>
 				</tr>
 				<tr>
 					<td colspan="6">
@@ -218,16 +248,18 @@
 					<ul class="comment">
 						<li><span class="material-icons" id="account">account_box</span></li>
 						<li><input type="hidden" name="boardCommentWriter"
-							th:value="${session.member.memberId}"> <input
-							type="hidden" name="boardRef" th:value="${b.boardNo}">
+							th:value="${session.member.memberId}"> 
+							<input type="hidden" name="boardRef" th:value="${b.boardNo}">
 							<div class="input-item">
 								<textarea name="boardCommentContent" id="boardCommentContent"></textarea>
-							</div></li>
+							</div>
+						</li>
 						<li class="inp">
 							<button type="submit" class="btn-primary" id="inputComment">등록</button>
 						</li>
 					</ul>
 				</form>
+				<div class="underLine" th:if="${b.commentList.size()!=0}"></div>
 			</div>
 			<div class="commentBox">
 				<th:block th:each="bc : ${b.commentList}">
@@ -235,8 +267,8 @@
 						<li><span class="material-icons" id="accountbox">account_box</span></li>
 						<li>
 							<p class="comment-info" id="comment-info">
-								<span th:text="${bc.boardCommentWriter}"></span> <span
-									th:text="${bc.boardCommentDate}"></span> 
+								<span th:text="${bc.boardCommentWriter}"></span> 
+								<span th:text="${bc.boardCommentDate}"></span> 
 								<span class="like-box">
 									<span th:if="${bc.isLike == 1}" class="material-icons heart"
 									th:onclick="likePush(this,[[${bc.boardCommentNo}]]);">favorite</span>
@@ -248,7 +280,7 @@
 							</p>
 							<div class="input-item" style="display: none;">
 								<textarea name="boardCommentContent"
-									th:text="${bc.boardCommentContent}"></textarea>
+									th:text="${bc.boardCommentContent}" class="updatehidden"></textarea>
 							</div>
 							<p class="comment-link">
 								<th:block th:if="${session.member != null}">
@@ -258,12 +290,13 @@
 											th:onclick="modifyComment(this,[[${bc.boardCommentNo}]],[[${b.boardNo}]]);">수정</a>
 										<a href="javascript:void(0)"
 											th:onclick="deleteComment(this,[[${bc.boardCommentNo}]],[[${b.boardNo}]]);">삭제</a>
-										<a href="javascript:void(0)" class="recShow">답글달기</a>
 									</th:block>
+										<a href="javascript:void(0)" class="recShow">답글달기</a>
 								</th:block>
 							</p>
 						</li>
 					</ul>
+					<div class="underLine"></div>
 					<div th:if="${session.member != null}" class="inputRecommentBox">
 						<form action="/board/insertComment" method="post">
 							<ul class="comment">
@@ -283,6 +316,7 @@
 								</li>
 							</ul>
 						</form>
+						<div class="underLine"></div>
 					</div>
 					<div class="posting-comment reply"
 						th:each="bcc : ${b.reCommentList}"
@@ -295,9 +329,9 @@
 								<span th:text="${bcc.boardCommentDate}"></span>
 								<span class="like-box"> 
 								<span th:if="${bcc.isLike == 1}"
-									class="material-icons heart"
+									class="material-icons heart" id="la"
 									th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite</span>
-									<span th:if="${bcc.isLike == 0}" class="material-icons heart"
+									<span th:if="${bcc.isLike == 0}" class="material-icons heart" id="el"
 									th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite_border</span>
 									<span th:text="${bcc.likeCount}"></span>
 								</span>
@@ -305,7 +339,7 @@
 							</p>
 							<div class="input-item" style="display: none;">
 								<textarea name="boardCommentContent"
-									th:text="${bcc.boardCommentContent}"></textarea>
+									th:text="${bcc.boardCommentContent}" class="updatehidden"></textarea>
 							</div>
 							<p class="comment-link">
 								<th:block
@@ -317,9 +351,11 @@
 								</th:block>
 							</p>
 						</div>
+						<div class="underLine"></div>
 					</div>
 				</th:block>
 			</div>
+			<div th:if="${b.commentList.size()==0}" class="noComment"><p>댓글이 없습니다. 첫 댓글을 작성해주세요.</p></div>
 		</section>
 		<div class="bottom"></div>
 	</main>
@@ -335,7 +371,7 @@
 			$(obj).next().text("수정 취소");
 			$(obj).next().attr(
 					"onclick",
-					"modifyCancel(this," + baordCommentNo + "," + boardNo
+					"modifyCancel(this," + boardCommentNo + "," + boardNo
 							+ ");");
 			$(obj).next().next().hide();
 		}
@@ -418,7 +454,6 @@
 		function likePush(obj, boardCommentNo) {
 			const currentText = $(obj).text();
 			const isLike = (currentText == "favorite_border") ? 0 : 1;
-			console.log(isLike);
 			$.ajax({
 				url : "/board/likePush",
 				data : {

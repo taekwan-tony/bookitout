@@ -22,8 +22,10 @@ import kr.co.bookItOut.admin.model.dto.AdminListData;
 import kr.co.bookItOut.admin.model.service.AdminService;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookListData;
+
 import kr.co.bookItOut.member.model.dto.Member;
 import kr.co.bookItOut.util.EmailSender;
+
 import kr.co.bookItOut.util.FileUtils;
 
 @Controller
@@ -131,6 +133,27 @@ public class AdminController {
 		return "redirect:/admin/bookListFrm?rePage=1";
 		
 	}
+	//책 삭제
+	@GetMapping(value = "/delete")
+	public String delete(int bookNo, Model model) {
+		int result = adminService.deleteBook(bookNo);
+		if(result>0) {
+			model.addAttribute("title","삭제 성공!");
+			model.addAttribute("msg","게시글이 삭제되었습니다");
+			model.addAttribute("icon","success");
+			model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
+		}else {
+			model.addAttribute("title","삭제실패");
+			model.addAttribute("msg","존재하지 않는 게시물");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
+			return "common/msg";
+		}
+		return "common/msg";
+		//return "admin/insertBook";
+		
+	}
+	
 	
 
 	
