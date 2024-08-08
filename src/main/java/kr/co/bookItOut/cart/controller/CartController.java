@@ -76,6 +76,13 @@ public class CartController {
 		int result = cartService.selectCart(bookNo, memberNo);
 		return result;
 	}
+	@ResponseBody
+	@GetMapping(value="/plusCart")
+	public int plusCart (int cartNo) {
+		int result = cartService.plusCart(cartNo);		
+		
+		return result;
+	}
 	
 
 	@GetMapping("/selDel")

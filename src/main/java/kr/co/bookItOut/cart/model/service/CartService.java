@@ -28,7 +28,11 @@ public class CartService {
 		}
 		return result;
 	}
-
+	@Transactional
+	public int plusCart( int cartNo) {
+		int result = cartDao.plusCart(cartNo);
+		return result;
+	}
 	
 
 
@@ -55,6 +59,8 @@ public class CartService {
 		
 		return result;
 	}
+	
+	
 
 }
 
