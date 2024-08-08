@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,7 +74,6 @@ public class BoardController {
 			}
 		}
 		int result = boardService.insertBoard(b,fileList);
-		System.out.println(result);
 		/*if(result > 0) {
 			model.addAttribute("title","작성성공!");
 			model.addAttribute("msg", "게시물 작성에 성공했습니다.");

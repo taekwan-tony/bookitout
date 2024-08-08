@@ -6,7 +6,8 @@
 <title>장바구니</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+<link
+	href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
 	rel="stylesheet">
 <style>
 .content {
@@ -56,31 +57,30 @@
 
 
 				<tr th:each="c,status : ${list}" id="tr">
-					<td>
-						<input type="checkbox" class="chk" id="chk">
+					<td><input type="checkbox" class="chk" id="chk" onclick="clickChk();"></td>
+
+
+
+					<td><img style="width: 200px;" id="previewImg"
+						th:src="@{/book/{filename}(filename=${c.bookImg})}" alt="책 표지">
 					</td>
-					
-					
-					
-					<td>
-					<img style="width: 200px;" id="previewImg"
-            			 th:src="@{/book/{filename}(filename=${c.bookImg})}" alt="책 표지">
-					</td>
-					
-					
-					
+
+
+
 					<td th:text="${c.bookName}"></td>
-					
-					
-					
-					<td><span>
+
+
+
+					<td>
+						<span>
 							<button onclick="minus(this);">-</button>
-							<input type="text" id="count" value="1" style="width: 20px; text-align: center;">
+							<input type="text" class="count" th:value="${c.bookCartCount}" style="width: 20px; text-align: center;" readonly>
 							<button onclick="plus(this);">+</button>
-					</span></td>
-					
-					
-					
+						</span>
+					</td>
+
+
+
 					<td th:text="${c.bookPrice}"></td>
 					<td>
 						<button>바로구매</button>
@@ -88,7 +88,8 @@
 				</tr>
 				<tr>
 					<td colspan="5" style="text-align: left; padding: 10px;">
-						<button type="button" class="btn-type1 btn" id="selDel">선택 삭제</button>
+						<button type="button" class="btn-type1 btn" id="selDel">선택
+							삭제</button>
 					</td>
 				</tr>
 			</table>
@@ -100,80 +101,147 @@
 				</tr>
 				<tr>
 					<td>주문상품 수</td>
-					<td style="width: 200px;"></td>
+					<td style="width: 200px;" id="payNum"></td>
 				</tr>
 				<tr>
 					<td>주문 금액</td>
-					<td></td>
+					<td id="totalPrice"></td>
 				</tr>
 				<tr>
-					<td>배송비</td>
-					<td></td>
+					<td id="delivery">배송비</td>
+					<td>3000 원</td>
+					
 				</tr>
 				<tr>
 					<td>최종결제금액</td>
-					<td></td>
+					<td id="finalPrice"></td>
 				</tr>
 			</table>
 			<span class="btn-type2 btn" style="margin-right: 5px"> <a
 				href="/">쇼핑하러 가기</a>
-			</span> <input type="submit" class="btn-type3 btn" value="선택상품 구매">
+			</span>
+			<button type="button" class="btn-type3 btn" id="selPay">선택상품 구매</button>
 			<input type="submit" class="btn-type4 btn" value="전체상품 구매">
 		</form>
 
 		<div class="clear"></div>
 	</main>
 	<script>
+	
+		function updateTotalCount() {
+		    let total = 0;
+		    
+		    $(".chk:checked").each(function() {
+		        let countInput = $(this).closest("tr").find(".count");
+		        total += Number(countInput.val());
+		    });
+		    
+		    $("#payNum").text(total);
+		}
+
+		function updateTotalPrice() {
+			let total = 0;
+			
+			$(".chk:checked").each(function() {
+				
+				let countInput = $(this).closest("tr").find(".count");
+		        total += Number(countInput.val())*Number(countInput.parent().parent().next().text());
+			});
+			
+			let finalP = total+3000;
+			$("#totalPrice").text(total+" 원");
+			$("#finalPrice").text(finalP+" 원");
+			
+		}
+
 		function minus(button) {
 			event.preventDefault(); // 이벤트가 발생했을 때 기본 동작을 막음(폼 제출, 링크 클릭, 버튼 클릭 등 브라우저의 기본 동작을 방지)
-			const input = button.parentElement.querySelector("#count");
+			const input = button.parentElement.querySelector(".count");
 			const currentCount = input.value;//value속성으로 읽어오면 문자열타입
 			if (currentCount == 1) {
 				alert("최소 주문 수량은 1개 입니다.");
 			} else {
 				input.value = Number(currentCount) - 1;
+				updateTotalCount();
+				updateTotalPrice()
 			}
 		}
 
 		function plus(button) {
 			event.preventDefault(); // 폼 제출 방지
-			const input = button.parentElement.querySelector("#count");
-			
+			const input = button.parentElement.querySelector(".count");
+
 			const currentCount = input.value;//value속성으로 읽어오면 문자열타입
 			if (currentCount == 10) {
 				alert("최대 주문 수량은 10개 입니다.");
 			} else {
 				input.value = Number(currentCount) + 1;
+				updateTotalCount();
+				updateTotalPrice()
 			}
 		}
-		
-		$("#selDel").on("click",function(){
+
+		$("#selDel").on("click", function() {
 			const checked = $(".chk:checked");
-			
-			if(checked.length == 0 ){
+
+			if (checked.length == 0) {
 				return;
 			}
-			
+
 			const name = new Array(); //책 이름 저장할 배열
-			
-			checked.each(function(index, item){
+
+			checked.each(function(index, item) {
 				const bookName = $(item).parent().next().next().text();
 				console.log(bookName);
 				name.push(bookName);
-				
+
 				console.log(bookName);
 			});
-			
+
 			//console.log(name);
-			
+
 			//화면 >> 컨트롤러 데이터 전송(배열형태 X 문자열로만 가능)
-			location.href="/cart/selDel?name="+name.join("/");
+			location.href = "/cart/selDel?name=" + name.join("/");
 			//join = 자바스크립트에 있는 배열 데이터를 String 타입으로 리턴
-			
-			
+
+			console.log(checked.length);
+		});
+
+		$("#selPay").on("click", function() {
+			const checked = $(".chk:checked");
+
+			if (checked.length == 0) {
+				return;
+			}
+
+			const name = new Array(); //책 이름 저장할 배열
+
+			checked.each(function(index, item) {
+				const bookName = $(item).parent().next().next().text();
+				console.log(bookName);
+				name.push(bookName);
+
+				console.log(bookName);
+			});
+
+			//console.log(name);
+
+			//화면 >> 컨트롤러 데이터 전송(배열형태 X 문자열로만 가능)
+			location.href = "/cart/selPay?name=" + name.join("/");
+			//join = 자바스크립트에 있는 배열 데이터를 String 타입으로 리턴
+
 			console.log(checked.length);
 		});
 		
+		$(document).ready(function() {
+			updateTotalCount();
+			updateTotalPrice();
+		});
+		
+		function clickChk(){
+			updateTotalCount();
+			updateTotalPrice();
+		}
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>

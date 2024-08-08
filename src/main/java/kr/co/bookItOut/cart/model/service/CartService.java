@@ -15,6 +15,27 @@ public class CartService {
 	@Autowired
 	private CartDao cartDao;
 
+	
+	@Transactional
+	public int insertCart(int bookNo, int memberNo) {
+		int result = cartDao.insertCart(bookNo, memberNo);
+		return result;
+	}
+	public int selectCart(int bookNo, int memberNo) {
+		int result = cartDao.selectCartCount(bookNo, memberNo);
+		if(result > 0) {
+			result = cartDao.selectCart(bookNo, memberNo);
+		}
+		return result;
+	}
+	@Transactional
+	public int plusCart( int cartNo) {
+		int result = cartDao.plusCart(cartNo);
+		return result;
+	}
+	
+
+
 	public List selectAllCart(int memberNo) {
 		List list = cartDao.selectAllCart(memberNo);
 		return list;
@@ -38,4 +59,9 @@ public class CartService {
 		
 		return result;
 	}
+	
+	
+
 }
+
+
