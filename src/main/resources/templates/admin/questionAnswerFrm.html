@@ -184,7 +184,7 @@
 								<td>
 									<div class="file-wrap">
 										<div th:each="file : ${q.fileList}" class="files">
-											<img th:src=@{/question/}+${file.filepath}>
+											<img th:src="@{/question/}+${file.filepath}">
 											<p th:text="${file.filepath}"></p>
 										</div>
 									</div>
