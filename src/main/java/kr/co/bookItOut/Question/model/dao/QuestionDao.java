@@ -108,5 +108,11 @@ public class QuestionDao {
 		int result = jdbc.update(query,params);
 		return result;
 	}
+	public int deleteQuestion(int questionNo) {
+		String query = "delete from customer_question where question_no=?";
+		Object[] params = {questionNo};
+		int result = jdbc.update(query,params);
+		return result;
+	}
 	
 }
