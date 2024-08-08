@@ -226,6 +226,9 @@ public class BoardController {
 		BoardListData bld  = boardService.search(type,keyword,reqPage,option);
 		model.addAttribute("list" ,bld.getList());
 		model.addAttribute("pageNavi" ,bld.getPageNavi());
+		model.addAttribute("type" ,type);
+		model.addAttribute("keyword" ,keyword);
+		model.addAttribute("option" ,option);
 		return "board/list";
 	}
 }
