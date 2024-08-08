@@ -11,4 +11,6 @@ public class CenterInventoryBook {
 	private int centerBookCount;
 	private String adminName;
 	private String adminAddr;
+	//private int bookNo;
+	private String bookName;
 }

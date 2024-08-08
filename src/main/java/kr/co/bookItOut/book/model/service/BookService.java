@@ -21,8 +21,8 @@ public class BookService {
 		return book;
 	}
 
-	public List selectAllCenterInventory(Book bookNo, CenterInventory center) {
-		List centerList = bookDao.selectAllCenterInventory(bookNo, center);
+	public List selectAllCenterInventory(int bookNo) {
+		List centerList = bookDao.selectAllCenterInventory(bookNo);
 		return centerList;
 	}
 
