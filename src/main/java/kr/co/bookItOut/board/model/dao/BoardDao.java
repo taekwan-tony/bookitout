@@ -227,11 +227,11 @@ public class BoardDao {
 		int result = jdbc.update(query, params);
 		return result;
 	}
-	public int selectBoardCommentLikeMember(int boardCommentNo, int memberNo) {
+	public int selectBoardCommentIsLike(int boardCommentNo, int memberNo) {
 		String query = "select count(*) from board_comment_like where board_comment_no=? and member_no=?";
 		Object[] params = { boardCommentNo, memberNo };
-		int count = jdbc.queryForObject(query, Integer.class, params);
-		return count;
+		int isLike = jdbc.queryForObject(query, Integer.class, params);
+		return isLike;
 	}
 	public int selectBoardCommentLikeCount(int boardCommentNo) {
 		String query = "select count(*) from board_comment_like where board_comment_no=?";
