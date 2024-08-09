@@ -2,9 +2,9 @@
 <html xmlns:th="http//www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시물수정</title>
 <style>
-	.page-title{
+	.page-title {
 		font-size: xx-large;
 		font-weight: bold;
 		text-align: center;
@@ -12,43 +12,46 @@
 		margin-bottom: 50px;
 		color: #74512D;
 	}
-	.tbl{
-		width:80%;
-		margin-left:10%;
-		margin-right:10%;
+	.board-update-wrap{
+		width: 80%;
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+	.board-update-wrap .input-item>input[type=text]{
+		border-bottom: none;
+		padding: 0;
+	}
+	.file-wrap{
+		display: flex;
+		gap: 20px;
+	}
+	.file-wrap>.files{
+		display: flex;
+		align-items: center;
+	}
+	.file-wrap>.files>.delBtn{
+		font-size: 17px;
+		color: #ff3d00;
+		cursor: pointer;
+	}
+	.tbl {
+		width: 100%;
 		background-color: transparent;
 		margin-bottom: 100px;
 		border: #74512D solid;
 		box-sizing: border-box;
 		overflow: hidden;
 	}
-	.tbl *{
-		box-sizing: border-box;
-	}
-	.last{
-		text-align: center;
-	}
-	.last>*{
-		background-color: #AF8F6F;
-	}
-	.input-item>*{
-		background-color: #F8F4E1;
-		border: none;
-	}
-	#boardContent{
-		background-color: #F8F4E1;
-		padding:none;
-		width: 100%;
-		border: none;
-	}
 	th, td {
-   		border: 1px solid #74512D;
-    	padding: 10px;
-  	}
-  	td{
-		background-color: #F8F4E1; 
+	border: 1px solid #74512D;
+	padding: 10px;
 	}
-	th{
+	
+	td {
+		background-color: #F8F4E1;
+	}
+	
+	th {
 		background-color: #AF8F6F;
 		color: white;
 	}
@@ -56,85 +59,180 @@
 		outline: none;
 		border: none;
 	}
-	#sub{
+	.last{
+		text-align: center;
+	}
+	#update{
+		background-color: #AF8F6F;
 		color: white;
 	}
+	#stop{
+		background-color: #AF8F6F;
+	}
+	#stop>*{
+		color: white;
+	}
+	.boardContent {
+		background-color: #F8F4E1;
+		padding: none;
+		width: 100%;
+		border: none;
+	}
+	input{
+		border: none;
+		background-color: #F8F4E1;
+	}
 </style>
+<script src="/js/jquery-3.7.1.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
 	<script src="/summernote/summernote-lite.js"></script>
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/summernote/summernote-lite.css">
-	<main class="content board-write-container">
-		<section class="section board-writer-wrap">
-			<div class="page-title">게시물 작성</div>
-			<form action="/board/write" method="post" enctype="multipart/form-data">
-				<table class="tbl">
-					<tr>
-						<th>제목</th>
-						<td colspan="3">
-							<div class="input-item">
-								<input type="text" name="boardTitle" id="boardTitle">
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<th style="width:10%;">작성자</th>
-						<td style="width:40%;">
-							<span th:text="${session.member.memberId}"></span>
-							<input type="hidden" name="boardWriter" th:value="${session.member.memberId}">
-						</td>
-						<th style="width:10%;">첨부파일</th>
-						<td style="width:40%;">
-							<input type="file" name="upfile" multiple>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="4">
-							<textarea name="boardContent" id="boardContent"></textarea>
-						</td>
-					</tr>
-					<tr>
-						<td class="last" colspan="4">
-							<button type="submit" class="btn-primary lg" id="sub">게시물 작성</button>
-						</td>
-					</tr>
-				</table>
-			</form>
-		</section>
-	</main>
-	<script>
-		$("#boardContent").summernote({
-			height:500,
-			lang : "ko-KR",
-			disableResize : true,
-			disableResizeEditor : true,
-			resize : false,
-			callbacks :{
-				onImageUpload : function(files){
-					uploadImage(files[0],this);		
-				}
+		<main class="content">
+			<section class="section board-update-wrap">
+				<div class="page-title">게시물 수정</div>
+				<form action="/board/update" method="post" enctype="multipart/form-data" class="boardUpdateFrm">
+					<table class="tbl">
+						<tr>
+							<th style="width: 15%;">제목</th>
+							<td>
+								<div class="input-item">
+									<input type="text" name="boardTitle" th:value="${b.boardTitle}">
+									<input type="hidden" name="boardNo" th:value="${b.boardNo}">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>첨부파일</th>
+							<td>
+								<div class="file-wrap">
+									<div th:each="file:${b.fileList}" class="files">
+										<span class="delFilename" th:text="${file.filename}"></span>
+										<span class="material-icons delBtn" th:onclick="deleteFile(this,[[${file.fileNo}]]);">delete_sweep</span>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>추가파일</th>
+							<td>
+								<input type="file" name="upfile" multiple>
+							</td>
+						</tr>
+						<tr>
+							<th>내용</th>
+							<td>
+								<div class="input-item">
+									<textarea name="boardContent" class="boardContent" th:text="${b.boardContent}"></textarea>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							 <td colspan="2" class="last">
+							 	<button type="submit" class="btn-primary" id="update">수정하기</button>
+							 	<button type="button" class="btn-primary" id="stop"><p th:onclick="stop([[${b.boardNo}]])">수정취소</p></button>
+							 </td>
+						</tr>
+					</table>
+				</form>
+			</section>
+		</main>
+		<script>
+			function deleteFile(obj, fileNo){
+				swal({
+					title:"파일삭제",
+					text:"첨부파일을 삭제하시겠습니까?",
+					icon:"info",
+					buttons:{
+						cancel : {
+							text:"취소",
+							value: false,
+							visible: true,
+							className: "btn-secondary",
+							classModal: true
+						},
+						confirm : {
+							text: "삭제",
+							value: true,
+							visible: true,
+							className: "btn-primary",
+							classModal: true
+						}
+					}
+				}).then(function(isConfirm){
+					if(isConfirm){
+						const input=$("<input>");
+						input.attr("name","delFileNo");
+						input.attr("type","hidden");
+						input.val(fileNo);
+						$(".boardUpdateFrm").append(input);
+						$(obj).parent().remove();
+					}
+				});
 			}
-		});
-		function uploadImage(file, editor){
-			const form = new FormData();
-			form.append("upfile",file);
-			 $.ajax({
-				 url : "/board/editorImage",
-				 type : "post",
-				 data : form,
-				 processData : false,
-				 contentType : false,
-				 success : function(data){
-					 $(editor).summernote("insertImage",data);
-				 },
-				 error : function(){
-					 console.log("에러");
-				 }
-			 });
-		}
-	</script>
+			$(".boardContent").summernote({
+				height:500,
+				lang : "ko-KR",
+				disableResize : true,
+				disableResizeEditor : true,
+				resize : false,
+				callbacks :{
+					onImageUpload : function(files){
+						uploadImage(files[0],this);		
+					}
+				}
+			});
+			function uploadImage(file, editor){
+				const form = new FormData();
+				form.append("upfile",file);
+				 $.ajax({
+					 url : "/board/editorImage",
+					 type : "post",
+					 data : form,
+					 processData : false,
+					 contentType : false,
+					 success : function(data){
+						 $(editor).summernote("insertImage",data);
+					 },
+					 error : function(){
+						 console.log("에러");
+					 }
+				 });
+			}
+			function stop(boardNo){
+				swal({
+					title:"수정취소",
+					text:"게시물 수정을 그만하시겠습니까?",
+					icon:"info",
+					buttons:{
+						cancel : {
+							text:"수정 계속",
+							value: false,
+							visible: true,
+							className: "btn-primary",
+							classModal: true
+						},
+						confirm : {
+							text: "수정 취소",
+							value: true,
+							visible: true,
+							className: "btn-primary",
+							classModal: true
+						}
+					}
+				}).then(function(isConfirm){
+					if(isConfirm){
+						location.href = "/board/view?boardNo="+boardNo;
+					}
+				})
+			}
+		</script>
 	<th:block th:include="common/footer"></th:block>
-</body>
+	</body>
 </html>
