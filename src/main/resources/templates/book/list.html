@@ -109,7 +109,7 @@ img {
     background-color: #F8F4E1;
     border: none;
 }
-#bookCart {
+#listCart {
     background-color: #F8F4E1;
     border: none;
 }
@@ -131,15 +131,21 @@ img {
 .enroll-date {
     margin-left: 70px;
 }
-button {
+.list-btn {
     width: 70px;
     height: 30px;
     border-radius: 7px;
     font-weight: bold;
+    margin-top: 10px;
 }
 #bookCart {
     margin-bottom: 10px;
 }
+
+.pagination>ul{
+display: block;
+}
+
 
 </style>
 </head>
@@ -150,11 +156,11 @@ button {
         <section class="section book-list-wrap">
             <div class="book-list">
                 <div class="list-header">
-                    <p><a href="#"></a>국내 도서</p>
+                    <p><a href="/book/list?reqPage=1&type=1&genre=1">국내 도서</a></p>
                     <ul>
-                        <li><a href="#"></a>문학</li>
-                        <li><a href="#"></a>재테크</li>
-                        <li><a href="#"></a>기타</li>
+                        <li><a href="/book/list?reqPage=1&type=1&genre=2">문학</a></li>
+                        <li><a href="/book/list?reqPage=1&type=1&genre=3">재테크</a></li>
+                        <li><a href="/book/list?reqPage=1&type=1&genre=4">기타</a></li>
                     </ul>
                 </div>
 
@@ -163,11 +169,11 @@ button {
                         <!-- <p>이 분야에 <span th:text="${list.length}"></span>개의 상품이 있습니다.</p> -->
 
                         <ul class="array-title">
-                            <li><a href="/book/bookNameArray"></a>상품명순</li>
-                            <li><a href="#"></a>출간일순</li>
-                            <li><a href="#"></a>등록일순</li>
-                            <li><a href="#"></a>저가격순</li>
-                            <li><a href="#"></a>고가격순</li>
+                            <li><a href="/book/list?reqPage=1&type=2">상품명순</a></li>
+                            <li><a href="/book/list?reqPage=1&type=3">출간일순</a></li>
+                            <li><a href="/book/list?reqPage=1&type=4">등록일순</a></li>
+                            <li><a href="/book/list?reqPage=1&type=5">저가격순</a></li>
+                            <li><a href="/book/list?reqPage=1&type=6">고가격순</a></li>
                         </ul>
                     </div>
 
@@ -179,7 +185,7 @@ button {
                                 </td>
 
                                 <td style="width:20%;">
-                                    <!-- <img th:src="${#}"> -->
+                                	<img id=book_img th:src="@{/book/{filename}(filename=${book.bookImg})}" >                                    
                                 </td>
 
                                 <td style="vertical-align: baseline;">
@@ -198,15 +204,25 @@ button {
                                 </td>
 
                                 <td id="list-btn" style="width:15%; vertical-align: baseline;">
-                                    <button class ="bookCart"  "type="button" id="listCart" name="bookCart">장바구니</button>
-                                    <button type="button" id="listBuy" >바로구매</button>                      
+                                
+                                	<div th:if="${session.member !=null}">
+                                		<button class ="list-btn"  type="button" id="listCart" name="bookCart" th:onclick="addCart([[${book.bookNo}]])">장바구니</button>
+	                                    <button class ="list-btn"  type="button" id="listBuy"  name="bookBuy">바로구매</button>    
+                                	</div>
+                                	<div th:if="${session.member ==null}">
+                                		<button class ="list-btn"  type="button" id="listCart" name="bookCart" onclick="loginMsg()">장바구니</button>
+	                                    <button class ="list-btn"  type="button" id="listBuy"  name="bookBuy" onclick="loginMsg()">바로구매</button>    
+                                	</div>
+	                                                      
                                 </td>
                             </tr>
                         </table>
                     </div>
+                    
+                    
                 </div>
                 
-                <div class=clear></div>
+                <div class=clear></div> 
 
                 <div class="pagination" id="pageNavi" th:utext="${pageNavi}"></div>
 
@@ -215,9 +231,100 @@ button {
     </main>
     
     <script>
-    	
+	    function loginMsg() {
+	    	swal({
+	    		title: "로그인 필요",
+	    		text : "로그인 페이지로 이동하겠습니까?",
+	    		icon : "info",
+	    		buttons : {
+	    			cancel : {
+	    				text : "아니오",
+	    				value : false,
+						visible : true,
+						className : "btn-secondary",
+						closeModel : true
+	    			},	    
+	    			confirm : {
+	    				text : "예",
+	    				value : true,
+						visible : true,
+						className : "btn-primaty",
+						closeModel : true	    				
+	    			}	    						
+	    		}
+	    	}).then(function(isConfirm){
+	    		if(isConfirm) {
+	    			location.href="/member/loginFrm";
+	    		}	    		
+	    	});	    	    		
+    	}
+	   	    
+	    
+    	function addCart(bookNo){    		
+    		
+    		$.ajax({
+    			url : "/cart/selectCart",
+    			type : "get",
+    			data : {bookNo: bookNo},
+    			success : function(data){
+    				const cartNo = data;
+    				if(cartNo==0){
+    					$.ajax({
+    		    			url : "/cart/addCart",
+    		    			type :  "get",
+    		    			data : {bookNo :bookNo}, 
+    		    			success : function(data){    		    				
+    		    				console.log(data);
+    		    				swal({
+    		    					title : "장바구니 담기",
+    		    					text : "해당 책이 장바구니에 담겼습니다.",
+    		    					icon : "info"    		    					
+    		    				});
+    		    				
+    		    				
+    		    			},
+    		    			error : function() {
+    		    				console.log("에러");
+    		    			}
+    		    		});
+    				}else{
+    					console.log(cartNo);
+    					$.ajax({
+    						url : "/cart/plusCart",
+    						type : "get",
+    						data : {cartNo:cartNo},
+    						success : function(data){
+    							console.log(data);
+    		    				swal({
+    		    					title : "책 수량 추가",
+    		    					text : "장바구니에 담겨있는 책입니다. 추가 하시겠습니까?",
+    		    					icon : "info"    		    					
+    		    				});    							
+    						},
+    						error : function() {
+    		    				console.log("에러");
+    		    			}
+    					});
+    					
+    					
+    				}
+    			},
+    			error : function(){
+    				console.log("에러");
+    				
+    			}
+    			
+    		});
+    		
+    		
+    		
+    		/*
+    		
+    		*/
+    		
+    	}
     
-    
+   		
     </script>
 	
 	<th:block th:include="common/footer"></th:block>

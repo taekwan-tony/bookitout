@@ -150,6 +150,11 @@
 	.content-btn-box>a:hover{
 		text-decoration: underline;
 	}
+	.content-answer-title>p{
+		font-size: 16px;
+		font-family: Tenada;
+		padding-left : 30px;
+	}
 </style>
 </head>
 <body>
@@ -187,7 +192,7 @@
 				</div>
 				<div class="content-main-text">
 					<ul>
-						<a href="#">공지사항</a>
+						<a href="/notice/noticeFrm?reqPage=1">공지사항</a>
 					</ul>
 				</div>
 			</div>
@@ -276,11 +281,23 @@
 								</div>
 								<div th:utext="${q.questionContent}"></div>
 								<div class="content-btn-box">
-									<a th:href="@{/Question/updateQuestionFrm(questionNo=${q.questionNo})}" id="update">수정</a>
-									<a th:href="@{/Question/deleteQuestionFrm(questionNo=${q.questionNo})}" id="delete">삭제</a>
+									<th:block th:if="${q.questionAnswer}==null">
+										<a th:href="@{/Question/updateQuestionFrm(questionNo=${q.questionNo})}" id="update">수정</a>
+									</th:block>
+									<a id="delete" th:onclick="delQuestion(this,[[${q.questionNo}]])">삭제</a>
 								</div>
 							</div>
-							
+							<th:block th:if="${q.questionAnswer} != null">
+								<div class="content-answer-title">
+									<p>답변 처리 결과</p>
+								</div>
+								<div class="content-back-wrap">
+									<div>
+										<span class="material-icons">subdirectory_arrow_right</span>
+									</div>
+									<div th:utext="${q.questionAnswer}"></div>
+								</div>
+							</th:block>
 						</div>
 					</div>
 					</th:block>
@@ -310,7 +327,35 @@
 			$(obj).prev().children().next().children().text("expand_more");
 		}
 	}
-	
+	function delQuestion(obj,questionNo){
+		swal({
+			title:"파일 삭제",
+			msg:"첨부파일을 삭제하시겠습니까?",
+			icon : "info",
+			buttons:{
+				cancel:{
+					text:"취소",
+					value : false,
+					visible : true,
+					className : "btn-type2",
+					closeModal : true
+					
+				},
+				confirm : {
+					text : "삭제",
+					value : true,
+					visible : true,
+					className : "btn-type3",
+					closeModal : true
+					
+				}
+			}
+		}).then(function(isConfirm){
+			if(isConfirm){
+				location.href="/Question/deleteQuestion?questionNo="+questionNo;
+			}
+		});
+	}
 		
 	
 </script>

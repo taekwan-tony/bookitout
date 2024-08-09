@@ -7,16 +7,18 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BookContentRowMapper implements RowMapper<BookContent> {
+public class BookCommentRowMapper implements RowMapper<BookComment> {
 
 	@Override
-	public BookContent mapRow(ResultSet rs, int rowNum) throws SQLException {
-		BookContent content = new BookContent();
+	public BookComment mapRow(ResultSet rs, int rowNum) throws SQLException {
+		BookComment content = new BookComment();
 		content.setBookCommentNo(rs.getInt("book_comment_no"));
 		content.setBookNo(rs.getInt("book_no"));
-		content.setMemberNo(rs.getInt("member_no"));
 		content.setBookCommentContent(rs.getString("book_comment_content"));
 		content.setBookCommentDate(rs.getNString("book_comment_date"));
+		content.setBookCommentWriter(rs.getString("book_comment_writer"));
+		content.setBookRef(rs.getInt("book_ref"));
+		
 		return content;
 	}
 

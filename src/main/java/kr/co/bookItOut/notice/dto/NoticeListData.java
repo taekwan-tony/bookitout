@@ -1,4 +1,4 @@
-package kr.co.bookItOut.book.model.dto;
+package kr.co.bookItOut.notice.dto;
 
 import java.util.List;
 
@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class BookListData {
-	private List list;
+public class NoticeListData {
+	private List<Notice> list;
 	private String pageNavi;
-	
-
 }

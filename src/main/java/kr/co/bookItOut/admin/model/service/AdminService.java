@@ -1,13 +1,17 @@
 package kr.co.bookItOut.admin.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.bookItOut.admin.model.dao.AdminDao;
 import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.admin.model.dto.AdminListData;
+import kr.co.bookItOut.book.model.dto.AdminBook;
+import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookListData;
 import kr.co.bookItOut.member.model.dto.Member;
 
@@ -140,6 +144,39 @@ public BookListData selectbookList(int rePage) {
 		
 		return bld;
 	}
+
+//북 등록
+@Transactional //변화 있을때 커밋 롤백
+public int insertBook(Book book) {
+	 int result = adminDao.insertBook(book);
+	
+	return result;
+}
+
+//삭제--
+
+public Book deleteBook(int bookNo) {
+	Book book = adminDao.selectAdminFile(bookNo);
+	
+	int result = adminDao.deleteBook(bookNo);
+	if(result>0) {
+		return book;
+	}
+	return null;
+}
+//수정 --
+
+public AdminBook updatebookList(int bookNo) {
+	AdminBook abook = adminDao.selectAdminbook(bookNo);
+	
+	int result =adminDao.updateBook(bookNo);
+	
+	return null;
+}
+
+
+
+
 
 
 }

@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Book {
+//센터수량 가져오기위한 변수
+public class AdminBook {
 	private int bookNo;
-	private String bookName;//
+	private String bookName;
 	private String bookWriter;
 	private int bookPrice;
 	private String bookPublisher;
@@ -23,4 +24,7 @@ public class Book {
 	private String bookType;
 	private String bookGenre;
 	private int readCount;
+	private int centerBookCount;
+	
+
 }

@@ -22,7 +22,6 @@ public class QuestionDao {
 
 	public int insertQuestion(Question q) {
 		String query = "insert into customer_question values(customer_question_seq.nextval,?,?,?,null,?,?)";
-		System.out.println(q);
 		Object[] params = {q.getQuestionType(),q.getQuestionTitle(),q.getQuestionContent(),q.getMemberNo(),q.getQuestionEmail()};
 		int result = jdbc.update(query,params);
 		return result;
@@ -30,8 +29,6 @@ public class QuestionDao {
 	public int selectQuestionNo(Question q) {
 		String query = "select max(question_no) from customer_question";
 		int questionNo = jdbc.queryForObject(query,Integer.class);
-
-		
 		return questionNo;
 	}
 	public int insertQuestionFile(QuestionFile qf) {
@@ -57,6 +54,18 @@ public class QuestionDao {
 		Object[] params = {memberNo};
 		int totalCount = jdbc.queryForObject(query, Integer.class,params);
 		return totalCount;
+	}
+	public int selectTotalCount() {
+		String query = "select count(*) from customer_question where question_answer is null";
+	
+		int totalCount = jdbc.queryForObject(query, Integer.class);
+		return totalCount;
+	}
+	public List selectAllQuestion(int start, int end) {
+		String query = "select * from(select rownum as rnum, q.* from(select * from customer_question where question_answer is null order by 1 desc)q) where rnum between ? and ?";
+		Object[] params = {start,end};
+		List list = jdbc.query(query, questionRowMapper,params);
+		return list;
 	}
 	public List selectAllQuestion(int memberNo, int type, int start, int end) {
 		String query = null;
@@ -108,5 +117,18 @@ public class QuestionDao {
 		int result = jdbc.update(query,params);
 		return result;
 	}
+	public int deleteQuestion(int questionNo) {
+		String query = "delete from customer_question where question_no=?";
+		Object[] params = {questionNo};
+		int result = jdbc.update(query,params);
+		return result;
+	}
+	public int updateQuestionAnswer(Question q) {
+		String query = "update customer_question set question_answer=? where question_no=?";
+		Object[] params = {q.getQuestionAnswer(),q.getQuestionNo()};
+		int result = jdbc.update(query,params);
+		return result;
+	}
+	
 	
 }

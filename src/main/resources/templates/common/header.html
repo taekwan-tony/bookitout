@@ -1,11 +1,19 @@
 <!DOCTYPE html>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-    <!-- Swiper -->
-	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <style>
+    button.cart {
+        background: none;
+        border: none;
+        font-size: 17px;
+        cursor: pointer;
+        padding: 0;
+        text-decoration: none;
+    }
+    </style>
 	<script src="/js/jquery-3.7.1.js"></script>
 	<script src="/js/sweetalert.min.js"></script>
+	
     <header>
         <div class="main-header-wrap">
             <div class="header-main">
@@ -24,9 +32,6 @@
                     <div class="lnb">
                     <th:block th:if="${session.member == null and session.admin == null}">
                         <ul>
-                            <li>
-                                <a href="#">장바구니</a>
-                            </li>
                             <li>
                                 <a href="/member/joinFrm">회원가입</a>
                             </li>
@@ -69,12 +74,12 @@
                 <div class="inner">
                     <div class="gnb">
                         <ul>
-                            <li><a href="#">menu1</a></li>
+                            <li><a href="/book/detail?bookNo=1">북 상세페이지</a></li>
                             <li><a href="#">menu2</a></li>
                             <li><a href="#">menu3</a></li>
                             <li><a href="#">menu4</a></li>
                             <li><a href="#">menu5</a></li>
-                            <li><a href="/book/list?reqPage=1">menu6</a></li> <!-- 임의로 잠시 책목록 -->
+                            <li><a href="/book/list?reqPage=1&type=1&genre=1">menu6</a></li> <!-- 임의로 잠시 책목록 -->
                             <li><a href="/board/list?reqPage=1">자유게시판</a></li>
                         </ul>
                     </div>

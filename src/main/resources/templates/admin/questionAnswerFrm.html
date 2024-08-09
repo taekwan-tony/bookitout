@@ -1,50 +1,76 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http/www.thymeleaf.org">
 <head>
+<meta charset="UTF-8">
+<title>1:1답변 처리</title>
 <link rel="stylesheet" href="/css/main.css" />
 <link rel="stylesheet" href="/css/admin.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <script src="/js/jquery-3.7.1.js"></script>
-	<script src="/js/sweetalert.min.js"></script>
-<style>
-.container{
-	width:65%;
-	border: 3px solid var(--color3);
-	padding: 15px;
-	border-radius: 10px; 
-}
-.container div label{
-	font-family: "Tenada";
-	font-size: 20px;
-}
-.container>div{
-	border: 1px solid var(--color1);
-}
-.container div{
-	padding: 10px;
-}
-.container .input-item{
-	padding-left: 70px;
-}
-.container .input-item input{
-    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.1);
-	border-left: none;
-	border-right: none;
-	border-top: none;
-	width:  70%;
-	font-size: 20px;
-}
-.container .admin-button-box{
-	text-align: center;
-}
-.input-item:focus{
-	border: none;
-	outline: none;
-}
-
-</style>
+<script src="/js/sweetalert.min.js"></script>
 </head>
+<style>
+	.btn-content-box>table>thead>tr>th{
+		height : 70px;
+	}
+	
+	.btn-content-box>table>tbody>tr>td{
+		height : 50px;
+	}
+	
+	.question-tbl{
+		width:100%;
+	}
+	.question-tbl tr{
+		height : 100px;
+	}
+	.question-tbl tr>td>*{
+		width:90%;
+	}
+	#questionTitle{
+		border-radius:10px;
+		height: 47px;
+		border:1px solid var(--gray1);
+		padding-left : 15px;
+	}
+	.question-tbl tr>td>#questionEmail{
+		width:60%;
+	}
+	#questionEmail{
+		border-radius:10px;
+		height: 47px;
+		border:1px solid var(--gray1);
+		padding-left : 15px;
+	}
+	.question-btn-wrap>button{
+		width:30%;
+	}
+	.question-tbl tr>th>sup{
+		color : red;
+	}
+	.answer-method-wrap{
+		border-bottom : 1px solid var(--gray1);
+		border-top : 1px solid var(--gray1);
+	}
+	.answer-method-wrap{
+		padding: 15px 0;
+	}
+	.question-btn-wrap{
+		padding : 20px; 
+		display : flex;
+		gap : 10px;
+		justify-content : center;	
+		align-items: center;	
+	}
+	.answer-method-wrap>div:first-child{
+		padding-left : 15px;
+	}
+</style>
 <body>
+	<script src="/summernote/summernote-lite.js"></script>
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/summernote/summernote-lite.css">
     <div class="nav1">
         <div class="icons-menu">
             <ul>
@@ -81,15 +107,15 @@
             </ul>
             </li>
             <li>
-            <a href="#">책 관리</a>
+            <a href="/admin/bookListFrm">책 관리</a>
             <ul class="sub-menu">
                 <li><a href="/admin/bookListFrm?rePage=1">책 리스트</a></li>
                 <li><a href="/admin/insertBookFrm">책 등록</a></li>
-                <li><a href="#">책 정보 수정</a></li>
+                <li><a href="/admin/updateBookFrm">책 상세 정보 수정</a></li>
             </ul>
             </li>
             <li>
-            <a href="#">1대1 문의</a>
+            <a href="/admin/questionAnswer?reqPage=1">1대1 문의</a>
             </li>
             <li>
             <a href="#">챗봇</a>
@@ -132,66 +158,64 @@
         <!-- 컨텐츠 영역 -->
         <div class="content">
             <div class="inner">
-                    <div class="page-title">
-                        <h1>판매점 등록</h1>
-                    </div>
                 <div class="container">
-                    <form action="/admin/insertAdmin" method="post" autocomplete="off">
-			 	<div class="input-wrap">
-			 		<div class="input-title">
-			 			<label for="adminName">판매점명</label>
-			 		</div>
-			 		<div class="input-item">
-			 			<input type="text" name="adminName" id="adminName">
-			 		</div>
-			 	</div>
-			 	<div class="input-wrap">
-			 		<div class="input-title">
-			 			<label for="adminId">판매점 아이디</label>
-			 		</div>
-			 		<div class="input-item">
-			 			<input type="text" name="adminId" id="adminId">
-			 		</div>
-			 	</div>
-			 	<div class="input-wrap">
-			 		<div class="input-title">
-			 			<label for="adminPw">판매점 비밀번호</label>
-			 		</div>
-			 		<div class="input-item">
-			 			<input type="text" name="adminPw" id="adminPw">
-			 		</div>
-			 	</div>
-			 	<div class="input-wrap">
-			 		<div class="input-title">
-			 			<label for="adminAddr">판매점 주소</label>
-			 		</div>
-			 		<div class="input-item">
-			 			<input type="text" name="adminAddr" id="adminAddr">
-			 		</div>
-			 	</div>
-			 	<div class="input-wrap">
-			 		<div class="input-title">
-			 			<label for="adminPhone">판매점 전화번호</label>
-			 		</div>
-			 		<div class="input-item">
-			 			<input type="text" name="adminPhone" id="adminPhone">
-			 		</div>
-			 	</div>
-			 	<div class="input-wrap">
-			 		<div class="input-title">
-			 			<label for="adminEmail">판매점 이메일</label>
-			 		</div>
-			 		<div class="input-item">
-			 			<input type="text" name="adminEmail" id="adminEmail">
-			 		</div>
-			 	</div>
-			 	<div class="admin-button-box">
-			 		<button type="submit" class="btn-type4 btn" onclick="return checkValue();">매장등록</button>
-			 	</div>
-		 	</form>
+                    <div class="page-title">
+                        <h1>1:1문의 답변</h1>
+                    </div>
+					<div class="write-question-wrap">
+					<form action="/admin/questionAnswerCompelte"  method="post" class="write-form">
+						<table class="question-tbl tbl">
+							<tr>
+								<th style="width:20%;">문의 유형 <sup>*</sup></th>
+								<td style="width:80%;"  th:text="${q.questionType}"></td>
+							</tr>
+							<tr>
+								<th>문의 제목 <sup>*</sup> </th>
+								<td th:text="${q.questionTitle}"></td>
+							</tr>
+							<tr>
+								<th>문의 내용</th>
+								<td th:utext="${q.questionContent}"></td>
+							</tr>
+							<tr>
+								<th>첨부파일</th>
+								<td>
+									<div class="file-wrap">
+										<div th:each="file : ${q.fileList}" class="files">
+											<img th:src="@{/question/}+${file.filepath}">
+											<p th:text="${file.filepath}"></p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>문의 내용</th>
+								<td ><textarea name="questionAnswer" id="questionAnswer"></textarea></td>
+							</tr>
+						</table>
+						<div class="answer-method-wrap">
+							<table class="question-tbl tbl">
+								<tr>
+									<th>이메일</th>
+									<td><input type="text" name="questionEmail" id="questionEmail" th:value="${q.questionEmail}" readonly></td>
+									<input type="hidden" name="questionNo" th:value="${q.questionNo}">
+									
+								</tr>
+							</table>
+						</div>
+						<div class="question-btn-wrap">
+							<button type="button" class="btn-type2 btn" onclick="location.href='/admin/questionAnswer?reqPage=1'">취소</button>
+							<button type="submit" class="btn-type3 btn">답변처리</button>	
+						</div>
+					</form>
+				</div>
+					
                 </div>
             </div>
-       
+
+		<div id="pageNavi" th:utext="${pageNavi}">
+	  	</div>
+		<!--페이지 넘기는 부분 종료 -->
         </div>
         <!-- footer 시작  헤더 풋더 다 끌어와서 쓰면 됨 -->
         <div>
@@ -212,22 +236,16 @@
         </div>
     </div>
     
-    <script>
-    <!--전체 선택 로직 -->
-    function check_all(f)
-    {
-        var chk = document.getElementsByName("chk[]");
-
-        for (i=0; i<chk.length; i++)
-            chk[i].checked = f.chkall.checked;
-    }
-    
-    <!--
-    	000000000000000000000000000000000000000-->
-   
-    
-    
-    
-    </script>
 </body>
+<script>
+	  $("#questionAnswer").summernote({
+		height : 500,
+		width : 900,
+		lang : "ko-KR",
+		disableResize : true,
+		disableResizeEditor : true,
+		resize : false
+	});
+
+</script>
 </html>

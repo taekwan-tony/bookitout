@@ -59,7 +59,7 @@ public class QuestionController {
 	@ResponseBody
 	@PostMapping(value="/editorImage" ,produces = "plain/text;charset=utf-8")
 	public String editorImg(MultipartFile upfile) {
-		String savepath = root+"/editor/";
+		String savepath = root+"/upload/editor/";
 		String filepath = fileUtils.upload(savepath, upfile);
 		return "/upload/editor/"+filepath;
 	}
@@ -123,8 +123,27 @@ public class QuestionController {
 			model.addAttribute("loc","/Question/questionList?type=1&reqPage=1");
 			return "common/msg";
 		}else {
-			for(QuestionFile noticeFile : delFileList) {
-				File delFile = new File(savepath+noticeFile.getFilepath());
+			for(QuestionFile questionFile : delFileList) {
+				File delFile = new File(savepath+questionFile.getFilepath());
+				delFile.delete();
+			}
+			return "redirect:/Question/questionList?type=1&reqPage=1";
+		}
+	}
+	
+	@GetMapping(value="deleteQuestion")
+	public String deleteQuestion(int questionNo,Model model) {
+		List<QuestionFile> delFileList = questionService.deleteQuestion(questionNo);
+		String savepath = root+"/question/";
+		if(delFileList ==null) {
+			model.addAttribute("title","삭제 실패");
+			model.addAttribute("msg","처리 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요");
+			model.addAttribute("icon","error");
+			model.addAttribute("loc","/Question/questionList?type=1&reqPage=1");
+			return "common/msg";
+		}else {
+			for(QuestionFile questionFile : delFileList) {
+				File delFile = new File(savepath+questionFile.getFilepath());
 				delFile.delete();
 			}
 			return "redirect:/Question/questionList?type=1&reqPage=1";
