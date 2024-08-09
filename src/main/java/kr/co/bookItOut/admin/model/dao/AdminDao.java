@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.admin.model.dto.AdminRowMapper;
+import kr.co.bookItOut.book.model.dto.AdminBook;
 import kr.co.bookItOut.book.model.dto.AdminBookRowMapper;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookRowMapper;
@@ -82,6 +83,23 @@ public class AdminDao {
 		Object[] params = {bookNo};
 		int result = jdbc.update(query,params);
 		return result;
+	}
+	public Book selectAdminFile(int bookNo) {
+		String query = "select * from book where book_no=?";
+		Object[] params= {bookNo};
+		List list = jdbc.query(query,adminBookRowMapper,params);
+		return (Book)list.get(0);
+	}
+	public AdminBook selectAdminbook(int bookNo) {
+		String query = "select * from book where book_no=?";
+		Object[] params = {bookNo};
+		List list = jdbc.query(query,bookRowMapper,params);
+		return (AdminBook)list.get(0);
+	}
+	//장르 타입 책이름 저자 출판사 
+	public int updateBook(int bookNo) {
+//	String query = "update book set "
+		return 0;
 	}
 	
 }

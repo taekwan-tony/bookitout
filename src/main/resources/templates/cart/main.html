@@ -101,20 +101,23 @@
 				</tr>
 				<tr>
 					<td>주문상품 수</td>
-					<td style="width: 200px;" id="payNum"></td>
+					<td style="width: 50px;" id="payNum"></td>
+					<td style="display: inline-block; float:left;">개</td>
 				</tr>
 				<tr>
 					<td>주문 금액</td>
 					<td id="totalPrice"></td>
+					<td style="display: inline-block; float:left;">원</td>
 				</tr>
 				<tr>
-					<td id="delivery">배송비</td>
-					<td>3000 원</td>
-					
+					<td id="delivery" style="display: inline-block">배송비</td>
+					<td>3000</td>
+					<td style="display: inline-block; float:left;">원</td>
 				</tr>
 				<tr>
 					<td>최종결제금액</td>
 					<td id="finalPrice"></td>
+					<td style="display: inline-block; float:left;">원</td>
 				</tr>
 			</table>
 			<span class="btn-type2 btn" style="margin-right: 5px"> <a
@@ -148,9 +151,9 @@
 		        total += Number(countInput.val())*Number(countInput.parent().parent().next().text());
 			});
 			
-			let finalP = total+3000;
-			$("#totalPrice").text(total+" 원");
-			$("#finalPrice").text(finalP+" 원");
+			let finalP = total;
+			$("#totalPrice").text(total);
+			$("#finalPrice").text(finalP);
 			
 		}
 
