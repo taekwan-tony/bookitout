@@ -25,5 +25,6 @@ public class AdminBook {
 	private String bookGenre;
 	private int readCount;
 	private int centerBookCount;
+	
 
 }

@@ -20,6 +20,7 @@ import kr.co.bookItOut.Question.model.service.QuestionService;
 import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.admin.model.dto.AdminListData;
 import kr.co.bookItOut.admin.model.service.AdminService;
+import kr.co.bookItOut.book.model.dto.AdminBook;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookListData;
 import kr.co.bookItOut.util.FileUtils;
@@ -131,22 +132,44 @@ public class AdminController {
 	//책 삭제
 	@GetMapping(value = "/delete")
 	public String delete(int bookNo, Model model) {
-		int result = adminService.deleteBook(bookNo);
-		if(result>0) {
+		Book book = adminService.deleteBook(bookNo);
+		
+		if(book == null) {	model.addAttribute("title","삭제실패");
+		model.addAttribute("msg","존재하지 않는 게시물");
+		model.addAttribute("icon","error");
+		model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
+		return "common/msg";
+			
+		}else {
 			model.addAttribute("title","삭제 성공!");
 			model.addAttribute("msg","게시글이 삭제되었습니다");
 			model.addAttribute("icon","success");
 			model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
-		}else {
-			model.addAttribute("title","삭제실패");
-			model.addAttribute("msg","존재하지 않는 게시물");
-			model.addAttribute("icon","error");
-			model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
-			return "common/msg";
+		
 		}
 		return "common/msg";
 		//return "admin/insertBook";
 		
+	}
+	//책 수정 //장르 타입 책이름 저자 출판사 판매가격
+	@GetMapping(value = "/updateBook")
+	public String updateBook(int bookNo, Model model) {
+		AdminBook abook = adminService.updatebookList(bookNo);
+		
+		if( abook== null) {	model.addAttribute("title","삭제실패");
+		model.addAttribute("msg","존재하지 않는 게시물");
+		model.addAttribute("icon","error");
+		model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
+		return "common/msg";
+			
+		}else {
+			model.addAttribute("title","삭제 성공!");
+			model.addAttribute("msg","게시글이 삭제되었습니다");
+			model.addAttribute("icon","success");
+			model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
+		
+		}
+		return "common/msg";
 	}
 	
 	
