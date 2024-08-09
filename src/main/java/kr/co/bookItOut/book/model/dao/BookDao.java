@@ -63,4 +63,52 @@ public class BookDao {
 		int totalCount = jdbc.queryForObject(query, Integer.class);
 		return totalCount;
 	}
+
+	public List selectBookNoList(int start, int end) {
+		String query = "select * from (select rownum as rnum, b.* from(select * from book order by book_no desc)b) where rnum between ? and ?";
+		Object[] params = {start, end};
+		List list = jdbc.query(query, bookRowMapper, params);
+
+		return list;
+	}
+
+	public List selectBookNameList(int start, int end) {
+		String query = "select * from (select rownum as rnum, b.* from(select * from book order by book_name)b) where rnum between ? and ?";
+		Object[] params = {start, end};
+		List list = jdbc.query(query, bookRowMapper, params);
+
+		return list;
+	}
+
+	public List selectPublicationDateList(int start, int end) {
+		String query = "select * from (select rownum as rnum, b.* from(select * from book order by publication_date desc)b) where rnum between ? and ?";
+		Object[] params = {start, end};
+		List list = jdbc.query(query, bookRowMapper, params);
+
+		return list;
+	}
+
+	public List selectEnrollDateList(int start, int end) {
+		String query = "select * from (select rownum as rnum, b.* from(select * from book order by enroll_date desc)b) where rnum between ? and ?";
+		Object[] params = {start, end};
+		List list = jdbc.query(query, bookRowMapper, params);
+
+		return list;
+	}
+
+	public List selectBookPriceList(int start, int end) {
+		String query = "select * from (select rownum as rnum, b.* from(select * from book order by book_price)b) where rnum between ? and ?";
+		Object[] params = {start, end};
+		List list = jdbc.query(query, bookRowMapper, params);
+
+		return list;
+	}
+
+	public List selectBookPriceDescList(int start, int end) {
+		String query = "select * from (select rownum as rnum, b.* from(select * from book order by book_price desc)b) where rnum between ? and ?";
+		Object[] params = {start, end};
+		List list = jdbc.query(query, bookRowMapper, params);
+
+		return list;
+	}
 }

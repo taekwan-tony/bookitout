@@ -51,10 +51,11 @@ public class BookController {
 //	}
 
 	@GetMapping(value="list")
-	public String list(Model model, int reqPage) {
-		BookListData bld = bookService.selectBookList(reqPage);
+	public String list(Model model, int reqPage, int type) {
+		BookListData bld = bookService.selectBookList(reqPage, type);
 		model.addAttribute("list", bld.getList());
 		model.addAttribute("pageNavi", bld.getPageNavi());
+		model.addAttribute("type", bld.getType());
 		return "book/list";
 	}
 	

@@ -76,17 +76,13 @@ public class CartController {
 		return result;
 	}
 
-	/* 충돌 처리 할 떄 발생한 것 확인필요
+	
 	@ResponseBody
 	@GetMapping(value="/plusCart")
 	public int plusCart (int cartNo) {
 		int result = cartService.plusCart(cartNo);				
 		return result;
 	}
-	*/
-
-	
-
 	
 
 	@GetMapping("/selDel")

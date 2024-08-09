@@ -1,5 +1,6 @@
 package kr.co.bookItOut.book.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,34 @@ public class BookService {
 //		return 0;
 //	}
 
-	public BookListData selectBookList(int reqPage) {
-		int numPerPage = 10;
+	public BookListData selectBookList(int reqPage, int type) {
+		int numPerPage = 5;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage +1;
 		
-		List list = bookDao.selectBookList(start, end);
+		//List list = bookDao.selectBookList(start, end);
+		List list = new ArrayList<List>();
+		if(type==1) {
+			list = bookDao.selectBookNoList(start, end);
+		}
+		if(type==2) {
+			list = bookDao.selectBookNameList(start, end);
+		}
+		if(type==3) {
+			list = bookDao.selectPublicationDateList(start, end);
+		}
+		if(type==4) {
+			list = bookDao.selectEnrollDateList(start, end);
+		}
+		if(type==5) {
+			list = bookDao.selectBookPriceList (start, end);
+		}
+		if(type==6) {
+			list = bookDao.selectBookPriceDescList(start, end);
+		}
+		
+		
+		
 				
 		int totalCount = bookDao.selectBookTotalCount();
 		int totalPage = 0;
@@ -51,7 +74,7 @@ public class BookService {
 		String pageNavi = "<div class='inner'><ul>";
 		if(pageNo !=1) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='book/list?reqPage=" + (pageNo - 1) +"'>";
+			pageNavi += "<a class='page-item' href='book/list?reqPage=" + (pageNo - 1) +"&type="+type+"'>";
 			pageNavi += "<span class='material-icons'>chevron_left</span>";
 			pageNavi += "</a></li>";			
 		}
@@ -59,9 +82,9 @@ public class BookService {
 		for(int i = 0; i< pageNaviSize; i++) {
 			pageNavi += "<li>";
 			if(pageNo == reqPage) {
-				pageNavi += "<a class='page-item active-page' href='/book/list?reqPage=" + pageNo + "'>"; 
+				pageNavi += "<a class='page-item active-page' href='/book/list?reqPage=" + pageNo + "&type="+type+"'>"; 
 			} else {
-				pageNavi += "<a class='page-item' href='/book/list?reqPage=" +pageNo + "'>";
+				pageNavi += "<a class='page-item' href='/book/list?reqPage=" +pageNo + "&type="+type+"'>";
 			}
 			pageNavi += pageNo;
 			pageNavi += "</a></li>";
@@ -74,13 +97,13 @@ public class BookService {
 		
 		if(pageNo <= totalPage) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/book/list?reqPage=" + pageNo + "'>";
+			pageNavi += "<a class='page-item' href='/book/list?reqPage=" + pageNo + "&type="+type+"'>";
 			pageNavi += "<span class='material-icons'>chevron_right</span>";
 			pageNavi += "</a></li>";
 		}
 		pageNavi += "</ul></div>";
 		
-		BookListData bld = new BookListData(list, pageNavi);		
+		BookListData bld = new BookListData(list, pageNavi, type);		
 		
 		return bld;
 	}
