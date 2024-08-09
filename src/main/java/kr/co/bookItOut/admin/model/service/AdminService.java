@@ -166,13 +166,19 @@ public Book deleteBook(int bookNo) {
 }
 //수정 --
 
-public AdminBook updatebookList(int bookNo) {
-	AdminBook abook = adminDao.selectAdminbook(bookNo);
+public Book updatebookList(int bookNo) {
+	Book book = adminDao.selectAdminbook(bookNo);
 	
-	int result =adminDao.updateBook(bookNo);
+	int result = adminDao.updateBook(bookNo, book);
 	
+	if(result>0) {
+		return book;
+	}
 	return null;
 }
+
+
+
 
 
 

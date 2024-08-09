@@ -161,7 +161,6 @@
 	  											<option value="국내도서">국내도서</option>
 	  											<option selected value="해외도서">해외도서</option>
 	  										</select>
-	  			 							
 	  			 						</div>
 	  			 					</div>
               					</td>
@@ -204,7 +203,7 @@
 	              					<button class="btn-type2 btn">발주창</button>
               					</td>
               					<td>
-	              					<button type="submit" class="btn-type2 btn updateBook" >수정</button>
+	              					<button type="submit" class="btn-type2 btn updateBook" id="updateBook">수정</button>
 	              					<button type="button" class="btn-type2 btn">상세</button>
               					</td>
               					<td>
@@ -280,9 +279,9 @@
   		});
   	}
     //수정하기 위해 어드민넘 가져오는중
-    $(".updateBook").on("click",function(){
+    $("#updateBook").on("click",function(){
     const bookNo = $(this).parent().parent().children().eq(1).text();
-    
+    console.log(1);
     location.href="admin/updateBook?bookNo="+bookNo;
     });
     </script>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -164,9 +165,9 @@ public class AdminController {
 	//책 수정 //장르 타입 책이름 저자 출판사 판매가격
 	@GetMapping(value = "/updateBook")
 	public String updateBook(int bookNo, Model model) {
-		AdminBook abook = adminService.updatebookList(bookNo);
+		Book book = adminService.updatebookList(bookNo);
 		
-		if( abook== null) {	model.addAttribute("title","삭제실패");
+		if( book== null) {	model.addAttribute("title","삭제실패");
 		model.addAttribute("msg","존재하지 않는 게시물");
 		model.addAttribute("icon","error");
 		model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
@@ -181,7 +182,24 @@ public class AdminController {
 		}
 		return "common/msg";
 	}
-	
+//	@Transactional
+//	public String updateBook(int bookNo, Model model) {
+//	    // 책 정보를 가져옴
+//	    Book book = adminService.updatebookList(bookNo);
+//	    
+//	    if (book == null) {
+//	        // 책이 존재하지 않는 경우
+//	        model.addAttribute("title", "조회 실패");
+//	        model.addAttribute("msg", "존재하지 않는 책입니다.");
+//	        model.addAttribute("icon", "error");
+//	        model.addAttribute("loc", "/admin/bookListFrm?reqPage=1");
+//	        return "common/msg";
+//	    }
+//	    
+//	    // 책 정보가 존재하는 경우
+//	    model.addAttribute("book", book);
+//	    return "admin/updateBookFrm"; // 책 정보 수정 페이지로 이동
+//	}
 	
 
 	

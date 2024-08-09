@@ -87,19 +87,21 @@ public class AdminDao {
 	public Book selectAdminFile(int bookNo) {
 		String query = "select * from book where book_no=?";
 		Object[] params= {bookNo};
-		List list = jdbc.query(query,adminBookRowMapper,params);
+		List list = jdbc.query(query,bookRowMapper,params);
 		return (Book)list.get(0);
 	}
-	public AdminBook selectAdminbook(int bookNo) {
+	public Book selectAdminbook(int bookNo) {
 		String query = "select * from book where book_no=?";
 		Object[] params = {bookNo};
 		List list = jdbc.query(query,bookRowMapper,params);
-		return (AdminBook)list.get(0);
+		return (Book)list.get(0);
 	}
 	//장르 타입 책이름 저자 출판사 
-	public int updateBook(int bookNo) {
-//	String query = "update book set "
-		return 0;
+	public int updateBook(int bookNo, Book book) {
+	String query = "update book set book_type=?,book_genre=?,book_name=?,book_writer=?,book_publisher=? where book_no";
+	Object[] params= {book.getBookType(),book.getBookGenre(),book.getBookName(),book.getBookWriter(),book.getBookPublisher()};
+	int result = jdbc.update(query,params);
+	return result;
 	}
 	
 }
