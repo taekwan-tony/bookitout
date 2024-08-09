@@ -107,126 +107,126 @@ public class BookDao {
 	}
 
 	public List selectGenreTwoBookNoList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '문학' order by book_no desc)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '문학' order by book_no desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
 
 	public List selectGenreTwoBookNameList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '문학' order by book_name)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '문학' order by book_name)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
 
 	public List selectGenreTwoPublicationDateList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '문학' order by publication_date desc)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '문학' order by publication_date desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
 
 	public List selectGenreTwoEnrollDateList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '문학' order by enroll_date desc)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '문학' order by enroll_date desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
 
 	public List selectGenreTwoBookPriceList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '문학' order by book_price)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '문학' order by book_price)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
 
 	public List selectGenreTwoBookPriceDescList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '문학' order by book_price desc)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '문학' order by book_price desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
 
 	public List selectGenreThreeBookNoList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '재테크' order by book_no desc)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '재테크' order by book_no desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
 
 	public List selectGenreThreeBookNameList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '재테크' order by book_name)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '재테크' order by book_name)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
 
 	public List selectGenreThreePublicationDateList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '재테크' order by publication_date desc)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '재테크' order by publication_date desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
 
 	public List selectGenreThreeEnrollDateList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '재테크' order by enroll_date desc)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '재테크' order by enroll_date desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
 
 	public List selectGenreThreeBookPriceList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '재테크' order by book_price)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '재테크' order by book_price)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
 
 	public List selectGenreThreeBookPriceDescList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '재테크' order by book_price desc)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '재테크' order by book_price desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
 
 	public List selectGenreFourBookNoList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '기타' order by book_no desc)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '기타' order by book_no desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
 
 	public List selectGenreFourBookNameList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '기타' order by book_name)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '기타' order by book_name)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
 
 	public List selectGenreFourPublicationDateList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '기타' order by publication_date desc)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '기타' order by publication_date desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
 
 	public List selectGenreFourEnrollDateList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '기타' order by enroll_date desc)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '기타' order by enroll_date desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
 
 	public List selectGenreFourBookPriceList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '기타' order by book_price)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '기타' order by book_price)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
 
 	public List selectGenreFourBookPriceDescList(int start, int end) {
-		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_genre = '기타' order by book_price desc)b) where rnum between ? and ?";
+		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '기타' order by book_price desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
