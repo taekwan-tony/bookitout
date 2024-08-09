@@ -1,11 +1,13 @@
 package kr.co.bookItOut.cart.controller;
 
-
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -56,7 +58,31 @@ public class CartController {
 		return "cart/main";
 	}
 	
-
+	@GetMapping("/paySuccess")
+	public String paySuccess() {
+		
+		return "cart/paySuccess";
+	}
+	
+	@GetMapping("/success")
+	public String success(@RequestParam("list") String listJson) {
+		try {
+            // JSON 문자열을 Java List로 변환
+            ObjectMapper objectMapper = new ObjectMapper();
+            List<String> list = objectMapper.readValue(listJson, new TypeReference<List<String>>() {});
+            
+            // 리스트를 사용하여 필요한 작업 수행
+            System.out.println(list);
+            
+            // 반환할 view나 다음 페이지로 이동
+            return "successPage";
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 오류 처리
+            return "errorPage";
+        }
+	}
+	
 	
 	@ResponseBody
 	@GetMapping(value="/addCart")
@@ -67,7 +93,6 @@ public class CartController {
 		int result = cartService.insertCart(bookNo,memberNo);			
 		return result;
 	}
-	
 	@ResponseBody
 	@GetMapping(value="/selectCart")
 	public int selectCart (int bookNo, @SessionAttribute Member member) {
@@ -104,10 +129,23 @@ public class CartController {
 	
 	@GetMapping("/selPay")
 	public String selPay(String name, String totalPrice, Model model, @SessionAttribute(required=false) Member member) {
+		
+		//장바구니 수량 변경 시 결제화면에 반영 안됨
 		int memberNo = member.getMemberNo();
 		List list = cartService.selPay(memberNo, name);
-		System.out.println(totalPrice);
-		System.out.println(name);
+		
+//		System.out.println("선택한 책 이름 /로 구분 -- "+name);
+//		System.out.println("총 가격 -- "+totalPrice);
+		
+		
+		
+		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("list", list);
+		
+		//String memberName = member.getMemberName();
+		model.addAttribute("member",member);
+		
+//		System.out.println("list : "+list);
 		
 		
 		return "cart/selPay";
