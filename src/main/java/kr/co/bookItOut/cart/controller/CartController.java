@@ -65,12 +65,6 @@ public class CartController {
 		return "cart/paySuccess";
 	}
 	
-	@PostMapping("/success")
-	public String success(String cartNoStr) {
-		System.out.println("카트 넘버는 : "+cartNoStr);
-		return "성공";
-	}
-	
 	
 	@ResponseBody
 	@GetMapping(value="/addCart")
@@ -114,6 +108,17 @@ public class CartController {
 		}
 		
 	}
+	
+	@PostMapping("/success")
+	public String success(String cartNoStr) {
+		
+		
+		
+		System.out.println("카트 넘버는 : "+cartNoStr);
+		boolean result = cartService.success(cartNoStr);
+		return "redirect:/cart/main";
+	}
+	
 	
 	@GetMapping("/selPay")
 	public String selPay(String name, String totalPrice, Model model, @SessionAttribute(required=false) Member member) {
