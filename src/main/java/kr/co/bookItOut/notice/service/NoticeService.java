@@ -44,7 +44,7 @@ public class NoticeService {
 				pageNavi += "<a class ='page-item' href='/notice/noticeFrm?reqPage="+pageNo+"'>";
 			}
 			pageNavi += pageNo;
-			pageNavi += "</a></li>";
+			pageNavi += "</a></li>"; 
 			pageNo++;
 			if(pageNo>totalPage) {
 				break;

@@ -83,18 +83,17 @@
 					<button type="button" class="btn-type3 btn"><a href="/FAQ/writeFaqFrm">글쓰기</a></button>
 				</div>
 				<div class="content-notice-wrap">
-					<table class="content-notice-table">
-						<tr>
-							<th style="width:15%;">NO</th>
-							<th style="width:60%;">공지제목</th>
-							<th style="width:25%;">날짜</th>
-						</tr>
-						<tr>
-							<td style="width:15%;" th:text="${notice.noticeNo}"></td>
-							<td style="width:60%;"><a th:href="@{/notice/noticeDetail(${notice.noticeNo})}" th:text="${notice.noticeTitle}"></a></td>
-							<td style="width:25%;" th:text="${notice.writeDate}"></td>
-						</tr>
-					</table>
+					<div class="content-title-wrap">
+						<div>
+							<h2 th:text="${notice.noticeTitle}"></h2>
+						</div>
+						<div class="date-wrap">
+							<p th:text="${notice.writeDate}"></p>
+						</div>
+					</div>
+					<div>
+						<div th:text="${notice.noticeContent}"></div>
+					</div>
 				</div>
 				<div class="page-wrap">
 				</div>
