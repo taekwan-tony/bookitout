@@ -60,12 +60,11 @@ public class CartController {
 	
 	@ResponseBody
 	@GetMapping(value="/addCart")
-	public int addCart(int bookNo, @SessionAttribute Member member, Model model) {
+	public int addCart(int bookNo, @SessionAttribute Member member) {
 		System.out.println(bookNo);
 		int memberNo = member.getMemberNo();		
 		System.out.println(memberNo);
-		int result = cartService.insertCart(bookNo,memberNo);	
-		
+		int result = cartService.insertCart(bookNo,memberNo);			
 		return result;
 	}
 	
@@ -76,7 +75,18 @@ public class CartController {
 		int result = cartService.selectCart(bookNo, memberNo);
 		return result;
 	}
+
+	/* 충돌 처리 할 떄 발생한 것 확인필요
+	@ResponseBody
+	@GetMapping(value="/plusCart")
+	public int plusCart (int cartNo) {
+		int result = cartService.plusCart(cartNo);				
+		return result;
+	}
+	*/
+
 	
+
 	
 
 	@GetMapping("/selDel")

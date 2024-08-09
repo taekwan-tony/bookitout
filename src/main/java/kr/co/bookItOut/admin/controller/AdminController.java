@@ -4,13 +4,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -22,6 +27,10 @@ import kr.co.bookItOut.admin.model.dto.AdminListData;
 import kr.co.bookItOut.admin.model.service.AdminService;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookListData;
+
+import kr.co.bookItOut.member.model.dto.Member;
+import kr.co.bookItOut.util.EmailSender;
+
 import kr.co.bookItOut.util.FileUtils;
 
 @Controller
@@ -35,7 +44,8 @@ public class AdminController {
 	 * **/
 	@Autowired
 	private QuestionService questionService;
-
+	@Autowired
+	private EmailSender emailSender;
 	
 	@Value("${file.root}")
 	private String root;//application.properties에 설정되어있는 file.root값을 가지고 와서 문자열로 저장
@@ -129,25 +139,10 @@ public class AdminController {
 		
 	}
 	//책 삭제
-	@GetMapping(value = "/delete")
-	public String delete(int bookNo, Model model) {
-		int result = adminService.deleteBook(bookNo);
-		if(result>0) {
-			model.addAttribute("title","삭제 성공!");
-			model.addAttribute("msg","게시글이 삭제되었습니다");
-			model.addAttribute("icon","success");
-			model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
-		}else {
-			model.addAttribute("title","삭제실패");
-			model.addAttribute("msg","존재하지 않는 게시물");
-			model.addAttribute("icon","error");
-			model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
-			return "common/msg";
-		}
-		return "common/msg";
-		//return "admin/insertBook";
-		
-	}
+	//@GetMapping(value="/BookDelete")
+	
+	
+	
 	
 	
 
@@ -168,6 +163,29 @@ public class AdminController {
 		q.setFileList(fileList);
 		model.addAttribute("q",q);
 		return "admin/questionAnswerFrm";
+	}
+	
+	@PostMapping(value="/questionAnswerCompelte")
+	public String questionAnswerCompelte(Question q,Model model) {
+		String emailTitle = "책키라웃 1:1문의 답변 처리 완료 메일 송부의 건";
+		String receiver = q.getQuestionEmail();
+		String emailContent = "1:1문의 답변이 완료되었습니다.";
+		
+		emailSender.sendMail(emailTitle, receiver, emailContent);
+		
+		int result = questionService.updateQuestionAnswer(q);
+		
+		if(result>0) {
+			if(result>0) {
+				model.addAttribute("title","답변완료");
+				model.addAttribute("msg","문의를 처리했습니다.");
+				model.addAttribute("icon","success");
+				model.addAttribute("loc","/admin/questionAnswer?reqPage=1");
+				return "common/msg";
+			}
+		}
+		return "/admin/questionAnswer?reqPage=1";
+		
 	}
 	
 	
