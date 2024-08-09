@@ -62,15 +62,25 @@ public class CartService {
 		return result;
 	}
 
-	public boolean success(String cartNoStr) {
+	public boolean success(String cartNoStr, int price) {
 		StringTokenizer sT = new StringTokenizer(cartNoStr,"/");
 		boolean result = true;
 		while(sT.hasMoreTokens()) {
 			int cartNo = Integer.parseInt(sT.nextToken());
-			int intResult = cartDao.success(cartNo);
-			if(intResult == 0) {
+			int intResult1 = cartDao.success(cartNo);//구매내역 디비 생성
+			
+			int intResult2 = cartDao.success2(cartNo);//구매 디비 생성
+			int intResult3 = cartDao.success3(cartNo);//카트디비 삭제
+			
+			
+			if(intResult1 == 0) {
 				result = false;
 				break;
+			}else if(intResult2 == 0){
+				result = false;
+				break;
+			} else if(intResult3 == 0) {
+				
 			}
 		}
 		return false;
