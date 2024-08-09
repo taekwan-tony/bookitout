@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -64,23 +65,10 @@ public class CartController {
 		return "cart/paySuccess";
 	}
 	
-	@GetMapping("/success")
-	public String success(@RequestParam("list") String listJson) {
-		try {
-            // JSON 문자열을 Java List로 변환
-            ObjectMapper objectMapper = new ObjectMapper();
-            List<String> list = objectMapper.readValue(listJson, new TypeReference<List<String>>() {});
-            
-            // 리스트를 사용하여 필요한 작업 수행
-            System.out.println(list);
-            
-            // 반환할 view나 다음 페이지로 이동
-            return "successPage";
-        } catch (Exception e) {
-            e.printStackTrace();
-            // 오류 처리
-            return "errorPage";
-        }
+	@PostMapping("/success")
+	public String success(String cartNoStr) {
+		System.out.println("카트 넘버는 : "+cartNoStr);
+		return "성공";
 	}
 	
 	
@@ -142,11 +130,16 @@ public class CartController {
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("list", list);
 		
-		//String memberName = member.getMemberName();
 		model.addAttribute("member",member);
 		
-//		System.out.println("list : "+list);
+		List cartNo = new ArrayList<Integer>();
 		
+		//System.out.println("카트넘버가져오기"+((Cart)list.get(0)).getCartNo());
+		
+		for(int i=0; i<list.size(); i++) {
+			cartNo.add(((Cart)list.get(i)).getCartNo());
+		}
+		model.addAttribute("cartNo",cartNo);
 		
 		return "cart/selPay";
 	}

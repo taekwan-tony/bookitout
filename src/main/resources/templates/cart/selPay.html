@@ -62,14 +62,13 @@
 		var memberPhone = [[${member.getMemberPhone()}]];
 		var memberMail = [[${member.getMemberMail()}]];
 		
-		var list = [[${list}]];
+		var cartNo = [[${cartNo}]];
+		console.log(cartNo);
+		
+		var cartNoStr = cartNo.join('/');
+		console.log(typeof cartNoStr);
 		
 		
-		console.log(list);
-		var encodedList = encodeURIComponent(JSON.stringify(list));
-		
-		
-		console.log(encodedList);
 		$("#payBtn").on("click", function(){
 			const memberNo = $("#memberNo").val()
 			const price = $("#pay").text();
@@ -84,7 +83,7 @@
 					    pay_method: "card",
 					    merchant_uid: memberNo+"_"+dateString,
 					    name: "주문명:결제테스트",
-					    amount: price,
+					    amount: 100,
 					    buyer_email: memberMail,
 					    buyer_name: memberName,
 					    buyer_tel: memberPhone,
@@ -98,8 +97,8 @@
 							  
 							  $.ajax({
 								  url : "/cart/success",
-								  type:"get",
-								  data:{list : encodedList},
+								  type:"post",
+								  data:{cartNoStr: cartNoStr},
 								  success : function(data){
 									  console.log(data);
 								  },
