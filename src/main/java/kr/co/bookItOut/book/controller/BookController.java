@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.bookItOut.book.model.dto.Book;
+import kr.co.bookItOut.book.model.dto.BookComment;
 import kr.co.bookItOut.book.model.dto.BookListData;
 import kr.co.bookItOut.book.model.service.BookService;
 import kr.co.bookItOut.centerInventory.model.dto.CenterInventoryBook;
@@ -44,11 +46,11 @@ public class BookController {
 		return centerList;// 출력 가능 데이터 : 재고수량, 지점명, 주소, 책이름
 	}
 	
-//	@PostMapping(value="/insertComment")
-//	public String insertComment(BookContent bc) {
+	@PostMapping(value="/insertComment")
+	public String insertComment(BookComment bc) {
 //		int result = bookService.insertComment(bc);
-//		return null;
-//	}
+		return "redirect:/book/detail?bookNo="+bc.getBookNo();
+	}
 
 	@GetMapping(value="list")
 	public String list(Model model, int reqPage) {

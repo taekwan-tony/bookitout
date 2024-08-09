@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 public class BookComment {
 	 private int bookCommentNo;
 	 private int bookNo;
-	 private int memberNo;
 	 private String bookCommentContent;
 	 private String bookCommentDate;
+	 private String bookCommentWriter;
+	 private int bookRef;
 }

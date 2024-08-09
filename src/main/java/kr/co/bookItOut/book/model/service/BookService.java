@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.bookItOut.book.model.dao.BookDao;
 import kr.co.bookItOut.book.model.dto.Book;
+import kr.co.bookItOut.book.model.dto.BookComment;
 import kr.co.bookItOut.book.model.dto.BookListData;
 
 @Service
@@ -25,9 +26,9 @@ public class BookService {
 		return centerList;
 	}
 
-//	public int insertComment(BookContent bc) {
+//	public int insertComment(BookComment bc) {
 //		int result = bookDao.insertComment(bc);
-//		return 0;
+//		return result;
 //	}
 
 	public BookListData selectBookList(int reqPage) {
