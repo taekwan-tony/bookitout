@@ -27,9 +27,6 @@
 
 /*사이드 창 */
 .nav1 {
-    /* position: fixed;
-    top: 0;
-    left: 0; */
     background-color: #fff;
     height: 1200px;
     width: 18%;
@@ -189,3 +186,12 @@ table tbody tr:nth-child(2n){
 	max-width: 100% !important;
 	
 }
+
+
+
+/**/ 
+
+
+
+
+

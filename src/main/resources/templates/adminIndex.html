@@ -192,6 +192,24 @@
             chk[i].checked = f.chkall.checked;
     }
     
+    window.onload = function() {
+        adjustNavHeight(); // 페이지 로드 시 네비게이션 메뉴 높이 조정 함수 호출
+        window.addEventListener('resize', adjustNavHeight); // 창 크기가 변경될 때마다 네비게이션 메뉴 높이 조정 함수 호출
+    };
+
+    function adjustNavHeight() {
+        var headerHeight = document.querySelector('.header-main1').offsetHeight; // 헤더의 높이 가져오기
+        var footerHeight = document.querySelector('.main-footer-wrap').offsetHeight; // 풋터의 높이 가져오기
+        var contentHeight = document.querySelector('.wrap').offsetHeight; // 컨텐츠 영역의 높이 가져오기
+        var windowHeight = window.innerHeight; // 브라우저 창의 높이 가져오기
+        var navMenu = document.querySelector('.nav1'); // 네비게이션 메뉴 요소 가져오기
+
+        // 네비게이션 메뉴의 최대 높이 설정
+        var maxNavHeight = windowHeight - headerHeight - footerHeight;
+
+        // 네비게이션 메뉴의 높이 설정
+        navMenu.style.height = maxNavHeight + 'px';
+    }
     </script>
 </body>
 </html>

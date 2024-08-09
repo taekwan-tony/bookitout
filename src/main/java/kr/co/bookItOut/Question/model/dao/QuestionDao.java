@@ -123,6 +123,12 @@ public class QuestionDao {
 		int result = jdbc.update(query,params);
 		return result;
 	}
+	public int updateQuestionAnswer(Question q) {
+		String query = "update customer_question set question_answer=? where question_no=?";
+		Object[] params = {q.getQuestionAnswer(),q.getQuestionNo()};
+		int result = jdbc.update(query,params);
+		return result;
+	}
 	
 	
 }
