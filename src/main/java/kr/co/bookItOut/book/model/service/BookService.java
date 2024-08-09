@@ -104,7 +104,7 @@ public class BookService {
 		}
 		pageNavi += "</ul></div>";
 		
-		BookListData bld = new BookListData(list, pageNavi, type);		
+		BookListData bld = new BookListData(list, pageNavi);		
 		
 		return bld;
 	}

@@ -57,7 +57,7 @@ public class BookController {
 		BookListData bld = bookService.selectBookList(reqPage, type);
 		model.addAttribute("list", bld.getList());
 		model.addAttribute("pageNavi", bld.getPageNavi());
-		model.addAttribute("type", bld.getType());
+		
 		return "book/list";
 	}
 	
