@@ -7,10 +7,12 @@ import java.util.StringTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.cart.model.dao.CartDao;
 import kr.co.bookItOut.cart.model.dto.Cart;
+import kr.co.bookItOut.member.model.dto.Member;
 
 @Service
 public class CartService {
@@ -62,14 +64,16 @@ public class CartService {
 		return result;
 	}
 
-	public boolean success(String cartNoStr, int price) {
+	public boolean success(String cartNoStr, int price, @SessionAttribute(required=false) Member member) {
 		StringTokenizer sT = new StringTokenizer(cartNoStr,"/");
 		boolean result = true;
+		
+		int intResult1 = cartDao.success1(price, member);//구매 디비 생성
+
 		while(sT.hasMoreTokens()) {
 			int cartNo = Integer.parseInt(sT.nextToken());
-			int intResult1 = cartDao.success(cartNo);//구매내역 디비 생성
 			
-			int intResult2 = cartDao.success2(cartNo);//구매 디비 생성
+			int intResult2 = cartDao.success2(cartNo);//구매내역 디비 생성
 			int intResult3 = cartDao.success3(cartNo);//카트디비 삭제
 			
 			
