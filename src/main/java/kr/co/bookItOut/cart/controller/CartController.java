@@ -100,9 +100,14 @@ public class CartController {
 	public String selPay(String name, String totalPrice, Model model, @SessionAttribute(required=false) Member member) {
 		int memberNo = member.getMemberNo();
 		List list = cartService.selPay(memberNo, name);
-		System.out.println(totalPrice);
-		System.out.println(name);
+		System.out.println("선택한 책 이름 /로 구분 -- "+name);
+		System.out.println("총 가격 -- "+totalPrice);
 		
+		model.addAttribute("list", list);
+		model.addAttribute("totalPrice", totalPrice);
+		
+		
+		System.out.println("list : "+list);
 		
 		return "cart/selPay";
 	}
