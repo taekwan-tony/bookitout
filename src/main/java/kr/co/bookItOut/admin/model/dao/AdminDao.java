@@ -98,7 +98,7 @@ public class AdminDao {
 	}
 	//장르 타입 책이름 저자 출판사 
 	public int updateBook(int bookNo) {
-//		String query = "update book set "
+//	String query = "update book set "
 		return 0;
 	}
 	
