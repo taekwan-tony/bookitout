@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.bookItOut.admin.model.dao.AdminDao;
 import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.admin.model.dto.AdminListData;
+import kr.co.bookItOut.book.model.dto.AdminBook;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookListData;
 import kr.co.bookItOut.member.model.dto.Member;
@@ -151,11 +152,29 @@ public int insertBook(Book book) {
 	
 	return result;
 }
-@Transactional
-public int deleteBook(int bookNo) {
+
+//삭제--
+
+public Book deleteBook(int bookNo) {
+	Book book = adminDao.selectAdminFile(bookNo);
+	
 	int result = adminDao.deleteBook(bookNo);
-	return result;
+	if(result>0) {
+		return book;
+	}
+	return null;
 }
+//수정 --
+
+public AdminBook updatebookList(int bookNo) {
+	AdminBook abook = adminDao.selectAdminbook(bookNo);
+	
+	int result =adminDao.updateBook(bookNo);
+	
+	return null;
+}
+
+
 
 
 
