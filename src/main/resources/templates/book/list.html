@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>도서 목록 </title>
+<title>국내 도서</title>
 <link rel="stylesheet" href="/css/main.css">
 <style>
 	* {
@@ -169,11 +169,11 @@ display: block;
                         <!-- <p>이 분야에 <span th:text="${list.length}"></span>개의 상품이 있습니다.</p> -->
 
                         <ul class="array-title">
-                            <li><a href="/book/list?reqPage=1&type=2">상품명순</a></li>
-                            <li><a href="/book/list?reqPage=1&type=3">출간일순</a></li>
-                            <li><a href="/book/list?reqPage=1&type=4">등록일순</a></li>
-                            <li><a href="/book/list?reqPage=1&type=5">저가격순</a></li>
-                            <li><a href="/book/list?reqPage=1&type=6">고가격순</a></li>
+                            <li><a th:href="@{/book/list(reqPage=1,type=2,genre=${genre})}">상품명순</a></li>
+                            <li><a th:href="@{/book/list(reqPage=1,type=3,genre=${genre})}">출간일순</a></li>
+                            <li><a th:href="@{/book/list(reqPage=1,type=4,genre=${genre})}">등록일순</a></li>
+                            <li><a th:href="@{/book/list(reqPage=1,type=5,genre=${genre})}">저가격순</a></li>
+                            <li><a th:href="@{/book/list(reqPage=1,type=6,genre=${genre})}">고가격순</a></li>
                         </ul>
                     </div>
 
