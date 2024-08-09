@@ -206,9 +206,10 @@ input, textarea{
     color: var(--gray1);
     border: none;
 }
-.countPM>.minus, .countPM>.plus{
+.countPM>button{
     width: 25px;
     background-color: transparent;
+    cursor: pointer;
 }
 .countPM>input{
     text-align: center;
