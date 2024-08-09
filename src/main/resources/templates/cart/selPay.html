@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <script src="/js/jquery-3.7.1.js"></script>
 <title>결제하기</title>
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <link
@@ -28,31 +29,70 @@
 	<th:block th:include="common/header"></th:block>
 	<main class="content">
 
-		<form action="" method="post">
+		<form action="/pay/pay" method="post">
 			<div style="margin-top: 60px;">
 				<h1>결제하기</h1>
 			</div>
 			<table style="border-collapse: collapse;" class="bookTbl">
-				<tr style="height: 50px;">
+				<tr style="height: 50px; border-bottom: 2px solid black;">
 					<th style="width: 20%" colspan="2">책정보</th>
 					<th style="width: 20%">수량</th>
 					<th style="width: 20%">가격</th>
 				</tr>
 				<tr th:each="c,status : ${list}" id="tr">
-					<td><img style="width: 200px;" id="previewImg"
-						th:src="@{/book/{filename}(filename=${c.bookImg})}" alt="책 표지">
+					<td><img style="width: 200px;" id="previewImg" th:src="@{/book/{filename}(filename=${c.bookImg})}" alt="책 표지">
 					</td>
 					<td th:text="${c.bookName}"></td>
 					<td th:text="${c.bookCartCount}"></td>
 					<td th:text="${c.bookPrice}"></td>
+					<input type="hidden" th:value="${c.memberNo}" id="memberNo">
 				</tr>
 			</table>
-			<h1 th:text="${totalPrice}"></h1>
+			<h1 style="display: inline-block">총 금액 :</h1>
+			<h1 style="display: inline-block" th:text="${totalPrice}" id="pay"></h1>
+			<h1 style="display: inline-block">원</h1>
+			
 		</form>
-
+			<button style="margin : 30px;" id="payBtn" class="btn-type4 btn">결제하기</button>
 		<div class="clear"></div>
 	</main>
-	<script>
+	<script th:inline="javascript">
+		var memberName = [[${member.getMemberName()}]];
+		var memberAddr = [[${member.getMemberAddr()}]];
+		var memberPhone = [[${member.getMemberPhone()}]];
+		var memberMail = [[${member.getMemberMail()}]];
+		
+	
+		$("#payBtn").on("click", function(){
+			const memberNo = $("#memberNo").val()
+			const price = $("#pay").text();
+			const date = new Date();
+			const dateString = date.getFullYear()+""+(date.getMonth()+1)+""+date.getDate()+""+date.getHours()+""+date.getMinutes()+""+date.getSeconds();
+			IMP.init("imp04222210");
+			
+			IMP.request_pay(
+					  {
+					    pg: "html5_inicis.INIpayTest",
+					    pay_method: "card",
+					    merchant_uid: memberNo+"_"+dateString,
+					    name: "주문명:결제테스트",
+					    amount: price,
+					    buyer_email: memberMail,
+					    buyer_name: memberName,
+					    buyer_tel: memberPhone,
+					    buyer_addr: memberAddr,
+					    buyer_postcode: "123-456",
+					  },
+					  function(rsp){//콜백 함수, rsp = 응답 객체(response object), 객체는 결제의 성공 여부, 결제 금액, 결제 고유 번호 등의 다양한 정보를 포함 
+						  if(rsp.success){
+							  alert("결제성공");
+						  }else{
+							  alert("결제실패");
+						  }
+						  
+					  }
+			);
+		});
 	
 	</script>
 	<th:block th:include="common/footer"></th:block>
