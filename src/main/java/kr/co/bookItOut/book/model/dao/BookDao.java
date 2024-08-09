@@ -43,13 +43,13 @@ public class BookDao {
 		return centerList;
 	}
 
-//	public int insertComment(BookComment bc) {
-//		String query = "insert into book_comment values()";
-//		String boardCommentRef = bc.getBookCommentRef() == 0 ? null : String.valueOf(bc.getBookCommentRef());
-//		Object[] params = { bc.getBookCommentWriter(), bc.getBookCommentContent(), bc.getBookRef(), BookCommentRef };
-//		int result = jdbc.update(query, params);
-//		return result;
-//	}
+	public int insertComment(BookComment bc) {
+		String query = "insert into book_comment values(book_comment_seq.nextval, ?, ?, to_char(sysdate, 'yyyy-mm-dd'), ?, ?";
+		String bookCommentRef = bc.getBookCommentRef() == 0 ? null : String.valueOf(bc.getBookCommentRef());
+		Object[] params = { bc.getBookCommentWriter(), bc.getBookCommentContent(), bc.getBookRef(), bookCommentRef};
+		int result = jdbc.update(query, params);
+		return result;
+	}
 
 	public List selectBookList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book order by 1 desc)b) where rnum between ? and ?";

@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class BookComment {
 	 private int bookCommentNo;
-	 private int bookNo;
+	 private String bookCommentWriter;
 	 private String bookCommentContent;
 	 private String bookCommentDate;
-	 private String bookCommentWriter;
-	 private int bookRef;
+	 private int bookRef;/* bookNo */
+	 private int bookCommentRef;
 }

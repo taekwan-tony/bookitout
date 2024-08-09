@@ -138,6 +138,59 @@
                     </form>
                 </div>
                 <!-- 댓글 출력 시작 -->
+                <div class="commentBox">
+                    <th:block th:each="nc : ${n.commentList}">
+                        <ul class="posting-comment">
+                            <!-- <li>
+                                <span class="user-icon">
+                                    <i class="fa-solid fa-circle-user"></i>
+                                </span>
+                            </li> -->
+                            <li>
+                                <div class="comment-info">
+                                    <span class="comment-info-left">
+                                        <span class="badge buyer">구매자</span>
+                                        <span th:text="${nc.noticeCommentWriter}">작성자ID</span>
+                                        <span>|</span>
+                                        <span th:text="${nc.noticeCommentDate}">2024-08-06</span>
+                                    </span>
+                                    <span class="comment-info-right">
+                                        <span>
+                                            <th:block th:if="${session.member.memberId == nc.noticeCommentWriter}">
+                                                <span><a href="javascript:void(0)" th:onclick="modifyComment(this, [[${nc.noticeCommentNo}]], [[${n.noticeNo}]]);">수정</a></span>
+                                                <span><a href="javascript:void(0)" th:onclick="deleteComment(this, [[${nc.noticeCommentNo}]], [[${n.noticeNo}]]);">삭제</a></span>
+                                            </th:block>
+                                            <span><a class="recShow" href="javascript:void(0)">답글달기</a></span>
+                                        </span>
+                                    </span>
+                                </div>
+                                <p class="comment-content" th:text="${nc.noticeCommentContent}">리뷰 댓글 내용 샘플</p>
+                                <div style="display: none;" class="input-item">
+                                    <textarea name="noticeCommentContent" th:text="${nc.noticeCommentContent}"></textarea>
+                                </div>
+                                <p class="comment-link">
+                                    <th:block th:if="${session.member != null}">
+                                        <span class="like-box">
+                                            <!-- <span class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);"><i class="fa-solid fa-heart"></i></span>
+                                            <span class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);"><i class="fa-regular fa-heart"></i></span> -->
+                                            <span th:if="${nc.isLike == 1}" class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);">
+                                                <i class="fa-regular fa-thumbs-up"></i>
+                                            </span>
+                                            <!-- <span th:if="${nc.isLike == 0}" class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);">
+                                                <i class="fa-regular fa-thumbs-down"></i>
+                                            </span> -->
+                                            <span class="likeCount" th:text="${nc.likeCount}">0</span>
+                                            <span>
+                                                <i class="fa-solid fa-comment-dots"></i>답글
+                                            </span>
+                                            <span class="commentReCount">0</span>
+                                        </span>
+                                    </th:block>
+                                </p>
+                            </li>
+                        </ul>
+                    </th:block>
+                </div>
             </div>
             
             <div class="clear"></div>

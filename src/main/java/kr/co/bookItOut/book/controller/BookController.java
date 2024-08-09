@@ -39,9 +39,19 @@ public class BookController {
 	}
 	
 	@PostMapping(value="/insertComment")
-	public String insertComment(BookComment bc) {
-//		int result = bookService.insertComment(bc);
-		return "redirect:/book/detail?bookNo="+bc.getBookNo();
+	public String insertComment(BookComment bc, Model model) {
+		int result = bookService.insertComment(bc);
+		if(result > 0) {
+			model.addAttribute("title", "리뷰 작성 성공");
+			model.addAttribute("msg", "리뷰가 작성되었습니다.");
+			model.addAttribute("icon", "success");
+		}else {
+			model.addAttribute("title", "리뷰 작성 실패");
+			model.addAttribute("msg", "리뷰  작성 중 에러가 발생했습니다.");
+			model.addAttribute("icon", "warning");
+		}
+		model.addAttribute("loc", "/book/detail?bookNo="+bc.getBookRef());
+		return "common/msg";
 	}
 
 	@GetMapping(value="list")

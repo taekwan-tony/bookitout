@@ -26,10 +26,10 @@ public class BookService {
 		return centerList;
 	}
 
-//	public int insertComment(BookComment bc) {
-//		int result = bookDao.insertComment(bc);
-//		return result;
-//	}
+	public int insertComment(BookComment bc) {
+		int result = bookDao.insertComment(bc);
+		return result;
+	}
 
 	public BookListData selectBookList(int reqPage) {
 		int numPerPage = 10;
