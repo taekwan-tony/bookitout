@@ -150,6 +150,11 @@
 	.content-btn-box>a:hover{
 		text-decoration: underline;
 	}
+	.content-answer-title>p{
+		font-size: 16px;
+		font-family: Tenada;
+		padding-left : 30px;
+	}
 </style>
 </head>
 <body>
@@ -187,7 +192,7 @@
 				</div>
 				<div class="content-main-text">
 					<ul>
-						<a href="#">공지사항</a>
+						<a href="/notice/noticeFrm?reqPage=1">공지사항</a>
 					</ul>
 				</div>
 			</div>
@@ -282,7 +287,17 @@
 									<a id="delete" th:onclick="delQuestion(this,[[${q.questionNo}]])">삭제</a>
 								</div>
 							</div>
-							
+							<th:block th:if="${q.questionAnswer} != null">
+								<div class="content-answer-title">
+									<p>답변 처리 결과</p>
+								</div>
+								<div class="content-back-wrap">
+									<div>
+										<span class="material-icons">subdirectory_arrow_right</span>
+									</div>
+									<div th:utext="${q.questionAnswer}"></div>
+								</div>
+							</th:block>
 						</div>
 					</div>
 					</th:block>

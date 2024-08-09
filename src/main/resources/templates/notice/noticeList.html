@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http/www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>공지 사항</title>
+<link rel="stylesheet" href="/css/customercenter.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+	.write-btn{
+		overflow : hidden;
+	}
+	.write-btn>*{
+		float : right;
+	}
+	.content-notice-wrap{
+		width:100%;
+	}
+	.content-notice-table{
+		width:100%;
+		margin-top : 20px;
+		border-top : 1px solid black;
+		border-spacing : 0;
+	}
+	.content-notice-wrap>.content-notice-table tr{
+		height : 80px;
+	}
+	.content-notice-wrap>.content-notice-table th{
+		border-bottom : 1px solid var(--gray2);
+	}
+	.content-notice-table tr>td{
+		text-align: center;
+		border-bottom : 1px solid var(--gray2);
+	}
+	.customer-content-wrap>.page-wrap>div{
+		display : flex;
+		align-items:center;
+		justify-content : center;
+	}
+	.content-notice-table tr>td>a:hover{
+		font-weight: 700;
+		text-decoration: underline;
+	}
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main class="content">
+		<div class="customer-main-wrap">
+			<div class="customer-list-wrap">
+				<div class="content-msg">
+					<h2>고객센터</h2>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/FAQ/customermain">메인</a>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/FAQ/faqfrm?type=1&reqPage=1">자주 묻는 질문</a>
+						<li><a href="/FAQ/faqfrm?type=1&reqPage=1">회원가입/탈퇴</a></li>
+						<li><a href="/FAQ/faqfrm?type=2&reqPage=1">반품/교환/환불</a></li>
+						<li><a href="/FAQ/faqfrm?type=3&reqPage=1">주문/결제</a></li>
+						<li><a href="/FAQ/faqfrm?type=4&reqPage=1">배송/수령일 안내</a></li>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/Question/questionList?type=1&reqPage=1">1:1 문의</a>
+						<li><a href="/Question/writeQuestionFrm">1:1 문의 접수</a></li>
+						<li><a href="/Question/questionList?type=1&reqPage=1">1:1 문의 내역</a></li>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/notice/noticeFrm?reqPage=1">공지사항</a>
+					</ul>
+				</div>
+			</div>
+			<div class="customer-content-wrap">
+				<div class="content-msg customer-main-msg">
+					<h2>공지사항</h2>
+				</div>
+				<div class="search-design-form">
+					<form action="/FAQ/searchFaq" method="get">
+						<input type="hidden" name="type" value="0">
+						<input type="hidden" name="reqPage" value="1">
+						<th:block th:if="${searchQna}==null">
+							<input type="text" name="searchQna" placeholder="내용을 입력해주세요.">
+						</th:block>
+						<th:block th:if="${searchQna}!=null">
+							<input type="text" name="searchQna" th:value="${searchQna}">
+						</th:block>
+						<button type="submit" class="btn-type2 btn" >검색</button>
+					</form>
+				</div>
+				<div class="write-btn">
+					<button type="button" class="btn-type3 btn"><a href="/FAQ/writeFaqFrm">글쓰기</a></button>
+				</div>
+				<div class="content-notice-wrap">
+					<table class="content-notice-table">
+						<tr>
+							<th style="width:15%;">NO</th>
+							<th style="width:60%;">공지제목</th>
+							<th style="width:25%;">날짜</th>
+						</tr>
+						<th:block th:each="notice :${list}">
+							<tr>
+								<td style="width:15%;" th:text="${notice.noticeNo}"></td>
+								<td style="width:60%;" ><a th:href="@{/notice/noticeDetail(${notice.noticeNo})}" th:text="${notice.noticeTitle}"></a></td>
+								<td style="width:25%;" th:text="${notice.writeDate}"></td>
+							</tr>
+						</th:block>
+					</table>
+				</div>
+				<div class="page-wrap">
+					<th:block th:utext="${pageNavi}"></th:block>
+				</div>
+			</div>
+		</div>
+	</main>
+	<th:block th:include="common/footer"></th:block>
+	
+</body>
+</html>
