@@ -139,18 +139,9 @@ public class AdminController {
 		
 	}
 	//책 삭제
-	@GetMapping("/deleteBook")
-    public String deleteBook(@RequestParam("bookNo") int bookNo, RedirectAttributes redirectAttributes) {
-        boolean isDeleted = adminService.deleteBook(bookNo);
-
-        if (isDeleted) {
-            redirectAttributes.addFlashAttribute("message", "Book deleted successfully");
-        } else {
-            redirectAttributes.addFlashAttribute("message", "Failed to delete book");
-        }
-
-        return "redirect:/admin/bookListFrm?rePage=1"; // 삭제 후 책 목록으로 리다이렉트
-    }
+	//@GetMapping(value="/BookDelete")
+	
+	
 	
 	
 	

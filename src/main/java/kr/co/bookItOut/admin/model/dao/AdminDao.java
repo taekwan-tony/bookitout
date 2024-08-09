@@ -78,7 +78,7 @@ public class AdminDao {
 		return result;
 	}
 	public int deleteBook(int bookNo) {
-		String query = "delete from book where book_no=?";
+		String query = "delete from (select * from book left join center_inventory on (book_no = book_no2) where book_no=?";
 		Object[] params = {bookNo};
 		int result = jdbc.update(query,params);
 		return result;
