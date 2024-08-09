@@ -53,8 +53,8 @@ public class BookController {
 	}
 
 	@GetMapping(value="list")
-	public String list(Model model, int reqPage, int type) {
-		BookListData bld = bookService.selectBookList(reqPage, type);
+	public String list(Model model, int reqPage, int type, int genre) {
+		BookListData bld = bookService.selectBookList(reqPage, type, genre);
 		model.addAttribute("list", bld.getList());
 		model.addAttribute("pageNavi", bld.getPageNavi());
 		
@@ -63,3 +63,7 @@ public class BookController {
 	
 	
 }
+
+
+
+
