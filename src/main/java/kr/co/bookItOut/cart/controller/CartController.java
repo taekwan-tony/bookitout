@@ -110,12 +110,10 @@ public class CartController {
 	}
 	
 	@PostMapping("/success")
-	public String success(String cartNoStr) {
-		
-		
-		
+	public String success(String cartNoStr, int price) {
 		System.out.println("카트 넘버는 : "+cartNoStr);
-		boolean result = cartService.success(cartNoStr);
+		//boolean result = cartService.success(cartNoStr, price);
+		
 		return "redirect:/cart/main";
 	}
 	
