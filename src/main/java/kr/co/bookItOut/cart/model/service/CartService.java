@@ -61,6 +61,20 @@ public class CartService {
 		
 		return result;
 	}
+
+	public boolean success(String cartNoStr) {
+		StringTokenizer sT = new StringTokenizer(cartNoStr,"/");
+		boolean result = true;
+		while(sT.hasMoreTokens()) {
+			int cartNo = Integer.parseInt(sT.nextToken());
+			int intResult = cartDao.success(cartNo);
+			if(intResult == 0) {
+				result = false;
+				break;
+			}
+		}
+		return false;
+	}
 	
 	@Transactional
 	public List selPay(int memberNo, String name) {
@@ -82,7 +96,6 @@ public class CartService {
 		
 		return list;
 	}
-	
 	
 
 }
