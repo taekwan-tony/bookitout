@@ -17,9 +17,10 @@ public class PayController {
 	@Autowired
 	private PayService payService;
 	
-	//@GetMapping("/pay")
-	//public String pay() {
+	@GetMapping("/paySuccess")
+	public String paySuccess() {
 		
-	//}
+		return "cart/paySuccess";
+	}
 	
 }

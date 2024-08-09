@@ -62,12 +62,20 @@
 		var memberPhone = [[${member.getMemberPhone()}]];
 		var memberMail = [[${member.getMemberMail()}]];
 		
-	
+		var list = [[${list}]];
+		
+		
+		console.log(list);
+		var encodedList = encodeURIComponent(JSON.stringify(list));
+		
+		
+		console.log(encodedList);
 		$("#payBtn").on("click", function(){
 			const memberNo = $("#memberNo").val()
 			const price = $("#pay").text();
 			const date = new Date();
 			const dateString = date.getFullYear()+""+(date.getMonth()+1)+""+date.getDate()+""+date.getHours()+""+date.getMinutes()+""+date.getSeconds();
+			
 			IMP.init("imp04222210");
 			
 			IMP.request_pay(
@@ -85,9 +93,26 @@
 					  },
 					  function(rsp){//콜백 함수, rsp = 응답 객체(response object), 객체는 결제의 성공 여부, 결제 금액, 결제 고유 번호 등의 다양한 정보를 포함 
 						  if(rsp.success){
-							  alert("결제성공");
+							  
+							  
+							  
+							  $.ajax({
+								  url : "/cart/success",
+								  type:"get",
+								  data:{list : encodedList},
+								  success : function(data){
+									  console.log(data);
+								  },
+								  error : function(){
+									  console.log(실패);
+								  }
+							  });
+							 location.href = "/cart/paySuccess";
+							 
+							 
+							 
 						  }else{
-							  alert("결제실패");
+							  alert("결제 실패");
 						  }
 						  
 					  }
