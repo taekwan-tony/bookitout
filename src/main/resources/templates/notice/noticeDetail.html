@@ -92,10 +92,38 @@
 						</div>
 					</div>
 					<div>
-						<div th:text="${notice.noticeContent}"></div>
+						<div th:utext="${notice.noticeContent}"></div>
 					</div>
 				</div>
-				<div class="page-wrap">
+				<div class="prev-next-wrap">
+					<table>
+						<tr th:if="${noticeData.prevno} != 0">
+							<td>
+								<div>
+									<span>이전글</span>
+									<span class="material-icons">expand_less</span>
+								</div>
+							</td>
+							<td>
+								<span>
+									<a th:href="@{/notice/noticeDetail(noticeNo=${noticeData.prevno})}" th:text="${noticeData.prevSubject}"></a>
+								</span>
+							</td>
+						</tr>
+						<tr th:if="${noticeData.nextno} != 0">
+							<td>
+								<div>
+									<span>다음글</span>
+									<span class="material-icons">keyboard_arrow_down</span>
+								</div>
+							</td>
+							<td>
+								<span >
+									<a th:href="@{/notice/noticeDetail(noticeNo=${noticeData.nextno})}" th:text="${noticeData.nextSubject}"></a>
+								</span>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>

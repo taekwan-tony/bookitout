@@ -107,7 +107,7 @@
 						<th:block th:each="notice :${list}">
 							<tr>
 								<td style="width:15%;" th:text="${notice.noticeNo}"></td>
-								<td style="width:60%;" ><a th:href="@{/notice/noticeDetail(${notice.noticeNo})}" th:text="${notice.noticeTitle}"></a></td>
+								<td style="width:60%;" ><a th:href="@{/notice/noticeDetail(noticeNo=${notice.noticeNo})}" th:text="${notice.noticeTitle}"></a></td>
 								<td style="width:25%;" th:text="${notice.writeDate}"></td>
 							</tr>
 						</th:block>
