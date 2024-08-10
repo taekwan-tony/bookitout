@@ -97,6 +97,7 @@ a {
 .tbl {
 	border: 2px solid;
 	border-collapse: collapse;
+	width:1000px;
 }
 
 th {
@@ -136,16 +137,18 @@ th, td {
 				<h3>전체 주문 내역</h3>
 				<table class="tbl">
 					<tr>
-						<th>주문번호</th>
-						<th>주문일</th>
-						<th>수령인</th>
-						<th>주문상품</th>
+						<th style="width:5%">주문번호</th>
+						<th style="width:10%">주문일</th>
+						<th style="width:15%">수령인</th>
+						<th>총 가격</th>
+						<th style="width:40%">주문상품</th>
 						<th>배송지</th>
 					</tr>
 					<tr th:each="p,status : ${list}">
 						<td th:text="${p.payNo}" class="payNo"></td>
 						<td th:text="${p.payDate}"></td>
 						<td th:text="${p.name}"></td>
+						<td th:text="${p.totalPrice}"></td>
 						<td class="order-items"></td>
 						<td th:text="${p.addr}"></td>
 					</tr>
