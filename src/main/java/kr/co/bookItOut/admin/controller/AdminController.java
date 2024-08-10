@@ -147,14 +147,14 @@ public class AdminController {
 		if(book == null) {	model.addAttribute("title","삭제실패");
 		model.addAttribute("msg","존재하지 않는 게시물");
 		model.addAttribute("icon","error");
-		model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
+		model.addAttribute("loc","/admin/bookListFrm?rePage=1");
 		return "common/msg";
 			
 		}else {
 			model.addAttribute("title","삭제 성공!");
 			model.addAttribute("msg","게시글이 삭제되었습니다");
 			model.addAttribute("icon","success");
-			model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
+			model.addAttribute("loc","/admin/bookListFrm?rePage=1");
 		
 		}
 		return "common/msg";
@@ -162,21 +162,23 @@ public class AdminController {
 		
 	}
 	//책 수정 //장르 타입 책이름 저자 출판사 판매가격
+	
 	@GetMapping(value = "/updateBook")
-	public String updateBook(int bookNo, Model model) {
-		AdminBook abook = adminService.updatebookList(bookNo);
+	public String updateBook(Book book, Model model) {
+		Book b = adminService.updatebookList(book);
 		
-		if( abook== null) {	model.addAttribute("title","삭제실패");
+		
+		if( b== null) {	model.addAttribute("title","삭제실패");
 		model.addAttribute("msg","존재하지 않는 게시물");
 		model.addAttribute("icon","error");
-		model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
+		model.addAttribute("loc","/admin/bookListFrm?rePage=1");
 		return "common/msg";
 			
 		}else {
 			model.addAttribute("title","삭제 성공!");
 			model.addAttribute("msg","게시글이 삭제되었습니다");
 			model.addAttribute("icon","success");
-			model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
+			model.addAttribute("loc","/admin/bookListFrm?rePage=1");
 		
 		}
 		return "common/msg";

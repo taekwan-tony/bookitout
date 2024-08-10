@@ -78,6 +78,7 @@ public class AdminDao {
 		int result = jdbc.update(qurey,params);
 		return result;
 	}
+	//-삭제
 	public int deleteBook(int bookNo) {
 		String query = "delete from (select * from book left join center_inventory on (book_no = book_no2) where book_no=?";
 		Object[] params = {bookNo};
@@ -90,16 +91,19 @@ public class AdminDao {
 		List list = jdbc.query(query,adminBookRowMapper,params);
 		return (Book)list.get(0);
 	}
-	public AdminBook selectAdminbook(int bookNo) {
+	//수정
+	public Book selectbook(Book book) {
 		String query = "select * from book where book_no=?";
-		Object[] params = {bookNo};
+		Object[] params = {book.getAdminNo()};
 		List list = jdbc.query(query,bookRowMapper,params);
-		return (AdminBook)list.get(0);
+		return (Book)list.get(0);
 	}
 	//장르 타입 책이름 저자 출판사 
-	public int updateBook(int bookNo) {
-//	String query = "update book set "
-		return 0;
+	public int updateBook(Book book) {
+ 	String query = "update book set book_type=?,book_genre=?,book_name=?,book_writer=?,book_publisher=? where book_no=?";
+ 	Object[] params = {book.getBookType(),book.getBookGenre(),book.getBookName(),book.getBookWriter(),book.getBookPublisher(),book.getBookNo()};
+ 	int result = jdbc.update(query,params);
+		return result;
 	}
 	
 }
