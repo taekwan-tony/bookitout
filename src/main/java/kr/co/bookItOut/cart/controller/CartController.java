@@ -110,10 +110,11 @@ public class CartController {
 	}
 	
 	@PostMapping("/success")
-	public String success(String cartNoStr, int price) {
+	public String success(String cartNoStr, int price, @SessionAttribute(required=false) Member member) {
 		System.out.println("카트 넘버는 : "+cartNoStr);
-		//boolean result = cartService.success(cartNoStr, price);
+		boolean preResult = cartService.success1(price, member);
 		
+		boolean result = cartService.success(cartNoStr, price, member);
 		return "redirect:/cart/main";
 	}
 	
@@ -146,5 +147,7 @@ public class CartController {
 		
 		return "cart/selPay";
 	}
+	
+	
 
 }

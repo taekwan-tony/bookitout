@@ -48,6 +48,7 @@
 					<input type="hidden" th:value="${c.memberNo}" id="memberNo">
 				</tr>
 			</table>
+			
 			<h1 style="display: inline-block">총 금액 :</h1>
 			<h1 style="display: inline-block" th:text="${totalPrice}" id="pay"></h1>
 			<h1 style="display: inline-block">원</h1>
@@ -81,6 +82,7 @@
 					  {
 					    pg: "html5_inicis.INIpayTest",
 					    pay_method: "card",
+					    
 					    merchant_uid: memberNo+"_"+dateString,
 					    name: "주문명:결제테스트",
 					    amount: 100,
@@ -88,7 +90,7 @@
 					    buyer_name: memberName,
 					    buyer_tel: memberPhone,
 					    buyer_addr: memberAddr,
-					    buyer_postcode: "123-456",
+					    buyer_postcode: "123-456"
 					  },
 					  function(rsp){//콜백 함수, rsp = 응답 객체(response object), 객체는 결제의 성공 여부, 결제 금액, 결제 고유 번호 등의 다양한 정보를 포함 
 						  if(rsp.success){
