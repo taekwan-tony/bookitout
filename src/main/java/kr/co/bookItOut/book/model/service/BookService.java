@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.bookItOut.book.model.dao.BookDao;
 import kr.co.bookItOut.book.model.dto.Book;
@@ -26,9 +26,46 @@ public class BookService {
 		return centerList;
 	}
 
+	@Transactional
+	public Book selectOneBook(int bookNo, String check, int memberNo) {
+		Book b = bookDao.selectOneBook(bookNo);
+		if(b != null) {
+			if(check == null) {
+				int result = bookDao.updateReadCount(bookNo);
+			}
+			// 댓글 조회
+			List<BookComment> commentList = bookDao.selectCommentList(bookNo, memberNo);
+			b.setCommentList(commentList);
+			// 대댓글 조회
+			List reCommentList = bookDao.selectReCommentList(bookNo, memberNo);
+			b.setReCommentList(reCommentList);
+		}
+		return b;
+	}
+
+	@Transactional
 	public int insertComment(BookComment bc) {
 		int result = bookDao.insertComment(bc);
 		return result;
+	}
+
+	@Transactional
+	public int likePush(int bookCommentNo, int isLike, int memberNo) {
+		int result = 0;
+		if(isLike == 0) {
+			// 현재 좋아요를 누르지 않은 상태에서 클릭 -> 좋아요 -> insert
+			result = bookDao.insertBookCommentLike(bookCommentNo, memberNo);
+		}else if(isLike == 1) {
+			// 현재 좋아요를 누른 상태에서 클릭 -> 좋아요 취소 -> delete
+			result = bookDao.deleteBookCommentLike(bookCommentNo, memberNo);
+		}
+		if(result > 0) {
+			// 좋아요, 좋아요 취소 로직을 수행하고나면 현재 좋아요 갯수를 조회해서 리턴
+			int likeCount = bookDao.selectBookCommentLikeCount(bookCommentNo);
+			return likeCount;
+		}else {			
+			return -1;
+		}
 	}
 
 	public BookListData selectBookList(int reqPage) {
@@ -84,11 +121,6 @@ public class BookService {
 		BookListData bld = new BookListData(list, pageNavi);		
 		
 		return bld;
-	}
-
-	public Book selectOneBook(int bookNo, String check, int memberNo) {
-		Book b = bookDao.selectOneBook(bookNo);
-		return b;
 	}
 
 }
