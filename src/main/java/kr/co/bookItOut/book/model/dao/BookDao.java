@@ -64,4 +64,14 @@ public class BookDao {
 		int totalCount = jdbc.queryForObject(query, Integer.class);
 		return totalCount;
 	}
+
+	public Book selectOneBook(int bookNo) {
+		String query = "select * from book where book_no = ?";
+		Object[] params = {bookNo};
+		List list = jdbc.query(query, bookRowMapper, params);
+		if(list .isEmpty()) {
+			return null;
+		}
+		return (Book)list.get(0);
+	}
 }

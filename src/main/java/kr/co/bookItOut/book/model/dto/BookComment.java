@@ -14,4 +14,6 @@ public class BookComment {
 	 private String bookCommentDate;
 	 private int bookRef;/* bookNo */
 	 private int bookCommentRef;
+	 private int likeCount;
+	 private int isLike;
 }

@@ -139,7 +139,7 @@
                 </div>
                 <!-- 댓글 출력 시작 -->
                 <div class="commentBox">
-                    <th:block th:each="nc : ${n.commentList}">
+                    <th:block th:each="bc : ${book2.commentList}">
                         <ul class="posting-comment">
                             <!-- <li>
                                 <span class="user-icon">
@@ -150,30 +150,30 @@
                                 <div class="comment-info">
                                     <span class="comment-info-left">
                                         <span class="badge buyer">구매자</span>
-                                        <span th:text="${nc.noticeCommentWriter}">작성자ID</span>
+                                        <span th:text="${bc.bookCommentWriter}"></span>
                                         <span>|</span>
-                                        <span th:text="${nc.noticeCommentDate}">2024-08-06</span>
+                                        <span th:text="${bc.bookCommentDate}"></span>
                                     </span>
                                     <span class="comment-info-right">
                                         <span>
-                                            <th:block th:if="${session.member.memberId == nc.noticeCommentWriter}">
-                                                <span><a href="javascript:void(0)" th:onclick="modifyComment(this, [[${nc.noticeCommentNo}]], [[${n.noticeNo}]]);">수정</a></span>
-                                                <span><a href="javascript:void(0)" th:onclick="deleteComment(this, [[${nc.noticeCommentNo}]], [[${n.noticeNo}]]);">삭제</a></span>
+                                            <th:block th:if="${session.member.memberId == bc.bookCommentWriter}">
+                                                <span><a href="javascript:void(0)" th:onclick="modifyComment(this, [[${bc.bookCommentNo}]], [[${book.bookNo}]]);">수정</a></span>
+                                                <span><a href="javascript:void(0)" th:onclick="deleteComment(this, [[${bc.bookCommentNo}]], [[${book.bookNo}]]);">삭제</a></span>
                                             </th:block>
                                             <span><a class="recShow" href="javascript:void(0)">답글달기</a></span>
                                         </span>
                                     </span>
                                 </div>
-                                <p class="comment-content" th:text="${nc.noticeCommentContent}">리뷰 댓글 내용 샘플</p>
+                                <p class="comment-content" th:text="${bc.bookCommentContent}"></p>
                                 <div style="display: none;" class="input-item">
-                                    <textarea name="noticeCommentContent" th:text="${nc.noticeCommentContent}"></textarea>
+                                    <textarea name="bookCommentContent" th:text="${bc.bookCommentContent}"></textarea>
                                 </div>
                                 <p class="comment-link">
                                     <th:block th:if="${session.member != null}">
                                         <span class="like-box">
-                                            <!-- <span class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);"><i class="fa-solid fa-heart"></i></span>
-                                            <span class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);"><i class="fa-regular fa-heart"></i></span> -->
-                                            <span th:if="${nc.isLike == 1}" class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);">
+                                            <span class="heart-icon" th:onclick="likePush(this, [[${bc.bookCommentNo}]]);"><i class="fa-solid fa-heart"></i></span>
+                                            <span class="heart-icon" th:onclick="likePush(this, [[${bc.bookCommentNo}]]);"><i class="fa-regular fa-heart"></i></span>
+                                            <span th:if="${bc.isLike == 1}" class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);">
                                                 <i class="fa-regular fa-thumbs-up"></i>
                                             </span>
                                             <!-- <span th:if="${nc.isLike == 0}" class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);">
@@ -219,6 +219,9 @@
         </div>
     </main>
 
+	<script>
+		
+	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

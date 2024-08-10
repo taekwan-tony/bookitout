@@ -86,4 +86,9 @@ public class BookService {
 		return bld;
 	}
 
+	public Book selectOneBook(int bookNo, String check, int memberNo) {
+		Book b = bookDao.selectOneBook(bookNo);
+		return b;
+	}
+
 }

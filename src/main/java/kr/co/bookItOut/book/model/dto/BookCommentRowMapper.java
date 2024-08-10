@@ -18,6 +18,8 @@ public class BookCommentRowMapper implements RowMapper<BookComment> {
 		bc.setBookCommentDate(rs.getNString("book_comment_date"));
 		bc.setBookRef(rs.getInt("book_ref"));
 		bc.setBookCommentRef(rs.getInt("book_comment_ref"));
+		bc.setLikeCount(rs.getInt("like_count"));
+		bc.setIsLike(rs.getInt("is_like"));
 		
 		return bc;
 	}
