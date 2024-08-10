@@ -1,24 +1,56 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
-<link rel="stylesheet" href="/css/main.css">
-<link rel="stylesheet" href="/css/admin.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<link rel="stylesheet" href="/css/main.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+<link rel="stylesheet" href="/summernote/summernote-lite.css"> 
 <script src="/js/jquery-3.7.1.js"></script>
 	<script src="/js/sweetalert.min.js"></script>
-	<style>
-	 .bookTbl tbody td input{
-	 	width : 100%;
-	 	border: none;
-		outline: none;
-		font-size: 15px;
-		text-align: center;
-	 }
-	 table tbody tr:nth-child(2n) td input{
-		background-color: var(--color1);	
-	}
+<style>
+.container{
+	width:80%;
+	border: 3px solid var(--color3);
+	padding: 3px;
+	border-radius: 10px; 
+}
+.container div label{
+	font-family: "Tenada";
+	font-size: 20px;
+}
+.container>div{
+	border: 1px solid var(--color1);
+}
+
+.container .input-item input{
+   
+	border: none;
+	width:  100%;
+	font-size: 20px;
+}
+.container .admin-button-box{
+	text-align: center;
+}
+.container .input-item input:focus{
+	outline: none;
+}
+.container td{
+ border: 1px solid var(--color1);
+}
+.container .input-item textarea{
+	width: 100%;
 	
-	</style>
+}
+.container .input-item input{
+	text-align: center;
+}
+
+.select{
+	padding: 0 !important;
+}
+
+
+</style>
 </head>
 <body>
     <div class="nav1">
@@ -61,7 +93,7 @@
             <ul class="sub-menu">
                 <li><a href="/admin/bookListFrm?rePage=1">책 리스트</a></li>
                 <li><a href="/admin/insertBookFrm">책 등록</a></li>
-                <li><a href="/admin/bookListFrm">책 정보 수정</a></li>
+                <li><a href="#">책 정보 수정</a></li>
             </ul>
             </li>
             <li>
@@ -106,52 +138,21 @@
         </div>
 
         <!-- 컨텐츠 영역 -->
+        	 <script src="/summernote/summernote-lite.js"></script>
+	 		<script src="/summernote/lang/summernote-ko-kr.js"></script>
+	 						
         <div class="content">
             <div class="inner">
-                <div class="container">
                     <div class="page-title">
-                        <h1>책 관리</h1><span>(리스트)</span>
+                        <h1>도서 상세 수정</h1>
                     </div>
-                    <form action="/admin/bookListFrm" method="get">
-                    <table class="bookTbl">
-                        <thead>
-                            <tr>
-                                <th style="width: 3%">
-                                	<label></label>
-                                	<input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
-                                </th>
-              					<th style="width: 6%">책번호</th>
-              					<th style="width: 7%">책유형</th>
-              					<th style="width: 7%">책장르</th>
-              					<th style="width: 9%">책이름</th>
-              					<th style="width: 7%">책저자</th>
-              					<th style="width: 8%">출판사</th>
-              					<th style="width: 9%">출판일</th>
-              					<th style="width: 9%">등록일</th>
-              					<th style="width: 8%">판매가격</th>
-              					<th style="width: 6%">발주</th>
-              					<th style="width: 6%">수정/상세수정</th> 
-              					<th style="width: 6%">삭제</th>
-                            </tr>
-                        </thead>
-                        <!-- <div class="input-item">
-	  					<div class="select">
-	  					<select name ="Genre">
-	  						<option value="Genre1"></option>
-	  						<option value="Genre2">작성자</option>
-	  					</select>
-	  					</div>
-	  					<input type="text" name="keyword">
-	  					<button type="submit" class="btn-point lg">조회</button>
-	  					</div> -->
-                        <tbody>                            
-                            <tr th:each="book :${bookList}"><!-- -->                            	
-                            	<td>
-                                	<input type="checkbox" name="chk[]" value="1">
-                                </td>
-                            	<td th:text="${book.bookNo}"></td>
-              					<td>
-              						<div class="input-item">
+                <div class="container">
+                    <form action="/admin/updateDetail" method="post" enctype="multipart/form-data">
+					  <table>
+	  			 		<tr>
+	  			 		<th  style="width:10%;">책 유형</th>
+	  			 		<td colspan="2" style="width:40%;">
+	  			 			<div class="input-item">
 	  			 						<div class="select" th:switch="${book.bookType}">
 	  			 							<select name ="bookType" th:case="국내도서">
 	  											<option selected value="국내도서">국내도서</option>
@@ -163,9 +164,10 @@
 	  										</select>
 	  			 						</div>
 	  			 					</div>
-              					</td>
-              					<td>
-              						<div class="input-item">
+	  			 		</td>
+	  			 		<th style="width:10%;">책 장르</th>
+	  			 		<td colspan="2" style="width:40%;">
+	  			 			<div class="input-item">
 	  			 							<div class="select" th:switch="${book.bookGenre}">
 	  			 								<select name ="bookGenre" th:case="문학">
 	  												<option selected value="문학">문학</option>
@@ -184,37 +186,89 @@
 	  											</select>
 	  			 							</div>
 	  			 					</div>
-              					</td>
-              					<td th:text=${book.bookName}></td>
-             					<td th:text=${book.bookWriter}></td>
-              					<td th:text=${book.bookPublisher}></td>
-	              				<td th:text="${book.publicationDate}"></td>
-	              				<td th:text="${book.enrollDate}"></td>
-              					<td>
-              						<input type="text" name="bookPrice" th:value=${book.bookPrice}>
-              					</td>
-              					<td>
-	              					<button type="submit" class="btn-type2 btn">발주창</button>
-	              					<input type="hidden" name="bookNo" th:value="${book.bookNo}">
-              					</td>
-              					<td>
-	              					<button type="button" class="btn-type2 btn updateBook" id="updateBook" th:onclick="updateBook1(this, [[${book.bookNo}]]);">수정</button>
-	              					<!-- <a href="/admin/updateDetail" class="btn-type2 btn">상세</a> 이런식으로 넣어줘도 됨 -->
-	              					<button type="button" class="btn-type2 btn updateDetail" id="updateDetail" th:onclick="updateDetail1(this, [[${book.bookNo}]]);">상세</button>
-              					</td>
-              					<td>
-              						<button type="button"  class="btn-type2 btn" th:onclick="bookDelete([[${book.bookNo}]]);">삭제</button>
-              					</td>
-                            </tr>
-                            	
-                        </tbody>
-                    </table>
-                   </form>
+	  			 		</td>
+	  			 		</tr>
+	  			 		<tr>
+		  			 		<th style="width:13%;">책 이름</th>
+			  			 		<td style="width:20%;">
+			  			 			<div class="input-item">
+			  			 				<input type="text" name="bookName" th:value=${book.bookName}> 
+			  			 			</div>
+			  			 		</td>
+		  			 		<th style="width:13%;">책 저자</th>
+			  			 		<td style="width:20%;">
+			  			 			<div class="input-item">
+			  			 				<input type="text" name="bookWriter" th:value=${book.bookWriter}> 
+			  			 			</div>
+			  			 		</td>
+						<th style="width:13%;">판매가격</th>
+		  			 		<td style="width:20%;">
+		  			 			<div class="input-item">
+		  			 				<input type="text" name="bookPrice" th:value=${book.bookPrice}> 
+		  			 			</div>
+		  			 		</td>
+	  			 		</tr>
+	  			 		<tr>
+		  			 		<th colspan="1">출판사</th>
+		  			 		<td colspan="2">
+		  			 			<div class="input-item">
+		  			 				<input type="text" name="bookPublisher" th:value=${book.bookPublisher}> 
+		  			 			</div>
+		  			 		</td>
+		  			 		<th colspan="1">출판일</th>
+		  			 		<td colspan="2">
+		  			 			<div class="input-item">
+		  			 				<input type="date" name="publicationDate" th:value=${book.publicationDate}> 
+		  			 			</div>
+		  			 		</td>
+						
+	  			 		</tr>
+	  			 		<tr>
+	  			 		<!-- 이미지 부분 텍스트 바꿔주기  -->
+	  			 			<th colspan="1">책 이미지</th>
+								<td colspan="2">
+								        <label for="upfileImg" th:text="${book.bookImg}"></label>
+								        	<input type="file" id="upfileImg" name="upfileImg" required  style="display:none;" >
+										
+								</td>	  			 				
+	  			 			<th colspan="1">상세 이미지</th>
+	  			 				<td colspan="2">
+	  			 					<label for="upfileDetailImg" th:text="${book.bookDetailImg}"></label>	
+	  			 					<input type="file" id="upfileDetailImg" name="upfileDetailImg" required style="display: none;">
+	  			 				</td>
+	  			 		</tr>
+	  			 		<tr>
+	  			 			<th colspan="6">책 저서정보</th>
+	  			 		</tr>
+	  			 		<tr>
+	  			 			<td colspan="6">
+	  			 				<div class="input-item">
+	  			 					<textarea id="bookDetailContent" name="bookDetailContent" th:text=${book.bookDetailContent}></textarea>
+	  			 			
+	  			 				</div>
+	  			 			</td>
+	  			 		</tr>
+	  			 		<tr>
+	  			 			<th colspan="6">책 본문</th>
+	  			 		</tr>
+	  			 		<tr>
+	  			 			<td colspan="6">
+	  			 			 <div class="input-item">
+								<textarea id="bookDetailWriter" name="bookDetailWriter" th:text=${book.bookDetailWriter}></textarea>
+	  			 			</div>
+	  			 			</td>	  			 		
+	  			 		</tr>
+	  			 		
+	  			 		<tr>
+	  			 			<td colspan="6">
+	  			 				<button type="submit" class="btn-type2 btn updateDetail" id="updateDetail">수정</button>
+	  			 				<input type="hidden" name="bookNo" th:value="${book.bookNo}">
+	  			 			</td>
+	  			 		</tr>
+					  </table>		
+		 			</form>
                 </div>
             </div>
-		<div id="pageNavi" th:utext="${pageNavi}">
-	  	</div>
-		<!--페이지 넘기는 부분 종료 -->
         </div>
         <!-- footer 시작  헤더 풋더 다 끌어와서 쓰면 됨 -->
         <div>
@@ -236,7 +290,7 @@
     </div>
     
     <script>
-    <!--input 전체 선택 로직 -->
+    <!--전체 선택 로직 -->
     function check_all(f)
     {
         var chk = document.getElementsByName("chk[]");
@@ -244,57 +298,25 @@
         for (i=0; i<chk.length; i++)
             chk[i].checked = f.chkall.checked;
     }
-    <!--북리스트 삭제-->
-    function bookDelete(bookNo){
-  		swal({
-  			title:"게시글 삭제",
-  			text:"게시글을 삭제하시겠습니까?",
-  			icon:"warning",
-  			buttons:{
-  				cancel:{
-  					text:"취소",
-  					value:false,
-  					visible:true,
-  					className:"btn-secondary",
-  					closeModal:true
-  				},
-  				confirm:{
-  					text:"삭제",
-  					value:true,
-  					visible:true,
-  					className:"btn-point",
-  					closeModal:true
-  				}
-  			}
-  		
-  		}).then(function(isConfirm){
-  			if(isConfirm){
-  				console.log(1);
-  				location.href="/admin/delete?bookNo="+bookNo;
-  			}
-  		});
-  	}
     
-    //바뀐 update 부분
-    function updateBook1(obj, bookNo) {
-      const bookType = $(obj).parent().parent().children().eq(2).children().children().children().val()
-    	 const bookGenre =  $(obj).parent().parent().children().eq(3).children().children().children().val()
-    	 const bookPrice =  $(obj).parent().parent().children().eq(9).children().val()
-
-        location.href="/admin/updateBook?bookNo="+bookNo+"&bookType="+bookType+"&bookGenre="+bookGenre+"&bookPrice="+bookPrice;
-    }
+    $("#bookDetailContent").summernote({
+    	height:500,
+  		lang : "ko-KR",
+  		disableResize: true,
+  		disableResizeEditor:true,
+  		resize : false
+  	});
+    $("#bookDetailWriter").summernote({
+  		height:500,
+  		lang : "ko-KR",
+  		disableResize: true,
+  		disableResizeEditor:true,
+  		resize : false
+  	});
+    
+ 	
     
  
-    // 상세 수정
-    function updateDetail1(obj, bookNo){
-    	
-    	location.href="/admin/updateDetailFrm?bookNo="+bookNo;
-    }
-    
-  //-발주창
-     
-    
-    
     </script>
 </body>
 </html>

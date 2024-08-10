@@ -13,8 +13,9 @@
 		color: #74512D;
 	}
 	.board-update-wrap{
-		width: 1000px;
-		margin: 0 auto;
+		width: 80%;
+		margin-left: 10%;
+		margin-right: 10%;
 	}
 	.board-update-wrap .input-item>input[type=text]{
 		border-bottom: none;
@@ -34,9 +35,7 @@
 		cursor: pointer;
 	}
 	.tbl {
-		width: 80%;
-		margin-left: 10%;
-		margin-right: 10%;
+		width: 100%;
 		background-color: transparent;
 		margin-bottom: 100px;
 		border: #74512D solid;
@@ -67,6 +66,12 @@
 		background-color: #AF8F6F;
 		color: white;
 	}
+	#stop{
+		background-color: #AF8F6F;
+	}
+	#stop>*{
+		color: white;
+	}
 	.boardContent {
 		background-color: #F8F4E1;
 		padding: none;
@@ -78,6 +83,7 @@
 		background-color: #F8F4E1;
 	}
 </style>
+<script src="/js/jquery-3.7.1.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -130,6 +136,7 @@
 						<tr>
 							 <td colspan="2" class="last">
 							 	<button type="submit" class="btn-primary" id="update">수정하기</button>
+							 	<button type="button" class="btn-primary" id="stop"><p th:onclick="stop([[${b.boardNo}]])">수정취소</p></button>
 							 </td>
 						</tr>
 					</table>
@@ -167,7 +174,7 @@
 						$(".boardUpdateFrm").append(input);
 						$(obj).parent().remove();
 					}
-				})
+				});
 			}
 			$(".boardContent").summernote({
 				height:500,
@@ -181,6 +188,50 @@
 					}
 				}
 			});
+			function uploadImage(file, editor){
+				const form = new FormData();
+				form.append("upfile",file);
+				 $.ajax({
+					 url : "/board/editorImage",
+					 type : "post",
+					 data : form,
+					 processData : false,
+					 contentType : false,
+					 success : function(data){
+						 $(editor).summernote("insertImage",data);
+					 },
+					 error : function(){
+						 console.log("에러");
+					 }
+				 });
+			}
+			function stop(boardNo){
+				swal({
+					title:"수정취소",
+					text:"게시물 수정을 그만하시겠습니까?",
+					icon:"info",
+					buttons:{
+						cancel : {
+							text:"수정 계속",
+							value: false,
+							visible: true,
+							className: "btn-primary",
+							classModal: true
+						},
+						confirm : {
+							text: "수정 취소",
+							value: true,
+							visible: true,
+							className: "btn-primary",
+							classModal: true
+						}
+					}
+				}).then(function(isConfirm){
+					if(isConfirm){
+						location.href = "/board/view?boardNo="+boardNo;
+					}
+				})
+			}
 		</script>
 	<th:block th:include="common/footer"></th:block>
 	</body>

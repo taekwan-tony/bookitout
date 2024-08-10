@@ -87,12 +87,15 @@ public class AdminService {
 	
 //---------book 서비스--------------------------------------------------------------------------------
 	
-public BookListData selectbookList(int rePage) {
+public BookListData selectbookList(int rePage,Book book, Admin admin) {
+	
 		
 		int numperPage=10;
 		int end = rePage*numperPage;
 		int start = end - numperPage+1;
-		List list = adminDao.selectBookList(start,end); 
+		List list = adminDao.selectBookList(start,end,book,admin); //관리자번호 가져와서/ 책번호
+		
+			
 		
 		int totalCount = adminDao.selectBookTotoalCount();
 		
@@ -165,14 +168,39 @@ public Book deleteBook(int bookNo) {
 	return null;
 }
 //수정 --
-
-public AdminBook updatebookList(int bookNo) {
-	AdminBook abook = adminDao.selectAdminbook(bookNo);
+@Transactional
+public int updatebookList(Book book) {
 	
-	int result =adminDao.updateBook(bookNo);
-	
-	return null;
+	int result =adminDao.updateBook(book);
+	if(result>0) {
+		return result;
+	}
+	return 0;
 }
+
+public Book selectOneBook(int bookNo) {
+	Book b = adminDao.selectbook(bookNo);
+	
+	
+	return b;
+}
+
+@Transactional
+public int updateDetailBook(Book b) {
+	int result = adminDao.updateDetailBook(b);
+	if(result>0){
+		return result;
+	}
+	
+	return 0;
+}
+
+
+
+
+
+
+
 
 
 
