@@ -120,11 +120,14 @@ public class CartController {
 	
 	
 	@GetMapping("/selPay")
-	public String selPay(String name, String totalPrice, Model model, @SessionAttribute(required=false) Member member) {
-		
+	public String selPay(String name, String bookCount, String totalPrice, Model model, @SessionAttribute(required=false) Member member) {
+		System.out.println("책 이름은 : "+name);
+		System.out.println("수량은 : "+bookCount);
 		//장바구니 수량 변경 시 결제화면에 반영 안됨
+		
+		
 		int memberNo = member.getMemberNo();
-		List list = cartService.selPay(memberNo, name);
+		List list = cartService.selPay(memberNo, name, bookCount);
 		
 //		System.out.println("선택한 책 이름 /로 구분 -- "+name);
 //		System.out.println("총 가격 -- "+totalPrice);

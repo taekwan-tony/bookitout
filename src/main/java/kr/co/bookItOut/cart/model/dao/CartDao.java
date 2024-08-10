@@ -122,4 +122,11 @@ public class CartDao {
 	    return maxPayNo;
 	}
 
+	public int setCount(Cart c, int memberNo, int bookCartCount) {
+		String query = "update cart_tbl set book_cart_count = ?  where cart_no=?";
+		Object[] params = {bookCartCount, c.getCartNo()};
+		int result = jdbc.update(query, params);
+		return result;
+	}
+
 }
