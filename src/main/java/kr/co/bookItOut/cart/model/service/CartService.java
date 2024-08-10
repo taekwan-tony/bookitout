@@ -96,9 +96,9 @@ public class CartService {
 	}
 	
 	@Transactional
-	public boolean success1(int price, Member member) {
+	public boolean success1(int price, Member member, String addr,String name) {
 	    boolean result = true;
-	    int intResult1 = cartDao.success1(price, member); // 구매 디비 생성
+	    int intResult1 = cartDao.success1(price, member, addr, name); // 구매 디비 생성
 	    if (intResult1 == 0) { 
 	        // 만약 구매 디비 생성에 실패하면 false를 반환
 	        return false;

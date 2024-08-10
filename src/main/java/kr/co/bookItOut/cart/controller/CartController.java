@@ -110,9 +110,12 @@ public class CartController {
 	}
 	
 	@PostMapping("/success")
-	public String success(String cartNoStr, int price, @SessionAttribute(required=false) Member member) {
+	public String success(String cartNoStr, int price, @SessionAttribute(required=false) Member member, String name, String addr) {
 		System.out.println("카트 넘버는 : "+cartNoStr);
-		boolean preResult = cartService.success1(price, member);
+		System.out.println(addr);
+		System.out.println(name);
+		boolean preResult = cartService.success1(price, member, addr, name);
+		
 		
 		boolean result = cartService.success(cartNoStr, price, member);
 		return "redirect:/cart/main";

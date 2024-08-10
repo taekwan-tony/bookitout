@@ -23,7 +23,18 @@
 	border-top: 2px solid black;
 	border-bottom: 2px solid black;
 }
+
+.tbl {
+	width: 900px;
+	text-align: center;
+	margin: auto;
+	margin-top: 50px;
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+}
 </style>
+</style>
+
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
@@ -48,7 +59,25 @@
 					<input type="hidden" th:value="${c.memberNo}" id="memberNo">
 				</tr>
 			</table>
-			
+			<table class="tbl">
+				<tr>
+					<td colspan="2">
+						<h1>수령지 정보</h1>
+					</td>
+					<tr>
+						<th>받는 분</th>
+						<td>
+							<input type="text" name="memberName" id="name"  th:value="${session.member.memberName}">
+						</td>
+					</tr>
+					<tr>
+						<th>주소</th>
+						<td>
+							<input type="text" name="memberAddr" id="addr" th:value="${session.member.memberAddr}">
+						</td>
+					</tr>
+				</tr>
+			</table>
 			<h1 style="display: inline-block">총 금액 :</h1>
 			<h1 style="display: inline-block" th:text="${totalPrice}" id="pay"></h1>
 			<h1 style="display: inline-block">원</h1>
@@ -76,6 +105,9 @@
 			const date = new Date();
 			const dateString = date.getFullYear()+""+(date.getMonth()+1)+""+date.getDate()+""+date.getHours()+""+date.getMinutes()+""+date.getSeconds();
 			
+			const addr = $("#addr").val();
+			const name = $("#name").val();
+			
 			IMP.init("imp04222210");
 			
 			IMP.request_pay(
@@ -98,7 +130,7 @@
 							  $.ajax({
 								  url : "/cart/success",
 								  type:"post",
-								  data:{cartNoStr: cartNoStr, price: 100},
+								  data:{cartNoStr: cartNoStr, price: 100, name : name, addr : addr},
 								  success : function(data){
 									  console.log(data);
 								  },

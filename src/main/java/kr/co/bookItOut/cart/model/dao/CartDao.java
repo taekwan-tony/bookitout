@@ -85,9 +85,9 @@ public class CartDao {
 
 	}
 
-	public int success1(int price, Member member) {//구매 디비 생성(구매번호(seq), 총 금액, 구매날짜, 회원번호)
-		String query = "insert into pay values (PAY_SEQ.NEXTVAL,'KG',?,to_char(sysdate,'yyyy-mm-dd'),?)";
-		Object[] params = {member.getMemberNo(), price};
+	public int success1(int price, Member member, String addr,String name) {//구매 디비 생성(구매번호(seq), 총 금액, 구매날짜, 회원번호)
+		String query = "insert into pay values (PAY_SEQ.NEXTVAL,'KG',?,to_char(sysdate,'yyyy-mm-dd'),?,?,?)";
+		Object[] params = {member.getMemberNo(), price, addr, name};
 		int result = jdbc.update(query, params);
 		return result;
 		
