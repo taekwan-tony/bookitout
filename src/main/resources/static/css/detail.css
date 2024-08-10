@@ -345,19 +345,19 @@ select{
 .posting-comment > li{
     box-sizing: border-box;
 }
-.posting-comment > li:first-child{
-    width: 15%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100px;
-    /* border-right: 1px solid var(--gray3); */
-}
 .posting-comment > li:last-child{
     display: flex;
     flex-direction: column;
     /* width: 85%; */
     width: 100%;
+}
+.posting-comment > li:first-child{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+    /* border-right: 1px solid var(--gray3); */
 }
 .comment-info{
     width: 100%;
@@ -401,10 +401,10 @@ select{
 }
 .buyer{
     padding: 3px 10px !important;
-    background-color: var(--white);
-    border: 1px solid var(--gray1);
-    border-radius: 25px;
-    color: var(--gray1);
+    /* background-color: var(--white)!important; */
+    border: 1px solid var(--gray1)!important;
+    border-radius: 25px !important;
+    /* color: var(--gray1)!important; */
 }
 .likeCount{
     margin-right: 12px;

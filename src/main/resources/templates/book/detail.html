@@ -139,7 +139,7 @@
                 </div>
                 <!-- 댓글 출력 시작 -->
                 <div class="commentBox">
-                    <th:block th:each="bc : ${book2.commentList}">
+                    <th:block th:each="bc : ${bb.commentList}">
                         <ul class="posting-comment">
                             <!-- <li>
                                 <span class="user-icon">
@@ -160,7 +160,9 @@
                                                 <span><a href="javascript:void(0)" th:onclick="modifyComment(this, [[${bc.bookCommentNo}]], [[${book.bookNo}]]);">수정</a></span>
                                                 <span><a href="javascript:void(0)" th:onclick="deleteComment(this, [[${bc.bookCommentNo}]], [[${book.bookNo}]]);">삭제</a></span>
                                             </th:block>
-                                            <span><a class="recShow" href="javascript:void(0)">답글달기</a></span>
+                                            <span>
+                                                <a class="recShow" href="javascript:void(0)">답글달기</a>
+                                            </span>
                                         </span>
                                     </span>
                                 </div>
@@ -171,19 +173,21 @@
                                 <p class="comment-link">
                                     <th:block th:if="${session.member != null}">
                                         <span class="like-box">
-                                            <span class="heart-icon" th:onclick="likePush(this, [[${bc.bookCommentNo}]]);"><i class="fa-solid fa-heart"></i></span>
-                                            <span class="heart-icon" th:onclick="likePush(this, [[${bc.bookCommentNo}]]);"><i class="fa-regular fa-heart"></i></span>
-                                            <span th:if="${bc.isLike == 1}" class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);">
+                                        	<!-- 
+                                            <span th:if="${bc.isLike == 1}" class="heart-icon" th:onclick="likePush(this, [[${bc.bookCommentNo}]]);">
                                                 <i class="fa-regular fa-thumbs-up"></i>
                                             </span>
-                                            <!-- <span th:if="${nc.isLike == 0}" class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);">
-                                                <i class="fa-regular fa-thumbs-down"></i>
-                                            </span> -->
-                                            <span class="likeCount" th:text="${nc.likeCount}">0</span>
+                                            <span th:if="${bc.isLike == 0}" class="heart-icon" th:onclick="likePush(this, [[${bc.bookCommentNo}]]);">
+                                                <i class="fa-regular fa-thumbs-up"></i>
+                                            </span>
+                                            -->
+											<span th:if="${bc.isLike == 1}" class="material-icons heart-icon" th:onclick="likePush(this, [[${bc.bookCommentNo}]]);">thumb_up_alt</span>
+											<span th:if="${bc.isLike == 0}" class="material-icons heart-icon" th:onclick="likePush(this, [[${bc.bookCommentNo}]]);">thumb_up_off_alt</span>
+                                            <span class="likeCount" th:text="${bc.likeCount}">0</span>
                                             <span>
                                                 <i class="fa-solid fa-comment-dots"></i>답글
                                             </span>
-                                            <span class="commentReCount">0</span>
+                                            <span class="commentReCount"></span>
                                         </span>
                                     </th:block>
                                 </p>
@@ -220,7 +224,45 @@
     </main>
 
 	<script>
-		
+		function likePush(obj, bookCommentNo){
+			// 현재 상태를 구분 -> 지금 클릭한 행동이 좋아요를 누른건지/좋아요 취소를 누른건지 구분
+			const currentText = $(obj).text();
+			// thumb_up_off_alt   thumb_up_alt
+			const isLike = (currentText == "thumb_up_off_alt")?0:1;
+			console.log(isLike);
+			$.ajax({
+				url : "/book/likePush",
+				type : "post",
+				data : {bookCommentNo : bookCommentNo, isLike : isLike},
+				success : function(data){
+					if(data == -10){
+						swal({
+							title : "로그인 필요",
+							text : "로그인 후 이용해주세요.",
+							icon : "info"
+						});
+					}else if(data == -1){
+						swal({
+							title : "데이터 처리 오류",
+							text : "잠시 후 다시 시도해주세요.",
+							icon : "warning"
+						});
+					}else{
+						// 아이콘 변경
+						if(isLike == 0){
+							$(obj).text("thumb_up_alt");
+						}else{
+							$(obj).text("thumb_up_off_alt");
+						}
+						// 현재 좋아요 갯수 변경
+						$(obj).nextAll().last().text(data);
+					}
+				},
+				error : function(){
+					console.log(error);
+				}
+			});
+		}
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
