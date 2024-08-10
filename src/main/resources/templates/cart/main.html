@@ -56,7 +56,7 @@
 				</tr>
 
 
-				<tr th:each="c,status : ${list}"  data-cart-no="${c.cartNo}" id="tr">
+				<tr th:each="c,status : ${list}" id="tr">
 					<td><input type="checkbox" class="chk" id="chk" onclick="clickChk();"></td>
 
 
@@ -73,9 +73,9 @@
 
 					<td>
 						<span>
-							<button onclick="minus(this, event);">-</button>
+							<button onclick="minus(this);">-</button>
 							<input type="text" class="count" th:value="${c.bookCartCount}" style="width: 20px; text-align: center;" readonly>
-							<button onclick="plus(this, event);">+</button>
+							<button onclick="plus(this);">+</button>
 						</span>
 					</td>
 
@@ -157,7 +157,7 @@
 			
 		}
 
-		function minus(event, button) {
+		function minus(button) {
 			event.preventDefault(); // 이벤트가 발생했을 때 기본 동작을 막음(폼 제출, 링크 클릭, 버튼 클릭 등 브라우저의 기본 동작을 방지)
 			const input = button.parentElement.querySelector(".count");
 			const currentCount = input.value;//value속성으로 읽어오면 문자열타입
@@ -170,7 +170,7 @@
 			}
 		}
 
-		function plus(event, button) {
+		function plus(button) {
 			event.preventDefault(); // 폼 제출 방지
 			const input = button.parentElement.querySelector(".count");
 
