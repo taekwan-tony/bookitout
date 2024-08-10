@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -30,8 +31,7 @@ import kr.co.bookItOut.cart.model.dto.Cart;
 import kr.co.bookItOut.cart.model.service.CartService;
 import kr.co.bookItOut.member.model.dto.Member;
 import kr.co.bookItOut.member.model.service.MemberService;
-
-
+import kr.co.bookItOut.pay.model.dto.Pay;
 import kr.co.bookItOut.util.FileUtils;
 
 
@@ -64,7 +64,23 @@ public class CartController {
 		
 		return "cart/paySuccess";
 	}
-	
+	@GetMapping("/selectPayNames")
+    @ResponseBody
+    public List selectPayNames(@RequestParam("payNo") int payNo) {
+        System.out.println("테스트");
+        System.out.println("받은 payNo 값: " + payNo);
+        
+        // payNo에 해당하는 상품명을 조회
+        List list = cartService.selectPayNames(payNo);
+        List bookName = new ArrayList<String>();
+        
+        for(int i=0; i<list.size(); i++) {
+        	bookName.add(((Pay)(list.get(i))).getBookName());
+        }
+        
+        System.out.println(bookName);
+        return bookName;  // JSON 형태로 반환됨
+    }
 	
 	@ResponseBody
 	@GetMapping(value="/addCart")

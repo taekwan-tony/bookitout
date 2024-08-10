@@ -12,6 +12,9 @@ import kr.co.bookItOut.cart.model.dto.CartRowMapper;
 import kr.co.bookItOut.cart.model.dto.CartSelPayRowMapper;
 import kr.co.bookItOut.cart.model.dto.CartSelRowMapper;
 import kr.co.bookItOut.member.model.dto.Member;
+import kr.co.bookItOut.pay.model.dto.Pay;
+import kr.co.bookItOut.pay.model.dto.PayRowMapper2;
+import kr.co.bookItOut.pay.model.dto.PayRowMapper3;
 
 @Repository
 public class CartDao {
@@ -26,6 +29,9 @@ public class CartDao {
 
 	@Autowired
 	private CartSelPayRowMapper cartSelPayRowMapper;
+	
+	@Autowired
+	private PayRowMapper3 payRowMapper3;
 
 	public int insertCart(int bookNo, int memberNo) {
 		String query = "insert into cart_tbl values (CART_SEQ.nextval,?,1,?)";
@@ -127,6 +133,13 @@ public class CartDao {
 		Object[] params = {bookCartCount, c.getCartNo()};
 		int result = jdbc.update(query, params);
 		return result;
+	}
+
+	public List selectPayNames(int payNo) {
+		String query = "SELECT b.book_name FROM pay_menu pm JOIN book b ON pm.book_no = b.book_no WHERE pm.pay_no = ?";
+		Object[] params = {payNo};
+		List list = jdbc.query(query, payRowMapper3, params);
+		return list;
 	}
 
 }

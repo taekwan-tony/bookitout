@@ -1,5 +1,6 @@
 package kr.co.bookItOut.member.controller;
 
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServlet;
@@ -45,7 +47,12 @@ public class MemberController {
 	}
 
 	@GetMapping(value = "/myOrder")
-	private String myOrder() {
+	private String myOrder(@SessionAttribute(required=false) Member member, Model model) {
+		int memberNo = member.getMemberNo();
+		List list = memberService.selectAllPay(memberNo);
+		
+		model.addAttribute("list", list);
+		
 		return "myPage/myOrder";
 	}
 
@@ -207,5 +214,11 @@ public class MemberController {
 			System.out.println("수정 실패");
 			return "redirect:/";
 		}
+	}
+	
+	@GetMapping(value = "/details")
+	public String details(int payNo) {
+		
+		return "member/searchPwFrm";
 	}
 }

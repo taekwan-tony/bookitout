@@ -13,6 +13,7 @@ import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.cart.model.dao.CartDao;
 import kr.co.bookItOut.cart.model.dto.Cart;
 import kr.co.bookItOut.member.model.dto.Member;
+import kr.co.bookItOut.pay.model.dto.Pay;
 
 @Service
 public class CartService {
@@ -130,6 +131,10 @@ public class CartService {
 			list.add(c);
 		}
 		
+		return list;
+	}
+	public List selectPayNames(int payNo) {
+		List list = cartDao.selectPayNames(payNo);
 		return list;
 	}
 	
