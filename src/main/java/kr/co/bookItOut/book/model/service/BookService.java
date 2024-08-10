@@ -97,9 +97,7 @@ public class BookService {
 			}
 		}
 		
-		
-		
-		
+		//
 				
 		int totalCount = bookDao.selectBookTotalCount();
 		int totalPage = 0;
@@ -115,7 +113,18 @@ public class BookService {
 		String pageNavi = "<div class='inner'><ul>";
 		if(pageNo !=1) {
 			pageNavi += "<li>";
+			
 			pageNavi += "<a class='page-item' href='book/list?reqPage=" + (pageNo - 1) +"&type= "+type+" &genre= "+genre+"'>";
+			
+			/*
+			if(genre==1) {
+				
+				pageNavi += "<a class='page-item' href='book/list?reqPage=" + (pageNo - 1) +"&type= "+type+" &genre= "+genre+"'>";
+			}else if(genre==5) {
+				pageNavi += "<a class='page-item' href='book/listFore?reqPage=" +(pageNo-1)+"&type="+type+"&genre="+genre+"'>";
+			}
+			*/
+			
 			pageNavi += "<span class='material-icons'>chevron_left</span>";
 			pageNavi += "</a></li>";			
 		}
@@ -123,9 +132,15 @@ public class BookService {
 		for(int i = 0; i< pageNaviSize; i++) {
 			pageNavi += "<li>";
 			if(pageNo == reqPage) {
-				pageNavi += "<a class='page-item active-page' href='/book/list?reqPage=" + pageNo + "&type="+type+"&genre= "+genre+"'>"; 
+				
+					pageNavi += "<a class='page-item active-page' href='/book/list?reqPage=" + pageNo + "&type="+type+"&genre= "+genre+"'>";
+				
+				 
 			} else {
-				pageNavi += "<a class='page-item' href='/book/list?reqPage=" +pageNo + "&type="+type+"&genre= "+genre+"'>";
+				
+					pageNavi += "<a class='page-item' href='/book/list?reqPage=" +pageNo + "&type="+type+"&genre= "+genre+"'>";
+				
+				
 			}
 			pageNavi += pageNo;
 			pageNavi += "</a></li>";
@@ -138,7 +153,123 @@ public class BookService {
 		
 		if(pageNo <= totalPage) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/book/list?reqPage=" + pageNo + "&type="+type+"&genre= "+genre+"'>";
+			
+				pageNavi += "<a class='page-item' href='/book/list?reqPage=" + pageNo + "&type="+type+"&genre= "+genre+"'>";
+			
+			
+			pageNavi += "<span class='material-icons'>chevron_right</span>";
+			pageNavi += "</a></li>";
+		}
+		pageNavi += "</ul></div>";
+		
+		BookListData bld = new BookListData(list, pageNavi);		
+		
+		return bld;
+	}
+
+	public BookListData selectBookListFore(int reqPage, int type, int genre) {
+		int numPerPage = 5;
+		int end = reqPage * numPerPage;
+		int start = end - numPerPage +1;
+		
+		List list = new ArrayList<List>();
+		if(genre==5) {
+			if(type==1) {
+				list = bookDao.selectGenreFiveBookNoList(start, end);
+			}else if (type==2) {
+				list = bookDao.selectGenreFiveBookNameList(start, end);
+			}else if (type==3) {
+				list = bookDao.selectGenreFivePublicationDateList(start, end);
+			}else if (type==4) {
+				list = bookDao.selectGenreFiveEnrollDateList(start, end);
+			}else if (type==5) {
+				list = bookDao.selectGenreFiveBookPriceList(start, end);
+			}else if (type==6) {
+				list = bookDao.selectGenreFiveBookPriceDescList(start, end);
+			}
+		}   else if (genre==2) {
+			if(type==1) {
+				list = bookDao.selectGenreFiveTwoBookNoList(start, end);
+			}else if (type==2) {
+				list = bookDao.selectGenreFiveTwoBookNameList(start, end);
+			}else if (type==3) {
+				list = bookDao.selectGenreFiveTwoPublicationDateList(start, end);
+			}else if (type==4) {
+				list = bookDao.selectGenreFiveTwoEnrollDateList(start, end);
+			}else if (type==5) {
+				list = bookDao.selectGenreFiveTwoBookPriceList(start, end);
+			}else if (type==6) {
+				list = bookDao.selectGenreFiveTwoBookPriceDescList(start, end);
+			}
+		}else if (genre==3) {
+			if(type==1) {
+				list = bookDao.selectGenreFiveThreeBookNoList(start, end);
+			}else if (type==2) {
+				list = bookDao.selectGenreFiveThreeBookNameList(start, end);
+			}else if (type==3) {
+				list = bookDao.selectGenreFiveThreePublicationDateList(start, end);
+			}else if (type==4) {
+				list = bookDao.selectGenreFiveThreeEnrollDateList(start, end);
+			}else if (type==5) {
+				list = bookDao.selectGenreFiveThreeBookPriceList(start, end);
+			}else if (type==6) {
+				list = bookDao.selectGenreFiveThreeBookPriceDescList(start, end);
+			}
+		}else if(genre==4) {
+			if(type==1) {
+				list = bookDao.selectGenreFiveFourBookNoList(start, end);
+			}else if (type==2) {
+				list = bookDao.selectGenreFiveFourBookNameList(start, end);
+			}else if (type==3) {
+				list = bookDao.selectGenreFiveFourPublicationDateList(start, end);
+			}else if (type==4) {
+				list = bookDao.selectGenreFiveFourEnrollDateList(start, end);
+			}else if (type==5) {
+				list = bookDao.selectGenreFiveFourBookPriceList(start, end);
+			}else if (type==6) {
+				list = bookDao.selectGenreFiveFourBookPriceDescList(start, end);
+			}
+		}
+		
+		int totalCount = bookDao.selectBookTotalCount();
+		int totalPage =0;
+		if(totalCount % numPerPage ==0) {
+			totalPage = totalCount / numPerPage;
+			
+		}else {
+			totalPage = totalCount / numPerPage +1;			
+		}
+		
+		int pageNaviSize=10;
+		int pageNo = ((reqPage -1)/ pageNaviSize) * pageNaviSize +1;
+		String pageNavi = "<div class='inner'><ul>";
+		if(pageNo !=1) {
+			pageNavi += "<li>";			
+			pageNavi += "<a class='page-item' href='book/listFore?reqPage=" + (pageNo - 1) +"&type= "+type+" &genre= "+genre+"'>";						
+			pageNavi += "<span class='material-icons'>chevron_left</span>";
+			pageNavi += "</a></li>";			
+		}
+		
+		for(int i = 0; i< pageNaviSize; i++) {
+			pageNavi += "<li>";
+			if(pageNo == reqPage) {			
+				pageNavi += "<a class='page-item active-page' href='/book/listFore?reqPage=" + pageNo + "&type="+type+"&genre= "+genre+"'>";			
+			} else {
+					pageNavi += "<a class='page-item' href='/book/listFore?reqPage=" +pageNo + "&type="+type+"&genre= "+genre+"'>";			
+			}
+			pageNavi += pageNo;
+			pageNavi += "</a></li>";
+			pageNo++;
+			
+			if(pageNo > totalPage) {
+				break;
+			}			
+		}
+		
+		if(pageNo <= totalPage) {
+			pageNavi += "<li>";			
+				pageNavi += "<a class='page-item' href='/book/listFore?reqPage=" + pageNo + "&type="+type+"&genre= "+genre+"'>";	
+			
 			pageNavi += "<span class='material-icons'>chevron_right</span>";
 			pageNavi += "</a></li>";
 		}
@@ -155,3 +286,12 @@ public class BookService {
 	}
 
 }
+
+
+
+
+
+
+
+
+

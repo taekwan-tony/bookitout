@@ -82,7 +82,7 @@ public class BookController {
 		return "redirect:/book/detail?bookNo="+bc.getBookRef();
 	}
 
-	@GetMapping(value="list")
+	@GetMapping(value="/list")
 	public String list(Model model, int reqPage, int type, int genre) {
 		BookListData bld = bookService.selectBookList(reqPage, type, genre);
 		model.addAttribute("list", bld.getList());
@@ -91,7 +91,14 @@ public class BookController {
 		return "book/list";
 	}
 	
-	
+	@GetMapping(value="listFore")
+	public String listFore(Model model, int reqPage, int type, int genre) {
+		BookListData bld = bookService.selectBookListFore(reqPage, type, genre);
+		model.addAttribute("list", bld.getList());
+		model.addAttribute("pageNavi", bld.getPageNavi());
+		model.addAttribute("genre", genre);		
+		return "book/listFore";
+	}
 }
 
 
