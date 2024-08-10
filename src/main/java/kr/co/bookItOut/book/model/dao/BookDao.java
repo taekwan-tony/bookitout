@@ -27,9 +27,9 @@ public class BookDao {
 	@Autowired
 	private BookCommentRowMapper bookCommentRowMapper;
 
-	public Book selectOneBook(Book b) {
+	public Book selectOneBook(Book book) {
 		String query = "select * from book where book_no = ?";
-		Object[] params = {b.getBookNo()};
+		Object[] params = {book.getBookNo()};
 		List list = jdbc.query(query, bookRowMapper, params);
 		if(list.isEmpty()) {
 			return null;
@@ -48,7 +48,7 @@ public class BookDao {
 	}
 
 	public int insertComment(BookComment bc) {
-		String query = "insert into book_comment values(book_comment_seq.nextval, ?, ?, to_char(sysdate, 'yyyy-mm-dd'), ?, null)";
+		String query = "insert into book_comment values(book_comment_seq.nextval, ?, ?, to_char(sysdate, 'yyyy-mm-dd'), ?, ?)";
 		String bookCommentRef = bc.getBookCommentRef() == 0 ? null : String.valueOf(bc.getBookCommentRef());
 		Object[] params = {bc.getBookCommentWriter(), bc.getBookCommentContent(), bc.getBookRef(), bookCommentRef};
 		int result = jdbc.update(query, params);
@@ -426,7 +426,7 @@ public class BookDao {
 		return result;
 	}
 
-	public List<BookComment> selectCommentList(int bookNo, int memberNo) {
+	public List selectCommentList(int bookNo, int memberNo) {
 		String query = "SELECT BC.* ,\r\n" + 
 				"(SELECT COUNT(*) FROM BOOK_COMMENT_THUMB WHERE BOOK_COMMENT_NO = BC.BOOK_COMMENT_NO) AS LIKE_COUNT,\r\n" + 
 				"(SELECT COUNT(*) FROM BOOK_COMMENT_THUMB WHERE BOOK_COMMENT_NO = BC.BOOK_COMMENT_NO AND MEMBER_NO = ?) AS IS_LIKE\r\n" + 

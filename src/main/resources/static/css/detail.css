@@ -239,6 +239,9 @@ select{
 .inputCommentBox{
     margin: 50px 0;
 }
+.inputRecommentBox{
+	margin: 0 0 25px 0;
+}
 .inputCommentBox>form>ul{
     list-style: none;
     display: flex;
@@ -321,12 +324,14 @@ select{
     color: #ccc;
     transform: rotate(90deg);
 }
-/* .like-box{
+.like-box{
     display: flex;
     align-items: center;
-} */
+    justify-content: flex-end;
+}
 .like-box>span:first-child{
     margin-right: 3px;
+    color: var(--color2);
 }
 .like-box>span>i{
     color: var(--main4);
@@ -407,5 +412,10 @@ select{
     /* color: var(--gray1)!important; */
 }
 .likeCount{
+	margin-top: 4px;
     margin-right: 12px;
+    color: var(--color2);
+}
+.reComment-btn{
+	color: var(--gray1);
 }

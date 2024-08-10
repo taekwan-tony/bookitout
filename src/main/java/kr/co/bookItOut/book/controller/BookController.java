@@ -33,24 +33,24 @@ public class BookController {
 	private FileUtils fileUtils;
 	
 	@GetMapping(value="/detail")
-	public String detail(Book b, Model model, int bookNo, String check, @SessionAttribute(required = false) Member member) {
-		Book book = bookService.selectOneBook(b);
-		model.addAttribute("book", book);
+	public String detail(Book book, Model model, int bookNo, String check, @SessionAttribute(required = false) Member member) {
+		Book b = bookService.selectOneBook(book);
+		model.addAttribute("b", b);
 		
 		int memberNo = 0;
 		if(member != null) {
 			memberNo = member.getMemberNo();
 		}
-		Book bb = bookService.selectOneBook(bookNo, check, memberNo);
-		if(bb == null) {
+		Book bc = bookService.selectOneBook(bookNo, check, memberNo);
+		if(bc == null) {
 			model.addAttribute("title", "조회실패");
 			model.addAttribute("msg", "해당 페이지가 존재하지 않습니다.");
 			model.addAttribute("icon", "info");
 			model.addAttribute("loc", "/book/list?reqPage=1");
 			return "common/msg";
 		}else {
-			model.addAttribute("bb", bb);
-			System.out.println(bb);
+			model.addAttribute("bc", bc);
+			System.out.println(bc);
 			return "book/detail";
 		}
 	}
@@ -77,12 +77,12 @@ public class BookController {
 			model.addAttribute("icon", "warning");
 		}
 
-		System.out.println(bc.getBookCommentNo());
-		System.out.println(bc.getBookCommentWriter());
-		System.out.println(bc.getBookCommentContent());
-		System.out.println(bc.getBookCommentDate());
-		System.out.println(bc.getBookRef());
-		System.out.println(bc.getBookCommentRef());
+//		System.out.println(bc.getBookCommentNo());
+//		System.out.println(bc.getBookCommentWriter());
+//		System.out.println(bc.getBookCommentContent());
+//		System.out.println(bc.getBookCommentDate());
+//		System.out.println(bc.getBookRef());
+//		System.out.println(bc.getBookCommentRef());
 		model.addAttribute("loc", "/book/detail?check=1&bookNo="+bc.getBookRef());
 		return "common/msg";
 
