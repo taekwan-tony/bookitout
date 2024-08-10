@@ -38,6 +38,44 @@
 		font-weight: 700;
 		text-decoration: underline;
 	}
+	.customer-content-wrap{
+		width:100%;
+	}
+	.content-title-wrap{
+		min-height : 100px;
+		border-bottom : 1px solid var(--gray3);
+	}
+	.content-title-wrap>div{
+		margin-bottom : 20px;
+		
+	}
+	.content-notice-wrap>div:last-child{
+		min-height : 500px;
+		padding-top : 50px;
+		padding-left : 10px;
+		border-bottom : 1px solid var(--gray3);
+	}
+	.prev-next-wrap>table{
+		width: 100%;
+	}
+	.prev-next-wrap>table td{
+		text-align:center;
+		height: 80px;
+		border-bottom : 1px solid var(--gray2);
+	}
+	.reset-wrap{
+		display : flex;
+		justify-content : center;
+		padding : 50px;
+	}
+	.reset-wrap>button{
+		height : 50px;
+		width: 40%;
+		font-size : 24px;
+		font-family: Tenada;
+		
+	}
+	
 </style>
 </head>
 <body>
@@ -80,28 +118,58 @@
 					<h2>공지사항</h2>
 				</div>
 				<div class="write-btn">
-					<button type="button" class="btn-type3 btn"><a href="/FAQ/writeFaqFrm">글쓰기</a></button>
+					<button type="button" class="btn-type3 btn"><a th:href="@{/notice/updateFrm(noticeNo=${notice.noticeNo})}">수정</a></button>
+					<button type="button" class="btn-type3 btn"><a th:href="@{/notice/deleteNotice(noticeNo=${notice.noticeNo})}">삭제</a></button>
 				</div>
 				<div class="content-notice-wrap">
-					<table class="content-notice-table">
-						<tr>
-							<th style="width:15%;">NO</th>
-							<th style="width:60%;">공지제목</th>
-							<th style="width:25%;">날짜</th>
+					<div class="content-title-wrap">
+						<div>
+							<h2 th:text="${notice.noticeTitle}"></h2>
+						</div>
+						<div class="date-wrap">
+							<p th:text="@{'등록일 : '+${notice.writeDate}}"></p>
+						</div>
+						<div class="read-wrap">
+							<span th:text="@{'조회수 : '+${notice.readCount}}"></span>
+						</div>
+					</div>
+					<div>
+						<div th:utext="${notice.noticeContent}"></div>
+					</div>
+				</div>
+				<div class="prev-next-wrap">
+					<table>
+						<tr th:if="${noticeData.prevno} != 0">
+							<td style="width:20%;">
+								<span>이전글</span>
+								<span class="material-icons">expand_less</span>
+							</td>
+							<td style="width:80%;">
+								<span>
+									<a th:href="@{/notice/noticeDetail(noticeNo=${noticeData.prevno})}" th:text="${noticeData.prevSubject}"></a>
+								</span>
+							</td>
 						</tr>
-						<tr>
-							<td style="width:15%;" th:text="${notice.noticeNo}"></td>
-							<td style="width:60%;"><a th:href="@{/notice/noticeDetail(${notice.noticeNo})}" th:text="${notice.noticeTitle}"></a></td>
-							<td style="width:25%;" th:text="${notice.writeDate}"></td>
+						<tr th:if="${noticeData.nextno} != 0">
+							<td style="width:20%;">
+								<span>다음글</span>
+								<span class="material-icons">keyboard_arrow_down</span>
+							</td>
+							<td style="width:80%;">
+								<span >
+									<a th:href="@{/notice/noticeDetail(noticeNo=${noticeData.nextno})}" th:text="${noticeData.nextSubject}"></a>
+								</span>
+							</td>
 						</tr>
 					</table>
 				</div>
-				<div class="page-wrap">
+				<div class="reset-wrap">
+					<button type="button" class="btn-type2 btn"><a href="/notice/noticeFrm?reqPage=1">공지사항 목록</a></button>
 				</div>
 			</div>
 		</div>
 	</main>
 	<th:block th:include="common/footer"></th:block>
-	
 </body>
+
 </html>

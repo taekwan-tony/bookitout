@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Notice {
+public class NoticeData {
 	private int noticeNo;
-	private String noticeTitle;
-	private String writeDate;
-	private String noticeContent;
-	private int readCount;
-	private NoticeData noticeData;
+	private int prevno;
+	private String prevSubject;
+	private int nextno;
+	private String nextSubject;
+	
 }

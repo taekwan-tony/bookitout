@@ -112,7 +112,7 @@
                     <div class="page-title">
                         <h1>책 관리</h1><span>(리스트)</span>
                     </div>
-                    <form action="admin/bookList" method="post" enctype="multipart/form-data">
+                    <form action="/admin/bookListFrm" method="post">
                     <table class="bookTbl">
                         <thead>
                             <tr>
@@ -161,7 +161,6 @@
 	  											<option value="국내도서">국내도서</option>
 	  											<option selected value="해외도서">해외도서</option>
 	  										</select>
-	  			 							
 	  			 						</div>
 	  			 					</div>
               					</td>
@@ -186,26 +185,21 @@
 	  			 							</div>
 	  			 					</div>
               					</td>
-              					<td>
-              						<input type="text" name="bookName" th:value=${book.bookName} />
-              					</td>
-             					<td>
-             						<input type="text" name="bookWriter" th:value=${book.bookWriter} />
-             					</td>
-              					<td>
-              						<input type="text" name="bookPublisher" th:value=${book.bookPublisher} />
-              					</td>
+              					<td th:text=${book.bookName}></td>
+             					<td th:text=${book.bookWriter}></td>
+              					<td th:text=${book.bookPublisher}></td>
 	              				<td th:text="${book.publicationDate}"></td>
 	              				<td th:text="${book.enrollDate}"></td>
-              					
-              					<td th:text="${book.bookPrice}"></td>
-              					
+              					<td>
+              						<input type="text" name="bookPrice" th:value=${book.bookPrice}>
+              					</td>
               					<td>
 	              					<button class="btn-type2 btn">발주창</button>
               					</td>
               					<td>
-	              					<button type="submit" class="btn-type2 btn updateBook" >수정</button>
-	              					<button type="button" class="btn-type2 btn">상세</button>
+	              					<button type="button" class="btn-type2 btn updateBook" id="updateBook" th:onclick="updateBook1(this, [[${book.bookNo}]]);">수정</button>
+	              					<!-- <a href="/admin/updateDetail" class="btn-type2 btn">상세</a> 이런식으로 넣어줘도 됨 -->
+	              					<button type="button" class="btn-type2 btn updateDetail" id="updateDetail" th:onclick="updateDetail1(this, [[${book.bookNo}]]);">상세</button>
               					</td>
               					<td>
               						<button type="button"  class="btn-type2 btn" th:onclick="bookDelete([[${book.bookNo}]]);">삭제</button>
@@ -279,12 +273,41 @@
   			}
   		});
   	}
-    //수정하기 위해 어드민넘 가져오는중
-    $(".updateBook").on("click",function(){
-    const bookNo = $(this).parent().parent().children().eq(1).text();
     
-    location.href="admin/updateBook?bookNo="+bookNo;
-    });
+    //바뀐 update 부분
+    function updateBook1(obj, bookNo) {
+      const bookType = $(obj).parent().parent().children().eq(2).children().children().children().val()
+    	 const bookGenre =  $(obj).parent().parent().children().eq(3).children().children().children().val()
+    	 const bookPrice =  $(obj).parent().parent().children().eq(9).children().val()
+
+        location.href="/admin/updateBook?bookNo="+bookNo+"&bookType="+bookType+"&bookGenre="+bookGenre+"&bookPrice="+bookPrice;
+    }
+    
+    //수정하기 위해 어드민넘 가져오는중(이런식으로 주면 맨 위 하나만 작동함 obj사용해야함)--------------------------------------
+  //  $("#updateBook").on("click",function(){
+  //  const bookNo = $(this).parent().parent().children().eq(1).text();
+  //  const bookType = $(this).parent().parent().children().eq(2).children().children().children().val()
+  //  const bookGenre = $(this).parent().parent().children().eq(3).children().children().children().val()
+  //  const bookPrice = $(this).parent().parent().children().eq(9).children().val()
+  //  console.log(1);
+    
+  //  location.href="/admin/updateBook?bookNo="+bookNo+"&bookType="+bookType+"&bookGenre="+bookGenre+"&bookPrice="+bookPrice;
+  //  });
+    
+    // 상세 수정
+    function updateDetail1(obj, bookNo){
+    	
+    	location.href="/admin/updateDetailFrm?bookNo="+bookNo;
+    }
+    
+   // $("#updateDetail").on("click",function(){
+   // 	const bookNo = $(this).parent().parent().children().eq(1).text();
+   // 	location.href="/admin/updateDetail?bookNo="+bookNo;	
+   // })
+  
+     
+    
+    
     </script>
 </body>
 </html>

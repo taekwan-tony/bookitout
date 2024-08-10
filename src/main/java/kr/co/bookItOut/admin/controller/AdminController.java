@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,7 @@ import kr.co.bookItOut.admin.model.service.AdminService;
 import kr.co.bookItOut.book.model.dto.AdminBook;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookListData;
-
+import kr.co.bookItOut.book.model.service.BookService;
 import kr.co.bookItOut.member.model.dto.Member;
 import kr.co.bookItOut.util.EmailSender;
 
@@ -87,6 +88,8 @@ public class AdminController {
 	public String insertAdminFrm() {
 		return "admin/insertAdmin";
 	}
+	
+	
 	//판매점 비밀번호 찾기
 	@GetMapping(value = "/updatePwFrm")
 	public String updatePwFrm() {
@@ -147,14 +150,14 @@ public class AdminController {
 		if(book == null) {	model.addAttribute("title","삭제실패");
 		model.addAttribute("msg","존재하지 않는 게시물");
 		model.addAttribute("icon","error");
-		model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
+		model.addAttribute("loc","/admin/bookListFrm?rePage=1");
 		return "common/msg";
 			
 		}else {
 			model.addAttribute("title","삭제 성공!");
 			model.addAttribute("msg","게시글이 삭제되었습니다");
 			model.addAttribute("icon","success");
-			model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
+			model.addAttribute("loc","/admin/bookListFrm?rePage=1");
 		
 		}
 		return "common/msg";
@@ -162,29 +165,73 @@ public class AdminController {
 		
 	}
 	//책 수정 //장르 타입 책이름 저자 출판사 판매가격
-	@GetMapping(value = "/updateBook")
-	public String updateBook(int bookNo, Model model) {
-		AdminBook abook = adminService.updatebookList(bookNo);
+	
+	@GetMapping(value = "/updateBook",produces="plain/text;charset=utf-8")
+	public String updateBook(Book book, Model model) {
+		int result = adminService.updatebookList(book);
 		
-		if( abook== null) {	model.addAttribute("title","삭제실패");
-		model.addAttribute("msg","존재하지 않는 게시물");
-		model.addAttribute("icon","error");
-		model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
+		
+		if( result>0) {	model.addAttribute("title","수정성공");
+		model.addAttribute("msg","책 수정에 성공했습니다");
+		model.addAttribute("icon","success");
+		model.addAttribute("loc","/admin/bookListFrm?rePage=1");
 		return "common/msg";
-			
 		}else {
-			model.addAttribute("title","삭제 성공!");
-			model.addAttribute("msg","게시글이 삭제되었습니다");
-			model.addAttribute("icon","success");
-			model.addAttribute("loc","/admin/bookListFrm?reqPage=1");
-		
+			model.addAttribute("title","수정실패!");
+			model.addAttribute("msg","책 수정에 실패 했습니다");
+			model.addAttribute("icon","error");	
+			model.addAttribute("loc","/admin/bookListFrm?rePage=1");
 		}
 		return "common/msg";
 	}
-	
-	
-
-	
+	//상세 수정 (시작-- book번호 주고 그 번호에 맞는 정보들 화면에 보여주기) 
+	 @GetMapping("/updateDetailFrm")
+	    public String updateDetailPage(int bookNo , Model model) {
+		 Book book = adminService.selectOneBook(bookNo);
+		 
+		 book.getBookImg();
+		 book.getBookDetailImg();
+		 
+		 model.addAttribute("book",book);
+		 
+		 
+	        return "admin/updateDetail"; 
+	    }
+	 @PostMapping(value = "/updateDetail")
+		public String updateDetail(Book b,MultipartFile upfileImg,MultipartFile upfileDetailImg,Model model) {
+		 
+		 String savepath = root+"/notice/";
+		 String filePath = fileUtils.upload(savepath,upfileImg);
+		 String filePath1 = fileUtils.upload(savepath, upfileDetailImg);
+		 b.setBookNo(b.getBookNo());
+		 b.setBookImg(filePath);
+		 b.setBookDetailImg(filePath1);
+		 
+		 int result = adminService.updateDetailBook(b);
+		 
+		 if( result>0) {	model.addAttribute("title","수정성공");
+			model.addAttribute("msg","책 수정에 성공했습니다");
+			model.addAttribute("icon","success");
+			model.addAttribute("loc","/admin/bookListFrm?rePage=1");
+			return "common/msg";
+			}else {
+				model.addAttribute("title","수정실패!");
+				model.addAttribute("msg","책 수정에 실패 했습니다");
+				model.addAttribute("icon","error");	
+				model.addAttribute("loc","/admin/bookListFrm?rePage=1");
+			}
+			return "common/msg";
+			
+			
+		}
+	 
+	 
+	 
+//------------------------------------------------------------------------------------------------------------------------	 
+	 
+	 
+	 
+	 
 //1:1문의 관리자 처리 
 	@GetMapping(value="/questionAnswer")
 	public String questionAnswerList(int reqPage,Model model) {

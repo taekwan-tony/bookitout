@@ -17,9 +17,7 @@
 	}
 	.content-notice-table{
 		width:100%;
-		margin-top : 20px;
-		border-top : 1px solid black;
-		border-spacing : 0;
+		
 	}
 	.content-notice-wrap>.content-notice-table tr{
 		height : 80px;
@@ -40,10 +38,59 @@
 		font-weight: 700;
 		text-decoration: underline;
 	}
+	.customer-content-wrap{
+		width:100%;
+	}
+	.content-title-wrap{
+		min-height : 100px;
+		border-bottom : 1px solid var(--gray3);
+	}
+	.content-title-wrap>div{
+		margin-bottom : 20px;
+		
+	}
+	.write-notice-wrap{
+		width:100%;
+		display:flex;
+		justify-content:center;
+	}
+	.write-form>table{
+		width:700px;
+		
+	}
+	.notice-tbl{
+		margin-bottom : 15px;
+	}
+	.notice-tbl th{
+		text-align:center;
+		padding : 15px 0;
+	}
+	.notice-tbl td>input{
+		width:100%;
+		height:50px;
+    	padding: 5px;
+    	font-size:20px;
+    	border-radius:10px;
+    	align-items: center;
+    	box-sizing: border-box;
+	}
+	.select-width{
+		width:100%;
+		text-align:center;
+	}
+	.notice-tr>th>button{
+		width : 90%;
+		height : 50px;
+		font-size:24px;
+	}
+	
 </style>
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
+	<script src="/summernote/summernote-lite.js"></script>
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/summernote/summernote-lite.css">
 	<main class="content">
 		<div class="customer-main-wrap">
 			<div class="customer-list-wrap">
@@ -79,46 +126,43 @@
 			</div>
 			<div class="customer-content-wrap">
 				<div class="content-msg customer-main-msg">
-					<h2>공지사항</h2>
+					<h2>공지사항 작성</h2>
 				</div>
-				<div class="search-design-form">
-					<form action="/notice/searchNotice" method="get">
-						<input type="hidden" name="reqPage" value="1">
-						<th:block th:if="${keyword}==null">
-							<input type="text" name="keyword" placeholder="내용을 입력해주세요.">
-						</th:block>
-						<th:block th:if="${keyword}!=null">
-							<input type="text" name="keyword" th:value="${keyword}">
-						</th:block>
-						<button type="submit" class="btn-type2 btn" >검색</button>
-					</form>
-				</div>
-				<div class="write-btn">
-					<button type="button" class="btn-type3 btn"><a href="/notice/writeNoticeFrm">글쓰기</a></button>
-				</div>
-				<div class="content-notice-wrap">
-					<table class="content-notice-table">
-						<tr>
-							<th style="width:15%;">NO</th>
-							<th style="width:60%;">공지제목</th>
-							<th style="width:25%;">날짜</th>
-						</tr>
-						<th:block th:each="notice :${list}">
-							<tr>
-								<td style="width:15%;" th:text="${notice.noticeNo}"></td>
-								<td style="width:60%;" ><a th:href="@{/notice/noticeDetail(noticeNo=${notice.noticeNo})}" th:text="${notice.noticeTitle}"></a></td>
-								<td style="width:25%;" th:text="${notice.writeDate}"></td>
+				<div class="write-notice-wrap">
+					<form action="/notice/updateNotice"  method="post" class="write-form">
+						<table class="notice-tbl tbl">
+							<tr class="notice-tr">
+								<th>공지사항 제목 : </th>
+								<td><input type="text" name="noticeTitle" id="noticeTitle" th:value="${notice.noticeTitle}"></td>
 							</tr>
-						</th:block>
-					</table>
-				</div>
-				<div class="page-wrap">
-					<th:block th:utext="${pageNavi}"></th:block>
+							
+							<tr class="notice-tr">
+								<td colspan="2"><textarea name="noticeContent" id="noticeContent" th:utext="${notice.noticeContent}" ></textarea></td>
+								<input type="hidden" name="noticeNo" th:value="${notice.noticeNo}">
+							</tr>
+							<tr class="notice-tr">
+								<th colspan="2">
+									<button type="button" class="btn-type2 btn" onclick="location.href='/notice/noticeFrm?reqPage=1'">취소</button>
+									<button type="submit" class="btn-type3 btn">수정</button>
+								</th>	
+							</tr>
+						</table>
+					</form>
 				</div>
 			</div>
 		</div>
 	</main>
+	<script>
+		$("#noticeContent").summernote({
+			height : 500,
+			weight : 800,
+			lang : "ko-KR",
+			disableResize : true,
+			disableResizeEditor : true,
+			resize : false
+		});
+	</script>
 	<th:block th:include="common/footer"></th:block>
-	
 </body>
+
 </html>

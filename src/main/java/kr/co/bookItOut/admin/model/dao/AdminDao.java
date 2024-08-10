@@ -78,6 +78,7 @@ public class AdminDao {
 		int result = jdbc.update(qurey,params);
 		return result;
 	}
+	//-삭제
 	public int deleteBook(int bookNo) {
 		String query = "delete from (select * from book left join center_inventory on (book_no = book_no2) where book_no=?";
 		Object[] params = {bookNo};
@@ -87,19 +88,50 @@ public class AdminDao {
 	public Book selectAdminFile(int bookNo) {
 		String query = "select * from book where book_no=?";
 		Object[] params= {bookNo};
-		List list = jdbc.query(query,adminBookRowMapper,params);
+		List list = jdbc.query(query,bookRowMapper,params);
 		return (Book)list.get(0);
 	}
-	public AdminBook selectAdminbook(int bookNo) {
+	//수정
+	public Book selectbook(Book book) {
 		String query = "select * from book where book_no=?";
-		Object[] params = {bookNo};
+		Object[] params = {book.getAdminNo()};
 		List list = jdbc.query(query,bookRowMapper,params);
-		return (AdminBook)list.get(0);
+		return (Book)list.get(0);
 	}
-	//장르 타입 책이름 저자 출판사 
-	public int updateBook(int bookNo) {
-//	String query = "update book set "
-		return 0;
+	//수정 장르 타입 책이름 저자 출판사 
+	public int updateBook(Book book) {
+ 	String query = "update book set book_type=?,book_genre=?,book_price=? where book_no=?";
+ 	Object[] params = {book.getBookType(),book.getBookGenre(),book.getBookPrice(),book.getBookNo()};
+ 	int result = jdbc.update(query,params);
+		return result;
+	}
+	//--상세 수정 책 하나 정보 가져오기
+	public Book selectbook(int bookNo) {
+	String query = "select * from book where book_no=?";
+	Object[] params = {bookNo};
+	List list = jdbc.query(query,bookRowMapper,params);
+	
+		return (Book)list.get(0);
+	}
+	public int updateDetailBook(Book b) {
+		String query = "UPDATE book " + 
+				"SET book_type=?, " + 
+				"    book_genre=?, " + 
+				"    book_price=?, " + 
+				"    book_publisher=?, " + 
+				"    publication_date=?, " + 
+				"    book_img=?," + 
+				"    book_detail_content=?, " + 
+				"    book_detail_writer=?, " + 
+				"    book_detail_img=?, " + 
+				"    book_name=?, " + 
+				"    book_writer=?  " + 
+				"WHERE book_no=?";
+		Object[] params= {b.getBookType(),b.getBookGenre(),b.getBookPrice(),b.getBookPublisher(),b.getPublicationDate(),
+							b.getBookImg(),b.getBookDetailContent(),b.getBookDetailWriter(),b.getBookDetailImg(),b.getBookName(),
+								b.getBookWriter(),b.getBookNo()};
+		int result = jdbc.update(query,params);					
+		return result;
 	}
 	
 }
