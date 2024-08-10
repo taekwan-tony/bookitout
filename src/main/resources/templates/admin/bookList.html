@@ -112,7 +112,7 @@
                     <div class="page-title">
                         <h1>책 관리</h1><span>(리스트)</span>
                     </div>
-                    <form action="/admin/bookListFrm" method="post">
+                    <form action="/admin/bookListFrm" method="get">
                     <table class="bookTbl">
                         <thead>
                             <tr>
@@ -194,7 +194,8 @@
               						<input type="text" name="bookPrice" th:value=${book.bookPrice}>
               					</td>
               					<td>
-	              					<button class="btn-type2 btn">발주창</button>
+	              					<button type="submit" class="btn-type2 btn">발주창</button>
+	              					<input type="hidden" name="bookNo" th:value="${book.bookNo}">
               					</td>
               					<td>
 	              					<button type="button" class="btn-type2 btn updateBook" id="updateBook" th:onclick="updateBook1(this, [[${book.bookNo}]]);">수정</button>
@@ -283,28 +284,14 @@
         location.href="/admin/updateBook?bookNo="+bookNo+"&bookType="+bookType+"&bookGenre="+bookGenre+"&bookPrice="+bookPrice;
     }
     
-    //수정하기 위해 어드민넘 가져오는중(이런식으로 주면 맨 위 하나만 작동함 obj사용해야함)--------------------------------------
-  //  $("#updateBook").on("click",function(){
-  //  const bookNo = $(this).parent().parent().children().eq(1).text();
-  //  const bookType = $(this).parent().parent().children().eq(2).children().children().children().val()
-  //  const bookGenre = $(this).parent().parent().children().eq(3).children().children().children().val()
-  //  const bookPrice = $(this).parent().parent().children().eq(9).children().val()
-  //  console.log(1);
-    
-  //  location.href="/admin/updateBook?bookNo="+bookNo+"&bookType="+bookType+"&bookGenre="+bookGenre+"&bookPrice="+bookPrice;
-  //  });
-    
+ 
     // 상세 수정
     function updateDetail1(obj, bookNo){
     	
     	location.href="/admin/updateDetailFrm?bookNo="+bookNo;
     }
     
-   // $("#updateDetail").on("click",function(){
-   // 	const bookNo = $(this).parent().parent().children().eq(1).text();
-   // 	location.href="/admin/updateDetail?bookNo="+bookNo;	
-   // })
-  
+  //-발주창
      
     
     

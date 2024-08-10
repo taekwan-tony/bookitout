@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.co.bookItOut.admin.model.dto.Admin;
+import kr.co.bookItOut.admin.model.dto.AdminOrderBookRowMapper;
 import kr.co.bookItOut.admin.model.dto.AdminRowMapper;
 import kr.co.bookItOut.book.model.dto.AdminBook;
 import kr.co.bookItOut.book.model.dto.AdminBookRowMapper;
@@ -24,6 +25,8 @@ public class AdminDao {
 	private AdminRowMapper adminRowMapper;
 	@Autowired
 	private AdminBookRowMapper adminBookRowMapper;
+	@Autowired
+	private AdminOrderBookRowMapper adminOrderBookRowMapper;
 	//-판매자 리스트
 	public List selectAdminList(int start, int end) {
 		String query = "select * from(select rownum as rnum, n.*from (select * from admin_tbl order by 1 desc)n) where rnum between ? and ?";
@@ -53,10 +56,13 @@ public class AdminDao {
 	//-로그인 끝
 	
 	//-책 리스트
-	public List selectBookList(int start, int end) {
-		String query = "select * from(select rownum as rnum, n.*from (select * from (select * from book left join center_inventory on (book_no = book_no2)) order by 1 desc)n) where rnum between ? and ?";
-		Object[] params = {start,end};
-		List list = jdbc.query(query,adminBookRowMapper,params);
+	public List selectBookList(int start, int end, Book book, Admin admin) {
+		String query = "SELECT * FROM book " +
+                "JOIN center_inventory ON book.book_no = center_inventory.book_no2 " +
+                "JOIN admin_tbl ON center_inventory.admin_no = admin_tbl.admin_no " +
+                "WHERE admin_tbl.admin_no = ? AND book.book_no BETWEEN ? AND ? AND center_inventory.book_no2 = ?";
+		Object[] params = {start,end,admin.getAdminNo(),book.getBookNo()};
+		List list = jdbc.query(query,adminOrderBookRowMapper,params);
 		return list;
 	}
 	
@@ -133,5 +139,6 @@ public class AdminDao {
 		int result = jdbc.update(query,params);					
 		return result;
 	}
+	
 	
 }

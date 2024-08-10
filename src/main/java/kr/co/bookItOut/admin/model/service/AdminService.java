@@ -87,12 +87,15 @@ public class AdminService {
 	
 //---------book 서비스--------------------------------------------------------------------------------
 	
-public BookListData selectbookList(int rePage) {
+public BookListData selectbookList(int rePage,Book book, Admin admin) {
+	
 		
 		int numperPage=10;
 		int end = rePage*numperPage;
 		int start = end - numperPage+1;
-		List list = adminDao.selectBookList(start,end); 
+		List list = adminDao.selectBookList(start,end,book,admin); //관리자번호 가져와서/ 책번호
+		
+			
 		
 		int totalCount = adminDao.selectBookTotoalCount();
 		
@@ -191,6 +194,10 @@ public int updateDetailBook(Book b) {
 	
 	return 0;
 }
+
+
+
+
 
 
 
