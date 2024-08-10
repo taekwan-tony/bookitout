@@ -231,11 +231,15 @@
 			}
 
 			const name = new Array(); //책 이름 저장할 배열
-
+			const bookCountArray = new Array();
+			
 			checked.each(function(index, item) {
 				const bookName = $(item).parent().next().next().text();
+				const bookCount = $(item).closest('tr').find(".count").val();
+				
 				console.log(bookName);
 				name.push(bookName);
+				bookCountArray.push(bookCount);
 
 				console.log(bookName);
 			});
@@ -243,9 +247,9 @@
 			//console.log(name);
 			
 			//화면 >> 컨트롤러 데이터 전송(배열형태 X 문자열로만 가능)
-			location.href = "/cart/selPay?name=" + name.join("/")+"&totalPrice="+$("#finalPrice").text();
+			location.href = "/cart/selPay?name=" + name.join("/")+"&totalPrice="+$("#finalPrice").text()+"&bookCount="+bookCountArray.join("/");
 			//join = 자바스크립트에 있는 배열 데이터를 String 타입으로 리턴
-
+			
 			console.log(checked.length);
 		});
 		
