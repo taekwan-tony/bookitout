@@ -98,11 +98,39 @@ public class AdminDao {
 		List list = jdbc.query(query,bookRowMapper,params);
 		return (Book)list.get(0);
 	}
-	//장르 타입 책이름 저자 출판사 
+	//수정 장르 타입 책이름 저자 출판사 
 	public int updateBook(Book book) {
- 	String query = "update book set book_type=?,book_genre=?,book_name=?,book_writer=?,book_publisher=? where book_no=?";
- 	Object[] params = {book.getBookType(),book.getBookGenre(),book.getBookName(),book.getBookWriter(),book.getBookPublisher(),book.getBookNo()};
+ 	String query = "update book set book_type=?,book_genre=?,book_price=? where book_no=?";
+ 	Object[] params = {book.getBookType(),book.getBookGenre(),book.getBookPrice(),book.getBookNo()};
  	int result = jdbc.update(query,params);
+		return result;
+	}
+	//--상세 수정 책 하나 정보 가져오기
+	public Book selectbook(int bookNo) {
+	String query = "select * from book where book_no=?";
+	Object[] params = {bookNo};
+	List list = jdbc.query(query,bookRowMapper,params);
+	
+		return (Book)list.get(0);
+	}
+	public int updateDetailBook(Book b) {
+		String query = "UPDATE book " + 
+				"SET book_type=?, " + 
+				"    book_genre=?, " + 
+				"    book_price=?, " + 
+				"    book_publisher=?, " + 
+				"    publication_date=?, " + 
+				"    book_img=?," + 
+				"    book_detail_content=?, " + 
+				"    book_detail_writer=?, " + 
+				"    book_detail_img=?, " + 
+				"    book_name=?, " + 
+				"    book_writer=?  " + 
+				"WHERE book_no=?";
+		Object[] params= {b.getBookType(),b.getBookGenre(),b.getBookPrice(),b.getBookPublisher(),b.getPublicationDate(),
+							b.getBookImg(),b.getBookDetailContent(),b.getBookDetailWriter(),b.getBookDetailImg(),b.getBookName(),
+								b.getBookWriter(),b.getBookNo()};
+		int result = jdbc.update(query,params);					
 		return result;
 	}
 	

@@ -166,14 +166,30 @@ public Book deleteBook(int bookNo) {
 }
 //수정 --
 @Transactional
-public Book updatebookList(Book book) {
-	Book b = adminDao.selectbook(book);
+public int updatebookList(Book book) {
 	
-	int result =adminDao.updateBook(b);
+	int result =adminDao.updateBook(book);
 	if(result>0) {
-		return b;
+		return result;
 	}
-	return null;
+	return 0;
+}
+
+public Book selectOneBook(int bookNo) {
+	Book b = adminDao.selectbook(bookNo);
+	
+	
+	return b;
+}
+
+@Transactional
+public int updateDetailBook(Book b) {
+	int result = adminDao.updateDetailBook(b);
+	if(result>0){
+		return result;
+	}
+	
+	return 0;
 }
 
 
