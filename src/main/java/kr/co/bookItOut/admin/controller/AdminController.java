@@ -29,7 +29,7 @@ import kr.co.bookItOut.admin.model.service.AdminService;
 import kr.co.bookItOut.book.model.dto.AdminBook;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookListData;
-
+import kr.co.bookItOut.book.model.service.BookService;
 import kr.co.bookItOut.member.model.dto.Member;
 import kr.co.bookItOut.util.EmailSender;
 
@@ -88,6 +88,8 @@ public class AdminController {
 	public String insertAdminFrm() {
 		return "admin/insertAdmin";
 	}
+	
+	
 	//판매점 비밀번호 찾기
 	@GetMapping(value = "/updatePwFrm")
 	public String updatePwFrm() {
@@ -182,24 +184,8 @@ public class AdminController {
 		}
 		return "common/msg";
 	}
-//	@Transactional
-//	public String updateBook(int bookNo, Model model) {
-//	    // 책 정보를 가져옴
-//	    Book book = adminService.updatebookList(bookNo);
-//	    
-//	    if (book == null) {
-//	        // 책이 존재하지 않는 경우
-//	        model.addAttribute("title", "조회 실패");
-//	        model.addAttribute("msg", "존재하지 않는 책입니다.");
-//	        model.addAttribute("icon", "error");
-//	        model.addAttribute("loc", "/admin/bookListFrm?reqPage=1");
-//	        return "common/msg";
-//	    }
-//	    
-//	    // 책 정보가 존재하는 경우
-//	    model.addAttribute("book", book);
-//	    return "admin/updateBookFrm"; // 책 정보 수정 페이지로 이동
-//	}
+	
+
 	
 
 	

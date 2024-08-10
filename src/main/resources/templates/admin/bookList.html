@@ -278,12 +278,16 @@
   			}
   		});
   	}
-    //수정하기 위해 어드민넘 가져오는중
-    $("#updateBook").on("click",function(){
+     //수정하기 위해 어드민넘 가져오는중
+    $(".updateBook").on("click",function(){
     const bookNo = $(this).parent().parent().children().eq(1).text();
     console.log(1);
     location.href="admin/updateBook?bookNo="+bookNo;
     });
+  
+     
+    
+    
     </script>
 </body>
 </html>
