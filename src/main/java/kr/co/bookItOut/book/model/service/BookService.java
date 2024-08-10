@@ -16,9 +16,9 @@ public class BookService {
 	@Autowired
 	private BookDao bookDao;
 
-	public Book selectOneBook(Book b) {
-		Book book = bookDao.selectOneBook(b);
-		return book;
+	public Book selectOneBook(Book book) {
+		Book b = bookDao.selectOneBook(book);
+		return b;
 	}
 
 	public List selectAllCenterInventory(int bookNo) {
