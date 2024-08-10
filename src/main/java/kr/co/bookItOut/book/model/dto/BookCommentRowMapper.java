@@ -11,15 +11,17 @@ public class BookCommentRowMapper implements RowMapper<BookComment> {
 
 	@Override
 	public BookComment mapRow(ResultSet rs, int rowNum) throws SQLException {
-		BookComment content = new BookComment();
-		content.setBookCommentNo(rs.getInt("book_comment_no"));
-		content.setBookNo(rs.getInt("book_no"));
-		content.setBookCommentContent(rs.getString("book_comment_content"));
-		content.setBookCommentDate(rs.getNString("book_comment_date"));
-		content.setBookCommentWriter(rs.getString("book_comment_writer"));
-		content.setBookRef(rs.getInt("book_ref"));
+		BookComment bc = new BookComment();
+		bc.setBookCommentNo(rs.getInt("book_comment_no"));
+		bc.setBookCommentWriter(rs.getString("book_comment_writer"));
+		bc.setBookCommentContent(rs.getString("book_comment_content"));
+		bc.setBookCommentDate(rs.getNString("book_comment_date"));
+		bc.setBookRef(rs.getInt("book_ref"));
+		bc.setBookCommentRef(rs.getInt("book_comment_ref"));
+		bc.setLikeCount(rs.getInt("like_count"));
+		bc.setIsLike(rs.getInt("is_like"));
 		
-		return content;
+		return bc;
 	}
 
 }
