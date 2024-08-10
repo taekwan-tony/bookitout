@@ -27,10 +27,10 @@ public class BookService {
 		return centerList;
 	}
 
-//	public int insertComment(BookComment bc) {
-//		int result = bookDao.insertComment(bc);
-//		return result;
-//	}
+	public int insertComment(BookComment bc) {
+		int result = bookDao.insertComment(bc);
+		return result;
+	}
 
 	public BookListData selectBookList(int reqPage, int type, int genre) {
 		int numPerPage = 5;
@@ -147,6 +147,11 @@ public class BookService {
 		BookListData bld = new BookListData(list, pageNavi);		
 		
 		return bld;
+	}
+
+	public Book selectOneBook(int bookNo, String check, int memberNo) {
+		Book b = bookDao.selectOneBook(bookNo);
+		return b;
 	}
 
 }
