@@ -72,7 +72,7 @@ public class NoticeDao {
 	}
 
 	public int updateNotice(Notice n) {
-		String query = "update notice set notice_title=?,notice_content=? where notice_no=?";
+		String query = "update notice set notice_title=?,notice_content=?,read_count = read_count-1 where notice_no=?";
 		Object[] params = {n.getNoticeTitle(),n.getNoticeContent(),n.getNoticeNo()};
 		int result = jdbc.update(query,params);
 		System.out.println("DAO result : "+result);
