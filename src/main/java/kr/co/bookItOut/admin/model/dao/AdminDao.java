@@ -88,7 +88,7 @@ public class AdminDao {
 	public Book selectAdminFile(int bookNo) {
 		String query = "select * from book where book_no=?";
 		Object[] params= {bookNo};
-		List list = jdbc.query(query,adminBookRowMapper,params);
+		List list = jdbc.query(query,bookRowMapper,params);
 		return (Book)list.get(0);
 	}
 	//수정

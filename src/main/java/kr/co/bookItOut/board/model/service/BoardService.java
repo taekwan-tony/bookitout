@@ -2,6 +2,7 @@ package kr.co.bookItOut.board.model.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,8 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.bookItOut.board.model.dao.BoardDao;
 import kr.co.bookItOut.board.model.dto.Board;
 import kr.co.bookItOut.board.model.dto.BoardComment;
+import kr.co.bookItOut.board.model.dto.BoardCommentLike;
+import kr.co.bookItOut.board.model.dto.BoardCommentLikeCount;
+import kr.co.bookItOut.board.model.dto.BoardCommentMember;
 import kr.co.bookItOut.board.model.dto.BoardF‎ile;
 import kr.co.bookItOut.board.model.dto.BoardListData;
+import kr.co.bookItOut.member.model.dto.Member;
 
 @Service
 public class BoardService {
@@ -203,5 +208,29 @@ public class BoardService {
 		List list = boardDao.selectBoardFile(boardNo);
 		b.setFileList(list);
 		return b;
+	}
+	public List<BoardCommentMember> selectCommentWriterMemberList(int boardNo) {
+		List list=boardDao.selectCommentWriterMemberList(boardNo);
+		return list;
+	}
+	public List<Member> selectAllMemberList() {
+		List memberList=boardDao.selectAllMemberList();
+		return memberList;
+	}
+	public List<BoardCommentLikeCount> selectBoardCommentLikeList() {
+		List<BoardCommentLike> boardCommentLikeList=(List<BoardCommentLike>)boardDao.selectBoardCommentList();
+		List<BoardCommentLike> boardCommentNoList= boardCommentLikeList.stream().distinct().collect(Collectors.toList());
+		List<BoardCommentLikeCount> boardCommentLikeCountList=new ArrayList<BoardCommentLikeCount>();
+		System.out.println(boardCommentLikeList.size());
+		System.out.println(boardCommentNoList.size());
+		for (int i=0;i<boardCommentNoList.size();i++) {
+			BoardCommentLikeCount bclc=new BoardCommentLikeCount(boardCommentNoList.get(i).getBoardCommentNo(),boardCommentNoList.get(i).getMemberNo()
+			,boardDao.selectLikeCount(boardCommentNoList.get(i).getBoardCommentNo()));
+			boardCommentLikeCountList.add(bclc);
+		}
+		for(int h=0;h<boardCommentLikeCountList.size();h++) {
+			System.out.println(boardCommentLikeCountList.get(h));
+		}
+		return boardCommentLikeCountList;
 	}
 }

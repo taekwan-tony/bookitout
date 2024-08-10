@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,7 @@ import kr.co.bookItOut.admin.model.service.AdminService;
 import kr.co.bookItOut.book.model.dto.AdminBook;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookListData;
-
+import kr.co.bookItOut.book.model.service.BookService;
 import kr.co.bookItOut.member.model.dto.Member;
 import kr.co.bookItOut.util.EmailSender;
 
@@ -87,6 +88,8 @@ public class AdminController {
 	public String insertAdminFrm() {
 		return "admin/insertAdmin";
 	}
+	
+	
 	//판매점 비밀번호 찾기
 	@GetMapping(value = "/updatePwFrm")
 	public String updatePwFrm() {
@@ -184,6 +187,7 @@ public class AdminController {
 		return "common/msg";
 	}
 	
+
 	
 
 	

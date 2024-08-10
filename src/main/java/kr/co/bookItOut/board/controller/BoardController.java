@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletResponse;
+import kr.co.bookItOut.board.model.dao.BoardDao;
 import kr.co.bookItOut.board.model.dto.Board;
 import kr.co.bookItOut.board.model.dto.BoardComment;
+import kr.co.bookItOut.board.model.dto.BoardCommentLikeCount;
+import kr.co.bookItOut.board.model.dto.BoardCommentMember;
 import kr.co.bookItOut.board.model.dto.BoardF‎ile;
 import kr.co.bookItOut.board.model.dto.BoardListData;
 import kr.co.bookItOut.board.model.service.BoardService;
@@ -55,9 +58,9 @@ public class BoardController {
 	@ResponseBody
 	@PostMapping(value="/editorImage", produces = "plain/text;charset=utf-8")
 	public String editorImage(MultipartFile upfile) {
-		String savepath = root+"/board/editor/";
+		String savepath = root+"/editor/";
 		String filepath = fileUtils.upload(savepath, upfile);
-		return "/board/editor/"+filepath;
+		return "/board/editor"+filepath;
 	}
 	@PostMapping(value="/write")
 	public String writer(Board b, MultipartFile[] upfile, Model model) {
@@ -89,6 +92,9 @@ public class BoardController {
 		if(member != null) {
 			memberNo = member.getMemberNo();
 		}
+		List<BoardCommentMember> list=boardService.selectCommentWriterMemberList(boardNo);
+		List<BoardCommentLikeCount>likeCountList=boardService.selectBoardCommentLikeList();
+		List<Member> memberList=boardService.selectAllMemberList();
 		Board b = boardService.selectOneBoard(boardNo,check,memberNo);
 		if(b == null) {
 			model.addAttribute("title", "조회실패");
@@ -98,6 +104,9 @@ public class BoardController {
 			return "common/msg";
 		}else {
 			model.addAttribute("b", b);
+			model.addAttribute("list", list);
+			model.addAttribute("memberList", memberList);
+			model.addAttribute("likeCountList", likeCountList);
 			return "board/view";
 		}
 	}

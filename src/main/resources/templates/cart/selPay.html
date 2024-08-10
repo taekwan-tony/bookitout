@@ -62,14 +62,13 @@
 		var memberPhone = [[${member.getMemberPhone()}]];
 		var memberMail = [[${member.getMemberMail()}]];
 		
-		var list = [[${list}]];
+		var cartNo = [[${cartNo}]];
+		console.log(cartNo);
+		
+		var cartNoStr = cartNo.join('/');
+		console.log(typeof cartNoStr);
 		
 		
-		console.log(list);
-		var encodedList = encodeURIComponent(JSON.stringify(list));
-		
-		
-		console.log(encodedList);
 		$("#payBtn").on("click", function(){
 			const memberNo = $("#memberNo").val()
 			const price = $("#pay").text();
@@ -84,7 +83,7 @@
 					    pay_method: "card",
 					    merchant_uid: memberNo+"_"+dateString,
 					    name: "주문명:결제테스트",
-					    amount: price,
+					    amount: 100,
 					    buyer_email: memberMail,
 					    buyer_name: memberName,
 					    buyer_tel: memberPhone,
@@ -94,12 +93,10 @@
 					  function(rsp){//콜백 함수, rsp = 응답 객체(response object), 객체는 결제의 성공 여부, 결제 금액, 결제 고유 번호 등의 다양한 정보를 포함 
 						  if(rsp.success){
 							  
-							  
-							  
 							  $.ajax({
 								  url : "/cart/success",
-								  type:"get",
-								  data:{list : encodedList},
+								  type:"post",
+								  data:{cartNoStr: cartNoStr, price: 100},
 								  success : function(data){
 									  console.log(data);
 								  },
