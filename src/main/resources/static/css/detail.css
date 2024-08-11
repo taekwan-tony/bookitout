@@ -13,7 +13,7 @@
 input, textarea{
     outline: none;
 }
-.info-wrap, .book-detail-img, .comment{
+.info-wrap, .book-detail-img, .book-info, .comment{
     margin: 0 auto;
     width: 100%;
     max-width: 1000px;
@@ -22,6 +22,14 @@ input, textarea{
     display: flex;
     justify-content: center;
 }
+
+.div-title{
+	margin: 40px 0;
+	text-align: left;
+	font-weight: 700;
+	font-size: 24px;
+}
+
 .info-wrap>div{
     float: left;
     margin-right: 105px;
@@ -164,7 +172,11 @@ input, textarea{
 	display: inline-block;
 }
 
-.book-detail-img>img{
+/* 상세이미지 */
+.book-detail-img{
+	display: block;
+}
+.book-detail-img img{
     width: 100%;
 }
 
@@ -213,6 +225,11 @@ input, textarea{
 }
 .countPM>input{
     text-align: center;
+}
+
+.book-info{
+	display: block;
+	text-align: left;
 }
 
 /* 댓글 입력 */
@@ -364,6 +381,19 @@ select{
     min-height: 100px;
     /* border-right: 1px solid var(--gray3); */
 }
+.posting-comment.reply > li:last-child{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+.posting-comment.reply > li:first-child{
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+    /* border-right: 1px solid var(--gray3); */
+}
 .comment-info{
     width: 100%;
 }
@@ -400,6 +430,10 @@ select{
     font-size: 14px;
     height: 50px;
     min-height: 50px;
+    transition: all .35s;
+}
+.commentBox .input-item>textarea:focus{
+	border: 1px solid var(--gray1);
 }
 .posting-comment > li:last-child > .comment-link{
     text-align: right;

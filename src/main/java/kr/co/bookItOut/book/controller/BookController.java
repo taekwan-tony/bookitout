@@ -33,24 +33,24 @@ public class BookController {
 	private FileUtils fileUtils;
 	
 	@GetMapping(value="/detail")
-	public String detail(Book book, Model model, int bookNo, String check, @SessionAttribute(required = false) Member member) {
-		Book b = bookService.selectOneBook(book);
-		model.addAttribute("b", b);
+	public String detail(Book book1, Model model, int bookNo, String check, @SessionAttribute(required = false) Member member) {
+		Book book = bookService.selectOneBook(book1);
+		model.addAttribute("book", book);
 		
 		int memberNo = 0;
 		if(member != null) {
 			memberNo = member.getMemberNo();
 		}
-		Book bc = bookService.selectOneBook(bookNo, check, memberNo);
-		if(bc == null) {
+		Book b = bookService.selectOneBook(bookNo, check, memberNo);
+		if(b == null) {
 			model.addAttribute("title", "조회실패");
 			model.addAttribute("msg", "해당 페이지가 존재하지 않습니다.");
 			model.addAttribute("icon", "info");
 			model.addAttribute("loc", "/book/list?reqPage=1");
 			return "common/msg";
 		}else {
-			model.addAttribute("bc", bc);
-			System.out.println(bc);
+			model.addAttribute("b", b);
+			System.out.println(b);
 			return "book/detail";
 		}
 	}
@@ -77,16 +77,42 @@ public class BookController {
 			model.addAttribute("icon", "warning");
 		}
 
-//		System.out.println(bc.getBookCommentNo());
-//		System.out.println(bc.getBookCommentWriter());
-//		System.out.println(bc.getBookCommentContent());
-//		System.out.println(bc.getBookCommentDate());
-//		System.out.println(bc.getBookRef());
-//		System.out.println(bc.getBookCommentRef());
 		model.addAttribute("loc", "/book/detail?check=1&bookNo="+bc.getBookRef());
 		return "common/msg";
 
 		//return "redirect:/book/detail?bookNo="+bc.getBookRef();
+	}
+	
+	@PostMapping(value="/updateComment")
+	public String updateComment(BookComment bc, Model model) {
+		int result = bookService.updateComment(bc);
+		if(result > 0) {
+			model.addAttribute("title", "성공");
+			model.addAttribute("msg", "리뷰가 수정되었습니다.");
+			model.addAttribute("icon", "success");
+		}else {
+			model.addAttribute("title", "실패");
+			model.addAttribute("msg", "잠시 후 다시 시도해주세요.");
+			model.addAttribute("icon", "warning");
+		}
+		model.addAttribute("loc", "/book/detail?check=1&bookNo="+bc.getBookRef());
+		return "common/msg";
+	}
+	
+	@GetMapping(value="/deleteComment")
+	public String deleteComment(BookComment bc, Model model) {
+		int result = bookService.deleteComment(bc);
+		if(result > 0) {
+			model.addAttribute("title", "성공");
+			model.addAttribute("msg", "리뷰가 삭제되었습니다.");
+			model.addAttribute("icon", "success");
+		}else {
+			model.addAttribute("title", "실패");
+			model.addAttribute("msg", "잠시 후 다시 시도해주세요.");
+			model.addAttribute("icon", "warning");
+		}
+		model.addAttribute("loc", "/book/detail?check=1&bookNo="+bc.getBookRef());
+		return "common/msg";
 	}
 	
 	@ResponseBody

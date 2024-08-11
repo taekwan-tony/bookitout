@@ -27,9 +27,9 @@ public class BookDao {
 	@Autowired
 	private BookCommentRowMapper bookCommentRowMapper;
 
-	public Book selectOneBook(Book book) {
+	public Book selectOneBook(Book book1) {
 		String query = "select * from book where book_no = ?";
-		Object[] params = {book.getBookNo()};
+		Object[] params = {book1.getBookNo()};
 		List list = jdbc.query(query, bookRowMapper, params);
 		if(list.isEmpty()) {
 			return null;
@@ -51,6 +51,44 @@ public class BookDao {
 		String query = "insert into book_comment values(book_comment_seq.nextval, ?, ?, to_char(sysdate, 'yyyy-mm-dd'), ?, ?)";
 		String bookCommentRef = bc.getBookCommentRef() == 0 ? null : String.valueOf(bc.getBookCommentRef());
 		Object[] params = {bc.getBookCommentWriter(), bc.getBookCommentContent(), bc.getBookRef(), bookCommentRef};
+		int result = jdbc.update(query, params);
+		return result;
+	}
+
+	public List selectCommentList(int bookNo, int memberNo) {
+		String query = "SELECT BC.* ,\r\n" + 
+				"(SELECT COUNT(*) FROM BOOK_COMMENT_THUMB WHERE BOOK_COMMENT_NO = BC.BOOK_COMMENT_NO) AS LIKE_COUNT,\r\n" + 
+				"(SELECT COUNT(*) FROM BOOK_COMMENT_THUMB WHERE BOOK_COMMENT_NO = BC.BOOK_COMMENT_NO AND MEMBER_NO = ?) AS IS_LIKE\r\n" + 
+				"FROM BOOK_COMMENT BC\r\n" + 
+				"WHERE BOOK_REF = ? AND BOOK_COMMENT_REF IS NULL\r\n" + 
+				"ORDER BY 1";
+		Object[] params = {memberNo, bookNo};
+		List list = jdbc.query(query, bookCommentRowMapper, params);
+		return list;
+	}
+
+	public List selectReCommentList(int bookNo, int memberNo) {
+		String query = "SELECT BC.* ,\r\n" + 
+				"(SELECT COUNT(*) FROM BOOK_COMMENT_THUMB WHERE BOOK_COMMENT_NO = BC.BOOK_COMMENT_NO) AS LIKE_COUNT,\r\n" + 
+				"(SELECT COUNT(*) FROM BOOK_COMMENT_THUMB WHERE BOOK_COMMENT_NO = BC.BOOK_COMMENT_NO AND MEMBER_NO = ?) AS IS_LIKE\r\n" + 
+				"FROM BOOK_COMMENT BC\r\n" + 
+				"WHERE BOOK_REF = ? AND BOOK_COMMENT_REF IS NOT NULL\r\n" + 
+				"ORDER BY 1";
+		Object[] params = {memberNo, bookNo};
+		List list = jdbc.query(query, bookCommentRowMapper, params);
+		return list;
+	}
+
+	public int updateComment(BookComment bc) {
+		String query = "UPDATE BOOK_COMMENT SET BOOK_COMMENT_CONTENT = ? WHERE BOOK_COMMENT_NO = ?";
+		Object[] params = {bc.getBookCommentContent(), bc.getBookCommentNo()};
+		int result = jdbc.update(query, params);
+		return result;
+	}
+
+	public int deleteComment(BookComment bc) {
+		String query = "delete from book_comment where book_comment_no = ?";
+		Object[] params = {bc.getBookCommentNo()};
 		int result = jdbc.update(query, params);
 		return result;
 	}
@@ -426,30 +464,6 @@ public class BookDao {
 		return result;
 	}
 
-	public List selectCommentList(int bookNo, int memberNo) {
-		String query = "SELECT BC.* ,\r\n" + 
-				"(SELECT COUNT(*) FROM BOOK_COMMENT_THUMB WHERE BOOK_COMMENT_NO = BC.BOOK_COMMENT_NO) AS LIKE_COUNT,\r\n" + 
-				"(SELECT COUNT(*) FROM BOOK_COMMENT_THUMB WHERE BOOK_COMMENT_NO = BC.BOOK_COMMENT_NO AND MEMBER_NO = ?) AS IS_LIKE\r\n" + 
-				"FROM BOOK_COMMENT BC\r\n" + 
-				"WHERE BOOK_REF = ? AND BOOK_COMMENT_REF IS NULL\r\n" + 
-				"ORDER BY 1";
-		Object[] params = {memberNo, bookNo};
-		List list = jdbc.query(query, bookCommentRowMapper, params);
-		return list;
-	}
-
-	public List selectReCommentList(int bookNo, int memberNo) {
-		String query = "SELECT BC.* ,\r\n" + 
-				"(SELECT COUNT(*) FROM BOOK_COMMENT_THUMB WHERE BOOK_COMMENT_NO = BC.BOOK_COMMENT_NO) AS LIKE_COUNT,\r\n" + 
-				"(SELECT COUNT(*) FROM BOOK_COMMENT_THUMB WHERE BOOK_COMMENT_NO = BC.BOOK_COMMENT_NO AND MEMBER_NO = ?) AS IS_LIKE\r\n" + 
-				"FROM BOOK_COMMENT BC\r\n" + 
-				"WHERE BOOK_REF = ? AND BOOK_COMMENT_REF IS NOT NULL\r\n" + 
-				"ORDER BY 1";
-		Object[] params = {memberNo, bookNo};
-		List list = jdbc.query(query, bookCommentRowMapper, params);
-		return list;
-	}
-
 	public int insertBookCommentLike(int bookCommentNo, int memberNo) {
 		String query = "insert into book_comment_thumb values(?, ?)";
 		Object[] params = {bookCommentNo, memberNo};
@@ -470,6 +484,7 @@ public class BookDao {
 		int likeCount = jdbc.queryForObject(query, Integer.class, params);
 		return likeCount;
 	}
+	
 }
 
 
