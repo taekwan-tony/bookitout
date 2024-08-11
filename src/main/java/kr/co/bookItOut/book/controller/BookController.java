@@ -118,6 +118,8 @@ public class BookController {
 		model.addAttribute("genre", genre);		
 		return "book/listFore";
 	}
+	
+	
 }
 
 

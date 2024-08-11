@@ -70,7 +70,7 @@ public class BookService {
 	}
 
 	public BookListData selectBookList(int reqPage, int type, int genre) {
-		int numPerPage = 10;
+		int numPerPage = 5;
 
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage +1;
