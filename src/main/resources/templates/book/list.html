@@ -207,7 +207,7 @@ display: block;
                                 
                                 	<div th:if="${session.member !=null}">
                                 		<button class ="list-btn"  type="button" id="listCart" name="bookCart" th:onclick="addCart([[${book.bookNo}]])">장바구니</button>
-	                                    <button class ="list-btn"  type="button" id="listBuy"  name="bookBuy">바로구매</button>    
+	                                    <button class ="list-btn"  type="button" id="listBuy"  name="bookBuy" th:onclick="nowPay([[${book.bookNo}]])">바로구매</button>    
                                 	</div>
                                 	<div th:if="${session.member ==null}">
                                 		<button class ="list-btn"  type="button" id="listCart" name="bookCart" onclick="loginMsg()">장바구니</button>
@@ -279,8 +279,7 @@ display: block;
     		    					title : "장바구니 담기",
     		    					text : "해당 책이 장바구니에 담겼습니다.",
     		    					icon : "info"    		    					
-    		    				});
-    		    				
+    		    				});	
     		    				
     		    			},
     		    			error : function() {
@@ -317,6 +316,48 @@ display: block;
     		
     	}
     
+    	function nowPay(bookNo) {
+    		swal({
+    			title : "바로 구매",
+    			text : "바로 구매하시겠습니까?",
+    			icon : "info",	
+    			buttons : {
+    				cancel : {
+    					text : "아니오",
+    					value : false,
+    					visible : true,
+    					className : "btn-cancel",
+    					closeModel : true    					
+    				},
+    				confirm : {
+    					text : "예",
+    					value : true,
+    					visible : true,
+    					className : "btn-confirm",
+    					closeModel : true
+    				}
+    			}
+    		}).then(function(isConfirm){
+    			if(isConfirm){
+    				
+    				$.ajax ({
+    					url :  "/cart/addCart",
+    					type : "get",
+    					data : {bookNo:bookNo},
+    					success : function(data){
+    						console.log(data)
+    					
+    						
+    					}
+    					
+    				});
+    			}    	
+    		});	   		
+    	}
+    
+    	
+    	
+    	
    		
     </script>
 	

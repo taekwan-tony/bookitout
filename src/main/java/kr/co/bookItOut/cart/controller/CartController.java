@@ -84,6 +84,7 @@ public class CartController {
 	}
 
 	
+	
 	@ResponseBody
 	@GetMapping(value="/plusCart")
 	public int plusCart (int cartNo) {
@@ -147,4 +148,14 @@ public class CartController {
 		return "cart/selPay";
 	}
 
+	/*
+	 	@ResponseBody
+		@GetMapping(value="/nowPay")
+		public int nowPay(int bookNo, @SessionAttribute Member member) {
+			int memberNo = member.getMemberNo();
+			int result = cartService.insertCart(bookNo, memberNo);
+			return result;
+		}
+	 */
+	
 }
