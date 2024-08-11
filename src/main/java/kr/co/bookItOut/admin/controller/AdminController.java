@@ -267,6 +267,12 @@ public class AdminController {
 	 	//	return "redirect:/admin/bookListFrm?rePage=1";
 	 	}
 	 
+	 	//총관리자 select 부분(발주)
+	 	
+	 	
+	 	
+	 	
+	 	//update-> 발주 승인하면 
 	 
 	 
 	 
