@@ -47,8 +47,11 @@ public class MemberService {
 
 	public List selectAllPay(int memberNo) {
 		List list = memberDao.selectAllCart(memberNo);
-		System.out.println(list);
-		System.out.println(list);
+		return list;
+	}
+
+	public List selectMyBoard(String memberId) {
+		List list = memberDao.selectMyBoard(memberId);
 		return list;
 	}
 	
