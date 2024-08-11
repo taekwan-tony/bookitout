@@ -85,20 +85,34 @@ public class CartController {
 	@ResponseBody
 	@GetMapping(value="/addCart")
 	public int addCart(int bookNo, @SessionAttribute Member member) {
-		System.out.println(bookNo);
+		//System.out.println(bookNo);
 		int memberNo = member.getMemberNo();		
-		System.out.println(memberNo);
+		//System.out.println(memberNo);
 		int result = cartService.insertCart(bookNo,memberNo);			
 		return result;
 	}
+	
+	@ResponseBody
+	@GetMapping(value="/nowPay")
+	public int nowPay (int bookNo, @SessionAttribute Member member) {
+		int memberNo = member.getMemberNo();
+		
+		int result = cartService.insertCartNo(bookNo,memberNo);
+		System.out.println(result);
+		return result;
+	}
+	
+	
 	@ResponseBody
 	@GetMapping(value="/selectCart")
 	public int selectCart (int bookNo, @SessionAttribute Member member) {
 		int memberNo = member.getMemberNo();
 		int result = cartService.selectCart(bookNo, memberNo);
 		return result;
+		
 	}
 
+	
 	
 	@ResponseBody
 	@GetMapping(value="/plusCart")
@@ -172,4 +186,14 @@ public class CartController {
 	
 	
 
+	/*
+	 	@ResponseBody
+		@GetMapping(value="/nowPay")
+		public int nowPay(int bookNo, @SessionAttribute Member member) {
+			int memberNo = member.getMemberNo();
+			int result = cartService.insertCart(bookNo, memberNo);
+			return result;
+		}
+	 */
+	
 }

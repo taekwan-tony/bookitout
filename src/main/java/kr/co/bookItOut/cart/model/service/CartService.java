@@ -26,6 +26,19 @@ public class CartService {
 		int result = cartDao.insertCart(bookNo, memberNo);
 		return result;
 	}
+	
+	@Transactional//
+	public int insertCartNo(int bookNo, int memberNo) {
+		int result = cartDao.insertCart(bookNo, memberNo);
+		if(result>0) {
+			int cartNo = cartDao.selectCartNo();
+			return cartNo;
+		}
+		
+		return result;
+	}
+	
+	
 	public int selectCart(int bookNo, int memberNo) {
 		int result = cartDao.selectCartCount(bookNo, memberNo);
 		if(result > 0) {
@@ -138,6 +151,8 @@ public class CartService {
 		List list = cartDao.selectPayNames(payNo);
 		return list;
 	}
+
+	
 	
 
 }
