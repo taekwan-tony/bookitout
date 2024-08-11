@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.admin.model.dto.AdminCenterBookRowMapper;
+import kr.co.bookItOut.admin.model.dto.AdminOrderBook;
 import kr.co.bookItOut.admin.model.dto.AdminOrderBookRowMapper;
 import kr.co.bookItOut.admin.model.dto.AdminRowMapper;
 import kr.co.bookItOut.book.model.dto.AdminBook;
@@ -193,6 +194,12 @@ public class AdminDao {
 		
 		int result = jdbc.update(query,params);
 		return result;
+	}
+	public List selectOrderList(int start,int end,AdminOrderBook aob) {
+		String query = "\"select * from(select rownum as rnum, n.*from (select * from book order by 1 desc)n) where rnum between ? and ?";
+		Object[] params = {start,end};
+		List list = jdbc.query(query,adminOrderBookRowMapper,params);
+		return list;
 	}
 
 

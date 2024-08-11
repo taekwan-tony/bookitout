@@ -118,71 +118,36 @@
                         <h1>총발주</h1><span>(리스트)</span>
                     </div>
                     <form action="/admin/bookListFrm" method="get">
-                    <table class="bookTbl">
+                     <table class="bookTbl">
                         <thead>
                             <tr>
-              					<th style="width: 9%">책번호 </th>
+              					<th style="width: 3%">발주번호</th>
               					<th style="width: 7%">책이름</th>
-              					<th style="width: 8%">저자이름</th>
-              					<th style="width: 9%">출판사</th>
-              					<th style="width: 9%">출판일</th>
-              					<th style="width: 3%">발주 번호</th>
-              					<th style="width: 5%">발주 수량</th>
-              					<th style="width: 5%">발주일</th>
+              					<th style="width: 9%">책저자 </th>
+              					<th style="width: 7%">출판사</th>
               					<th style="width: 9%">현수량</th>
-              					<th style="width: 9%">발주수량</th>
+              					<th style="width: 9%">발주할 수량</th>
               					<th style="width: 8%">판매가격</th>
-              					<th style="width: 7%">승인여부</th>
                             </tr>
                         </thead>
-                      
                         <tbody>                            
-                            <tr th:each="book :${bookList}"><!-- -->                            	
-                            	<td th:text="${book.bookNo}"></td>
+                            <tr th:each="CenterInventory :${Admin2BookList}"><!-- -->                            	
+                            	<td th:text="${CenterInventory.bookNo}"></td>
+              					<td th:text="${CenterInventory.bookType}"></td>
+              					<td th:text="${CenterInventory.bookGenre}"></td>
+              					<td th:text=${CenterInventory.bookName}></td>
+             					<td th:text=${CenterInventory.bookWriter}></td>
+              					<td th:text=${CenterInventory.bookPublisher}></td>
+	              				<td th:text="${CenterInventory.publicationDate}"></td>
+	              				<td th:text="${CenterInventory.enrollDate}"></td>
+	              				<td th:text="${CenterInventory.centerBookCount}"></td>
               					<td>
-              						<div class="input-item">
-	  			 						<div class="select" th:switch="${book.bookType}">
-	  			 							<select name ="bookType" th:case="국내도서">
-	  											<option selected value="국내도서">국내도서</option>
-	  											<option value="해외도서">해외도서</option>
-	  										</select>
-	  			 							<select name ="bookType" th:case="해외도서">
-	  											<option value="국내도서">국내도서</option>
-	  											<option selected value="해외도서">해외도서</option>
-	  										</select>
-	  			 						</div>
-	  			 					</div>
-	  			 					
+              						<input type="text" name="orderBookCount">
               					</td>
+              						<td th:text="${CenterInventory.bookPrice}"></td>
               					<td>
-              						<div class="input-item">
-	  			 							<div class="select" th:switch="${book.bookGenre}">
-	  			 								<select name ="bookGenre" th:case="문학">
-	  												<option selected value="문학">문학</option>
-	  												<option value="재테크">재테크</option>
-	  												<option value="기타">기타</option>
-	  											</select>
-	  											<select name ="bookGenre" th:case="재테크">
-	  												<option value="문학">문학</option>
-	  												<option selected value="재테크">재테크</option>
-	  												<option value="기타">기타</option>
-	  											</select>
-	  											<select name ="bookGenre" th:case="기타">
-	  												<option value="문학">문학</option>
-	  												<option value="재테크">재테크</option>
-	  												<option selected value="기타">기타</option>
-	  											</select>
-	  			 							</div>
-	  			 					</div>
-              					</td>
-              					<td th:text=${book.bookName}></td>
-             					<td th:text=${book.bookWriter}></td>
-              					<td th:text=${book.bookPublisher}></td>
-	              				<td th:text="${book.publicationDate}"></td>
-	              				<td th:text="${book.enrollDate}"></td>
-              					<td>
-	              					<button type="submit" class="btn-type2 btn">발주창</button>
-	              					<input type="hidden" name="bookNo" th:value="${book.bookNo}">
+	              					<button type="submit" class="btn-type2 btn" id="orderButton">발주</button>
+	              					<input type="hidden" name="centerBookNo" th:value="${CenterInventory.centerBookNo}">                      
               					</td>
                             </tr>
                         </tbody>

@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.bookItOut.Question.model.dto.QuestionListData;
 import kr.co.bookItOut.admin.model.dao.AdminDao;
 import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.admin.model.dto.AdminListData;
+import kr.co.bookItOut.admin.model.dto.AdminOrderBook;
 import kr.co.bookItOut.admin.model.dto.OrderBookListData;
+import kr.co.bookItOut.admin.model.dto.OrderListData;
 import kr.co.bookItOut.book.model.dto.AdminBook;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookListData;
@@ -282,6 +285,57 @@ public int insertOrderAdmin(CenterInventory centerInventory, int orderBookCount)
 		return result;
 	}
 	return 0;
+}
+
+public OrderListData selectOrderList(AdminOrderBook aob,int reqPage) {
+	
+	int numPerPage = 10;
+	
+	int end = reqPage*numPerPage;
+	int start = end - numPerPage +1;
+	List list = adminDao.selectOrderList(start,end,aob);
+	
+	int totalCount = adminDao.selectOrderTotoalCount(); 	
+
+	int totalPage = 0;
+	if(totalCount%numPerPage ==0) {
+		totalPage = totalCount/numPerPage;
+	}else {
+		totalPage = totalCount/numPerPage + 1;
+	}
+	int pageNaviSize = 5;
+	int pageNo = (reqPage-1)/pageNaviSize*pageNaviSize + 1;
+	String pageNavi = "<div class='pagination'><ul>";
+	if(pageNo !=1) {
+		pageNavi += "<li>";
+		pageNavi += "<a class ='page-item page-btn' href='/admin/OrderAdmin1?type=&reqPage="+(pageNo-1)+"'>";
+		pageNavi += "<span><i class='fa-solid fa-angle-left'></i></span>";
+		pageNavi += "</a></li>";
+	}
+	for(int i =0;i<pageNaviSize;i++) {
+		pageNavi += "<li>";
+		if(pageNo==reqPage) {
+			pageNavi += "<a class ='page-item active-page' href='/admin/OrderAdmin1?type=&reqPage="+pageNo+"'>";
+		}else {
+			pageNavi += "<a class ='page-item' href='/admin/OrderAdmin1?type=&reqPage="+pageNo+"'>";
+		}
+		pageNavi += pageNo;
+		pageNavi += "</a></li>";
+		pageNo++;
+		if(pageNo>totalPage) {
+			break;
+		}
+	}
+	if(pageNo <= totalPage) {
+		pageNavi += "<li>";
+		pageNavi += "<a class ='page-item page-btn' href='/admin/OrderAdmin1?type=&reqPage="+pageNo+"'>";
+		pageNavi += "<span><i class='fa-solid fa-angle-right'></i></span>";
+		pageNavi += "</a></li>";
+	}
+	pageNavi +="</ul>";
+	pageNavi +="</ul></div>";
+	OrderListData old = new OrderListData(list, pageNavi);
+	return old;
 }
 
 

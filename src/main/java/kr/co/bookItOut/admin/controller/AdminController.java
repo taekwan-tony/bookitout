@@ -25,7 +25,9 @@ import kr.co.bookItOut.Question.model.dto.QuestionListData;
 import kr.co.bookItOut.Question.model.service.QuestionService;
 import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.admin.model.dto.AdminListData;
+import kr.co.bookItOut.admin.model.dto.AdminOrderBook;
 import kr.co.bookItOut.admin.model.dto.OrderBookListData;
+import kr.co.bookItOut.admin.model.dto.OrderListData;
 import kr.co.bookItOut.admin.model.service.AdminService;
 import kr.co.bookItOut.book.model.dto.AdminBook;
 import kr.co.bookItOut.book.model.dto.Book;
@@ -119,6 +121,7 @@ public class AdminController {
 		
 		return "admin/orderAdmin2";
 	}
+	
 	
 	@GetMapping(value = "/insertBookFrm")
 	public String insertBook() {
@@ -256,7 +259,12 @@ public class AdminController {
 	 	//총관리자 select 부분(발주)
 	 	//총관리자 발주된 책 리스트
 		@GetMapping(value = "/orderAdmin1")
-		public String orderAdmin1() {
+		public String orderAdmin1(AdminOrderBook aob, Model model,int reqPage) {
+			OrderListData old = adminService.selectOrderList(aob,reqPage);
+			
+			model.addAttribute("orderAdmin1",old.getList());
+			model.addAttribute("pageNavi",old.getPageNavi());
+			
 			
 			return "admin/orderAdmin1";
 		}
