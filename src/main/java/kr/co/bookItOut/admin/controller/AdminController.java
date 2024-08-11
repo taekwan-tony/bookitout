@@ -25,11 +25,13 @@ import kr.co.bookItOut.Question.model.dto.QuestionListData;
 import kr.co.bookItOut.Question.model.service.QuestionService;
 import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.admin.model.dto.AdminListData;
+import kr.co.bookItOut.admin.model.dto.OrderBookListData;
 import kr.co.bookItOut.admin.model.service.AdminService;
 import kr.co.bookItOut.book.model.dto.AdminBook;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookListData;
 import kr.co.bookItOut.book.model.service.BookService;
+import kr.co.bookItOut.centerInventory.model.dto.CenterInventory;
 import kr.co.bookItOut.member.model.dto.Member;
 import kr.co.bookItOut.util.EmailSender;
 
@@ -58,8 +60,8 @@ public class AdminController {
 	
 	//판매점 리스트
 	@GetMapping(value="/adminIndex")
-	public String index(Model model,int rePage) {
-		AdminListData ald = adminService.selectAdminList(rePage);
+	public String index(Model model,int rePage,@SessionAttribute(required = false) Admin admin) {
+		AdminListData ald = adminService.selectAdminList(rePage,admin);
 		model.addAttribute("list",ald.getList());
 		model.addAttribute("pageNavi",ald.getPageNavi());
 		
@@ -97,22 +99,40 @@ public class AdminController {
 	}
 //책 부분 시작------------------------------------------------------------------------------------------------
 //책 리스트 보여주는 화면
+	//판매점 && 총관리자 전부다 볼수있는 책리스트
 	@GetMapping(value = "/bookListFrm")
-	public String bookListFrm(Model model,int rePage ,Book book,@SessionAttribute(required=false) Admin admin) {
-		BookListData bld = adminService.selectbookList(rePage,book,admin);
+	public String bookListFrm(Model model,int rePage) {
+		BookListData bld = adminService.selectbookList(rePage);
 		
 		model.addAttribute("bookList",bld.getList());
 		model.addAttribute("pageNavi",bld.getPageNavi());
 		
 		return "admin/bookList";
 	}
+	//판매점 내 책 리스트
+	@GetMapping(value = "/orderAdmin2")
+	public String orderAdmin2(Model model,int rePage ,Book book,@SessionAttribute(required=false) Admin admin) {
+		OrderBookListData obld = adminService.selectAdminBookList(rePage,book,admin);
+		
+		model.addAttribute("Admin1BookList",obld.getList());
+		model.addAttribute("pageNavi",obld.getPageNavi());
+		
+		return "admin/orderAdmin2";
+	}
+	//총관리자 발주된 책 리스트
+	@GetMapping(value = "/orderAdmin1")
+	public String orderAdmin1(Model model,int rePage ,Book book,@SessionAttribute(required=false) Admin admin) {
+		OrderBookListData obld = adminService.selectAdminBookList(rePage,book,admin);
+		
+		model.addAttribute("Admin1BookList",obld.getList());
+		model.addAttribute("pageNavi",obld.getPageNavi());
+		
+		
+		return "admin/orderAdmin1";
+	}
+
 	
-//	@PostMapping(value = "/bookList")
-//	public String bookList() {
-//		
-//		return "admin/bookList";
-//	}
-	//--책등록 화면
+	
 	@GetMapping(value = "/insertBookFrm")
 	public String insertBook() {
 		
@@ -222,9 +242,31 @@ public class AdminController {
 				model.addAttribute("loc","/admin/bookListFrm?rePage=1");
 			}
 			return "common/msg";
-			
-			
 		}
+	 //--발주창-------------------------------------------------
+	 	//판매자가 값을 총관리자에게 보내주기
+	 	@GetMapping(value = "/centerInventoryOrder")
+	 	public String centerInventoryOrder(CenterInventory centerInventory, int orderBookCount ,Model model) {
+	 		System.out.println("발주"+centerInventory.getCenterBookNo());
+	 		int result = adminService.insertOrderAdmin(centerInventory,orderBookCount);
+	 		System.out.println("발주"+centerInventory.getCenterBookNo());
+	 		System.out.println("발주:"+result);
+	 		if( result>0) {model.addAttribute("title","완료");
+			model.addAttribute("msg","발주완료");
+			model.addAttribute("icon","success");
+			model.addAttribute("loc","/admin/bookListFrm?rePage=1");
+			return "common/msg";
+			}else {
+				model.addAttribute("title","수정실패!");
+				model.addAttribute("msg","책 수정에 실패 했습니다");
+				model.addAttribute("icon","error");	
+				model.addAttribute("loc","/admin/bookListFrm?rePage=1");
+			}
+			return "common/msg";
+	 		
+	 	//	return "redirect:/admin/bookListFrm?rePage=1";
+	 	}
+	 
 	 
 	 
 	 

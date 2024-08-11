@@ -7,12 +7,14 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.co.bookItOut.admin.model.dto.Admin;
+import kr.co.bookItOut.admin.model.dto.AdminCenterBookRowMapper;
 import kr.co.bookItOut.admin.model.dto.AdminOrderBookRowMapper;
 import kr.co.bookItOut.admin.model.dto.AdminRowMapper;
 import kr.co.bookItOut.book.model.dto.AdminBook;
 import kr.co.bookItOut.book.model.dto.AdminBookRowMapper;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookRowMapper;
+import kr.co.bookItOut.centerInventory.model.dto.CenterInventory;
 import kr.co.bookItOut.centerInventory.model.dto.CenterInventoryRowMapper;
 
 @Repository
@@ -27,13 +29,30 @@ public class AdminDao {
 	private AdminBookRowMapper adminBookRowMapper;
 	@Autowired
 	private AdminOrderBookRowMapper adminOrderBookRowMapper;
+	@Autowired
+	private AdminCenterBookRowMapper adminCenterBookRowMapper;
+	@Autowired 
+	private CenterInventoryRowMapper centerInventoryRowMapper;
 	//-판매자 리스트
-	public List selectAdminList(int start, int end) {
+	//총관리자 페이지
+	public List selectAdminList1(int start, int end) {
 		String query = "select * from(select rownum as rnum, n.*from (select * from admin_tbl order by 1 desc)n) where rnum between ? and ?";
 		Object[] params = {start,end};
 		List list = jdbc.query(query,adminRowMapper,params);
 		return list;
 	}
+	//판매자 리스트
+	public List selectAdminList2(Admin admin) {
+		String query = "select * from admin_tbl where admin_no =?";
+		Object[] params = {admin.getAdminNo()};
+		List list = jdbc.query(query,adminRowMapper,params);
+		System.out.println(admin.getAdminNo()+ ","+list);
+		return list;
+	}
+
+
+	
+	
 	public int selectAdminTotoalCount() {
 		String qurey = "select count(*) from admin_tbl";
 		
@@ -55,16 +74,36 @@ public class AdminDao {
 	}
 	//-로그인 끝
 	
-	//-책 리스트
-	public List selectBookList(int start, int end, Book book, Admin admin) {
-		String query = "SELECT * FROM book " +
-                "JOIN center_inventory ON book.book_no = center_inventory.book_no2 " +
-                "JOIN admin_tbl ON center_inventory.admin_no = admin_tbl.admin_no " +
-                "WHERE admin_tbl.admin_no = ? AND book.book_no BETWEEN ? AND ? AND center_inventory.book_no2 = ?";
-		Object[] params = {start,end,admin.getAdminNo(),book.getBookNo()};
-		List list = jdbc.query(query,adminOrderBookRowMapper,params);
+	//-책 리스트 시작===========================================================
+	public List selectBookList(int start, int end) {
+		String query = "select * from(select rownum as rnum, n.*from (select * from book order by 1 desc)n) where rnum between ? and ?";
+		Object[] params = {start,end};
+		List list = jdbc.query(query,bookRowMapper,params);
 		return list;
 	}
+	
+	//판매자 책리스트====================================================
+	public List selectBookList2(int start, int end, Book book, Admin admin) {
+		String query = "select * from " + 
+				"(select rownum as rnum, b.* from " + 
+				"(SELECT * FROM book " + 
+				"JOIN center_inventory ON book.book_no = center_inventory.book_no2 " + 
+				"JOIN admin_tbl ON center_inventory.admin_no = admin_tbl.admin_no " + 
+				"WHERE admin_tbl.admin_no = ? order by book.book_no desc)b) where rnum between ? and ?";
+		Object[] params = {admin.getAdminNo(),start,end};
+		List list = jdbc.query(query,adminCenterBookRowMapper,params);
+		return list;
+	}
+	
+	//총관리자 책 리스트======================================
+	public List selectBookList1(int start, int end) {
+		String query = "select * from(select rownum as rnum, n.*from (select * from book order by 1 desc)n) where rnum between ? and ?";
+		//많이 바꿔야함
+		Object[] params = {start,end};
+		List list = jdbc.query(query,adminCenterBookRowMapper,params);
+		return list;
+	}
+	
 	
 	public int selectBookTotoalCount() {
 		String qurey = "select count(*) from book";
@@ -139,6 +178,29 @@ public class AdminDao {
 		int result = jdbc.update(query,params);					
 		return result;
 	}
+	//발주------------------
+	//센터 인벤에서 값 가져오기
+	public CenterInventory selectCenterInventory(CenterInventory centerInventory) {
+		String query = "select * from center_inventory where center_book_no=?";
+		Object[] params = {centerInventory.getCenterBookNo()};
+		List list = jdbc.query(query,centerInventoryRowMapper,params);
+		return (CenterInventory)list.get(0);
+	}
+		
+	public int inserOrderAdmin(CenterInventory c,int orderBookCount) {
+		String query = "insert into order_tbl values(order_tbl_seq.nextval,?,to_char(sysdate,'yyyy-mm-dd'),1,?,?)";
+		Object[] params = {orderBookCount,c.getAdminNo(),c.getBookNo2()};
+		
+		int result = jdbc.update(query,params);
+		return result;
+	}
+
+
+
+
+
+
+	
 	
 	
 }

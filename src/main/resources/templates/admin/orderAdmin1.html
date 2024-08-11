@@ -66,7 +66,7 @@
             <ul class="sub-menu">
                 <li><a href="/admin/bookListFrm?rePage=1">책 리스트</a></li>
                 <li><a href="/admin/insertBookFrm">책 등록</a></li>
-                <li ><a href="/admin/arderAdmin1">발주창</a></li>
+                <li><a href="/admin/bookListFrm">책 정보 수정</a></li>
             </ul>
             </li>
             <li>
@@ -115,7 +115,7 @@
             <div class="inner">
                 <div class="container">
                     <div class="page-title">
-                        <h1>책 관리</h1><span>(리스트)</span>
+                        <h1>발주</h1><span>(리스트)</span>
                     </div>
                     <form action="/admin/bookListFrm" method="get">
                     <table class="bookTbl">
@@ -125,20 +125,21 @@
                                 	<label></label>
                                 	<input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
                                 </th>
-              					<th style="width: 3%">번호</th>
-              					<th style="width: 5%">책유형</th>
-              					<th style="width: 5%">책장르</th>
+              					<th style="width: 9%">책번호 </th>
               					<th style="width: 7%">책이름</th>
-              					<th style="width: 9%">책저자 </th>
-              					<th style="width: 7%">출판사</th>
-              					<th style="width: 8%">출판일</th>
-              					<th style="width: 9%">등록일</th>
+              					<th style="width: 8%">저자이름</th>
+              					<th style="width: 9%">출판사</th>
+              					<th style="width: 9%">출판일</th>
+              					<th style="width: 3%">발주 번호</th>
+              					<th style="width: 5%">발주 수량</th>
+              					<th style="width: 5%">발주일</th>
+              					<th style="width: 9%">현수량</th>
+              					<th style="width: 9%">발주수량</th>
               					<th style="width: 8%">판매가격</th>
-              					<th style="width: 6%">발주</th>
-              					<th style="width: 6%">수정/상세수정</th> 
-              					<th style="width: 6%">삭제</th>
+              					<th style="width: 7%">승인여부</th>
                             </tr>
                         </thead>
+                      
                         <tbody>                            
                             <tr th:each="book :${bookList}"><!-- -->                            	
                             	<td>
@@ -187,20 +188,14 @@
 	              				<td th:text="${book.publicationDate}"></td>
 	              				<td th:text="${book.enrollDate}"></td>
               					<td>
+              						<input type="text" name="centerBookCount" th:value=${book.centerBookCount}>
+              					</td>
+              					<td>
               						<input type="text" name="bookPrice" th:value=${book.bookPrice}>
               					</td>
               					<td>
-	              					<button type="button" class="btn-type2 btn orderAdmin" id="orderAdmin2" th:onclick="orderAdminBook(this, [[${book.bookNo}]]);">발주창</button>
-              					</td>
-              					<td>
-              						
-	              					<button type="button" class="btn-type2 btn updateBook" id="updateBook" th:onclick="updateBook1(this, [[${book.bookNo}]]);">수정</button>
-	              					<!-- <a href="/admin/updateDetail" class="btn-type2 btn">상세</a> 이런식으로 넣어줘도 됨 -->
-	              					<button type="button" class="btn-type2 btn updateDetail" id="updateDetail" th:onclick="updateDetail1(this, [[${book.bookNo}]]);">상세</button>
-              					
-              					</td>
-              					<td>
-              						<button type="button"  class="btn-type2 btn" th:onclick="bookDelete([[${book.bookNo}]]);">삭제</button>
+	              					<button type="submit" class="btn-type2 btn">발주창</button>
+	              					<input type="hidden" name="bookNo" th:value="${book.bookNo}">
               					</td>
                             </tr>
                             	
@@ -289,11 +284,6 @@
     }
     
   //-발주창
-   function orderAdminBook(obj, bookNo){
-    	
-    	location.href="/admin/orderAdmin2?rePage=1";
-    }
-    
      
     
     
