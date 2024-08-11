@@ -66,7 +66,7 @@
             <ul class="sub-menu">
                 <li><a href="/admin/bookListFrm?rePage=1">책 리스트</a></li>
                 <li><a href="/admin/insertBookFrm">책 등록</a></li>
-                <li ><a href="/admin/arderAdmin1">발주창</a></li>
+                <li><a href="/admin/orderAdmin1">발주승인</a></li>
             </ul>
             </li>
             <li>
@@ -136,7 +136,7 @@
                             </tr>
                         </thead>
                         <tbody>                            
-                            <tr th:each="CenterInventory :${Admin1BookList}"><!-- -->                            	
+                            <tr th:each="CenterInventory :${Admin2BookList}"><!-- -->                            	
                             	<td th:text="${CenterInventory.bookNo}"></td>
               					<td th:text="${CenterInventory.bookType}"></td>
               					<td th:text="${CenterInventory.bookGenre}"></td>

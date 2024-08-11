@@ -114,24 +114,11 @@ public class AdminController {
 	public String orderAdmin2(Model model,int rePage ,Book book,@SessionAttribute(required=false) Admin admin) {
 		OrderBookListData obld = adminService.selectAdminBookList(rePage,book,admin);
 		
-		model.addAttribute("Admin1BookList",obld.getList());
+		model.addAttribute("Admin2BookList",obld.getList());
 		model.addAttribute("pageNavi",obld.getPageNavi());
 		
 		return "admin/orderAdmin2";
 	}
-	//총관리자 발주된 책 리스트
-	@GetMapping(value = "/orderAdmin1")
-	public String orderAdmin1(Model model,int rePage ,Book book,@SessionAttribute(required=false) Admin admin) {
-		OrderBookListData obld = adminService.selectAdminBookList(rePage,book,admin);
-		
-		model.addAttribute("Admin1BookList",obld.getList());
-		model.addAttribute("pageNavi",obld.getPageNavi());
-		
-		
-		return "admin/orderAdmin1";
-	}
-
-	
 	
 	@GetMapping(value = "/insertBookFrm")
 	public String insertBook() {
@@ -266,9 +253,13 @@ public class AdminController {
 	 		
 	 	//	return "redirect:/admin/bookListFrm?rePage=1";
 	 	}
-	 
 	 	//총관리자 select 부분(발주)
-	 	
+	 	//총관리자 발주된 책 리스트
+		@GetMapping(value = "/orderAdmin1")
+		public String orderAdmin1() {
+			
+			return "admin/orderAdmin1";
+		}
 	 	
 	 	
 	 	

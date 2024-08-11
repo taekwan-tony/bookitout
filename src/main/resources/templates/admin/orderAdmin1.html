@@ -115,16 +115,12 @@
             <div class="inner">
                 <div class="container">
                     <div class="page-title">
-                        <h1>발주</h1><span>(리스트)</span>
+                        <h1>총발주</h1><span>(리스트)</span>
                     </div>
                     <form action="/admin/bookListFrm" method="get">
                     <table class="bookTbl">
                         <thead>
                             <tr>
-                                <th style="width: 3%">
-                                	<label></label>
-                                	<input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
-                                </th>
               					<th style="width: 9%">책번호 </th>
               					<th style="width: 7%">책이름</th>
               					<th style="width: 8%">저자이름</th>
@@ -142,9 +138,6 @@
                       
                         <tbody>                            
                             <tr th:each="book :${bookList}"><!-- -->                            	
-                            	<td>
-                                	<input type="checkbox" name="chk[]" value="1">
-                                </td>
                             	<td th:text="${book.bookNo}"></td>
               					<td>
               						<div class="input-item">
@@ -188,17 +181,10 @@
 	              				<td th:text="${book.publicationDate}"></td>
 	              				<td th:text="${book.enrollDate}"></td>
               					<td>
-              						<input type="text" name="centerBookCount" th:value=${book.centerBookCount}>
-              					</td>
-              					<td>
-              						<input type="text" name="bookPrice" th:value=${book.bookPrice}>
-              					</td>
-              					<td>
 	              					<button type="submit" class="btn-type2 btn">발주창</button>
 	              					<input type="hidden" name="bookNo" th:value="${book.bookNo}">
               					</td>
                             </tr>
-                            	
                         </tbody>
                     </table>
                    </form>
