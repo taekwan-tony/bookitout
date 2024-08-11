@@ -97,6 +97,7 @@ a {
 .tbl {
 	border: 2px solid;
 	border-collapse: collapse;
+	width:1000px;
 }
 
 th {
@@ -136,31 +137,52 @@ th, td {
 				<h3>전체 주문 내역</h3>
 				<table class="tbl">
 					<tr>
-						<th>주문일</th>
-						<th>주문번호</th>
-						<th>수령인</th>
-						<th>주문상품</th>
+						<th style="width:5%">주문번호</th>
+						<th style="width:10%">주문일</th>
+						<th style="width:15%">수령인</th>
+						<th>총 가격</th>
+						<th style="width:40%">주문상품</th>
 						<th>배송지</th>
 					</tr>
-					<tr></tr>
+					<tr th:each="p,status : ${list}">
+						<td th:text="${p.payNo}" class="payNo"></td>
+						<td th:text="${p.payDate}"></td>
+						<td th:text="${p.name}"></td>
+						<td th:text="${p.totalPrice}"></td>
+						<td class="order-items"></td>
+						<td th:text="${p.addr}"></td>
+					</tr>
 				</table>
 			</div>
 		</div>
 		<div class="clear"></div>
 	</main>
-	<script>
-		function loadImg(input) {
-			if (input.files && input.files[0]) {
-				var reader = new FileReader();
-				reader.onload = function(e) {
-					document.getElementById('previewImg').src = e.target.result;
-				}
-				reader.readAsDataURL(input.files[0]);
-			}
-		}
-	</script>
+
 	<th:block th:include="common/footer"></th:block>
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>
+<script>
+$(document).ready(function() {
+    $('.order-items').each(function() {
+        var $this = $(this);
+        var payNo = $this.prevAll('.payNo').text();
+    	console.log(payNo);
+
+    	$.ajax({
+    	    url: '/cart/selectPayNames',  // URL이 정확한지 확인
+    	    type: 'GET',
+    	    data: { payNo: payNo },
+    	    dataType: 'text',
+    	    success: function(data) {
+    	        
+    	        $this.text(data);
+    	    },
+    	    error: function(xhr, status, error) {
+    	        console.error('AJAX 요청 실패:', status, error);
+    	    }
+    	});
+    });
+});
+</script>
 </html>

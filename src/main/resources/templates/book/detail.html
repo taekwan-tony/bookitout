@@ -16,9 +16,9 @@
             <div class="info-wrap">
                 <div class="book">
                     <ul>
-                    	<li style="display: none;"><span th:text="${book.bookNo}" id="bookNo"></span></li>
-                        <li><h2 th:text="${book.bookName}"></h2></li>
-                        <li><p><span th:text="${book.bookWriter}"></span> / 발행(출시)일자: <span th:text="${book.publicationDate}"></span></p></li>
+                    	<li style="display: none;"><span th:text="${b.bookNo}" id="bookNo"></span></li>
+                        <li><h2 th:text="${b.bookName}"></h2></li>
+                        <li><p><span th:text="${b.bookWriter}"></span> / 발행(출시)일자: <span th:text="${b.publicationDate}"></span></p></li>
                         <li>
                             <img src="/image/book-sample.jpg" alt="도서 이미지">
                         </li>
@@ -30,7 +30,7 @@
                         <span class="badge">소득공제</span>
                     </div>
                     <div>
-                        <span th:text="${book.bookPrice}" id="price" class="price"></span><span>원</span>
+                        <span th:text="${b.bookPrice}" id="price" class="price"></span><span>원</span>
                     </div>
                     <div>
                         <p>
@@ -126,7 +126,7 @@
                             </li>
                             <li>
                                 <input type="hidden" name="bookCommentWriter" th:value="${session.member.memberId}">
-                                <input type="hidden" name="bookRef" th:value="${book.bookNo}">
+                                <input type="hidden" name="bookRef" th:value="${b.bookNo}">
                                 <div class="input-item">
                                     <textarea name="bookCommentContent" placeholder="리뷰를 작성하세요!"></textarea>
                                 </div>
@@ -139,7 +139,7 @@
                 </div>
                 <!-- 댓글 출력 시작 -->
                 <div class="commentBox">
-                    <th:block th:each="bc : ${book2.commentList}">
+                    <th:block th:each="bc : ${bc.commentList}">
                         <ul class="posting-comment">
                             <!-- <li>
                                 <span class="user-icon">
@@ -157,10 +157,9 @@
                                     <span class="comment-info-right">
                                         <span>
                                             <th:block th:if="${session.member.memberId == bc.bookCommentWriter}">
-                                                <span><a href="javascript:void(0)" th:onclick="modifyComment(this, [[${bc.bookCommentNo}]], [[${book.bookNo}]]);">수정</a></span>
-                                                <span><a href="javascript:void(0)" th:onclick="deleteComment(this, [[${bc.bookCommentNo}]], [[${book.bookNo}]]);">삭제</a></span>
+                                                <span><a href="javascript:void(0)" th:onclick="modifyComment(this, [[${bc.bookCommentNo}]], [[${b.bookNo}]]);">수정</a></span>
+                                                <span><a href="javascript:void(0)" th:onclick="deleteComment(this, [[${bc.bookCommentNo}]], [[${b.bookNo}]]);">삭제</a></span>
                                             </th:block>
-                                            <span><a class="recShow" href="javascript:void(0)">답글달기</a></span>
                                         </span>
                                     </span>
                                 </div>
@@ -171,24 +170,84 @@
                                 <p class="comment-link">
                                     <th:block th:if="${session.member != null}">
                                         <span class="like-box">
-                                            <span class="heart-icon" th:onclick="likePush(this, [[${bc.bookCommentNo}]]);"><i class="fa-solid fa-heart"></i></span>
-                                            <span class="heart-icon" th:onclick="likePush(this, [[${bc.bookCommentNo}]]);"><i class="fa-regular fa-heart"></i></span>
-                                            <span th:if="${bc.isLike == 1}" class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);">
+                                        	<!-- 
+                                            <span th:if="${bc.isLike == 1}" class="heart-icon" th:onclick="likePush(this, [[${bc.bookCommentNo}]]);">
                                                 <i class="fa-regular fa-thumbs-up"></i>
                                             </span>
-                                            <!-- <span th:if="${nc.isLike == 0}" class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);">
-                                                <i class="fa-regular fa-thumbs-down"></i>
-                                            </span> -->
-                                            <span class="likeCount" th:text="${nc.likeCount}">0</span>
+                                            <span th:if="${bc.isLike == 0}" class="heart-icon" th:onclick="likePush(this, [[${bc.bookCommentNo}]]);">
+                                                <i class="fa-regular fa-thumbs-up"></i>
+                                            </span>
+                                            -->
+											<span th:if="${bc.isLike == 1}" class="material-icons heart-icon" th:onclick="likePush(this, [[${bc.bookCommentNo}]]);">thumb_up_alt</span>
+											<span th:if="${bc.isLike == 0}" class="material-icons heart-icon" th:onclick="likePush(this, [[${bc.bookCommentNo}]]);">thumb_up_off_alt</span>
+                                            <span class="likeCount" th:text="${bc.likeCount}"></span>                                            
+                                            <span class="reComment-btn">
+                                            	<i class="fa-solid fa-comment-dots"></i>
+                                                <a class="recShow" href="javascript:void(0)">답글</a>
+                                            </span>
+                                            <!-- 
                                             <span>
                                                 <i class="fa-solid fa-comment-dots"></i>답글
                                             </span>
-                                            <span class="commentReCount">0</span>
+                                            <span class="commentReCount">0</span> -->
                                         </span>
                                     </th:block>
                                 </p>
                             </li>
                         </ul>
+						<!-- 대댓글 작성 양식 -->
+						<div style="display: none;" th:if="${session.member != null}" class="inputCommentBox inputRecommentBox">
+							<form action="/book/insertComment" method="post">
+								<ul>
+									<li>
+										<!-- <span class="material-icons">subdirectory_arrow_right</span> -->
+										<span class="comment-icon"><i class="fa-solid fa-arrow-turn-up"></i></span>
+									</li>
+									<li>
+										<input type="hidden" name="bookCommentWriter" th:value="${session.member.memberId}">
+										<input type="hidden" name="bookRef" th:value="${b.bookNo}">
+										<input type="hidden" name="bookCommentRef" th:value="${bc.bookCommentNo}">
+										<div class="input-item">
+											<textarea name="bookCommentContent"></textarea>
+										</div>
+									</li>
+									<li>
+										<button class="btn-point" type="submit">등록</button>
+									</li>
+								</ul>
+							</form>
+						</div>
+						<!-- 출력한 댓글의 대댓글 출력 -->
+						<ul class="posting-comment reply" th:each="bcc : ${bc.reCommentList}" th:if="${bc.bookCommentNo == bcc.bookCommentRef}">
+							<li>
+								<span style="margin-right: 20px;" class="comment-icon"><i class="fa-solid fa-arrow-turn-up"></i></span>
+								<span class="user-icon"><i class="fa-solid fa-circle-user"></i></span>
+							</li>
+							<li>
+								<p class="comment-info">
+									<span th:text="${bcc.bookCommentWriter}"></span>
+									<span th:text="${bcc.bookCommentDate}"></span>
+									<span class="like-box">
+										<!-- <span class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);"><i class="fa-solid fa-heart"></i></span>
+										<span class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);"><i class="fa-regular fa-heart"></i></span> -->
+										<!-- 
+										<span th:if="${ncc.isLike == 1}" class="material-icons heart-icon" th:onclick="likePush(this, [[${ncc.noticeCommentNo}]]);">thumb_up_alt</span>
+										<span th:if="${ncc.isLike == 0}" class="material-icons heart-icon" th:onclick="likePush(this, [[${ncc.noticeCommentNo}]]);">thumb_up_off_alt</span>
+										<span th:text="${ncc.likeCount}"></span> -->
+									</span>
+								</p>
+								<p class="comment-content" th:text="${bcc.bookCommentContent}"></p>
+								<div style="display: none;" class="input-item">
+									<textarea name="bookCommentContent" th:text="${bcc.bookCommentContent}"></textarea>
+								</div>
+								<p class="comment-link">
+									<th:block th:if="${session.member != null && session.member.memberId == bcc.bookCommentWriter}">
+										<a href="javascript:void(0)" th:onclick="modifyComment(this, [[${bcc.bookCommentNo}]], [[${b.bookNo}]])">수정</a>
+										<a href="javascript:void(0)" th:onclick="deleteComment(this, [[${bcc.bookCommentNo}]], [[${b.bookNo}]])">삭제</a>
+									</th:block>
+								</p>
+							</li>
+						</ul>
                     </th:block>
                 </div>
             </div>
@@ -199,7 +258,7 @@
                 <div class="inner">
                     <div class="price-info">
                         <span>총 상품 금액</span>
-                        <span id="total" class="total" th:text="${book.bookPrice}"></span><span>원</span>
+                        <span id="total" class="total" th:text="${b.bookPrice}"></span><span>원</span>
                     </div>
                     <div class="bottom-btnBox">
                         <span class="btn-type1 countPM">
@@ -220,7 +279,56 @@
     </main>
 
 	<script>
-		
+		$(".recShow").on("click", function(){
+			// 답글달기 버튼 중 클릭한 답글달기 버튼이 몇번째 버튼인지 조회
+			const index = $(".recShow").index(this);
+			if($(this).text() === "답글"){
+				$(this).text("취소");
+			}else{
+				$(this).text("답글");
+			}
+			$(".inputRecommentBox").eq(index).toggle();
+		});
+	
+		function likePush(obj, bookCommentNo){
+			// 현재 상태를 구분 -> 지금 클릭한 행동이 좋아요를 누른건지/좋아요 취소를 누른건지 구분
+			const currentText = $(obj).text();
+			// thumb_up_off_alt   thumb_up_alt
+			const isLike = (currentText == "thumb_up_off_alt")?0:1;
+			console.log(isLike);
+			$.ajax({
+				url : "/book/likePush",
+				type : "post",
+				data : {bookCommentNo : bookCommentNo, isLike : isLike},
+				success : function(data){
+					if(data == -10){
+						swal({
+							title : "로그인 필요",
+							text : "로그인 후 이용해주세요.",
+							icon : "info"
+						});
+					}else if(data == -1){
+						swal({
+							title : "데이터 처리 오류",
+							text : "잠시 후 다시 시도해주세요.",
+							icon : "warning"
+						});
+					}else{
+						// 아이콘 변경
+						if(isLike == 0){
+							$(obj).text("thumb_up_alt");
+						}else{
+							$(obj).text("thumb_up_off_alt");
+						}
+						// 현재 좋아요 갯수 변경
+						$(obj).nextAll().last().text(data);
+					}
+				},
+				error : function(){
+					console.log(error);
+				}
+			});
+		}
 	</script>
 	<th:block th:include="common/footer"></th:block>
 </body>

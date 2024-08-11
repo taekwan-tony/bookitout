@@ -23,7 +23,18 @@
 	border-top: 2px solid black;
 	border-bottom: 2px solid black;
 }
+
+.tbl {
+	width: 900px;
+	text-align: center;
+	margin: auto;
+	margin-top: 50px;
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+}
 </style>
+</style>
+
 </head>
 <body>
 	<th:block th:include="common/header"></th:block>
@@ -46,6 +57,25 @@
 					<td th:text="${c.bookCartCount}"></td>
 					<td th:text="${c.bookPrice}"></td>
 					<input type="hidden" th:value="${c.memberNo}" id="memberNo">
+				</tr>
+			</table>
+			<table class="tbl">
+				<tr>
+					<td colspan="2">
+						<h1>수령지 정보</h1>
+					</td>
+					<tr>
+						<th>받는 분</th>
+						<td>
+							<input type="text" name="memberName" id="name"  th:value="${session.member.memberName}">
+						</td>
+					</tr>
+					<tr>
+						<th>주소</th>
+						<td>
+							<input type="text" name="memberAddr" id="addr" th:value="${session.member.memberAddr}">
+						</td>
+					</tr>
 				</tr>
 			</table>
 			<h1 style="display: inline-block">총 금액 :</h1>
@@ -75,12 +105,16 @@
 			const date = new Date();
 			const dateString = date.getFullYear()+""+(date.getMonth()+1)+""+date.getDate()+""+date.getHours()+""+date.getMinutes()+""+date.getSeconds();
 			
+			const addr = $("#addr").val();
+			const name = $("#name").val();
+			
 			IMP.init("imp04222210");
 			
 			IMP.request_pay(
 					  {
 					    pg: "html5_inicis.INIpayTest",
 					    pay_method: "card",
+					    
 					    merchant_uid: memberNo+"_"+dateString,
 					    name: "주문명:결제테스트",
 					    amount: 100,
@@ -88,7 +122,7 @@
 					    buyer_name: memberName,
 					    buyer_tel: memberPhone,
 					    buyer_addr: memberAddr,
-					    buyer_postcode: "123-456",
+					    buyer_postcode: "123-456"
 					  },
 					  function(rsp){//콜백 함수, rsp = 응답 객체(response object), 객체는 결제의 성공 여부, 결제 금액, 결제 고유 번호 등의 다양한 정보를 포함 
 						  if(rsp.success){
@@ -96,7 +130,7 @@
 							  $.ajax({
 								  url : "/cart/success",
 								  type:"post",
-								  data:{cartNoStr: cartNoStr, price: 100},
+								  data:{cartNoStr: cartNoStr, price: 100, name : name, addr : addr},
 								  success : function(data){
 									  console.log(data);
 								  },

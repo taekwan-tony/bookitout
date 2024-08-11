@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -30,8 +31,7 @@ import kr.co.bookItOut.cart.model.dto.Cart;
 import kr.co.bookItOut.cart.model.service.CartService;
 import kr.co.bookItOut.member.model.dto.Member;
 import kr.co.bookItOut.member.model.service.MemberService;
-
-
+import kr.co.bookItOut.pay.model.dto.Pay;
 import kr.co.bookItOut.util.FileUtils;
 
 
@@ -64,7 +64,23 @@ public class CartController {
 		
 		return "cart/paySuccess";
 	}
-	
+	@GetMapping("/selectPayNames")
+    @ResponseBody
+    public List selectPayNames(@RequestParam("payNo") int payNo) {
+        System.out.println("테스트");
+        System.out.println("받은 payNo 값: " + payNo);
+        
+        // payNo에 해당하는 상품명을 조회
+        List list = cartService.selectPayNames(payNo);
+        List bookName = new ArrayList<String>();
+        
+        for(int i=0; i<list.size(); i++) {
+        	bookName.add(((Pay)(list.get(i))).getBookName());
+        }
+        
+        System.out.println(bookName);
+        return bookName;  // JSON 형태로 반환됨
+    }
 	
 	@ResponseBody
 	@GetMapping(value="/addCart")
@@ -111,20 +127,27 @@ public class CartController {
 	}
 	
 	@PostMapping("/success")
-	public String success(String cartNoStr, int price) {
+	public String success(String cartNoStr, int price, @SessionAttribute(required=false) Member member, String name, String addr) {
 		System.out.println("카트 넘버는 : "+cartNoStr);
-		//boolean result = cartService.success(cartNoStr, price);
+		System.out.println(addr);
+		System.out.println(name);
+		boolean preResult = cartService.success1(price, member, addr, name);
 		
+		
+		boolean result = cartService.success(cartNoStr, price, member);
 		return "redirect:/cart/main";
 	}
 	
 	
 	@GetMapping("/selPay")
-	public String selPay(String name, String totalPrice, Model model, @SessionAttribute(required=false) Member member) {
-		
+	public String selPay(String name, String bookCount, String totalPrice, Model model, @SessionAttribute(required=false) Member member) {
+		System.out.println("책 이름은 : "+name);
+		System.out.println("수량은 : "+bookCount);
 		//장바구니 수량 변경 시 결제화면에 반영 안됨
+		
+		
 		int memberNo = member.getMemberNo();
-		List list = cartService.selPay(memberNo, name);
+		List list = cartService.selPay(memberNo, name, bookCount);
 		
 //		System.out.println("선택한 책 이름 /로 구분 -- "+name);
 //		System.out.println("총 가격 -- "+totalPrice);
@@ -147,6 +170,8 @@ public class CartController {
 		
 		return "cart/selPay";
 	}
+	
+	
 
 	/*
 	 	@ResponseBody

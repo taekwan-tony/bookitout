@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.bookItOut.member.model.dto.Member;
 import kr.co.bookItOut.member.model.dto.MemberRowMapper;
+import kr.co.bookItOut.pay.model.dto.PayRowMapper;
+import kr.co.bookItOut.pay.model.dto.PayRowMapper2;
 
 @Repository
 public class MemberDao {
@@ -15,6 +17,9 @@ public class MemberDao {
 	private JdbcTemplate jdbc;
 	@Autowired
 	private MemberRowMapper memberRowMapper;
+	@Autowired
+	private PayRowMapper payRowMapper;
+	
 	public Member selectOneMember(String memberId, String memberPw) {
 		String query = "select * from member_tbl where member_id=? and member_pw=?";
 		Object[] params = {memberId, memberPw};
@@ -75,6 +80,14 @@ public class MemberDao {
 		}else {
 			return (Member)list.get(0);
 		}
+	}
+	public List selectAllCart(int memberNo) {
+		String query = "SELECT * FROM pay WHERE member_no=? ORDER BY pay_no DESC";
+		Object[] params = {memberNo};
+		List list = jdbc.query(query, payRowMapper, params);
+		
+		System.out.println(list);
+		return list;
 	}
 	
 }

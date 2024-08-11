@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PayRowMapper implements RowMapper<Pay>{
+public class PayRowMapper2 implements RowMapper<Pay>{
 
 	@Override
 	public Pay mapRow(ResultSet rs, int rowNum) throws SQLException{
@@ -19,6 +19,10 @@ public class PayRowMapper implements RowMapper<Pay>{
 		p.setTotalPrice(rs.getInt("total_price"));
 		p.setAddr(rs.getString("addr"));
 		p.setName(rs.getString("name"));
+		
+		p.setPayMenuNo(rs.getInt("pay_menu_no"));
+		p.setBookCartCount(rs.getInt("book_cart_count"));
+		p.setBookNo(rs.getInt("book_no"));
 		return p;
 	}
 }

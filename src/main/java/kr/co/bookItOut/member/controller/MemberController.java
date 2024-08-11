@@ -1,5 +1,6 @@
 package kr.co.bookItOut.member.controller;
 
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServlet;
@@ -45,7 +47,12 @@ public class MemberController {
 	}
 
 	@GetMapping(value = "/myOrder")
-	private String myOrder() {
+	private String myOrder(@SessionAttribute(required=false) Member member, Model model) {
+		int memberNo = member.getMemberNo();
+		List list = memberService.selectAllPay(memberNo);
+		
+		model.addAttribute("list", list);
+		
 		return "myPage/myOrder";
 	}
 
@@ -55,15 +62,20 @@ public class MemberController {
 	}
 
 	@PostMapping(value = "/login")
-	public String login(String memberId, String memberPw, int role, HttpSession session) {
+	public String login(String memberId, String memberPw, int role, HttpSession session, Model model) {
 		System.out.println(role);
 
 		if (role == 1) {
 			Member member = memberService.selectOneMember(memberId, memberPw);
 			System.out.println(member);
 			session.setAttribute("member", member);
-
-			return "redirect:/";
+			if(member==null) {
+				String error = "아이디 또는 비밀번호가 일치하지 않습니다.";
+				model.addAttribute("error",error);
+				return "member/login";
+			}else {				
+				return "redirect:/";
+			}
 		} else {
 			return "redirect:/admin/login?memberId=" + memberId + "&memberPw=" + memberPw;
 		}
@@ -207,5 +219,11 @@ public class MemberController {
 			System.out.println("수정 실패");
 			return "redirect:/";
 		}
+	}
+	
+	@GetMapping(value = "/details")
+	public String details(int payNo) {
+		
+		return "member/searchPwFrm";
 	}
 }

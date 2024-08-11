@@ -98,8 +98,9 @@ public class AdminController {
 //책 부분 시작------------------------------------------------------------------------------------------------
 //책 리스트 보여주는 화면
 	@GetMapping(value = "/bookListFrm")
-	public String bookListFrm(Model model,int rePage) {
-		BookListData bld = adminService.selectbookList(rePage);
+	public String bookListFrm(Model model,int rePage ,Book book,@SessionAttribute(required=false) Admin admin) {
+		BookListData bld = adminService.selectbookList(rePage,book,admin);
+		
 		model.addAttribute("bookList",bld.getList());
 		model.addAttribute("pageNavi",bld.getPageNavi());
 		

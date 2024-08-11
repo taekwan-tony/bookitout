@@ -1,10 +1,13 @@
 package kr.co.bookItOut.member.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.bookItOut.member.model.dao.MemberDao;
 import kr.co.bookItOut.member.model.dto.Member;
+import kr.co.bookItOut.pay.model.dto.Pay;
 
 @Service
 public class MemberService {
@@ -40,6 +43,13 @@ public class MemberService {
 	public Member selectSearchPw(Member m) {
 		Member member = memberDao.selectSearchPw(m);
 		return member;
+	}
+
+	public List selectAllPay(int memberNo) {
+		List list = memberDao.selectAllCart(memberNo);
+		System.out.println(list);
+		System.out.println(list);
+		return list;
 	}
 	
 }
