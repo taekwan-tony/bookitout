@@ -74,6 +74,13 @@ $(document).ready(function(){
                     
                     const td2 = $("<td>");
                     td2.append(data[i].adminAddr);
+                    
+                    /* 추가 작업 */
+                    const mapBtn = $("<span class='btn-type2 btn mapBtn'><a href='/book/centerMap.html'></a>");
+                    //const mapLink = $("<a>");
+                    //mapLink.href("/book/centerMap");
+                    td2.append(mapBtn);
+                    
                     tr2.append(td2);
                     
                     const td3 = $("<td>");
