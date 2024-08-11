@@ -74,6 +74,16 @@ $(document).ready(function(){
                     
                     const td2 = $("<td>");
                     td2.append(data[i].adminAddr);
+                    
+                    /* 추가 작업 */
+                    const mapBtn = $("<span class='btn-type2 btn mapBtn'>");
+                    const mapLink = $("<a>");//<a href='/book/centerMap.html' target='_blank'>지도보기</a>
+                    mapLink.prop('href', '/book/centerMap.html');
+                    mapLink.attr('target', '_blank');
+                    mapLink.text("지도보기");
+                    mapBtn.append(mapLink);
+                    td2.append(mapBtn);
+                    
                     tr2.append(td2);
                     
                     const td3 = $("<td>");
