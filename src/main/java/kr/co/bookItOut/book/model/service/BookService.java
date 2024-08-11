@@ -50,9 +50,6 @@ public class BookService {
 		return result;
 	}
 
-	public BookListData selectBookList(int reqPage, int type, int genre) {
-		int numPerPage = 5;
-
 	@Transactional
 	public int likePush(int bookCommentNo, int isLike, int memberNo) {
 		int result = 0;
@@ -72,7 +69,7 @@ public class BookService {
 		}
 	}
 
-	public BookListData selectBookList(int reqPage) {
+	public BookListData selectBookList(int reqPage, int type, int genre) {
 		int numPerPage = 10;
 
 		int end = reqPage * numPerPage;
