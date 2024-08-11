@@ -68,7 +68,7 @@ public class BookService {
 			return -1;
 		}
 	}
-
+	
 	public BookListData selectBookList(int reqPage, int type, int genre) {
 		int numPerPage = 10;
 

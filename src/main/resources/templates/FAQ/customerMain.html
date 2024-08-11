@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html xmlns:th="http/www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>1:1문의</title>
+<link rel="stylesheet" href="/css/customercenter.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+	.total-faq-box{
+		border-bottom : 0.5px solid var(--gray2);
+	}
+	.question-icon-color{
+		color: var(--color2);
+		font-size: 15px;
+	}
+	.btn-content-box{
+		position: relative;
+	}
+	.question-box{
+		height : 60px;
+		width:100%;
+		background-color : transparent;
+		border : none;
+
+		text-align: left;
+		overflow : hidden;
+	}
+	.question-box>div:first-child{
+		float:left;
+	}
+	#faqTitle{
+		font-size: 17px;
+		font-family: Tenada;
+	}
+	.question-btn{
+		position: absolute;
+		left: 0;
+		top: 0;
+		height : 100%;
+		width: 100%;
+		background: none;
+		border: none;
+		
+	}
+	.right-btn{
+		float : right;
+	}
+	.content-box>div{
+		display : flex;
+		
+	}
+	.down-box{
+		display : none;
+	}
+	
+	.customer-content-wrap>div:last:child{
+		margin : 0 auto;
+	}
+	.content-box{
+		animation-duration : 10s;
+		animation-delay: 10s;
+	}
+	.question-content-box{
+		overflow:hidden;
+	}
+	.write-btn{
+		float:right;
+	}
+	.customer-content-wrap>.page-wrap>div{
+		display : flex;
+		align-items:center;
+		justify-content : center;
+	}
+	.content-btn-box{
+		display : flex;
+		position: absolute;
+		right : 0;
+		bottom : 0;
+		align-items : right;
+		padding : 5px;
+		gap : 10px;
+	}
+	.content-btn-box>*{
+		font-size : 12px;
+		cursor: pointer;
+		
+	}
+	.content-btn-box>a:hover{
+		text-decoration: underline;
+	}
+	.content-box>div{
+		position : relative;
+	}
+	.customer-main-title{
+		margin-bottom : 50px;
+	}
+	.customer-main-title>p{
+		font-size : 24px;
+		padding-bottom : 5px;
+	}
+	.sub-main-title>p{
+		font-size : 19px;
+		padding-bottom : 15px;
+		font-family : Tenada;
+		
+	}
+	.question-list-box{
+		margin-bottom : 120px;
+	}
+	.faq-design-wrap{
+		display:flex;
+		justify-content: space-between;
+		margin-bottom : 100px;
+	}
+	.faq-design-wrap>div{
+		width: 310px;
+		height : 200px;
+		border-radius : 10px;
+		border : 1px solid var(--gray2);
+		background-color : none;
+		box-sizing: border-box;
+	}
+	.faq-design-wrap>.faq-box{
+		background-color : var(--gray2);
+		border : none;
+	}
+	.call-box{
+		padding : 15px;
+	}
+	.call-box>div:first-child{
+		margin-bottom : 40px;
+	}
+	.call-box>div{
+		margin-top : 15px;
+	}
+	.call-box>div:last-child{
+		margin-top : 30px;
+	}
+	.call-box>div:last-child>p{
+		padding-bottom : 5px;
+	}
+	.call-box>div>p{
+		font-size : 12px;
+	}
+	#phone{
+		color : blue;
+	}
+	.call-box>div:last-child>button>a{
+		color: #AF8F6F;
+	}
+	.faq-box{
+		display:flex;
+		justify-content : center;
+		padding 30px 0 ;
+	}
+	.faq-box>div{
+		width:50%;
+		padding : 20px 30px;
+	}
+	.faq-box>div:first-child{
+		border-right : 1px solid var(--gray3);
+		
+	}
+	
+	.faq-box>div>div:first-child{
+		position: relative;
+		padding : 15px;
+	}
+	
+	.faq-box>div>div:first-child>span{
+		color:white;
+		font-size:70px;
+	}
+	.faq-box>div>div:first-child>a{
+		position:absolute;
+		left : 33px;
+		top: 35px;
+		
+	}
+	.faq-box>div>div:first-child>a>span{
+		font-size : 35px;
+		color : var(--gray1);
+	}
+	.faq-box>div>div:last-child{
+		position: relative;
+	}
+	
+	.faq-box>div>div:last-child>span{
+		color:white;
+		font-size:70px;
+	}
+	.faq-box>div>div:last-child>a{
+		position:absolute;
+		left : 33px;
+		top: 35px;
+		
+	}
+	.faq-box>div>div:last-child>a>span{
+		font-size : 35px;
+		color : var(--gray1);
+	}
+	#faq-text{
+		font-size : 16px;
+		width: 100%;
+	}
+	.content-notice-wrap{
+		width:100%;
+	}
+	.content-notice-table{
+		width:100%;
+		border-top : 1px solid black;
+		border-spacing : 0;
+	}
+	.content-notice-wrap>.content-notice-table tr{
+		height : 50px;
+	}
+	.content-notice-wrap>.content-notice-table th{
+		border-bottom : 1px solid var(--gray2);
+	}
+	.content-notice-table tr>td{
+		text-align: center;
+		border-bottom : 1px solid var(--gray2);
+	}
+	.customer-content-wrap>.page-wrap>div{
+		display : flex;
+		align-items:center;
+		justify-content : center;
+	}
+	.content-notice-table tr>td>a:hover{
+		font-weight: 700;
+		text-decoration: underline;
+	}
+	.sub-main>p{
+		font-size : 19px;
+		font-family : Tenada;
+		
+	}
+	.more-view-wrap{
+		overflow : hidden;
+		height: 30px;	
+	}
+	.more-view-wrap>div{
+		float : right;	
+	}
+	.more-view-wrap>div>a{
+		font-size : 14px;
+		cursor : pointer;
+	}
+	.more-view-wrap>div>a:hover{
+		font-weight : 900;
+		text-decoration : underline;
+		
+	}
+</style>
+
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<main class="content">
+		<div class="customer-main-wrap">
+			<div class="customer-list-wrap">
+				<div class="content-msg">
+					<h2>고객센터</h2>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/FAQ/customerMain">메인</a>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/FAQ/faqfrm?type=1&reqPage=1">자주 묻는 질문</a>
+						<li><a href="/FAQ/faqfrm?type=1&reqPage=1">회원가입/탈퇴</a></li>
+						<li><a href="/FAQ/faqfrm?type=2&reqPage=1">반품/교환/환불</a></li>
+						<li><a href="/FAQ/faqfrm?type=3&reqPage=1">주문/결제</a></li>
+						<li><a href="/FAQ/faqfrm?type=4&reqPage=1">배송/수령일 안내</a></li>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/Question/questionList?type=1&reqPage=1">1:1 문의</a>
+						<li><a href="/Question/writeQuestionFrm">1:1 문의 접수</a></li>
+						<li><a href="/Question/questionList?type=1&reqPage=1">1:1 문의 내역</a></li>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/notice/noticeFrm?reqPage=1">공지사항</a>
+					</ul>
+				</div>
+			</div>
+			<div class="customer-content-wrap">
+				<div class="customer-main-title">
+					<p>무엇을 도와드릴까요?</p>
+					<p><b>책키라웃 고객센터</b> 입니다.</p>
+				</div>
+				<div class="sub-main-title">
+					<p>자주묻는 질문</p>
+				</div>
+				<div class="search-design-form">
+					<form action="/FAQ/searchFaq" method="get">
+						<input type="hidden" name="type" value="0">
+						<input type="hidden" name="reqPage" value="1">
+						<th:block th:if="${searchQna}==null">
+							<input type="text" name="searchQna" placeholder="내용을 입력해주세요.">
+						</th:block>
+						<th:block th:if="${searchQna}!=null">
+							<input type="text" name="searchQna" th:value="${searchQna}">
+						</th:block>
+						<button type="submit" class="btn-type2 btn" >검색</button>
+					</form>
+				</div>
+				<div class="question-list-box">
+					<div>
+						<a href="/FAQ/faqfrm?type=1&reqPage=1"><span>회원가입/탈퇴</span></a>
+					</div>
+					<div>
+						<a href="/FAQ/faqfrm?type=2&reqPage=1"><span>반품/교환/환불</span></a>
+					</div>
+					<div>
+						<a href="/FAQ/faqfrm?type=3&reqPage=1"><span>주문/결제</span></a>
+					</div>
+					<div>
+						<a href="/FAQ/faqfrm?type=4&reqPage=1"><span>배송/수령일 안내</span></a>
+					</div>
+				</div>
+				<div class="sub-main-title">
+					<p>1:1 문의</p>
+				</div>
+				<div class="faq-design-wrap">
+					<div class="faq-box">
+						<div>
+							<div>
+								<span class="material-icons">circle</span>
+								<a href="/Question/questionList?type=1&reqPage=1"><span class="material-icons">live_help</span></a>
+							</div>
+							<div>
+								<p id="faq-text">1:1 문의 접수</p>
+							</div>
+						</div>
+						<div>
+							<div>
+								<span class="material-icons">circle</span>
+								<a href="/Question/questionList?type=1&reqPage=1"><span class="material-icons">description</span></a>
+							</div>
+								
+							<div>
+								<p id="faq-text">1:1 문의 내역</p>
+							</div>
+						</div>
+					</div>
+					
+					<div class="call-box">
+						<div>
+							<h3>전화 상담</h4>
+						</div>
+						<div class="phone-div">
+							<p id="phone">책키라웃 1544-1900</p>
+						</div>
+						<div>
+							<p>평일  09:00 ~ 18:00 (주말 및 공휴일 휴무)</p>
+							<p>점심  09:00 ~ 18:00 (책키라웃 전화상담만 가능)</p>
+						</div>
+					</div>
+					<div class="call-box">
+						<div>
+							<h3>내 정보</h3>
+						</div>
+						<div>
+							<button class="btn-type2 btn"><a href="/myPage/myPage">내 정보 확인하러 가기 ></a></button>
+						</div>
+					</div>
+				</div>
+				<div class="sub-main">
+					<p>공지사항</p>
+				</div>
+				<div class="more-view-wrap">
+					<div>
+						<a href="/notice/noticeFrm?reqPage=1">더보기</a>
+					</div>
+				</div>
+				<div class="noitce-design-wrap">
+					<div class="content-notice-wrap">
+					<table class="content-notice-table">
+						<tr>
+							<th style="width:15%;">NO</th>
+							<th style="width:60%;">공지제목</th>
+							<th style="width:25%;">날짜</th>
+						</tr>
+						<th:block th:each="notice :${list}">
+							<tr>
+								<td style="width:15%;" th:text="${notice.noticeNo}"></td>
+								<td style="width:60%;" ><a th:href="@{/notice/noticeDetail(noticeNo=${notice.noticeNo})}" th:text="${notice.noticeTitle}"></a></td>
+								<td style="width:25%;" th:text="${notice.writeDate}"></td>
+							</tr>
+						</th:block>
+					</table>
+				</div>
+				</div>
+				
+			</div>
+		</div>
+	</main>
+	<th:block th:include="common/footer"></th:block>
+</body>
+</html>

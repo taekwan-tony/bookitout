@@ -84,25 +84,44 @@
 					<h2>FAQ 글쓰기</h2>
 				</div>
 				<div class="write-faq-wrap">
-					<form action="/FAQ/writeFaq"  method="post" class="write-form">
+					<form action="/FAQ/updateFaq"  method="post" class="write-form">
 						<table class="faq-tbl tbl">
 							<tr class="faq-tr">
 								<th>FAQ 제목 : </th>
-								<td><input type="text" name="faqTitle" id="faqTitle"></td>
+								<td><input type="text" name="faqTitle" id="faqTitle" th:value="${faq.faqTitle}"></td>
+								<input type="hidden" name="faqNo" th:value="${faq.faqNo}">
 							</tr>
 							<tr class="faq-tr">
 								<th>FAQ 유형 : </th>
-								<td>
-									<select class="select-width" name="faqType">
-										<option value="회원가입/탈퇴">회원가입/탈퇴</option>
+								<td  th:switch="${faq.faqType}">
+									<select class="select-width" name="faqType" readonly th:case="${'회원가입/탈퇴'}">
+										<option value="회원가입/탈퇴" selected>회원가입/탈퇴</option>
 										<option value="반품/교환/환불">반품/교환/환불</option>
 										<option value="주문/결제">주문/결제</option>
 										<option value="배송/수령일 안내">배송/수령일 안내</option>
 									</select>
+									<select class="select-width" name="faqType" readonly th:case="${'반품/교환/환불'}">
+										<option value="회원가입/탈퇴">회원가입/탈퇴</option>
+										<option value="반품/교환/환불"  selected>반품/교환/환불</option>
+										<option value="주문/결제">주문/결제</option>
+										<option value="배송/수령일 안내">배송/수령일 안내</option>
+									</select>
+									<select class="select-width" name="faqType" readonly th:case="${'주문/결제'}">
+										<option value="회원가입/탈퇴">회원가입/탈퇴</option>
+										<option value="반품/교환/환불">반품/교환/환불</option>
+										<option value="주문/결제" selected>주문/결제</option>
+										<option value="배송/수령일 안내">배송/수령일 안내</option>
+									</select>
+									<select class="select-width" name="faqType" readonly th:case="${'배송/수령일 안내'}">
+										<option value="회원가입/탈퇴">회원가입/탈퇴</option>
+										<option value="반품/교환/환불">반품/교환/환불</option>
+										<option value="주문/결제">주문/결제</option>
+										<option value="배송/수령일 안내" selected>배송/수령일 안내</option>
+									</select>
 								</td>
 							</tr>
 							<tr class="faq-tr">
-								<td  colspan="2"><textarea name="faqContent" id="faqContent"></textarea></td>
+								<td  colspan="2"><textarea name="faqContent" id="faqContent" th:utext="${faq.faqContent}"></textarea></td>
 							</tr>
 							<tr class="faq-tr">
 								<th colspan="2">

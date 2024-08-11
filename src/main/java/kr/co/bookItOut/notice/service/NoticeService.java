@@ -146,5 +146,10 @@ public class NoticeService {
 		NoticeListData nld = new NoticeListData(list, pageNavi);
 		return nld;
 	}
+
+	public List selectAllNotice() {
+		List list = noticeDao.selectThreeNotice();
+		return list;
+	}
 	
 }

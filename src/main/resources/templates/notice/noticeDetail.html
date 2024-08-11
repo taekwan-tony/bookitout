@@ -8,10 +8,13 @@
 <style>
 	.write-btn{
 		overflow : hidden;
+		
 	}
 	.write-btn>*{
 		float : right;
+		padding-right : 20px;
 	}
+	
 	.content-notice-wrap{
 		width:100%;
 	}
@@ -88,7 +91,7 @@
 				</div>
 				<div class="content-main-text">
 					<ul>
-						<a href="/FAQ/customermain">메인</a>
+						<a href="/FAQ/customerMain">메인</a>
 					</ul>
 				</div>
 				<div class="content-main-text">
@@ -117,10 +120,12 @@
 				<div class="content-msg customer-main-msg">
 					<h2>공지사항</h2>
 				</div>
-				<div class="write-btn">
-					<button type="button" class="btn-type3 btn"><a th:href="@{/notice/updateFrm(noticeNo=${notice.noticeNo})}">수정</a></button>
-					<button type="button" class="btn-type3 btn"><a th:href="@{/notice/deleteNotice(noticeNo=${notice.noticeNo})}">삭제</a></button>
-				</div>
+				<th:block th:if="${session.admin !=null}">
+					<div class="write-btn">
+						<button type="button" class="btn-type2 btn"><a th:href="@{/notice/updateFrm(noticeNo=${notice.noticeNo})}">수정</a></button>
+						<button type="button" class="btn-type3 btn"><a th:href="@{/notice/deleteNotice(noticeNo=${notice.noticeNo})}">삭제</a></button>
+					</div>
+				</th:block>
 				<div class="content-notice-wrap">
 					<div class="content-title-wrap">
 						<div>

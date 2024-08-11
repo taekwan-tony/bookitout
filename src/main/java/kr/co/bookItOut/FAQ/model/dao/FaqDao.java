@@ -54,4 +54,32 @@ public class FaqDao {
 		int result = jdbc.update(query,params);
 		return result;
 	}
+
+
+
+	public int deleteFaq(int faqNo) {
+		String query = "delete from faq where faq_no = ?";
+		Object[] params = {faqNo};
+		int result = jdbc.update(query,params);
+		return result;
+	}
+
+
+
+	public Faq selectOneFaq(int faqNo) {
+		String query ="select * from faq where faq_no =?";
+		Object[] params = {faqNo};
+		List<Faq> list = jdbc.query(query, faqRowMapper,params);
+		
+		return list.get(0);
+	}
+
+
+
+	public int updateFaq(Faq f) {
+		String query = "update faq set faq_title =?,faq_content=?,faq_type=? where faq_no =?";
+		Object[] params = {f.getFaqTitle(),f.getFaqContent(),f.getFaqType(),f.getFaqNo()};
+		int result = jdbc.update(query,params);
+		return result;
+	}
 }

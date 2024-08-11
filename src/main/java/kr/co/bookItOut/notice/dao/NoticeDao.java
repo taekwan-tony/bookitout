@@ -93,6 +93,12 @@ public class NoticeDao {
 		List list = jdbc.query(query, noticeRowMapper,params);
 		return list;
 	}
+
+	public List selectThreeNotice() {
+		String query = "select * from (select rownum as rnum, n.* from (select * from notice order by 1 desc)n) where rnum between 1 and 3";
+		List list = jdbc.query(query, noticeRowMapper);
+		return list;
+	}
 	
 	
 }
