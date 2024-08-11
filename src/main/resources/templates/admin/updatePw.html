@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="/css/main.css" />
 <link rel="stylesheet" href="/css/admin.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+<script src="/js/admin.js"></script>
 
 <style>
 .container{
@@ -195,16 +196,5 @@ height: 100vh !important;
             </button>
         </div>
     </div>
-    
-    <script>
-    <!--전체 선택 로직 -->
-    function check_all(f)
-    {
-        var chk = document.getElementsByName("chk[]");
-
-        for (i=0; i<chk.length; i++)
-            chk[i].checked = f.chkall.checked;
-    }
-    </script>
 </body>
 </html>

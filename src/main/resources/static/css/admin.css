@@ -28,7 +28,7 @@
 /*사이드 창 */
 .nav1 {
     background-color: #fff;
-    height: 1200px;
+    /* height: 890px; */
     width: 18%;
     box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.1);
 }
