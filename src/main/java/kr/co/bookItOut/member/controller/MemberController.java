@@ -55,6 +55,16 @@ public class MemberController {
 		
 		return "myPage/myOrder";
 	}
+	
+	@GetMapping(value = "/myBoard")
+	private String myBoard(@SessionAttribute(required=false) Member member, Model model) {
+		String memberId = member.getMemberId();
+		List list = memberService.selectMyBoard(memberId);
+		
+		model.addAttribute("list", list);
+		System.out.println(list);
+		return "myPage/myBoard";
+	}
 
 	@GetMapping(value = "/loginFrm")
 	public String loginFrm() {
@@ -225,5 +235,13 @@ public class MemberController {
 	public String details(int payNo) {
 		
 		return "member/searchPwFrm";
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/boardView")
+	public String boardView(int boardNo) {
+	System.out.println("boardNo"+boardNo);
+	
+	return "board/view";
 	}
 }
