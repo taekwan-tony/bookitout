@@ -196,10 +196,15 @@ public class AdminDao {
 		return result;
 	}
 	public List selectOrderList(int start,int end,AdminOrderBook aob) {
-		String query = "\"select * from(select rownum as rnum, n.*from (select * from book order by 1 desc)n) where rnum between ? and ?";
+		String query = "select * from";
 		Object[] params = {start,end};
 		List list = jdbc.query(query,adminOrderBookRowMapper,params);
 		return list;
+	}
+	public int selectOrderTotoalCount() {
+		String qurey = "select count(*) from order";
+		int totalCount = jdbc.queryForObject(qurey,Integer.class);
+		return totalCount;
 	}
 
 
