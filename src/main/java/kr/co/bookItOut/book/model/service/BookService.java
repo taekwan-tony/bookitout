@@ -16,9 +16,9 @@ public class BookService {
 	@Autowired
 	private BookDao bookDao;
 
-	public Book selectOneBook(Book book) {
-		Book b = bookDao.selectOneBook(book);
-		return b;
+	public Book selectOneBook(Book book1) {
+		Book book = bookDao.selectOneBook(book1);
+		return book;
 	}
 
 	public List selectAllCenterInventory(int bookNo) {
@@ -46,6 +46,18 @@ public class BookService {
 	@Transactional
 	public int insertComment(BookComment bc) {
 		int result = bookDao.insertComment(bc);
+		return result;
+	}
+
+	@Transactional
+	public int updateComment(BookComment bc) {
+		int result = bookDao.updateComment(bc);
+		return result;
+	}
+
+	@Transactional
+	public int deleteComment(BookComment bc) {
+		int result = bookDao.deleteComment(bc);
 		return result;
 	}
 
