@@ -4,7 +4,9 @@
 <link rel="stylesheet" href="/css/main.css" />
 <link rel="stylesheet" href="/css/admin.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-<link rel="stylesheet" href="/js/admin.js" />
+<script src="/js/jquery-3.7.1.js"></script>
+<script src="/js/sweetalert.min.js"></script>
+<script src="/js/admin.js"></script>
 </head>
 <body>
     <div class="nav1">
@@ -17,7 +19,7 @@
                     <a href="/admin/adminIndex?rePage=1"><i class="fa-solid fa-house"></i></a>
                 </li>
                 <li class="icon1">
-                    <a href="/admin/bookList"><i class="fa-solid fa-book-open"></i></a>
+                    <a href="/admin/bookListFrm?rePage=1"><i class="fa-solid fa-book-open"></i></a>
                 </li>
                 <li class="icon1">
                     <a href="#"><i class="fa-solid fa-circle-user"></i></a>
@@ -38,24 +40,29 @@
             <a href="/admin/adminIndex?rePage=1">판매점 관리</a>
             <ul class="sub-menu">
                 <li><a href="/admin/adminIndex?rePage=1">판매점 리스트</a></li>
-                <li><a href="/admin/insertAdmin">판매점 등록</a></li>
-                <li><a href="/admin/updatePw">비밀번호 변경</a></li>
+                <li><a href="/admin/insertAdminFrm">판매점 등록</a></li>
+                <li><a href="/admin/updatePwFrm">비밀번호 변경</a></li>
             </ul>
             </li>
             <li>
-            <a href="#">책 관리</a>
+            <a href="/admin/bookListFrm">책 관리</a>
             <ul class="sub-menu">
-                <li><a href="/admin/bookList">책 리스트</a></li>
-                <li><a href="/admin/insertBook">책 등록</a></li>
-                <li><a href="#">책 정보 수정</a></li>
+                <li><a href="/admin/bookListFrm?rePage=1">책 리스트</a></li>
+                <li><a href="/admin/insertBookFrm">책 등록</a></li>
+                <li><a href="/admin/updateBookFrm">발주</a></li>
             </ul>
             </li>
-            <li>
-            <a href="#">1대1 문의</a>
-            </li>
-            <li>
-            <a href="#">챗봇</a>
-            </li>
+            <th:block th:if="${session.admin.adminType}==1">
+	            <li>
+	            <a href="/admin/questionAnswer?reqPage=1">1대1 문의</a>
+	            </li>
+	            <li>
+	            <a href="/FAQ/faqfrm?type=1&reqPage=1">FAQ</a>
+	            </li>
+	            <li>
+	            <a href="/notice/noticeFrm?reqPage=1">공지사항</a>
+	            </li>
+            </th:block>
         </ul>
         </div>
     </div>
@@ -78,7 +85,7 @@
                                 <a href="/admin/adminIndex?rePage=1">판매점</a>
                             </li>
                             <li>
-                                <a href="/admin/updatePw">비밀번호 변경</a>
+                                <a href="/admin/updatePwFrm">비밀번호 변경</a>
                             </li>
                             <li>
                                 <a href="/admin/logout">로그아웃</a>
@@ -117,21 +124,21 @@
                             </tr>
                         </thead>
                         <tbody>                            
-                            <tr th:each="admin :${list}"><!-- -->                            	
-                            	<td>
-                                <input type="checkbox" name="chk[]" value="1">
+                            <tr th:each="admin :${list}"><!-- -->   
+                                <td>
+                                    <input type="checkbox" name="chk[]" value="1">
                                 </td>
-                            	<td th:text="${admin.adminNo}"></td>
-              					<td th:text="${admin.adminName}"></td>
-              					<td th:text="${admin.adminAddr}"></td>
-             					<td th:text="${admin.openingDay}"></td>
-              					<td th:text="${admin.adminEmail}"></td>
-              					<td th:text="${admin.adminPhone}"></td>
-              					<td><a href="#">책 재고관리</a></td>
-              					<td>
-              					<button class="btn-type2 btn">삭제</button>
-              					<button class="btn-type2 btn">수정</button>
-              					</td>
+                                <td th:text="${admin.adminNo}"></td>
+                                <td th:text="${admin.adminName}"></td>
+                                <td th:text="${admin.adminAddr}"></td>
+                                <td th:text="${admin.openingDay}"></td>
+                                <td th:text="${admin.adminEmail}"></td>
+                                <td th:text="${admin.adminPhone}"></td>
+                                <td><a href="/admin/bookList">책 재고관리</a></td>
+                                <td>
+                                    <button class="btn-type2 btn">수정</button>
+                                    <button class="btn-type2 btn">삭제</button>
+                                </td>
                             </tr>
                             	
                         </tbody>
@@ -139,19 +146,7 @@
                    </form>
                 </div>
             </div>
-        <!--페이지 넘기는 부분 (책리스트,매장리스트)
-        <div class="pagination">
-            <ul>
-                <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-left"></i></span></a></li>
-                <li><a class="page-item active-page" href="#">1</a></li>
-                <li><a class="page-item" href="#">2</a></li>
-                <li><a class="page-item" href="#">3</a></li>
-                <li><a class="page-item" href="#">4</a></li>
-                <li><a class="page-item" href="#">5</a></li>
-                <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-right"></i></span></a></li>
-            </ul>
-        </div>
-        -->
+       
 		<div id="pageNavi" th:utext="${pageNavi}">
 	  	</div>
 		<!--페이지 넘기는 부분 종료 -->
