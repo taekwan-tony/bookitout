@@ -82,7 +82,7 @@ public class MemberDao {
 		}
 	}
 	public List selectAllCart(int memberNo) {
-		String query = "select * from pay where member_no=?";
+		String query = "SELECT * FROM pay WHERE member_no=? ORDER BY pay_no DESC";
 		Object[] params = {memberNo};
 		List list = jdbc.query(query, payRowMapper, params);
 		

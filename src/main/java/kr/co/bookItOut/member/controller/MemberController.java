@@ -62,15 +62,20 @@ public class MemberController {
 	}
 
 	@PostMapping(value = "/login")
-	public String login(String memberId, String memberPw, int role, HttpSession session) {
+	public String login(String memberId, String memberPw, int role, HttpSession session, Model model) {
 		System.out.println(role);
 
 		if (role == 1) {
 			Member member = memberService.selectOneMember(memberId, memberPw);
 			System.out.println(member);
 			session.setAttribute("member", member);
-
-			return "redirect:/";
+			if(member==null) {
+				String error = "아이디 또는 비밀번호가 일치하지 않습니다.";
+				model.addAttribute("error",error);
+				return "member/login";
+			}else {				
+				return "redirect:/";
+			}
 		} else {
 			return "redirect:/admin/login?memberId=" + memberId + "&memberPw=" + memberPw;
 		}
