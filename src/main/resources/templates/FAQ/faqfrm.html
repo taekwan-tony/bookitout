@@ -11,8 +11,7 @@
 		border-bottom : 0.5px solid var(--gray2);
 	}
 	.question-icon-color{
-		color: var(--color2);
-		font-size: 15px;
+		
 	}
 	.btn-content-box{
 		position: relative;
@@ -30,7 +29,7 @@
 		float:left;
 	}
 	#faqTitle{
-		font-size: 17px;
+		font-size: 19px;
 		font-family: Tenada;
 	}
 	.question-btn{
@@ -72,6 +71,38 @@
 		align-items:center;
 		justify-content : center;
 	}
+	.content-btn-box{
+		display : flex;
+		position: absolute;
+		right : 0;
+		bottom : 0;
+		align-items : right;
+		padding : 5px;
+		gap : 10px;
+	}
+	.content-btn-box>*{
+		font-size : 12px;
+		cursor: pointer;
+		
+	}
+	.content-btn-box>a:hover{
+		text-decoration: underline;
+	}
+	.content-box>div{
+		position : relative;
+	}
+	.write-btn{
+		margin-top : 10px;
+	}
+	.question-line-wrap{
+		height:78px;
+		line-height : 50px;
+	}
+	.question-line-wrap>.material-icons{
+		vertical-align : middle;
+		color: var(--color2);
+		font-size: 20px;
+	}
 </style>
 
 </head>
@@ -85,7 +116,7 @@
 				</div>
 				<div class="content-main-text">
 					<ul>
-						<a href="/FAQ/customermain">메인</a>
+						<a href="/FAQ/customerMain">메인</a>
 					</ul>
 				</div>
 				<div class="content-main-text">
@@ -141,19 +172,22 @@
 						<a href="/FAQ/faqfrm?type=4&reqPage=1"><span>배송/수령일 안내</span></a>
 					</div>
 				</div>
+				<th:block th:if="${session.admin !=null}">
+				<div class="write-btn">
+						<button type="button" class="btn-type3 btn"><a href="/FAQ/writeFaqFrm">글쓰기</a></button>
+					</div>
+				</th:block>
 				<div class="question-content-box">
 					<div>
 						<p th:text="${type}"></p>
 					</div>
-					<div class="write-btn">
-						<button type="button" class="btn-type3 btn"><a href="/FAQ/writeFaqFrm">글쓰기</a></button>
-					</div>
+					
 				</div>
 				<th:block th:each="faq : ${list}">
 					<div class="total-faq-box">
 						<div class="btn-content-box">
 							<div class="question-box">
-								<div>
+								<div class="question-line-wrap">
 									<span class="material-icons question-icon-color">help_outline</span>
 									<span th:text="${faq.faqTitle}" id="faqTitle"></span>							
 								</div>
@@ -170,6 +204,12 @@
 									<span class="material-icons">subdirectory_arrow_right</span>
 								</div>
 								<div  th:utext="${faq.faqContent}"></div>
+								<div class="content-btn-box">
+									<th:block th:if="${session.admin !=null}">
+										<a th:href="@{/FAQ/updateFaqFrm(faqNo=${faq.faqNo})}" id="update">수정</a>
+										<a id="delete" th:onclick="delFaq(this,[[${faq.faqNo}]])">삭제</a>
+									</th:block>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -198,7 +238,36 @@
 			$(obj).prev().children().next().children().text("expand_more");
 		}
 	}
-			
+	function delFaq(obj,faqNo){
+		console.log(faqNo);
+		swal({
+			title:"파일 삭제",
+			msg:"첨부파일을 삭제하시겠습니까?",
+			icon : "info",
+			buttons:{
+				cancel:{
+					text:"취소",
+					value : false,
+					visible : true,
+					className : "btn-type2",
+					closeModal : true
+					
+				},
+				confirm : {
+					text : "삭제",
+					value : true,
+					visible : true,
+					className : "btn-type3",
+					closeModal : true
+					
+				}
+			}
+		}).then(function(isConfirm){
+			if(isConfirm){
+				location.href="/FAQ/deleteFaq?faqNo="+faqNo;
+			}
+		});
+	}		
 		
 	</script>
 	

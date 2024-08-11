@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.bookItOut.FAQ.model.dao.FaqDao;
 import kr.co.bookItOut.FAQ.model.dto.Faq;
 import kr.co.bookItOut.FAQ.model.dto.FaqListData;
+import kr.co.bookItOut.Question.model.dto.QuestionFile;
 
 @Service
 public class FaqService {
@@ -141,5 +142,20 @@ public class FaqService {
 		
 		FaqListData fld = new FaqListData(list, pageNavi,faqTypePage);
 		return fld;
+	}
+
+	public int deleteFaq(int faqNo) {
+		int result = faqDao.deleteFaq(faqNo);
+		return result;
+	}
+
+	public Faq selectOneFaq(int faqNo) {
+		Faq f = faqDao.selectOneFaq(faqNo);
+		return f;
+	}
+
+	public int updateFaq(Faq f) {
+		int result = faqDao.updateFaq(f);
+		return result;
 	}
 }

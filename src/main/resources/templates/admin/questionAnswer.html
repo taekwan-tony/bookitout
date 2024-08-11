@@ -60,12 +60,17 @@
                 <li><a href="/admin/updateBookFrm">책 상세 정보 수정</a></li>
             </ul>
             </li>
-            <li>
-            <a href="/admin/questionAnswer?reqPage=1">1대1 문의</a>
-            </li>
-            <li>
-            <a href="#">챗봇</a>
-            </li>
+            <th:block th:if="${session.admin.adminType}==1">
+	            <li>
+	            <a href="/admin/questionAnswer?reqPage=1">1대1 문의</a>
+	            </li>
+	            <li>
+	            <a href="/FAQ/faqfrm?type=1&reqPage=1">FAQ</a>
+	            </li>
+	            <li>
+	            <a href="/notice/noticeFrm?reqPage=1">공지사항</a>
+	            </li>
+            </th:block>
         </ul>
         </div>
     </div>

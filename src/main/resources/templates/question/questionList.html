@@ -155,6 +155,15 @@
 		font-family: Tenada;
 		padding-left : 30px;
 	}
+	.question-line-wrap{
+		height:30px;
+		line-height : 30px;
+	}
+	.question-line-wrap>.material-icons{
+		vertical-align : middle;
+		color: var(--color2);
+		font-size: 20px;
+	}
 </style>
 </head>
 <body>
@@ -171,7 +180,7 @@
 				</div>
 				<div class="content-main-text">
 					<ul>
-						<a href="/FAQ/customermain">메인</a>
+						<a href="/FAQ/customerMain">메인</a>
 					</ul>
 				</div>
 				<div class="content-main-text">
@@ -262,8 +271,8 @@
 									<div>
 										<p th:text="${q.questionType}"></p>
 									</div>
-									<div>
-										<span class="material-icons question-icon-color">help_outline</span>
+									<div class="question-line-wrap">
+										<span class="material-icons question-icon-color">chevron_right</span>
 										<span th:text="${q.questionTitle}" id="questionTitle"></span>	
 									</div>					
 								</div>

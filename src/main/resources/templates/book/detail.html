@@ -16,9 +16,9 @@
             <div class="info-wrap">
                 <div class="book">
                     <ul>
-                    	<li style="display: none;"><span th:text="${b.bookNo}" id="bookNo"></span></li>
-                        <li><h2 th:text="${b.bookName}"></h2></li>
-                        <li><p><span th:text="${b.bookWriter}"></span> / 발행(출시)일자: <span th:text="${b.publicationDate}"></span></p></li>
+                    	<li style="display: none;"><span th:text="${book.bookNo}" id="bookNo"></span></li>
+                        <li><h2 th:text="${book.bookName}"></h2></li>
+                        <li><p><span th:text="${book.bookWriter}"></span> / 발행(출시)일자: <span th:text="${book.publicationDate}"></span></p></li>
                         <li>
                             <img src="/image/book-sample.jpg" alt="도서 이미지">
                         </li>
@@ -30,7 +30,7 @@
                         <span class="badge">소득공제</span>
                     </div>
                     <div>
-                        <span th:text="${b.bookPrice}" id="price" class="price"></span><span>원</span>
+                        <span th:text="${book.bookPrice}" id="price" class="price"></span><span>원</span>
                     </div>
                     <div>
                         <p>
@@ -92,7 +92,12 @@
             <div class="clear"></div>
             
             <div class="book-detail-img">
-                <img src="/image/book-detail.jpg">
+            	<div class="div-title">
+            		상세이미지
+            	</div>
+                <div>
+                	<img src="/image/book-detail.jpg">
+                </div>
             </div>
             
             <div class="clear"></div>
@@ -100,10 +105,25 @@
             <hr>
             
             <div class="clear"></div>
+            
+            <!-- 
+            <div class="book-info">
+            	<div class="div-title">도서 정보</div>
+            	<ul>
+            		<li>도서 저자: </li>
+            		<li>도서 출간일: </li>
+            	</ul>
+            </div>
+            
+            <div class="clear"></div>
+
+            <hr>
+            
+            <div class="clear"></div> -->
 
             <div class="comment">
                 <div class="comment-title">
-                    <span><strong>Book리뷰(120개)</strong></span>
+                    <span style="font-size: 20px;"><strong>Book리뷰(120개)</strong></span>
                     
                     <div class="right">
                         <!-- <button class="btn-type3 btn">
@@ -126,7 +146,7 @@
                             </li>
                             <li>
                                 <input type="hidden" name="bookCommentWriter" th:value="${session.member.memberId}">
-                                <input type="hidden" name="bookRef" th:value="${b.bookNo}">
+                                <input type="hidden" name="bookRef" th:value="${book.bookNo}">
                                 <div class="input-item">
                                     <textarea name="bookCommentContent" placeholder="리뷰를 작성하세요!"></textarea>
                                 </div>
@@ -139,7 +159,7 @@
                 </div>
                 <!-- 댓글 출력 시작 -->
                 <div class="commentBox">
-                    <th:block th:each="bc : ${bc.commentList}">
+                    <th:block th:each="bc : ${b.commentList}">
                         <ul class="posting-comment">
                             <!-- <li>
                                 <span class="user-icon">
@@ -155,16 +175,14 @@
                                         <span th:text="${bc.bookCommentDate}"></span>
                                     </span>
                                     <span class="comment-info-right">
-                                        <span>
-                                            <th:block th:if="${session.member.memberId == bc.bookCommentWriter}">
-                                                <span><a href="javascript:void(0)" th:onclick="modifyComment(this, [[${bc.bookCommentNo}]], [[${b.bookNo}]]);">수정</a></span>
-                                                <span><a href="javascript:void(0)" th:onclick="deleteComment(this, [[${bc.bookCommentNo}]], [[${b.bookNo}]]);">삭제</a></span>
-                                            </th:block>
-                                        </span>
+	                                    <th:block th:if="${session.member.memberId == bc.bookCommentWriter}">
+	                                        <a href="javascript:void(0)" th:onclick="modifyComment(this, [[${bc.bookCommentNo}]], [[${book.bookNo}]]);">수정</a>
+	                                        <a href="javascript:void(0)" th:onclick="deleteComment(this, [[${bc.bookCommentNo}]], [[${book.bookNo}]]);">삭제</a>
+	                                    </th:block>
                                     </span>
                                 </div>
                                 <p class="comment-content" th:text="${bc.bookCommentContent}"></p>
-                                <div style="display: none;" class="input-item">
+                                <div style="display: none;width: 100%;margin: 20px 0 15px 0;" class="input-item">
                                     <textarea name="bookCommentContent" th:text="${bc.bookCommentContent}"></textarea>
                                 </div>
                                 <p class="comment-link">
@@ -183,13 +201,11 @@
                                             <span class="likeCount" th:text="${bc.likeCount}"></span>                                            
                                             <span class="reComment-btn">
                                             	<i class="fa-solid fa-comment-dots"></i>
-                                                <a class="recShow" href="javascript:void(0)">답글</a>
+                                                <a class="recShow" href="javascript:void(0)">
+                                                	답글
+                                                </a>
+                                            	<span class="commentReCount">0</span>
                                             </span>
-                                            <!-- 
-                                            <span>
-                                                <i class="fa-solid fa-comment-dots"></i>답글
-                                            </span>
-                                            <span class="commentReCount">0</span> -->
                                         </span>
                                     </th:block>
                                 </p>
@@ -205,7 +221,7 @@
 									</li>
 									<li>
 										<input type="hidden" name="bookCommentWriter" th:value="${session.member.memberId}">
-										<input type="hidden" name="bookRef" th:value="${b.bookNo}">
+										<input type="hidden" name="bookRef" th:value="${book.bookNo}">
 										<input type="hidden" name="bookCommentRef" th:value="${bc.bookCommentNo}">
 										<div class="input-item">
 											<textarea name="bookCommentContent"></textarea>
@@ -218,34 +234,43 @@
 							</form>
 						</div>
 						<!-- 출력한 댓글의 대댓글 출력 -->
-						<ul class="posting-comment reply" th:each="bcc : ${bc.reCommentList}" th:if="${bc.bookCommentNo == bcc.bookCommentRef}">
+						<ul class="posting-comment reply" th:each="bcc : ${b.reCommentList}" th:if="${bc.bookCommentNo == bcc.bookCommentRef}">
 							<li>
 								<span style="margin-right: 20px;" class="comment-icon"><i class="fa-solid fa-arrow-turn-up"></i></span>
-								<span class="user-icon"><i class="fa-solid fa-circle-user"></i></span>
+								<!-- <span class="user-icon"><i class="fa-solid fa-circle-user"></i></span> -->
 							</li>
 							<li>
 								<p class="comment-info">
-									<span th:text="${bcc.bookCommentWriter}"></span>
-									<span th:text="${bcc.bookCommentDate}"></span>
-									<span class="like-box">
-										<!-- <span class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);"><i class="fa-solid fa-heart"></i></span>
-										<span class="heart-icon" th:onclick="likePush(this, [[${nc.noticeCommentNo}]]);"><i class="fa-regular fa-heart"></i></span> -->
-										<!-- 
-										<span th:if="${ncc.isLike == 1}" class="material-icons heart-icon" th:onclick="likePush(this, [[${ncc.noticeCommentNo}]]);">thumb_up_alt</span>
-										<span th:if="${ncc.isLike == 0}" class="material-icons heart-icon" th:onclick="likePush(this, [[${ncc.noticeCommentNo}]]);">thumb_up_off_alt</span>
-										<span th:text="${ncc.likeCount}"></span> -->
-									</span>
+                                    <span class="comment-info-left">
+                                        <span class="badge buyer">구매자</span>
+                                        <span th:text="${bcc.bookCommentWriter}"></span>
+                                        <span>|</span>
+                                        <span th:text="${bcc.bookCommentDate}"></span>
+                                    </span>
+                                    <span class="comment-info-right">
+                                        <span>
+                                            <th:block th:if="${session.member != null && session.member.memberId == bcc.bookCommentWriter}">
+												<a href="javascript:void(0)" th:onclick="modifyComment(this, [[${bcc.bookCommentNo}]], [[${book.bookNo}]])">수정</a>
+												<a href="javascript:void(0)" th:onclick="deleteComment(this, [[${bcc.bookCommentNo}]], [[${book.bookNo}]])">삭제</a>
+											</th:block>
+                                        </span>
+                                    </span>
 								</p>
 								<p class="comment-content" th:text="${bcc.bookCommentContent}"></p>
 								<div style="display: none;" class="input-item">
 									<textarea name="bookCommentContent" th:text="${bcc.bookCommentContent}"></textarea>
 								</div>
 								<p class="comment-link">
-									<th:block th:if="${session.member != null && session.member.memberId == bcc.bookCommentWriter}">
-										<a href="javascript:void(0)" th:onclick="modifyComment(this, [[${bcc.bookCommentNo}]], [[${b.bookNo}]])">수정</a>
-										<a href="javascript:void(0)" th:onclick="deleteComment(this, [[${bcc.bookCommentNo}]], [[${b.bookNo}]])">삭제</a>
-									</th:block>
-								</p>
+                                    <th:block th:if="${session.member != null}">
+                                        <span class="like-box">
+											<!-- <span class="heart-icon" th:onclick="likePush(this, [[${bcc.bookCommentNo}]]);"><i class="fa-solid fa-heart"></i></span>
+											<span class="heart-icon" th:onclick="likePush(this, [[${bcc.bookCommentNo}]]);"><i class="fa-regular fa-heart"></i></span> -->
+											<span th:if="${bcc.isLike == 1}" class="material-icons heart-icon" th:onclick="likePush(this, [[${bcc.bookCommentNo}]]);">thumb_up_alt</span>
+											<span th:if="${bcc.isLike == 0}" class="material-icons heart-icon" th:onclick="likePush(this, [[${bcc.bookCommentNo}]]);">thumb_up_off_alt</span>
+											<span class="likeCount" th:text="${bcc.likeCount}"></span>
+                                        </span>
+                                    </th:block>
+                                </p>
 							</li>
 						</ul>
                     </th:block>
@@ -258,7 +283,7 @@
                 <div class="inner">
                     <div class="price-info">
                         <span>총 상품 금액</span>
-                        <span id="total" class="total" th:text="${b.bookPrice}"></span><span>원</span>
+                        <span id="total" class="total" th:text="${book.bookPrice}"></span><span>원</span>
                     </div>
                     <div class="bottom-btnBox">
                         <span class="btn-type1 countPM">
@@ -279,6 +304,79 @@
     </main>
 
 	<script>
+		function modifyComment(obj, bookCommentNo, bookNo){
+			// 숨겨놓은 textarea를 화면에 보여줌
+			$(obj).parent().parent().next().next().show();
+			// 화면에 보이던 댓글 내용을 숨김
+			$(obj).parent().parent().next().hide();
+			
+			// 수정 버튼 -> 수정완료 버튼으로 텍스트 변경
+			$(obj).text("수정완료");
+			$(obj).attr("onclick", "modifyComplete(this, "+bookCommentNo+", "+bookNo+");");
+			
+			// 삭제 버튼 -> 수정취소 버튼으로
+			$(obj).next().text("수정취소");
+			$(obj).next().attr("onclick", "modifyCancel(this, "+bookCommentNo+", "+bookNo+");");
+			
+			// 답글달기 버튼이 보이는 경우 화면에서 안 보이도록 처리
+			$(obj).parent().parent().next().next().next().children().children().eq(2).hide(); //display: none;
+		}
+		
+		function modifyComplete(obj, bookCommentNo, bookNo){
+			// 자바스크립트에서 from태그를 생성해서 전송하는 작업
+			// 1.form태그 생성
+			const form = $("<form>");
+			// 1-1. form태그의 속성 설정
+			form.attr("action", "/book/updateComment");
+			form.attr("method", "post");
+			form.hide();
+			
+			// 2.form태그 내부에 전송하고 싶은 데이터를 생성
+			const bookCommentNoInput = $("<input>");
+			bookCommentNoInput.attr("type", "text");
+			bookCommentNoInput.attr("name", "bookCommentNo");
+			bookCommentNoInput.val(bookCommentNo);
+			
+			const bookRefInput = $("<input type='text' name='bookRef'>");
+			bookRefInput.val(bookNo);
+			
+			// 3.수정된 댓글이 입력되어있는 textarea(textarea를 감싼 div) 가져옴
+			const bookCommentContent = $(obj).parent().parent().next().next().clone();
+			
+			// 4.form태그에 추가
+			form.append(bookCommentNoInput).append(bookRefInput).append(bookCommentContent);
+			
+			// 5.만들어진 form태그를 현재 문서 내부에 포함
+			$("body").append(form);
+			
+			// 6.form태그 submit
+			form.submit();
+		}
+		
+		function modifyCancel(obj, bookCommentNo, bookNo){
+			// textarea 숨김
+			$(obj).parent().parent().next().next().hide();
+			// 기존 댓글 내용을 다시 보여줌
+			$(obj).parent().parent().next().show();
+			
+			// 수정완료 -> 수정
+			$(obj).prev().text("수정");
+			$(obj).prev().attr("onclick", "modifyComment(this, "+bookCommentNo+", "+bookNo+");");
+			
+			// 수정취소 -> 삭제
+			$(obj).text("삭제");
+			$(obj).attr("onclick", "deleteComment(this, "+bookCommentNo+", "+bookNo+");");
+			
+			// 답글달기 버튼을 화면에 다시 보여줌
+			$(obj).parent().parent().next().next().next().children().children().eq(2).show(); //display: block;
+		}
+		
+		function deleteComment(obj, bookCommentNo, bookNo){
+			if(confirm("댓글을 삭제하시겠습니까?")){
+				location.href="/book/deleteComment?bookCommentNo="+bookCommentNo+"&bookRef="+bookNo;
+			}
+		}
+		
 		$(".recShow").on("click", function(){
 			// 답글달기 버튼 중 클릭한 답글달기 버튼이 몇번째 버튼인지 조회
 			const index = $(".recShow").index(this);

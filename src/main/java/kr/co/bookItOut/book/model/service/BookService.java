@@ -17,9 +17,9 @@ public class BookService {
 	@Autowired
 	private BookDao bookDao;
 
-	public Book selectOneBook(Book book) {
-		Book b = bookDao.selectOneBook(book);
-		return b;
+	public Book selectOneBook(Book book1) {
+		Book book = bookDao.selectOneBook(book1);
+		return book;
 	}
 
 	public List selectAllCenterInventory(int bookNo) {
@@ -51,6 +51,18 @@ public class BookService {
 	}
 
 	@Transactional
+	public int updateComment(BookComment bc) {
+		int result = bookDao.updateComment(bc);
+		return result;
+	}
+
+	@Transactional
+	public int deleteComment(BookComment bc) {
+		int result = bookDao.deleteComment(bc);
+		return result;
+	}
+
+	@Transactional
 	public int likePush(int bookCommentNo, int isLike, int memberNo) {
 		int result = 0;
 		if(isLike == 0) {
@@ -68,9 +80,9 @@ public class BookService {
 			return -1;
 		}
 	}
-
+	
 	public BookListData selectBookList(int reqPage, int type, int genre) {
-		int numPerPage = 10;
+		int numPerPage = 5;
 
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage +1;

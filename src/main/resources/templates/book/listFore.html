@@ -5,10 +5,10 @@
 <title>해외 도서</title>
 <link rel="stylesheet" href="/css/main.css">
 <style>
-	* {
-    padding: 0;
-    margin: 0;
-    outline: none;
+* {
+padding: 0;
+margin: 0;
+outline: none;
 }
 .content {
     width: 1200px;
@@ -62,8 +62,8 @@ a {
 .array-title {
     overflow: hidden;
     list-style-type: none;
-    border-top: 1px solid #111;
-    border-bottom: 1px solid #111;
+    border-top: 1px solid #777777;
+    border-bottom: 1px solid #777777;
 }
 .array-title>li {
     float: left;
@@ -75,6 +75,7 @@ a {
 }
 .book-info {
     padding-top: 20px;
+    height: 790px;
 }
 .chech-box {
     float: left;
@@ -82,16 +83,14 @@ a {
 img {
     width: 120px;
     height: 150px;
-    margin-right: 15px;
+    margin : 0px 15px;
     background-color: #F8F4E1;
 }
 .list-book-content {
     width: 300px;
     float: left;
 }
-.btn {
-    float: left;
-}
+
 .book-info-tbl{
 	width: 75%;
 }
@@ -101,18 +100,19 @@ img {
 .check-box {
     text-align: center;
 }
-#list-btn {
-    text-align: center;
-    border: none;
-}
+
 #listBuy {
-    background-color: #F8F4E1;
+    background-color: #AF8F6F;
+    color:var(--white);
     border: none;
 }
+
 #listCart {
-    background-color: #F8F4E1;
+    background-color: #AF8F6F;
+    color:var(--white);
     border: none;
 }
+
 .book-details {
     padding-top: 10px;
 }
@@ -131,12 +131,27 @@ img {
 .enroll-date {
     margin-left: 70px;
 }
-.list-btn {
-    width: 70px;
-    height: 30px;
-    border-radius: 7px;
-    font-weight: bold;
-    margin-top: 20px;
+
+.btn-list {
+margin-bottom: 10px;
+}
+.list:hover {
+font-weight: bolder;
+
+}
+.grey {
+color: #777777;
+font-size: 18px
+}
+.grey:hover {
+color:#000000;
+font-size: 19px
+}
+.fore{
+font-size: 21px
+}
+.fore:hover{
+font-size: 22px;
 }
 #bookCart {
     margin-bottom: 10px;
@@ -145,10 +160,27 @@ img {
 .pagination>ul{
 display: block;
 }
+.b-name{
+font-size: 14pt;
+}
+
+span{
+font-size: 12pt;
+}
+
+/*
+.list-btn {
+    width: 70px;
+    height: 30px;
+    border-radius: 7px;
+    font-weight: bold;
+    margin-top: 20px;
+}
 
 .btn-list {
 margin-bottom: 10px;
 }
+*/
 </style>
 </head>
 <body>
@@ -158,11 +190,11 @@ margin-bottom: 10px;
 		<section class="section book-list-wrap">
 			<div class = "book-list">
 				<div class="list-header">
-					<p><a href = "/book/listFore?reqPage=1&type=1&genre=5">해외 도서</a></p>
+					<p><a class = "list fore" href = "/book/listFore?reqPage=1&type=1&genre=5">해외 도서</a></p>
 					<ul>
-						<li><a href = "/book/listFore?reqPage=1&type=1&genre=2">문학</a></li>
-						<li><a href = "/book/listFore?reqPage=1&type=1&genre=3">재테크</a></li>
-						<li><a href = "/book/listFore?reqPage=1&type=1&genre=4">기타</a></li>						
+						<li><a class = "list grey" href = "/book/listFore?reqPage=1&type=1&genre=2">문학</a></li>
+						<li><a class = "list grey" href = "/book/listFore?reqPage=1&type=1&genre=3">재테크</a></li>
+						<li><a class = "list grey" href = "/book/listFore?reqPage=1&type=1&genre=4">기타</a></li>						
 					</ul>					
 				</div>
 				
@@ -170,20 +202,21 @@ margin-bottom: 10px;
 					<div class="list-array-title">						
 
                         <ul class="array-title">
-                        	<li><a th:href = "@{/book/listFore(reqPage=1,type=2,genre=${genre})}">상품명순</a></li>
-							<li><a th:href = "@{/book/listFore(reqPage=1,type=3,genre=${genre})}">출간일순</a></li>
-							<li><a th:href = "@{/book/listFore(reqPage=1,type=4,genre=${genre})}">등록일순</a></li>
-							<li><a th:href = "@{/book/listFore(reqPage=1,type=5,genre=${genre})}">저가격순</a></li>
-							<li><a th:href = "@{/book/listFore(reqPage=1,type=6,genre=${genre})}">고가격순</a></li>	
+                        	<li><a class = "list" th:href = "@{/book/listFore(reqPage=1,type=2,genre=${genre})}">상품명순</a></li>
+							<li><a class = "list" th:href = "@{/book/listFore(reqPage=1,type=3,genre=${genre})}">출간일순</a></li>
+							<li><a class = "list" th:href = "@{/book/listFore(reqPage=1,type=4,genre=${genre})}">등록일순</a></li>
+							<li><a class = "list" th:href = "@{/book/listFore(reqPage=1,type=5,genre=${genre})}">저가격순</a></li>
+							<li><a class = "list" th:href = "@{/book/listFore(reqPage=1,type=6,genre=${genre})}">고가격순</a></li>	
                         </ul>
 					</div>
 					
 					<div class="book-info">
 						<table class="book-info-tbl">
-							<tr th:each="book : ${list}">                             
-                                <td class="check-box" style="width:5%; vertical-align: baseline;">
+							<tr th:each="book : ${list}">   
+							<!--                         
+                                <td class="check-box" style="width:3%; vertical-align: baseline;">
                                     <input type="checkbox" name="checkbox" id="checkbox">
-                                </td>
+                                </td> -->   
 
                                 <td style="width:20%;">
                                 	<img id=book-img th:src="@{/book/{filename}(filename=${book.bookImg})}" >                                    
@@ -191,7 +224,7 @@ margin-bottom: 10px;
 
                                 <td style="vertical-align: baseline;">
                                     <div class="book-details">
-                                        <div class="book-first" style="width:55%;" th:text="${book.bookName}"></div>
+                                        <div class="book-first b-name"  th:text="${book.bookName}"></div>
                                         <div class="book-second">
                                             <span class="book-writer" th:text="${book.bookWriter}"></span>
                                             <span class="book-publisher" th:text="${book.bookPublisher}"></span>
@@ -199,26 +232,28 @@ margin-bottom: 10px;
                                         <div class="book-third">
                                             <span class="book-price" th:text="${book.bookPrice}"></span>
                                             <span class="publication-date" th:text="${book.publicationDate}"></span>
-                                            <span class="enroll-date" th:text="${book.enrollDate}"></span>
+                                            <!-- <span class="enroll-date" th:text="${book.enrollDate}"></span> -->
                                         </div>
                                     </div>
                                 </td>
 
-                                <td class ="btn-list" style="width:20%; vertical-align: baseline;">
+                                <td class ="btn-list" style="width:17%; vertical-align: baseline;">
                                 
                                 	<div th:if="${session.member !=null}">
-                                		<button class ="btn-list"  type="button" id="listCart" name="bookCart" th:onclick="addCart([[${book.bookNo}]])">장바구니</button>
-	                                    <button class ="btn-list"  type="button" id="listBuy"  name="bookBuy">바로구매</button>    
+                                		<button class ="btn-list list"  type="button" id="listCart" name="bookCart" th:onclick="addCart([[${book.bookNo}]])">장바구니</button>
+	                                    <button class ="btn-list list"  type="button" id="listBuy"  name="bookBuy">바로구매</button>    
                                 	</div>
                                 	<div th:if="${session.member ==null}">
-                                		<button class ="btn-list"  type="button" id="listCart" name="bookCart" onclick="loginMsg()">장바구니</button>
-	                                    <button class ="btn-list"  type="button" id="listBuy"  name="bookBuy" onclick="loginMsg()">바로구매</button>    
+                                		<button class ="btn-list list"  type="button" id="listCart" name="bookCart" onclick="loginMsg()">장바구니</button>
+	                                    <button class ="btn-list list"  type="button" id="listBuy"  name="bookBuy" onclick="loginMsg()">바로구매</button>    
                                 	</div>
 	                                                      
                                 </td>
                             </tr>
 						</table>
 					</div>
+					
+					
 				</div>
 				
 				<div class="pagination" id="pageNavi" th:utext="${pageNavi}"></div>

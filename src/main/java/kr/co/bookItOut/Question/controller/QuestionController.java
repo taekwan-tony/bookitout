@@ -131,7 +131,7 @@ public class QuestionController {
 		}
 	}
 	
-	@GetMapping(value="deleteQuestion")
+	@GetMapping(value="/deleteQuestion")
 	public String deleteQuestion(int questionNo,Model model) {
 		List<QuestionFile> delFileList = questionService.deleteQuestion(questionNo);
 		String savepath = root+"/question/";

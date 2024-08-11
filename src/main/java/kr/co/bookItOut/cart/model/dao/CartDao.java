@@ -142,4 +142,10 @@ public class CartDao {
 		return list;
 	}
 
+	public int selectCartNo() {
+		String query = "select max(cart_no) from cart_tbl";
+		int cartNo = jdbc.queryForObject(query, Integer.class);
+		return cartNo;
+	}
+
 }
