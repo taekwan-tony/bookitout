@@ -204,7 +204,7 @@
                                                 <a class="recShow" href="javascript:void(0)">
                                                 	답글
                                                 </a>
-                                            	<span class="commentReCount">0</span>
+                                            	<!-- <span class="commentReCount">0</span> -->
                                             </span>
                                         </span>
                                     </th:block>
@@ -240,7 +240,7 @@
 								<!-- <span class="user-icon"><i class="fa-solid fa-circle-user"></i></span> -->
 							</li>
 							<li>
-								<p class="comment-info">
+								<div class="comment-info">
                                     <span class="comment-info-left">
                                         <span class="badge buyer">구매자</span>
                                         <span th:text="${bcc.bookCommentWriter}"></span>
@@ -248,14 +248,12 @@
                                         <span th:text="${bcc.bookCommentDate}"></span>
                                     </span>
                                     <span class="comment-info-right">
-                                        <span>
-                                            <th:block th:if="${session.member != null && session.member.memberId == bcc.bookCommentWriter}">
-												<a href="javascript:void(0)" th:onclick="modifyComment(this, [[${bcc.bookCommentNo}]], [[${book.bookNo}]])">수정</a>
-												<a href="javascript:void(0)" th:onclick="deleteComment(this, [[${bcc.bookCommentNo}]], [[${book.bookNo}]])">삭제</a>
-											</th:block>
-                                        </span>
+	                                    <th:block th:if="${session.member != null && session.member.memberId == bcc.bookCommentWriter}">
+											<a href="javascript:void(0)" th:onclick="modifyComment(this, [[${bcc.bookCommentNo}]], [[${book.bookNo}]])">수정</a>
+											<a href="javascript:void(0)" th:onclick="deleteComment(this, [[${bcc.bookCommentNo}]], [[${book.bookNo}]])">삭제</a>
+										</th:block>
                                     </span>
-								</p>
+								</div>
 								<p class="comment-content" th:text="${bcc.bookCommentContent}"></p>
 								<div style="display: none;" class="input-item">
 									<textarea name="bookCommentContent" th:text="${bcc.bookCommentContent}"></textarea>
@@ -263,8 +261,14 @@
 								<p class="comment-link">
                                     <th:block th:if="${session.member != null}">
                                         <span class="like-box">
-											<!-- <span class="heart-icon" th:onclick="likePush(this, [[${bcc.bookCommentNo}]]);"><i class="fa-solid fa-heart"></i></span>
-											<span class="heart-icon" th:onclick="likePush(this, [[${bcc.bookCommentNo}]]);"><i class="fa-regular fa-heart"></i></span> -->
+											<!-- 
+											<span class="heart-icon" th:onclick="likePush(this, [[${bcc.bookCommentNo}]]);">
+												<i class="fa-solid fa-heart"></i>
+											</span>
+											<span class="heart-icon" th:onclick="likePush(this, [[${bcc.bookCommentNo}]]);">
+												<i class="fa-regular fa-heart"></i>
+											</span>
+											 -->
 											<span th:if="${bcc.isLike == 1}" class="material-icons heart-icon" th:onclick="likePush(this, [[${bcc.bookCommentNo}]]);">thumb_up_alt</span>
 											<span th:if="${bcc.isLike == 0}" class="material-icons heart-icon" th:onclick="likePush(this, [[${bcc.bookCommentNo}]]);">thumb_up_off_alt</span>
 											<span class="likeCount" th:text="${bcc.likeCount}"></span>
@@ -419,7 +423,7 @@
 							$(obj).text("thumb_up_off_alt");
 						}
 						// 현재 좋아요 갯수 변경
-						$(obj).nextAll().last().text(data);
+						$(obj).next().text(data);
 					}
 				},
 				error : function(){

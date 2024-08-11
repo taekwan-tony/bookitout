@@ -42,7 +42,7 @@ public class BookController {
 			return "common/msg";
 		}else {
 			model.addAttribute("b", b);
-			System.out.println(b);
+			//System.out.println(b);
 			return "book/detail";
 		}
 	}
@@ -52,7 +52,7 @@ public class BookController {
 	@GetMapping(value="/ajax1")
 	public List<CenterInventoryBook> ajax1(int bookNo) {
 		List<CenterInventoryBook> centerList = bookService.selectAllCenterInventory(bookNo);
-		System.out.println(centerList);
+		//System.out.println(centerList);
 		return centerList;// 출력 가능 데이터 : 재고수량, 지점명, 주소, 책이름
 	}
 	
