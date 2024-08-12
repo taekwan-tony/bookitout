@@ -195,16 +195,23 @@
 		font-size: 20px;
 		color: #74512D;
 	}
-	.commen-link{
+	.comment-link{
 		float: right;
 	}
 	.comment-wrap{
-		width: 1100px;
+		width: 800px;
+		margin-right: 0;
 	}
 	.inp{
 		margin: 0;
 	}
 	.material-symbols-outlined{
+	}
+	.recShow{
+		margin-right: 0;
+	}
+	.end{
+		float: right;
 	}
 </style>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -321,6 +328,8 @@
 								<textarea name="boardCommentContent"
 									th:text="${bc.boardCommentContent}" class="updatehidden"></textarea>
 							</div>
+						</li>
+						<li class="end">
 							<p class="comment-link">
 								<th:block th:if="${session.member != null}">
 									<th:block
@@ -335,7 +344,7 @@
 										<a href="javascript:void(0)" class="recShow">답글달기</a>
 								</th:block>
 							</p>
-						</li>
+						</li>	
 					</ul>
 					<div class="underLine"></div>
 					<div th:if="${session.member != null}" class="inputRecommentBox">
