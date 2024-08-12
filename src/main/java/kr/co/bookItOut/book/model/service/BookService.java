@@ -330,6 +330,12 @@ public class BookService {
 		return bld;
 	}
 
+	public List<Book> selectThreeBook(int i) {
+		List<Book> bList = bookDao.selectThreeBook(i);
+		
+		return bList;
+	}
+
 }
 
 

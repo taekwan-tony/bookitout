@@ -484,6 +484,13 @@ public class BookDao {
 		int likeCount = jdbc.queryForObject(query, Integer.class, params);
 		return likeCount;
 	}
+
+	public List<Book> selectThreeBook(int i) {
+		String query = "select * from (select rownum as rnum, b.* from (select * from book order by 1 desc)b) where rnum between ? and ?";
+		Object[] params = {i,i+3};
+		List list = jdbc.query(query, bookRowMapper,params);
+		return list;
+	}
 	
 }
 

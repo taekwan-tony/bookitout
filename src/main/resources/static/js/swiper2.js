@@ -1,5 +1,5 @@
 //Swiper 메인 슬라이드
-const swiper = new Swiper('.swiper', {
+const swiper2 = new Swiper('.swiper2', {
     // Default parameters
     slidesPerView: 1,
     spaceBetween: 0,
@@ -12,12 +12,12 @@ const swiper = new Swiper('.swiper', {
 	
     // If we need pagination
     pagination: {
-      el: '.swiper-pagination',
+      el: '.swiper2-pagination',
     },
 
     // Navigation arrows
     navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
+      nextEl: '.swiper2-button-next',
+      prevEl: '.swiper2-button-prev',
     }
 });
