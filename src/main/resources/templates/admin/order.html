@@ -114,96 +114,67 @@
             <div class="inner">
                 <div class="container">
                     <div class="page-title">
-                        <h1>책 관리</h1><span>(리스트)</span>
+                        <h1>발주관리</h1><span>(리스트)</span>
                     </div>
-                    <form action="/admin/bookListFrm" method="get">
+                    
                     <table class="bookTbl">
-                        <thead>
-                            <tr>
-                                
-              					<th style="width: 3%">번호</th>
-              					<th style="width: 5%">책유형</th>
-              					<th style="width: 5%">책장르</th>
-              					<th style="width: 7%">책이름</th>
-              					<th style="width: 9%">책저자 </th>
-              					<th style="width: 7%">출판사</th>
-              					<th style="width: 8%">출판일</th>
-              					<th style="width: 9%">등록일</th>
-              					<th style="width: 8%">판매가격</th>
-              					<th style="width: 6%">발주</th>
-              					<th style="width: 6%">수정/상세수정</th> 
-              					<th style="width: 6%">삭제</th>
-                            </tr>
-                        </thead>
-                        <tbody>                            
-                            <tr th:each="order :${bookList}"><!-- -->                            	
-                            	<td th:text="${order.bookNo}"></td>
-              					<td>
-              						<div class="input-item">
-	  			 						<div class="select" th:switch="${book.bookType}">
-	  			 							<select name ="bookType" th:case="국내도서">
-	  											<option selected value="국내도서">국내도서</option>
-	  											<option value="해외도서">해외도서</option>
-	  										</select>
-	  			 							<select name ="bookType" th:case="해외도서">
-	  											<option value="국내도서">국내도서</option>
-	  											<option selected value="해외도서">해외도서</option>
-	  										</select>
-	  			 						</div>
-	  			 					</div>
-	  			 					
-              					</td>
-              					<td>
-              						<div class="input-item">
-	  			 							<div class="select" th:switch="${book.bookGenre}">
-	  			 								<select name ="bookGenre" th:case="문학">
-	  												<option selected value="문학">문학</option>
-	  												<option value="재테크">재테크</option>
-	  												<option value="기타">기타</option>
+	                        <thead>
+	                            <tr>
+	              					<th style="width: 7%">발주번호</th>
+	              					<th style="width: 7%">매장번호</th>
+	              					<th style="width: 20%">책이름</th>
+	              					<th style="width: 15%">책저자 </th>
+	              					<th style="width: 10%">발주수량</th>
+	              					<th style="width: 10%">가격</th>
+	              					<th style="width: 10%">발주날짜</th>
+	              					<th style="width: 21%">발주승인여부</th>
+	              					<th style="width: 10%">버튼</th>
+	              					<th>
+	                            </tr>
+	                        </thead>
+	                        <tbody>                            
+	                            <tr th:each="orderAll:${orderList}"><!-- -->    
+	                            <form action="/admin/orderCheck" method="get">                        	
+	                            	<td th:text="${orderAll.orderNo}"></td>
+	              					<td th:text="${orderAll.adminNo}"></td>
+	              					<td th:text="${orderAll.bookName}"></td>
+		              				<td th:text="${orderAll.bookWriter}"></td>
+		              				<td th:text="${orderAll.orderQuntity}"></td>
+		              				<td th:text="${orderAll.bookPrice}"></td>
+		              				<td th:text="${orderAll.orderDate}"></td>
+		              				<td>
+			              				<div class="input-item">
+	  			 							<div class="select" th:switch="${orderAll.orderCheck}">
+	  			 								<select name ="orderAllCheck" class="orderCheck" th:case="1">
+	  												<option selected value="1">발주중</option>
+	  												<option value="2">반려</option>
+	  												<option value="3">승인</option>
 	  											</select>
-	  											<select name ="bookGenre" th:case="재테크">
-	  												<option value="문학">문학</option>
-	  												<option selected value="재테크">재테크</option>
-	  												<option value="기타">기타</option>
+	  											<select name ="orderAllCheck" class="orderCheck" th:case="2">
+	  												<option value="1">발주중</option>
+	  												<option selected value="2">반려</option>
+	  												<option value="3">승인</option>
 	  											</select>
-	  											<select name ="bookGenre" th:case="기타">
-	  												<option value="문학">문학</option>
-	  												<option value="재테크">재테크</option>
-	  												<option selected value="기타">기타</option>
+	  											<select name ="orderAllCheck" class="orderCheck" th:case="3">
+	  												<option value="1">발주중</option>
+	  												<option value="2">반려</option>
+	  												<option selected value="3">승인</option>
 	  											</select>
 	  			 							</div>
-	  			 					</div>
-              					</td>
-              					<td th:text=${book.bookName}></td>
-             					<td th:text=${book.bookWriter}></td>
-              					<td th:text=${book.bookPublisher}></td>
-	              				<td th:text="${book.publicationDate}"></td>
-	              				<td th:text="${book.enrollDate}"></td>
-              					<td>
-              						<input type="text" name="bookPrice" th:value=${book.bookPrice}>
-              					</td>
-              					<td>
-	              					<button type="button" class="btn-type2 btn orderAdmin" id="orderAdmin" th:onclick="orderAdminBook(this, [[${book.bookNo}]]);">발주창</button>
-              					</td>
-              					<td>
-              						
-	              					<button type="button" class="btn-type2 btn updateBook" id="updateBook" th:onclick="updateBook1(this, [[${book.bookNo}]]);">수정</button>
-	              					<!-- <a href="/admin/updateDetail" class="btn-type2 btn">상세</a> 이런식으로 넣어줘도 됨 -->
-	              					<button type="button" class="btn-type2 btn updateDetail" id="updateDetail" th:onclick="updateDetail1(this, [[${book.bookNo}]]);">상세</button>
-              					
-              					</td>
-              					<td>
-              						<button type="button"  class="btn-type2 btn" th:onclick="bookDelete([[${book.bookNo}]]);">삭제</button>
-              					</td>
-                            </tr>
-                            	
-                        </tbody>
-                    </table>
-                   </form>
+	  			 						</div>
+		              				</td>
+	              					<td>
+		              					<button type="submit" class="btn-type2 btn orderAllList1" id="orderAllList1">발주창</button>
+	              						<input type="hidden" name="orderNo" th:value="${orderAll.orderNo}">    
+	              					</td>
+	              					</form>
+	                            </tr>
+	                        </tbody>
+	                    </table>
+                   
                 </div>
             </div>
-		<div id="pageNavi" th:utext="${pageNavi}">
-	  	</div>
+		<div id="pageNavi" th:utext="${pageNavi}"></div>
 		<!--페이지 넘기는 부분 종료 -->
         </div>
         <!-- footer 시작  헤더 풋더 다 끌어와서 쓰면 됨 -->
@@ -226,65 +197,14 @@
     </div>
     
     <script>
-    <!--input 전체 선택 로직 -->
-    function check_all(f)
-    {
-        var chk = document.getElementsByName("chk[]");
-
-        for (i=0; i<chk.length; i++)
-            chk[i].checked = f.chkall.checked;
-    }
-    <!--북리스트 삭제-->
-    function bookDelete(bookNo){
-  		swal({
-  			title:"게시글 삭제",
-  			text:"게시글을 삭제하시겠습니까?",
-  			icon:"warning",
-  			buttons:{
-  				cancel:{
-  					text:"취소",
-  					value:false,
-  					visible:true,
-  					className:"btn-secondary",
-  					closeModal:true
-  				},
-  				confirm:{
-  					text:"삭제",
-  					value:true,
-  					visible:true,
-  					className:"btn-point",
-  					closeModal:true
-  				}
-  			}
-  		
-  		}).then(function(isConfirm){
-  			if(isConfirm){
-  				console.log(1);
-  				location.href="/admin/delete?bookNo="+bookNo;
-  			}
-  		});
-  	}
-    
-    //바뀐 update 부분
-    function updateBook1(obj, bookNo) {
-      const bookType = $(obj).parent().parent().children().eq(2).children().children().children().val()
-    	 const bookGenre =  $(obj).parent().parent().children().eq(3).children().children().children().val()
-    	 const bookPrice =  $(obj).parent().parent().children().eq(9).children().val()
-
-        location.href="/admin/updateBook?bookNo="+bookNo+"&bookType="+bookType+"&bookGenre="+bookGenre+"&bookPrice="+bookPrice;
-    }
-    
- 
-    // 상세 수정
-    function updateDetail1(obj, bookNo){
-    	
-    	location.href="/admin/updateDetailFrm?bookNo="+bookNo;
-    }
+   
     
   //-발주창
-   function orderAdminBook(obj, bookNo){
-    	
-    	location.href="/admin/orderAdmin2?bookNo="+bookNo;
+   function orderAllList(obj,orderNo){
+	  	const orderCheck = $(".orderCheck").val();
+	  	console.log(orderCheck);
+    	//th:onclick="orderAllList(this, [[${orderAll.orderCheck}]],[[${orderAll.orderNo}]]);"
+    	location.href="/admin/orderCheck?orderCheck="+orderCheck+"&orderNo="+orderNo;
     }
      
     
