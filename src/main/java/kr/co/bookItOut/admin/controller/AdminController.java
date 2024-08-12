@@ -256,6 +256,14 @@ public class AdminController {
 	 		
 	 	//	return "redirect:/admin/bookListFrm?rePage=1";
 	 	}
+	 	//orderList
+	 	@GetMapping(value = "/orderList")
+	 	public String orderList() {
+	 		
+	 		
+	 	}
+	 	
+	 	
 	 	//총관리자 select 부분(발주)
 	 	//총관리자 발주된 책 리스트
 		@GetMapping(value = "/orderAdmin1")
