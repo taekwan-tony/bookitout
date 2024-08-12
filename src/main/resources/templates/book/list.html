@@ -241,14 +241,14 @@
 								</td>
 
 								<td style="width:20%;">
-									<img id=book_img th:src="@{/book/{filename}(filename=${book.bookImg})}">
+								<a th:href="@{/book/detail?(bookNo=${book.bookNo})}">
+									<img id=book_img th:src="@{/book/{filename}(filename=${book.bookImg})}" style="cursor:pointer;">
+								</a>
 								</td>
 
 								<td style="vertical-align: baseline;">
 									<div class="book-details">
-										<div class="book-first b-name"><a
-												th:href="@{/book/detail?(bookNo=${book.bookNo})}"
-												th:text="${book.bookName}"></a></div>
+										<div class="book-first b-name"><a th:href="@{/book/detail?(bookNo=${book.bookNo})}" th:text="${book.bookName}"></a></div>
 										<div class="book-second">
 											<span class="book-writer" th:text="${book.bookWriter}"></span>
 											<span class="book-publisher" th:text="${book.bookPublisher}"></span>
