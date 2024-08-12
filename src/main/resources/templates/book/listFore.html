@@ -176,11 +176,11 @@
 			font-size: 19px
 		}
 
-		.kor {
+		.fore {
 			font-size: 21px
 		}
 
-		.kor:hover {
+		.fore:hover {
 			font-size: 22px;
 		}
 
@@ -204,19 +204,7 @@
 		}
 		
 
-/*
-.list-btn {
-    width: 70px;
-    height: 30px;
-    border-radius: 7px;
-    font-weight: bold;
-    margin-top: 20px;
-}
 
-.btn-list {
-margin-bottom: 10px;
-}
-*/
 </style>
 </head>
 <body>
@@ -255,8 +243,12 @@ margin-bottom: 10px;
                                 </td> -->   
 
                                 <td style="width:20%;">
-                                	<img id=book-img th:src="@{/book/{filename}(filename=${book.bookImg})}" >                                    
-                                </td>
+									<a th:href="@{/book/detail?(bookNo=${book.bookNo})}">
+
+										<img id=book_img th:src="@{/book/{filename}(filename=${book.bookImg})}"
+											style="cursor:pointer;">
+									</a>
+								</td>
 
                                 <td style="vertical-align: baseline;">
                                     <div class="book-details">

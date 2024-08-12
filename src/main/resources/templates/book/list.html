@@ -205,6 +205,7 @@
 		span {
 			font-size: 12pt;
 		}
+		
 	</style>
 
 </head>
@@ -240,10 +241,11 @@
 					<div class="book-info">
 						<table class="book-info-tbl">
 							<tr th:each="book : ${list}">
+							<!--  
 								<td class="check-box" style="width:5%; vertical-align: baseline;">
 									<input type="checkbox" class="checkbox" name="checkbox" id="checkbox"
 										th:onclick="selectBook();">
-								</td>
+								</td> -->
 
 								<td style="width:20%;">
 									<a th:href="@{/book/detail?(bookNo=${book.bookNo})}">
@@ -251,7 +253,6 @@
 										<img id=book_img th:src="@{/book/{filename}(filename=${book.bookImg})}"
 											style="cursor:pointer;">
 									</a>
-
 								</td>
 
 								<td style="vertical-align: baseline;">
