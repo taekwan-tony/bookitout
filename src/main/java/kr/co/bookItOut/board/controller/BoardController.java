@@ -24,6 +24,7 @@ import kr.co.bookItOut.board.model.dto.BoardCommentLikeCount;
 import kr.co.bookItOut.board.model.dto.BoardCommentMember;
 import kr.co.bookItOut.board.model.dto.BoardF‎ile;
 import kr.co.bookItOut.board.model.dto.BoardListData;
+import kr.co.bookItOut.board.model.dto.Islike;
 import kr.co.bookItOut.board.model.service.BoardService;
 import kr.co.bookItOut.util.FileUtils;
 import kr.co.bookItOut.member.model.dto.Member;
@@ -92,8 +93,9 @@ public class BoardController {
 		if(member != null) {
 			memberNo = member.getMemberNo();
 		}
+		List<Islike> isLikeList=boardService.selectIsLike();
 		List<BoardCommentMember> list=boardService.selectCommentWriterMemberList(boardNo);
-		List<BoardCommentLikeCount>likeCountList=boardService.selectBoardCommentLikeList();
+		List<BoardComment>boardCommentList=boardService.selectBoardCommentLikeList();
 		List<Member> memberList=boardService.selectAllMemberList();
 		Board b = boardService.selectOneBoard(boardNo,check,memberNo);
 		if(b == null) {
@@ -106,7 +108,7 @@ public class BoardController {
 			model.addAttribute("b", b);
 			model.addAttribute("list", list);
 			model.addAttribute("memberList", memberList);
-			model.addAttribute("likeCountList", likeCountList);
+			model.addAttribute("boardCommentList", boardCommentList);
 			return "board/view";
 		}
 	}
