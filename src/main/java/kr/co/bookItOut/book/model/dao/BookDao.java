@@ -502,10 +502,14 @@ public class BookDao {
 		return likeCount;
 	}
 
-	public List<Book> selectThreeBook(int i) {
-		String query = "select * from (select rownum as rnum, b.* from (select * from book order by 1 desc)b) where rnum between ? and ?";
-		Object[] params = {i,i+3};
-		List list = jdbc.query(query, bookRowMapper,params);
+	public List<Book> selectThreeBook() {
+		String query = "select * from (select rownum as rnum, b.* from (select * from book order by 1 desc)b) where rnum between 5 and 8";
+		List list = jdbc.query(query, bookRowMapper);
+		return list;
+	}
+	public List<Book> selectFiveBook() {
+		String query = "select * from (select rownum as rnum, b.* from (select * from book)b) where rnum between 1 and 5";
+		List list = jdbc.query(query, bookRowMapper);
 		return list;
 	}
 	public List<CenterMap> selectOneMap(int adminNo) {
