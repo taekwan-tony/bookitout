@@ -17,6 +17,7 @@ public class CartSelPayRowMapper implements RowMapper<Cart>{
 		c.setMemberNo(rs.getInt("member_no"));
 		c.setBookName(rs.getString("book_name"));
 		c.setBookPrice(rs.getInt("book_price"));
+		c.setBookImg(rs.getString("book_img"));
 		return c;
 	}
 }

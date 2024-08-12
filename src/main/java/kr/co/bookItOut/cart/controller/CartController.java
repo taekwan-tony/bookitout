@@ -114,7 +114,6 @@ public class CartController {
 		int memberNo = member.getMemberNo();
 		int result = cartService.selectCart(bookNo, memberNo);
 		return result;
-		
 	}
 
 	
@@ -128,11 +127,11 @@ public class CartController {
 	
 
 	@GetMapping("/selDel")
-	public String selDel(String name, @SessionAttribute(required=false) Member member, Model model) {
+	public String selDel(String no, @SessionAttribute(required=false) Member member, Model model) {
 		
 		int memberNo = member.getMemberNo();
-		boolean result = cartService.selDel(name, memberNo);
-		System.out.println(name);
+		boolean result = cartService.selDel(no, memberNo);
+		System.out.println(no);
 		
 		if(result) {
 			System.out.println("삭제 성공");
@@ -158,22 +157,21 @@ public class CartController {
 	
 	
 	@GetMapping("/selPay")
-	public String selPay(String name, String bookCount, String totalPrice, Model model, @SessionAttribute(required=false) Member member) {
-		System.out.println("책 이름은 : "+name);
+	public String selPay(String no, String bookCount, String totalPrice, Model model, @SessionAttribute(required=false) Member member) {
+		System.out.println("책 넘버는 : "+no);
 		System.out.println("수량은 : "+bookCount);
 		//장바구니 수량 변경 시 결제화면에 반영 안됨
 		
 		
 		int memberNo = member.getMemberNo();
-		List list = cartService.selPay(memberNo, name, bookCount);
+		List list = cartService.selPay(memberNo, no, bookCount);
 		
 //		System.out.println("선택한 책 이름 /로 구분 -- "+name);
 //		System.out.println("총 가격 -- "+totalPrice);
 		
-		
-		
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("list", list);
+		System.out.println(list);
 		
 		model.addAttribute("member",member);
 		
@@ -184,6 +182,7 @@ public class CartController {
 		for(int i=0; i<list.size(); i++) {
 			cartNo.add(((Cart)list.get(i)).getCartNo());
 		}
+		
 		model.addAttribute("cartNo",cartNo);
 		
 		return "cart/selPay";
