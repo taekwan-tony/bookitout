@@ -1,392 +1,395 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<title>국내 도서</title>
-<link rel="stylesheet" href="/css/main.css">
+	<meta charset="UTF-8">
+	<title>국내 도서</title>
+	<link rel="stylesheet" href="/css/main.css">
 
-<style>
-	* {
-    padding: 0;
-    margin: 0;
-    outline: none;
-}
-.content {
-    width: 1200px;
-    margin: 0 auto;
-}
-.book-list {
-    overflow: hidden;
-}
-.list-header {
-    width: 20%;
-    float: left;
-    margin-top: 25px;
-    background-color: #F8F4E1;
-    border-radius: 10px;
-    margin-right: 5%;
-}
-.list-header>p {
-    text-align: center;
-    font-weight: bold;
-    padding-top: 30px;
-}
-.list-header>ul {
-    text-align: center;
-    font-weight: bolder;
-    padding: 30px;
-    list-style-type: none;
-}
-.list-header li {
-    margin-top: 10px;
-    text-align: left;
-    padding-left: 30px;
-    color: #777777;
-}
-.list-contect {
-    width: 100%;
-    margin-top: 25px;
-}
-.image>img {
-    width: 100px;
-    height: 100px;
-}
-a {
-    list-style-type: none;
-}
-.list-array-title {
-    margin-top: 20px;
-}
-.list-array-title>p {
-    padding-bottom: 10px;
-}
-.array-title {
-    overflow: hidden;
-    list-style-type: none;
-    border-top: 1px solid #777777;
-    border-bottom: 1px solid #777777;
-}
-.array-title>li {
-    float: left;
-    margin: 5px 58px;
-}
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+			outline: none;
+		}
 
-.list-array {
-    overflow: hidden;
-}
-.book-info {
-    padding-top: 20px;
-    height: 790px;
-}
-.chech-box {
-    float: left;
-}
-img {
-    width: 120px;
-    height: 150px;
-    margin-right: 15px;
-    background-color: #F8F4E1;
-}
-.list-book-content {
-    width: 300px;
-    float: left;
-}
+		.content {
+			width: 1200px;
+			margin: 0 auto;
+		}
 
-.book-info-tbl{
-	width: 75%;
-}
-.book-info-tbl>td {
-    height: 30px;
-}
-.check-box {
-    text-align: center;
-}
+		.book-list {
+			overflow: hidden;
+		}
 
-#listBuy {
-    background-color: #AF8F6F;
-    color:var(--white);
-    border: none;
-}
+		.list-header {
+			width: 20%;
+			float: left;
+			margin-top: 25px;
+			background-color: #F8F4E1;
+			border-radius: 10px;
+			margin-right: 5%;
+		}
 
-#listCart {
-    background-color: #AF8F6F;
-    color:var(--white);
-    border: none;
-}
+		.list-header>p {
+			text-align: center;
+			font-weight: bold;
+			padding-top: 30px;
+		}
 
-.book-details {
-    padding-top: 10px;
-}
-.book-first {
-    margin-bottom: 10px;
-}
-.book-second {
-    margin-bottom: 10px;
-}
-.book-publisher {
-    margin-left: 87px;
-}
-.publication-date {
-    margin-left: 70px;
-}
-.enroll-date {
-    margin-left: 70px;
-}
+		.list-header>ul {
+			text-align: center;
+			font-weight: bolder;
+			padding: 30px;
+			list-style-type: none;
+		}
 
-.btn-list {
-margin-bottom: 10px;
-}
-.list:hover {
-font-weight: bolder;
+		.list-header li {
+			margin-top: 10px;
+			text-align: left;
+			padding-left: 30px;
+			color: #777777;
+		}
 
-}
-.grey {
-color: #777777;
-font-size: 18px
-}
-.grey:hover {
-color:#000000;
-font-size: 19px
-}
-.kor{
-font-size: 21px
-}
-.kor:hover{
-font-size: 22px;
-}
-#bookCart {
-    margin-bottom: 10px;
-}
+		.list-contect {
+			width: 100%;
+			margin-top: 25px;
+		}
 
-.pagination>ul{
-display: block;
-}
-.b-name{
-font-size: 13pt;
-}
+		.image>img {
+			width: 100px;
+			height: 100px;
+		}
 
-span{
-font-size: 12pt;
-}
+		a {
+			list-style-type: none;
+		}
 
-</style>
+		.list-array-title {
+			margin-top: 20px;
+		}
+
+		.list-array-title>p {
+			padding-bottom: 10px;
+		}
+
+		.array-title {
+			overflow: hidden;
+			list-style-type: none;
+			border-top: 1px solid #777777;
+			border-bottom: 1px solid #777777;
+		}
+
+		.array-title>li {
+			float: left;
+			margin: 5px 58px;
+		}
+
+		.list-array {
+			overflow: hidden;
+		}
+
+		.book-info {
+			padding-top: 20px;
+			height: 790px;
+		}
+
+		.chech-box {
+			float: left;
+		}
+
+		img {
+			width: 120px;
+			height: 150px;
+			margin-right: 15px;
+			background-color: #F8F4E1;
+		}
+
+		.list-book-content {
+			width: 300px;
+			float: left;
+		}
+
+		.book-info-tbl {
+			width: 75%;
+		}
+
+		.book-info-tbl>td {
+			height: 30px;
+		}
+
+		.check-box {
+			text-align: center;
+		}
+
+		#listBuy {
+			background-color: #AF8F6F;
+			color: var(--white);
+			border: none;
+		}
+
+		#listCart {
+			background-color: #AF8F6F;
+			color: var(--white);
+			border: none;
+		}
+
+		.book-details {
+			padding-top: 10px;
+		}
+
+		.book-first {
+			margin-bottom: 10px;
+		}
+
+		.book-second {
+			margin-bottom: 10px;
+		}
+
+		.book-publisher {
+			margin-left: 87px;
+		}
+
+		.publication-date {
+			margin-left: 70px;
+		}
+
+		.enroll-date {
+			margin-left: 70px;
+		}
+
+		.btn-list {
+			margin-bottom: 10px;
+		}
+
+		.list:hover {
+			font-weight: bolder;
+
+		}
+
+		.grey {
+			color: #777777;
+			font-size: 18px
+		}
+
+		.grey:hover {
+			color: #000000;
+			font-size: 19px
+		}
+
+		.kor {
+			font-size: 21px
+		}
+
+		.kor:hover {
+			font-size: 22px;
+		}
+
+		#bookCart {
+			margin-bottom: 10px;
+		}
+
+		.pagination>ul {
+			display: block;
+		}
+
+		.b-name {
+			font-size: 13pt;
+		}
+
+		span {
+			font-size: 12pt;
+		}
+	</style>
 
 </head>
+
 <body>
 	<th:block th:include="common/header"></th:block>
-	
-		<main class="content">
-        <section class="section book-list-wrap">
-            <div class="book-list">
-                <div class="list-header">
-                    <p><a class = "list kor" href="/book/list?reqPage=1&type=1&genre=1">국내 도서</a></p>
-                    <ul>
-                        <li><a class = "list grey" href="/book/list?reqPage=1&type=1&genre=2">문학</a></li>
-                        <li><a class = "list grey" href="/book/list?reqPage=1&type=1&genre=3">재테크</a></li>
-                        <li><a class = "list grey" href="/book/list?reqPage=1&type=1&genre=4">기타</a></li>
-                    </ul>
-                </div>
 
-                <div class="list-contect">
-                    <div class="list-array-title">
-                        <!-- <p>이 분야에 <span th:text="${list.length}"></span>개의 상품이 있습니다.</p> -->
+	<main class="content">
+		<section class="section book-list-wrap">
+			<div class="book-list">
+				<div class="list-header">
+					<p><a class="list kor" href="/book/list?reqPage=1&type=1&genre=1">국내 도서</a></p>
+					<ul>
+						<li><a class="list grey" href="/book/list?reqPage=1&type=1&genre=2">문학</a></li>
+						<li><a class="list grey" href="/book/list?reqPage=1&type=1&genre=3">재테크</a></li>
+						<li><a class="list grey" href="/book/list?reqPage=1&type=1&genre=4">기타</a></li>
+					</ul>
+				</div>
 
-                        <ul class="array-title">
-                            <li><a class = "list" th:href="@{/book/list(reqPage=1,type=2,genre=${genre})}">상품명순</a></li>
-                            <li><a class = "list" th:href="@{/book/list(reqPage=1,type=3,genre=${genre})}">출간일순</a></li>
-                            <li><a class = "list" th:href="@{/book/list(reqPage=1,type=4,genre=${genre})}">등록일순</a></li>
-                            <li><a class = "list" th:href="@{/book/list(reqPage=1,type=5,genre=${genre})}">저가격순</a></li>
-                            <li><a class = "list" th:href="@{/book/list(reqPage=1,type=6,genre=${genre})}">고가격순</a></li>
-                        </ul>
-                    </div>
+				<div class="list-contect">
+					<div class="list-array-title">
+						<!-- <p>이 분야에 <span th:text="${list.length}"></span>개의 상품이 있습니다.</p> -->
 
-                    <div class="book-info">
-                        <table class="book-info-tbl">                        
-                            <tr th:each="book : ${list}">                             
-                                <td class="check-box" style="width:5%; vertical-align: baseline;">
-                                    <input type="checkbox" name="checkbox" id="checkbox">
-                                </td>
+						<ul class="array-title">
+							<li><a class="list" th:href="@{/book/list(reqPage=1,type=2,genre=${genre})}">상품명순</a></li>
+							<li><a class="list" th:href="@{/book/list(reqPage=1,type=3,genre=${genre})}">출간일순</a></li>
+							<li><a class="list" th:href="@{/book/list(reqPage=1,type=4,genre=${genre})}">등록일순</a></li>
+							<li><a class="list" th:href="@{/book/list(reqPage=1,type=5,genre=${genre})}">저가격순</a></li>
+							<li><a class="list" th:href="@{/book/list(reqPage=1,type=6,genre=${genre})}">고가격순</a></li>
+						</ul>
+					</div>
 
-                                <td style="width:20%;">
-                                	<img id=book_img th:src="@{/book/{filename}(filename=${book.bookImg})}" >                                    
-                                </td>
+					<div class="book-info">
+						<table class="book-info-tbl">
+							<tr th:each="book : ${list}">
+								<td class="check-box" style="width:5%; vertical-align: baseline;">
+									<input type="checkbox" name="checkbox" id="checkbox">
+								</td>
 
-                                <td style="vertical-align: baseline;">
-                                    <div class="book-details">
-                                        <div class="book-first b-name"  th:text="${book.bookName}"></div>
-                                        <div class="book-second">
-                                            <span class="book-writer" th:text="${book.bookWriter}"></span>
-                                            <span class="book-publisher" th:text="${book.bookPublisher}"></span>
-                                            <span class="publication-date" th:text="${book.publicationDate}"></span>
-                                        </div>
-                                        <div class="book-third">
-                                            <span class="book-price" th:text="${book.bookPrice}"></span>
-                                            
-                                            <!-- <span  class="enroll-date" th:text="${book.enrollDate}"></span> -->
-                                        </div>
-                                    </div>
-                                </td>
+								<td style="width:20%;">
+									<img id=book_img th:src="@{/book/{filename}(filename=${book.bookImg})}">
+								</td>
 
-                                <td id="btn-list" style="width:15%; vertical-align: baseline;">
-                                
-                                	<div th:if="${session.member !=null}">
-                                		<button class ="btn-list list"  type="button" id="listCart" name="bookCart" th:onclick="addCart([[${book.bookNo}]])">장바구니</button>
-	                                    <button class ="btn-list list"  type="button" id="listBuy"  name="bookBuy" th:onclick="nowPay([[${book.bookNo}]])">바로구매</button>    
-                                	</div>
-                                	<div th:if="${session.member ==null}">
-                                		<button class ="btn-list list"  type="button" id="listCart" name="bookCart" onclick="loginMsg()">장바구니</button>
-	                                    <button class ="btn-list list"  type="button" id="listBuy"  name="bookBuy" onclick="loginMsg()">바로구매</button>    
-                                	</div>
-	                                                      
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    
-                    
-                </div>
-                
-                <div class=clear></div> 
+								<td style="vertical-align: baseline;">
+									<div class="book-details">
+										<div class="book-first b-name"><a
+												th:href="@{/book/detail?(bookNo=${book.bookNo})}"
+												th:text="${book.bookName}"></a></div>
+										<div class="book-second">
+											<span class="book-writer" th:text="${book.bookWriter}"></span>
+											<span class="book-publisher" th:text="${book.bookPublisher}"></span>
+											<span class="publication-date" th:text="${book.publicationDate}"></span>
+										</div>
+										<div class="book-third">
+											<span class="book-price" th:text="${book.bookPrice}"></span>
 
-                <div class="pagination" id="pageNavi" th:utext="${pageNavi}"></div>
+											<!-- <span  class="enroll-date" th:text="${book.enrollDate}"></span> -->
+										</div>
+									</div>
+								</td>
 
-            </div>
-        </section>
-    </main>
-    
-    <script>
-	    function loginMsg() {
-	    	swal({
-	    		title: "로그인 필요",
-	    		text : "로그인 페이지로 이동하겠습니까?",
-	    		icon : "info",
-	    		buttons : {
-	    			cancel : {
-	    				text : "아니오",
-	    				value : false,
-						visible : true,
-						className : "btn-secondary",
-						closeModel : true
-	    			},	    
-	    			confirm : {
-	    				text : "예",
-	    				value : true,
-						visible : true,
-						className : "btn-primaty",
-						closeModel : true	    				
-	    			}	    						
-	    		}
-	    	}).then(function(isConfirm){
-	    		if(isConfirm) {
-	    			location.href="/member/loginFrm";
-	    		}	    		
-	    	});	    	    		
-    	}
-	   	    
-	    
-    	function addCart(bookNo){    		
-    		
-    		$.ajax({
-    			url : "/cart/selectCart",
-    			type : "get",
-    			data : {bookNo: bookNo},
-    			success : function(data){
-    				const cartNo = data;
-    				if(cartNo==0){
-    					$.ajax({
-    		    			url : "/cart/addCart",
-    		    			type :  "get",
-    		    			data : {bookNo :bookNo}, 
-    		    			success : function(data){    		    				
-    		    				console.log(data);
-    		    				swal({
-    		    					title : "장바구니 담기",
-    		    					text : "해당 책이 장바구니에 담겼습니다.",
-    		    					icon : "info"    		    					
-    		    				});	
-    		    				
-    		    			},
-    		    			error : function() {
-    		    				console.log("에러");
-    		    			}
-    		    		});
-    				}else{
-    					console.log(cartNo);
-    					$.ajax({
-    						url : "/cart/plusCart",
-    						type : "get",
-    						data : {cartNo:cartNo},
-    						success : function(data){
-    							console.log(data);
-    		    				swal({
-    		    					title : "책 수량 추가",
-    		    					text : "장바구니에 담겨있는 책입니다. 추가 하시겠습니까?",
-    		    					icon : "info"    		    					
-    		    				});    							
-    						},
-    						error : function() {
-    		    				console.log("에러");
-    		    			}
-    					});
-    				}
-    			},
-    			error : function(){
-    				console.log("에러");
-    				
-    			}
-    			
-    		});
-    	
-    		
-    	}
-    
-    	function nowPay(bookNo) {
-    		swal({
-    			title : "바로 구매",
-    			text : "바로 구매하시겠습니까?",
-    			icon : "info",	
-    			buttons : {
-    				cancel : {
-    					text : "아니오",
-    					value : false,
-    					visible : true,
-    					className : "btn-cancel",
-    					closeModel : true    					
-    				},
-    				confirm : {
-    					text : "예",
-    					value : true,
-    					visible : true,
-    					className : "btn-confirm",
-    					closeModel : true
-    				}
-    			}
-    		}).then(function(isConfirm){
-    			if(isConfirm){
-    				
-    				$.ajax ({
-    					url :  "/cart/nowPay",
-    					type : "get",
-    					data : {bookNo:bookNo},
-    					success : function(data){
-    						console.log(data)
-    						
-    					
-    						
-    					}
-    					
-    				});
-    			}    	
-    		});	   		
-    	}
-    
-    	
-    	
-    	
-   		
-    </script>
-	
+								<td id="btn-list" style="width:15%; vertical-align: baseline;">
+
+									<div th:if="${session.member !=null}">
+										<button class="btn-list list" type="button" id="listCart" name="bookCart"
+											th:onclick="addCart([[${book.bookNo}]])">장바구니</button>
+										<button class="btn-list list" type="button" id="listBuy" name="bookBuy"
+											th:onclick="nowPay([[${book.bookNo}]])">바로구매</button>
+									</div>
+									<div th:if="${session.member ==null}">
+										<button class="btn-list list" type="button" id="listCart" name="bookCart"
+											onclick="loginMsg()">장바구니</button>
+										<button class="btn-list list" type="button" id="listBuy" name="bookBuy"
+											onclick="loginMsg()">바로구매</button>
+									</div>
+
+								</td>
+							</tr>
+						</table>
+					</div>
+
+
+				</div>
+
+				<div class=clear></div>
+
+				<div class="pagination" id="pageNavi" th:utext="${pageNavi}"></div>
+
+			</div>
+		</section>
+	</main>
+
+	<script>
+		function loginMsg() {
+			swal({
+				title: "로그인 필요",
+				text: "로그인 페이지로 이동하겠습니까?",
+				icon: "info",
+				buttons: {
+					cancel: {
+						text: "아니오",
+						value: false,
+						visible: true,
+						className: "btn-secondary",
+						closeModel: true
+					},
+					confirm: {
+						text: "예",
+						value: true,
+						visible: true,
+						className: "btn-primaty",
+						closeModel: true
+					}
+				}
+			}).then(function (isConfirm) {
+				if (isConfirm) {
+					location.href = "/member/loginFrm";
+				}
+			});
+		}
+
+
+		function addCart(bookNo) {
+
+			$.ajax({
+				url: "/cart/selectCart",
+				type: "get",
+				data: { bookNo: bookNo },
+				success: function (data) {
+					const cartNo = data;
+					if (cartNo == 0) {
+						$.ajax({
+							url: "/cart/addCart",
+							type: "get",
+							data: { bookNo: bookNo },
+							success: function (data) {
+								console.log(data);
+								swal({
+									title: "장바구니 담기",
+									text: "해당 책이 장바구니에 담겼습니다.",
+									icon: "info"
+								});
+
+							},
+							error: function () {
+								console.log("에러");
+							}
+						});
+					} else {
+						console.log(cartNo);
+						$.ajax({
+							url: "/cart/plusCart",
+							type: "get",
+							data: { cartNo: cartNo },
+							success: function (data) {
+								console.log(data);
+								swal({
+									title: "책 수량 추가",
+									text: "장바구니에 담겨있는 책입니다. 추가 하시겠습니까?",
+									icon: "info"
+								});
+							},
+							error: function () {
+								console.log("에러");
+							}
+						});
+					}
+				},
+				error: function () {
+					console.log("에러");
+
+				}
+
+			});
+
+
+		}
+
+		function nowPay(bookNo) {
+			location.href = "/cart/nowPay?bookNo="+bookNo;
+		}
+
+
+
+
+
+	</script>
+
 	<th:block th:include="common/footer"></th:block>
 
 </body>
+
 </html>

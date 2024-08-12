@@ -62,8 +62,9 @@ public class CartDao {
 	}
 
 	public int selDel(Book b, int memberNo) {
-		String query = "delete from cart_tbl WHERE book_no = (SELECT book_no  FROM book WHERE book_name = ?) AND member_no = ?";
-		Object[] params = { b.getBookName(), memberNo };
+		
+		String query = "delete from cart_tbl WHERE book_no = ? AND member_no = ?";
+		Object[] params = { b.getBookNo(), memberNo };
 		int result = jdbc.update(query, params);
 
 		return result;
@@ -77,12 +78,13 @@ public class CartDao {
 	}
 
 	public Cart selPay(Book b, int memberNo) {
-		String query = "select cart_no, book_no, book_cart_count, member_no, book_name, book_price from cart_tbl join book using (book_no) where book_name=? and member_no=?";
-		Object[] params = {b.getBookName(), memberNo};
-		System.out.println(b.getBookName() + memberNo);
+		String query = "select cart_no, book_img, book_no, book_cart_count, member_no, book_name, book_price from cart_tbl join book using (book_no) where book_no=? and member_no=?";
+		Object[] params = {b.getBookNo(), memberNo};
+		System.out.println("selPay로 넘어갈 북 넘버 제대로 조회 되는지 "+b.getBookNo() + memberNo);
 		List<Cart> c = jdbc.query(query, cartSelPayRowMapper, params);
 
 		if (c != null && !c.isEmpty()) {
+			System.out.println("selPay로 넘어갈 cart객체"+c);
 			return c.get(0);
 		} else {
 			Cart cc = new Cart();
@@ -142,7 +144,7 @@ public class CartDao {
 		return list;
 	}
 
-	public int selectCartNo() {
+	public int selectCartNo() {//
 		String query = "select max(cart_no) from cart_tbl";
 		int cartNo = jdbc.queryForObject(query, Integer.class);
 		return cartNo;

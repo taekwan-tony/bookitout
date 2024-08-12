@@ -195,18 +195,26 @@ public class AdminDao {
 		int result = jdbc.update(query,params);
 		return result;
 	}
-	public List selectOrderList(int start,int end,AdminOrderBook aob) {
-		String query = "select * from";
-		Object[] params = {start,end};
+	public int selectOrderTotoalCount(Admin admin,int type) {
+		String query = "select count(*) from order_tbl where admin_no =? and order_check = ?";
+		Object[] params = {admin.getAdminNo(),type};
+		int totalCount = jdbc.queryForObject(query,Integer.class,params);
+		return totalCount;
+	}
+	public List selectOrderList(int start, int end, Admin admin, int type) {
+		String query = "select * from "
+				+ "(select rownum as rnum, o.* from "
+				+ "(SELECT * " + 
+				"FROM book " + 
+				"JOIN order_tbl ON book.book_no = order_tbl.book_no " + 
+				"JOIN admin_tbl ON order_tbl.admin_no = admin_tbl.admin_no " + 
+				"WHERE admin_tbl.admin_no = ? and order_check=?)o) where rnum between ? and ?";
+		Object[] params = {admin.getAdminNo(),type,start,end};
 		List list = jdbc.query(query,adminOrderBookRowMapper,params);
 		return list;
 	}
-	public int selectOrderTotoalCount() {
-		String qurey = "select count(*) from order";
-		int totalCount = jdbc.queryForObject(qurey,Integer.class);
-		return totalCount;
-	}
-
+	
+	
 
 
 
