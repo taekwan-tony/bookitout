@@ -200,6 +200,7 @@
 		span {
 			font-size: 12pt;
 		}
+		
 	</style>
 
 </head>
@@ -221,7 +222,7 @@
 
 				<div class="list-contect">
 					<div class="list-array-title">
-						<!-- <p>이 분야에 <span th:text="${list.length}"></span>개의 상품이 있습니다.</p> -->
+						 <!--  <p>이 분야에 <span th:text="${list.size()}"></span>개의 상품이 있습니다.</p> -->
 
 						<ul class="array-title">
 							<li><a class="list" th:href="@{/book/list(reqPage=1,type=2,genre=${genre})}">상품명순</a></li>
@@ -236,7 +237,7 @@
 						<table class="book-info-tbl">
 							<tr th:each="book : ${list}">
 								<td class="check-box" style="width:5%; vertical-align: baseline;">
-									<input type="checkbox" name="checkbox" id="checkbox">
+									<input type="checkbox" class="checkbox" name="checkbox" id="checkbox" th:onclick="selectBook();">
 								</td>
 
 								<td style="width:20%;">
@@ -278,7 +279,14 @@
 
 								</td>
 							</tr>
+							
+							<tr>
+								<td>
+									<button class="btn-list list"  type="button" id=selectCart>선택??</button>
+								</td>
+							</tr>
 						</table>
+											
 					</div>
 
 
@@ -381,8 +389,26 @@
 		function nowPay(bookNo) {
 			location.href = "/cart/nowPay?bookNo="+bookNo;
 		}
-
-
+		
+		
+		
+		/*
+		$("#selectCart").on("click", function(){
+			const checked = $(".checkbox:checked");
+			if(checked.length ==0){
+				return;
+			}
+			const no = new Array();
+			checked.each(function(index, item){
+				const bookNo = $(item).parent().next().next().next().find("a");
+				console.log(bookNo);
+				no.push(bookNo);
+				console.log(bookNo);
+			});
+			location.href = "/cart/main";
+			
+		});
+		*/
 
 
 
