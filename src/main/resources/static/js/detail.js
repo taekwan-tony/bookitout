@@ -34,7 +34,7 @@ $(document).ready(function(){
             dataType : "json",
             success : function(data){
                 // console.log(data);
-            // console.log(typeof data);
+            	// console.log(typeof data);
                 // console.log(data.length);
                 for(let i = 0; i < data.length; i++){
                     const h2 = $("<h2></h2>");
@@ -76,11 +76,14 @@ $(document).ready(function(){
                     td2.append(data[i].adminAddr);
                     
                     /* 추가 작업 */
-                    const mapBtn = $("<span class='btn-type2 btn mapBtn'>");
+                    const mapBtn = $("<span class='btn-type4 btn mapBtn'>");
+                    mapBtn.css("margin-left", 10);
+                    
                     const mapLink = $("<a>");//<a href='/book/centerMap.html' target='_blank'>지도보기</a>
                     mapLink.prop('href', '/book/centerMap.html');
                     mapLink.attr('target', '_blank');
                     mapLink.text("지도보기");
+                    mapLink.css("color", "white");
                     mapBtn.append(mapLink);
                     td2.append(mapBtn);
                     
