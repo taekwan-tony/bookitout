@@ -137,7 +137,7 @@
 		box-sizing: border-box;
 		margin-bottom: 10px;
 		line-height: 39px;
-		overflow: hidden;
+		overflow: ;
 	}
 	.rid *{
 		float: left;
@@ -173,6 +173,10 @@
 		margin-bottom: 10px;
 	}
 	#el{
+		line-height: 39px;
+		margin: 0;
+	}
+	#tel{
 		line-height: 39px;
 		margin: 0;
 	}
@@ -292,10 +296,19 @@
 								<span th:text="${bc.boardCommentWriter}"></span> 
 								<span th:text="${bc.boardCommentDate}"></span> 
 								<span class="like-box">
-									<span th:if="${bc.isLike == 1}" class="material-icons heart"
-									th:onclick="likePush(this,[[${bc.boardCommentNo}]]);">favorite</span>
-									<span th:if="${bc.isLike == 0}" class="material-icons heart"
-									th:onclick="likePush(this,[[${bc.boardCommentNo}]]);">favorite_border</span>
+									<th:block th:each="il:${isLikeList}">
+										<th:block>
+											<span th:if="${il.isLike == 1 && session.member.memberNo==il.memberNo && bc.boardCommentNo==il.boardCommentNo}"
+											class="material-icons heart" id="la"
+											th:onclick="likePush(this,[[${bc.boardCommentNo}]]);">favorite</span>
+											<span th:if="${il.isLike == 0&&session.member.memberNo==il.memberNo && bc.boardCommentNo==il.boardCommentNo}" class="material-icons heart" id="el"
+											th:onclick="likePush(this,[[${bc.boardCommentNo}]]);">favorite_border</span>
+										</th:block>	
+										<th:block>
+											<span th:if="${il.isLike == 0 && session.member.memberId==null && bc.boardCommentNo==il.boardCommentNo}" class="material-icons heart" id="tel"
+											th:onclick="likePush(this,[[${bc.boardCommentNo}]]);">favorite_border</span>
+										</th:block>	
+									</th:block>	
 									<th:block th:each="lc:${boardCommentList}">
 										<th:blook th:if="${lc.boardCommentNo==bc.boardCommentNo}">
 											<span th:text="${lc.likeCount}"></span>
@@ -363,18 +376,26 @@
 								<span th:text="${bcc.boardCommentWriter}"></span> 
 								<span th:text="${bcc.boardCommentDate}"></span>
 								<span class="like-box"> 
-								<span th:if="${bcc.isLike == 1}"
-									class="material-icons heart" id="la"
-									th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite</span>
-									<span th:if="${bcc.isLike == 0}" class="material-icons heart" id="el"
-									th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite_border</span>
-									<th:block th:each="lc:${boardCommentList}">
-										<th:blook th:if="${lc.boardCommentNo==bcc.boardCommentNo}">
-											<span th:text="${lc.likeCount}"></span>
-										</th:blook>
-									</th:block>
+									<th:block th:each="il:${isLikeList}">
+										<th:block>
+											<span th:if="${il.isLike == 1 && session.member.memberNo==il.memberNo && bcc.boardCommentNo==il.boardCommentNo}"
+											class="material-icons heart" id="la"
+											th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite</span>
+											<span th:if="${il.isLike == 0&&session.member.memberNo==il.memberNo && bcc.boardCommentNo==il.boardCommentNo}" class="material-icons heart" id="el"
+											th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite_border</span>
+										</th:block>	
+										<th:block>
+											<span th:if="${il.isLike == 0 && session.member.memberId==null && bcc.boardCommentNo==il.boardCommentNo}" class="material-icons heart" id="tel"
+											th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite_border</span>
+										</th:block>	
+									</th:block>	
+								<th:block th:each="lc:${boardCommentList}">
+									<th:blook th:if="${lc.boardCommentNo==bcc.boardCommentNo}">
+										<span th:text="${lc.likeCount}"></span>
+									</th:blook>
+								</th:block>
 								</span>
-									<span class="comment-content" th:text="${bcc.boardCommentContent}"></span>
+								<span class="comment-content" th:text="${bcc.boardCommentContent}"></span>
 							</p>
 							<div class="input-item" style="display: none;">
 								<textarea name="boardCommentContent"

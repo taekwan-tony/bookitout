@@ -108,6 +108,7 @@ public class BoardController {
 			model.addAttribute("b", b);
 			model.addAttribute("list", list);
 			model.addAttribute("memberList", memberList);
+			model.addAttribute("isLikeList", isLikeList);
 			model.addAttribute("boardCommentList", boardCommentList);
 			return "board/view";
 		}
