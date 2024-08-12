@@ -277,9 +277,9 @@ public int updateDetailBook(Book b) {
 	return 0;
 }
 //발주된 수량 보내줌
-public int insertOrderAdmin(CenterInventory centerInventory, int orderBookCount) {
-	CenterInventory c = adminDao.selectCenterInventory(centerInventory);
-	int result = adminDao.inserOrderAdmin(c,orderBookCount);
+public int insertOrderAdmin(int centerBookNo, int orderBookCount, Admin admin) {
+	//CenterInventory c = adminDao.selectCenterInventory(centerBookNo);
+	int result = adminDao.inserOrderAdmin(centerBookNo,orderBookCount,admin);
 	if(result>0) {
 		return result;
 	}
@@ -343,7 +343,6 @@ public OrderListData selectAllOrder(Admin admin, int type, int reqPage) {
 public  AdminCenterBook selectOneOrder(int bookNo, Admin admin) {
 	//Book book  = adminDao.selectOrderBook(bookNo);
 	AdminCenterBook acb = adminDao.selectOneOrder(bookNo,admin);
-	System.out.println("ddddd"+acb);
 	return acb;
 }
 	
