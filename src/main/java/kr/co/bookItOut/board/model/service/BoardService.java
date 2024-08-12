@@ -240,23 +240,15 @@ public class BoardService {
 	}
 	public List<Islike> selectIsLike() {
 		List<Islike> isLikeList= new ArrayList<Islike>();
-		List<BoardCommentLike> boardCommentLikeList=boardDao.selectBoardCommentLikeList();
 		List<BoardComment> boardCommentList=boardDao.selectBoardComment();
-		List<BoardCommentLike> boardCommentNoList= boardCommentLikeList.stream().distinct().collect(Collectors.toList());
-		List<BoardCommentLikeCount> boardCommentLikeCountList=new ArrayList<BoardCommentLikeCount>();
-		for (int i=0;i<boardCommentNoList.size();i++) {
-			BoardCommentLikeCount bclc=new BoardCommentLikeCount(boardCommentNoList.get(i).getBoardCommentNo(),boardCommentNoList.get(i).getMemberNo()
-			,boardDao.selectLikeCount(boardCommentNoList.get(i).getBoardCommentNo()));
-			boardCommentLikeCountList.add(bclc);
-		}
-		for (int i=0;i<boardCommentList.size();i++) {
-			for (int j=0;j<boardCommentLikeCountList.size();j++) {
-				if(boardCommentList.get(i).getBoardCommentNo()==boardCommentLikeCountList.get(j).getBoardCommentNo()) {
-					Islike isLike=new Islike(boardCommentLikeCountList.get(j).getBoardCommentNo(),boardCommentLikeCountList.get(j).getMemberNo(),1);
-					isLikeList.add(isLike);
-				}
+		List<Member> memberList=boardDao.selectAllMember();
+		for (int i = 0; i < boardCommentList.size(); i++) {
+			for (int j = 0; j < memberList.size(); j++) {
+				int result=boardDao.selectCommentCount(boardCommentList.get(i).getBoardCommentNo(),memberList.get(j).getMemberNo());
+				Islike isLike=new Islike(boardCommentList.get(i).getBoardCommentNo(),memberList.get(j).getMemberNo(),result);
+				isLikeList.add(isLike);
 			}
 		}
-		return null;
+		return isLikeList;
 	}
 }

@@ -261,13 +261,13 @@ public class BoardDao {
 		return(List<BoardCommentMember>)list;
 	}
 
-	public List selectAllMemberList() {
+	public List<Member> selectAllMemberList() {
 		String query = "SELECT * FROM MEMBER_TBL";
 		List list = jdbc.query(query, memberRowMapper);
 		return (List<Member>)list;
 	}
 
-	public List selectBoardCommentLikeList() {
+	public List<BoardCommentLike> selectBoardCommentLikeList() {
 		String query = "select * from board_comment_like order by BOARD_COMMENT_NO"; 
 		List list = jdbc.query(query, boardCommentLikeRowMapper);
 		return (List<BoardCommentLike>) list;
@@ -283,5 +283,18 @@ public class BoardDao {
 		String query = "select * from board_comment";
 		List list = jdbc.query(query, boardCommentRowMapper);
 		return (List<BoardComment>) list;
+	}
+
+	public List<Member> selectAllMember() {
+		String query = "select * from member_tbl";
+		List list = jdbc.query(query, memberRowMapper);
+		return (List<Member>)list;
+	}
+
+	public int selectCommentCount(int boardCommentNo, int memberNo) {
+		String query = "SELECT COUNT(*) FROM BOARD_COMMENT_LIKE WHERE BOARD_COMMENT_NO=? and MEMBER_NO=?";
+		Object[] params = {boardCommentNo, memberNo};
+		int result = jdbc.queryForObject(query, Integer.class, params);
+		return result;
 	}
 }
