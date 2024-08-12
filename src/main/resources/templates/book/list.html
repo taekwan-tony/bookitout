@@ -379,44 +379,7 @@
 		}
 
 		function nowPay(bookNo) {
-			swal({
-				title: "바로 구매",
-				text: "바로 구매하시겠습니까?",
-				icon: "info",
-				buttons: {
-					cancel: {
-						text: "아니오",
-						value: false,
-						visible: true,
-						className: "btn-cancel",
-						closeModel: true
-					},
-					confirm: {
-						text: "예",
-						value: true,
-						visible: true,
-						className: "btn-confirm",
-						closeModel: true
-					}
-				}
-			}).then(function (isConfirm) {
-				if (isConfirm) {
-
-					$.ajax({
-						url: "/cart/nowPay",
-						type: "get",
-						data: { bookNo: bookNo },
-						success: function (data) {
-
-							//location.href="/cart/selPay?list="+data;
-
-							console.log(data)
-
-						}
-
-					});
-				}
-			});
+			location.href = "/cart/nowPay?bookNo="+bookNo;
 		}
 
 
