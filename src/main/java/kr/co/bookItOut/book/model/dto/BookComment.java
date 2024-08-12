@@ -16,4 +16,7 @@ public class BookComment {
 	 private int bookCommentRef;
 	 private int likeCount;
 	 private int isLike;
+	 
+	 private String bookImg;
+	 private String bookName;
 }

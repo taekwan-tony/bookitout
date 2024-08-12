@@ -97,6 +97,16 @@ input:focus{
 .radio>label{
     font-size: 15px;
 }
+
+.input-item {
+    display: flex;
+    flex-direction: column; /* 요소들을 수직으로 배치 */
+}
+
+.input-item a {
+    margin-top: 5px; /* a 태그와 input 사이의 간격 추가 */
+    color: red; /* 에러 메시지 색상 */
+}
 </style>
 </head>
 <body>
@@ -118,7 +128,7 @@ input:focus{
 						<label for="memberId">ID</label>
 					</div>
 					<div class="input-item">
-						<input type="text" name="memberId" id="memberId">
+						<input type="text" name="memberId" id="memberId" required>
 					</div>
 				</div>
 				<div class="input-wrap">
@@ -126,23 +136,25 @@ input:focus{
 						<label for="memberPw">Password</label>
 					</div>
 					<div class="input-item">
-						<input type="password" name="memberPw" id="memberPw">
+						<input type="password" name="memberPw" id="memberPw" required>
+						<a th:text="${error}" style="color:red;"></a>
 					</div>
 				</div>
 				<div class="member-link-box">
 					<a href="/member/joinFrm">회원가입</a>
-					<a href="#">아이디 / 비밀번호 찾기</a>
+					<a href="/member/searchIdFrm">아이디 / </a>
+					<a href="/member/searchPwFrm">비밀번호 찾기</a>
 				</div>
 				<div class="login-button-box">
-					<button type="submit">Login</button>
+					<button type="submit" th:onclick="login(this);">Login</button>
 				</div>
 				
 			</form>
 		</div>
-		
-		
 		<div class="clear"></div>
     </main>
+    <script>
+    </script>
     <th:block th:include="common/footer"></th:block>
 </body>
 </html>

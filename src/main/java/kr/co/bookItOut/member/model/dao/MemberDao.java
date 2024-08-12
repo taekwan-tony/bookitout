@@ -6,8 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.bookItOut.board.model.dto.Board;
+import kr.co.bookItOut.board.model.dto.BoardRowMapper;
+import kr.co.bookItOut.book.model.dto.BookComment;
+import kr.co.bookItOut.book.model.dto.BookCommentRowMapper2;
 import kr.co.bookItOut.member.model.dto.Member;
 import kr.co.bookItOut.member.model.dto.MemberRowMapper;
+import kr.co.bookItOut.pay.model.dto.PayRowMapper;
+import kr.co.bookItOut.pay.model.dto.PayRowMapper2;
 
 @Repository
 public class MemberDao {
@@ -15,6 +21,13 @@ public class MemberDao {
 	private JdbcTemplate jdbc;
 	@Autowired
 	private MemberRowMapper memberRowMapper;
+	@Autowired
+	private PayRowMapper payRowMapper;
+	@Autowired
+	private BoardRowMapper boardRowMapper;
+	@Autowired
+	private BookCommentRowMapper2 bookCommentRowMapper2;
+	
 	public Member selectOneMember(String memberId, String memberPw) {
 		String query = "select * from member_tbl where member_id=? and member_pw=?";
 		Object[] params = {memberId, memberPw};
@@ -54,6 +67,54 @@ public class MemberDao {
 			Object[] params = {m.getMemberName(),  m.getMemberAge(), m.getMemberPhone(), member.getMemberNo()};
 			int result = jdbc.update(query, params);
 			return result;
+		}
+	}
+	public Member selectSearchId(Member m) {
+		String query = "select * from member_tbl where member_mail=? and member_name=?";
+		Object[] params = {m.getMemberMail(), m.getMemberName()};
+		List list = jdbc.query(query, memberRowMapper,params);
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return (Member)list.get(0);
+		}
+	}
+	public Member selectSearchPw(Member m) {
+		String query = "select * from member_tbl where member_mail=? and member_name=? and member_id=?";
+		Object[] params = {m.getMemberMail(), m.getMemberName(), m.getMemberId()};
+		List list = jdbc.query(query, memberRowMapper,params);
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return (Member)list.get(0);
+		}
+	}
+	public List selectAllCart(int memberNo) {
+		String query = "SELECT * FROM pay WHERE member_no=? ORDER BY pay_no DESC";
+		Object[] params = {memberNo};
+		List list = jdbc.query(query, payRowMapper, params);
+		
+		System.out.println(list);
+		return list;
+	}
+	public List selectMyBoard(String memberId) {
+		String query = "SELECT b.board_no,b.board_title,b.board_content,b.board_writer,b.read_count,b.reg_date FROM board b JOIN member_tbl m ON b.board_writer = m.member_id where m.MEMBER_ID=?";
+		Object[] params = {memberId};
+		List list = jdbc.query(query, boardRowMapper, params);
+		if (list.isEmpty()) {
+			return null;
+		} else {
+			return list;
+		}
+	}
+	public List<BookComment> selectCommentList(String memberId) {
+		String query = "select BOOK_COMMENT_NO, BOOK_COMMENT_WRITER, BOOK_COMMENT_CONTENT, BOOK_COMMENT_DATE, BOOK_REF, book_img, book_name from book_comment join book on book_no=book_Ref where BOOK_COMMENT_WRITER=? and BOOK_COMMENT_REF is null";
+		Object[] params = {memberId};
+		List<BookComment> list = jdbc.query(query, bookCommentRowMapper2, params);
+		if (list.isEmpty()) {
+			return null;
+		} else {
+			return list;
 		}
 	}
 	

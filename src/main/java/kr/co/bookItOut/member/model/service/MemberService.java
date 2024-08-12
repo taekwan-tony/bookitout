@@ -1,10 +1,14 @@
 package kr.co.bookItOut.member.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.bookItOut.book.model.dto.BookComment;
 import kr.co.bookItOut.member.model.dao.MemberDao;
 import kr.co.bookItOut.member.model.dto.Member;
+import kr.co.bookItOut.pay.model.dto.Pay;
 
 @Service
 public class MemberService {
@@ -30,6 +34,31 @@ public class MemberService {
 	public int updateMember(Member member, Member m, int sel) {
 		int result = memberDao.updateMember(member, m, sel);
 		return result;
+	}
+
+	public Member selectSearchId(Member m) {
+		Member member = memberDao.selectSearchId(m);
+		return member;
+	}
+
+	public Member selectSearchPw(Member m) {
+		Member member = memberDao.selectSearchPw(m);
+		return member;
+	}
+
+	public List selectAllPay(int memberNo) {
+		List list = memberDao.selectAllCart(memberNo);
+		return list;
+	}
+
+	public List selectMyBoard(String memberId) {
+		List list = memberDao.selectMyBoard(memberId);
+		return list;
+	}
+
+	public List<BookComment> selectCommentList(String memberId) {
+		List<BookComment> commentList = memberDao.selectCommentList(memberId);
+		return commentList;
 	}
 	
 }

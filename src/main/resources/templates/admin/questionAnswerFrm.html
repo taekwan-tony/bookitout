@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns:th="http/www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>1:1답변 처리</title>
+<link rel="stylesheet" href="/css/main.css" />
+<link rel="stylesheet" href="/css/admin.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="/js/jquery-3.7.1.js"></script>
+<script src="/js/sweetalert.min.js"></script>
+</head>
+<style>
+	.btn-content-box>table>thead>tr>th{
+		height : 70px;
+	}
+	
+	.btn-content-box>table>tbody>tr>td{
+		height : 50px;
+	}
+	
+	.question-tbl{
+		width:100%;
+	}
+	.question-tbl tr{
+		height : 100px;
+	}
+	.question-tbl tr>td>*{
+		width:90%;
+	}
+	#questionTitle{
+		border-radius:10px;
+		height: 47px;
+		border:1px solid var(--gray1);
+		padding-left : 15px;
+	}
+	.question-tbl tr>td>#questionEmail{
+		width:60%;
+	}
+	#questionEmail{
+		border-radius:10px;
+		height: 47px;
+		border:1px solid var(--gray1);
+		padding-left : 15px;
+	}
+	.question-btn-wrap>button{
+		width:30%;
+	}
+	.question-tbl tr>th>sup{
+		color : red;
+	}
+	.answer-method-wrap{
+		border-bottom : 1px solid var(--gray1);
+		border-top : 1px solid var(--gray1);
+	}
+	.answer-method-wrap{
+		padding: 15px 0;
+	}
+	.question-btn-wrap{
+		padding : 20px; 
+		display : flex;
+		gap : 10px;
+		justify-content : center;	
+		align-items: center;	
+	}
+	.answer-method-wrap>div:first-child{
+		padding-left : 15px;
+	}
+</style>
+<body>
+	<script src="/summernote/summernote-lite.js"></script>
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/summernote/summernote-lite.css">
+    <div class="nav1">
+        <div class="icons-menu">
+            <ul>
+                <li class="arrow">
+                    <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
+                </li>
+                <li class="icon1">
+                    <a href="/admin/adminIndex?rePage=1"><i class="fa-solid fa-house"></i></a>
+                </li>
+                <li class="icon1">
+                    <a href="/admin/bookListFrm?rePage=1"><i class="fa-solid fa-book-open"></i></a>
+                </li>
+                <li class="icon1">
+                    <a href="#"><i class="fa-solid fa-circle-user"></i></a>
+                </li>
+                <li class="icon1">
+                    <a href="#"><i class="fa-brands fa-android"></i></a>
+                </li>
+            </ul>
+        </div>
+        <div class="admin-menu">
+        <ul>
+            <li>
+                <h1 class="logo1">
+                    <a href="/admin/adminIndex?rePage=1">책키라웃 관리자</a>
+                </h1>
+            </li>
+            <li>
+            <a href="/admin/adminIndex?rePage=1">판매점 관리</a>
+            <ul class="sub-menu">
+                <li><a href="/admin/adminIndex?rePage=1">판매점 리스트</a></li>
+                <li><a href="/admin/insertAdminFrm">판매점 등록</a></li>
+                <li><a href="/admin/updatePwFrm">비밀번호 변경</a></li>
+            </ul>
+            </li>
+            <li>
+            <a href="/admin/bookListFrm">책 관리</a>
+            <ul class="sub-menu">
+                <li><a href="/admin/bookListFrm?rePage=1">책 리스트</a></li>
+                <li><a href="/admin/insertBookFrm">책 등록</a></li>
+                <li><a href="/admin/updateBookFrm">책 상세 정보 수정</a></li>
+            </ul>
+            </li>
+            <th:block th:if="${session.admin.adminType}==1">
+	            <li>
+	            <a href="/admin/questionAnswer?reqPage=1">1대1 문의</a>
+	            </li>
+	            <li>
+	            <a href="/FAQ/faqfrm?type=1&reqPage=1">FAQ</a>
+	            </li>
+	            <li>
+	            <a href="/notice/noticeFrm?reqPage=1">공지사항</a>
+	            </li>
+            </th:block>
+        </ul>
+        </div>
+    </div>
+    <!-- 네비 사이드 메뉴 끝 -->
+    <div class="wrap">
+        <!-- 헤더 -->
+        <div>
+            <div class="main-header-wrap">
+                <div class="header-main1">
+                    <div class="inner">
+                        <div class="search">
+                            <input type="text" name="search" />
+                            <button class="search-btn" type="button">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                        <div class="lnb">
+                            <ul>
+                            <li>
+                                <a href="/admin/adminIndex?rePage=1">판매점</a>
+                            </li>
+                            <li>
+                                <a href="/admin/updatePwFrm">비밀번호 변경</a>
+                            </li>
+                            <li>
+                                <a href="/admin/logout">로그아웃</a>
+                            </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 헤더 -->
+        </div>
+
+        <!-- 컨텐츠 영역 -->
+        <div class="content">
+            <div class="inner">
+                <div class="container">
+                    <div class="page-title">
+                        <h1>1:1문의 답변</h1>
+                    </div>
+					<div class="write-question-wrap">
+					<form action="/admin/questionAnswerCompelte"  method="post" class="write-form">
+						<table class="question-tbl tbl">
+							<tr>
+								<th style="width:20%;">문의 유형 <sup>*</sup></th>
+								<td style="width:80%;"  th:text="${q.questionType}"></td>
+							</tr>
+							<tr>
+								<th>문의 제목 <sup>*</sup> </th>
+								<td th:text="${q.questionTitle}"></td>
+							</tr>
+							<tr>
+								<th>문의 내용</th>
+								<td th:utext="${q.questionContent}"></td>
+							</tr>
+							<tr>
+								<th>첨부파일</th>
+								<td>
+									<div class="file-wrap">
+										<div th:each="file : ${q.fileList}" class="files">
+											<img th:src="@{/question/}+${file.filepath}">
+											<p th:text="${file.filepath}"></p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>문의 내용</th>
+								<td ><textarea name="questionAnswer" id="questionAnswer"></textarea></td>
+							</tr>
+						</table>
+						<div class="answer-method-wrap">
+							<table class="question-tbl tbl">
+								<tr>
+									<th>이메일</th>
+									<td><input type="text" name="questionEmail" id="questionEmail" th:value="${q.questionEmail}" readonly></td>
+									<input type="hidden" name="questionNo" th:value="${q.questionNo}">
+									
+								</tr>
+							</table>
+						</div>
+						<div class="question-btn-wrap">
+							<button type="button" class="btn-type2 btn" onclick="location.href='/admin/questionAnswer?reqPage=1'">취소</button>
+							<button type="submit" class="btn-type3 btn">답변처리</button>	
+						</div>
+					</form>
+				</div>
+					
+                </div>
+            </div>
+
+		<div id="pageNavi" th:utext="${pageNavi}">
+	  	</div>
+		<!--페이지 넘기는 부분 종료 -->
+        </div>
+        <!-- footer 시작  헤더 풋더 다 끌어와서 쓰면 됨 -->
+        <div>
+            <div class="main-footer-wrap">
+                <div class="copyright">
+                    <div class="inner">
+                    <h4>COPYRIGHT &copy;책키라웃 ALL RIGHTS RESERVED.</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer 끝 -->
+
+        <div id="scroll-btn">
+            <button id="top-btn">
+                <i style=" --fa-bounce-start-scale-x: 1; --fa-bounce-start-scale-y: 1; --fa-bounce-jump-scale-x: 1; --fa-bounce-jump-scale-y: 1; --fa-bounce-land-scale-x: 1; --fa-bounce-land-scale-y: 1; --fa-bounce-rebound: 0;" class="fa-solid fa-angles-up fa-bounce" ></i>
+            </button>
+        </div>
+    </div>
+    
+</body>
+<script>
+	  $("#questionAnswer").summernote({
+		height : 500,
+		width : 900,
+		lang : "ko-KR",
+		disableResize : true,
+		disableResizeEditor : true,
+		resize : false
+	});
+
+</script>
+</html>

@@ -67,7 +67,7 @@
 	box-sizing: border-box;
 }
 
-#memberAddr {
+#memberAddrIn {
 	width: 60%;
 	padding: 10px;
 	box-sizing: border-box;
@@ -199,6 +199,7 @@ img {
 }
 
 </style>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 
@@ -259,7 +260,7 @@ img {
 							<label for="memberAge">나이</label>
 						</div>
 						<div class="input-item">
-							<input type="text" name="memberAge" id="memberAge">
+							<input type="number" name="memberAge" id="memberAge">
 						</div>
 					</div>
 					<div class="input-wrap">
@@ -276,7 +277,7 @@ img {
 						</div>
 						<div class="input-item">
 							<input type="text" name="memberMail" id="memberMail">
-							<button type="button" class="mail-btn">인증코드 발송</button>
+							<button type="button" class="mail-btn" id="mail-btn">인증코드 발송</button>
 						</div>
 					</div>
 					<div class="input-wrap">
@@ -284,30 +285,35 @@ img {
 							<label for="check">인증코드</label>
 						</div>
 						<div class="input-item">
-							<input type="text" id="check">
-							<button type="button" class="check-btn">확인</button>
+							<input type="text" id="check" placeholder="인증번호 입력">
+							<span id="timezone"></span>
+							<button type="button" class="check-btn">인증하기</button>
 						</div>
 					</div>
 					<div class="input-wrap">
 						<div class="input-title">
-							<label for="memberAddr">주소</label>
+							<label for="memberAddrIn">주소</label>
 						</div>
 						<div class="input-item">
-							<input type="text" name="memberAddr" id="memberAddr">
-							<button type="button" class="addr-btn">검색</button>
+							<input type="text" name="memberAddrIn" id="memberAddrIn" readonly>
+							<input type="hidden" name="memberAddr" id="memberAddr">
+							<button type="button" class="addr-btn" id="addr-btn">검색</button>
 						</div>
 					</div>
 					<div class="input-wrap">
 						<div class="input-title">
-							<label for="memberAddrRE">상세주소</label>
+							<label for="detailAddress">상세주소</label>
 						</div>
 						<div class="input-item">
-							<input type="text" name="memberAddrRE" id="memberAddrRE">
+							<input type="text" name="address" id="address">
+						</div>
+						<div class="input-item" style="margin-top:5px;">
+							<input type="text" name="detailAddress" id="detailAddress">
 						</div>
 					</div>
 					<div class="input-item">
 						<div class="radio">
-							<input type="radio" name="memberGender" id="man" value="남자"><label for="man">남자</label> 
+							<input type="radio" name="memberGender" id="man" value="남자" checked><label for="man">남자</label> 
 							<input type="radio" name="memberGender" id="woman" value="여자"><label for="woman">여자</label>
 						</div>
 					</div>
@@ -369,6 +375,135 @@ img {
 				$(".id-check-msg").css("color", "red");
 			}
 		});
+		
+		let mailCode = null;
+		$("#mail-btn").on("click",function(){
+			const receiver = $("#memberMail").val();
+			$.ajax({
+				url : "/member/sendCode",
+				data : {receiver : receiver},
+				type : "post",
+				success : function(data){
+					console.log(data);
+					mailCode = data;
+					authTime();
+				},
+				error : function(){
+					console.log("에러");
+				}
+			});
+		});
+		
+		let interverId = null;
+	      function authTime(){
+	         $("#timezone").html("<span id='min'>3</span> : <span id='sec'>00</span>");
+	         $("#check").css("width", "51%");
+	         // 두번째 매개변수의 수(시간)마다 첫번째 매개변수 (function) 동작
+	         interverId = window.setInterval(function(){
+	            const min = $("#min").text();
+	            const sec = $("#sec").text();
+	            if(sec == "00"){
+	               if(min =="0"){
+	                  window.clearInterval(interverId);
+	                  mailCode=null;
+	                  alert("인증시간이 만료되었습니다.");
+	               }else{
+	                  const newMin = Number(min)-1;
+	                  $("#min").text(newMin);
+	                  $("#sec").text(59);
+	               }
+	            }else{
+	               const newSec = Number(sec)-1;
+	               if(newSec < 10){
+	                  $("#sec").text("0"+newSec);
+	               }else{
+	                  $("#sec").text(newSec);
+	               }
+	            }
+	            
+	         },1000);
+	      }
+
+	      $(".check-btn").on("click",function(){
+	           const authCode = $("#check").val();
+	           if(authCode == mailCode){
+	              alert("인증되었습니다.");
+	              $("#check").text("인증완료");
+	              
+	              $("#memberMail").prop("readonly", true);
+	              $("#mail-btn").prop("disabled", true);
+	              $("#check").prop("readonly", true);
+	              $(".check-btn").prop("disabled", true);
+	              
+	              $("#timezone").remove();
+	              $("#check").css("width", "60%");
+	              
+	              window.clearInterval(intervalId);
+	           }else{
+	              alert("인증번호를 확인하세요.");
+	           }
+	           
+	         });
+	      
+	      $("#addr-btn").on("click", function(){
+	    	  new daum.Postcode({
+	    	        oncomplete: function(data) {
+	    	            $("#memberAddrIn").val(data.zonecode);
+	    	            $("#address").val(data.roadAddress);
+	    	        }
+	    	    }).open();
+	      });
+	      
+	      function checkValue() {
+	    	  
+	    	  const memberId = $("#memberId").val();
+	    	  const memberPw = $("#memberPw").val();
+	    	  const memberPwRe = $("#memberPwRe").val();
+	    	  const memberName = $("#memberName").val();
+	    	  const memberAge = $("#memberAge").val();
+	    	  const memberPhone = $("#memberPhone").val();
+	    	  const memberMail = $("#memberMail").val();
+	    	  const check = $("#check").text();
+	    	  const memberAddrIn = $("#memberAddrIn").val();
+	    	  const detailAddress = $("#detailAddress").val();
+	    	  
+	    	    if (!memberId) {
+	    	        alert("아이디를 입력해주세요.");
+	    	        return false; // 폼 제출을 중단
+	    	    }else if(!memberPw){
+	    	    	alert("비밀번호를 입력해주세요.");
+	    	        return false; // 폼 제출을 중단
+	    	    }else if(!memberPwRe){
+	    	    	alert("비밀번호 확인을 입력해주세요");
+	    	        return false; // 폼 제출을 중단
+	    	    }else if(!memberName){
+	    	    	alert("이름을 입력해주세요.");
+	    	        return false; // 폼 제출을 중단
+	    	    }else if(!memberAge){
+	    	    	alert("나이를 입력해주세요.");
+	    	        return false; // 폼 제출을 중단
+	    	    }else if(!memberPhone){
+	    	    	alert("휴대폰번호를 입력해주세요.");
+	    	        return false; // 폼 제출을 중단
+	    	    }else if(check != "인증완료"){
+	    	    	alert("이메일 인증을 진행해주세요.");
+	    	        return false; // 폼 제출을 중단
+	    	    }else if(!memberAddrIn){
+	    	    	alert("주소를 입력해주세요.");
+	    	        return false; // 폼 제출을 중단
+	    	    }else if(!detailAddress){
+	    	    	alert("상세주소를 입력해주세요.");
+	    	        return false; // 폼 제출을 중단
+	    	    }else{
+	    	    	 const memberAddr = $("#memberAddrIn").val();
+	 	            const address = $("#address").val();
+	 	            const detailAddress = $("#detailAddress").val();
+	 	            
+	 	            const fullAddress = `${memberAddr} ${address} ${detailAddress}`.trim();
+	 	            $("#memberAddr").val(fullAddress);
+	 	            return true; // 폼을 제출하려면 true 반환
+	    	    } 
+	        }
 	</script>
 
 

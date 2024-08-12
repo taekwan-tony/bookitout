@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,10 +17,14 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletResponse;
+import kr.co.bookItOut.board.model.dao.BoardDao;
 import kr.co.bookItOut.board.model.dto.Board;
 import kr.co.bookItOut.board.model.dto.BoardComment;
+import kr.co.bookItOut.board.model.dto.BoardCommentLikeCount;
+import kr.co.bookItOut.board.model.dto.BoardCommentMember;
 import kr.co.bookItOut.board.model.dto.BoardF‎ile;
 import kr.co.bookItOut.board.model.dto.BoardListData;
+import kr.co.bookItOut.board.model.dto.Islike;
 import kr.co.bookItOut.board.model.service.BoardService;
 import kr.co.bookItOut.util.FileUtils;
 import kr.co.bookItOut.member.model.dto.Member;
@@ -54,9 +59,9 @@ public class BoardController {
 	@ResponseBody
 	@PostMapping(value="/editorImage", produces = "plain/text;charset=utf-8")
 	public String editorImage(MultipartFile upfile) {
-		String savepath = root+"/board/editor/";
+		String savepath = root+"/editor/";
 		String filepath = fileUtils.upload(savepath, upfile);
-		return "/board/editor/"+filepath;
+		return "/board/editor"+filepath;
 	}
 	@PostMapping(value="/write")
 	public String writer(Board b, MultipartFile[] upfile, Model model) {
@@ -73,7 +78,6 @@ public class BoardController {
 			}
 		}
 		int result = boardService.insertBoard(b,fileList);
-		System.out.println(result);
 		/*if(result > 0) {
 			model.addAttribute("title","작성성공!");
 			model.addAttribute("msg", "게시물 작성에 성공했습니다.");
@@ -89,6 +93,10 @@ public class BoardController {
 		if(member != null) {
 			memberNo = member.getMemberNo();
 		}
+		List<Islike> isLikeList=boardService.selectIsLike();
+		List<BoardCommentMember> list=boardService.selectCommentWriterMemberList(boardNo);
+		List<BoardComment>boardCommentList=boardService.selectBoardCommentLikeList();
+		List<Member> memberList=boardService.selectAllMemberList();
 		Board b = boardService.selectOneBoard(boardNo,check,memberNo);
 		if(b == null) {
 			model.addAttribute("title", "조회실패");
@@ -98,6 +106,10 @@ public class BoardController {
 			return "common/msg";
 		}else {
 			model.addAttribute("b", b);
+			model.addAttribute("list", list);
+			model.addAttribute("memberList", memberList);
+			model.addAttribute("isLikeList", isLikeList);
+			model.addAttribute("boardCommentList", boardCommentList);
 			return "board/view";
 		}
 	}
@@ -226,6 +238,9 @@ public class BoardController {
 		BoardListData bld  = boardService.search(type,keyword,reqPage,option);
 		model.addAttribute("list" ,bld.getList());
 		model.addAttribute("pageNavi" ,bld.getPageNavi());
+		model.addAttribute("type" ,type);
+		model.addAttribute("keyword" ,keyword);
+		model.addAttribute("option" ,option);
 		return "board/list";
 	}
 }

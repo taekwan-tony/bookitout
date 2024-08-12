@@ -13,5 +13,5 @@ public class Notice {
 	private String writeDate;
 	private String noticeContent;
 	private int readCount;
-	
+	private NoticeData noticeData;
 }

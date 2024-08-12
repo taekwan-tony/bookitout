@@ -23,7 +23,7 @@ a{
 .navigation{
     position: sticky;
     top: 0;
-    width: 100px;
+    width: 110px;
     height: 100%;
     background-color: #AF8F6F;
     border-top-right-radius: 15px;
@@ -37,7 +37,6 @@ a{
 }
 .content {
     display: flex;
-    height: 100vh; 
     padding-top: 50px;
     padding-bottom: 50px;
 }
@@ -85,16 +84,12 @@ a{
             <div class="navigation">
                 <span class="icon"></span>
                 <ul>
-                    <li><a href="/member/myInfo"> <span class="title">내 정보</span>
-                    </a></li>
-                    <li><a href="/member/myOrder"> <span class="title">주문조회</span>
-                    </a></li>
-                    <li><a href="#"> <span class="title">내 리뷰</span>
-                    </a></li>
-                    <li><a href="#">
-                    <span class="title">Q&A</span>
-                    </a></li>
-                </ul>
+					<li><a href="/member/myInfo"> <span class="title">내 정보</span></a></li>
+					<li><a href="/member/myOrder"> <span class="title">주문조회</span></a></li>
+					<li><a href="/member/myBoard"> <span class="title">내 게시글</span></a></li>
+					<li><a href="/member/myReview"> <span class="title">내 리뷰</span></a></li>
+					<li><a href="/Question/questionList?type=1&reqPage=1"> <span class="title">Q&A</span></a></li>
+				</ul>
             </div>
         </div>
         <div class="information">

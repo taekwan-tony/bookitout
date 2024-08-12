@@ -27,9 +27,6 @@
 
 /*사이드 창 */
 .nav1 {
-    /* position: fixed;
-    top: 0;
-    left: 0; */
     background-color: #fff;
     /* height: 890px; */
     width: 18%;
@@ -184,5 +181,17 @@ table tbody tr:nth-child(2n){
 	background-color: var(--color1);	
 }
 .pagination{
+	display:flex;
 	justify-content: center;
+	max-width: 100% !important;
+	
 }
+
+
+
+/**/ 
+
+
+
+
+

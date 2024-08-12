@@ -136,35 +136,35 @@
 					<div class="input-item">
 						<select id="sel" name="type">
 							<th:block th:if="${type=='none'||type==null}">
-								<option value="none" selected>카테고리</option>
+								<option value="none" selected>전체</option>
 								<option value="title">제목</option>
 								<option value="writer">작성자</option>
 								<option value="titleContent">제목 및 내용</option>
 								<option value="content">내용</option>
 							</th:block>
 							<th:block th:if="${type=='title'}">
-								<option value="none">카테고리</option>
+								<option value="none">전체</option>
 								<option value="title" selected>제목</option>
 								<option value="writer">작성자</option>
 								<option value="titleContent">제목 및 내용</option>
 								<option value="content">내용</option>
 							</th:block>
 							<th:block th:if="${type=='writer'}">
-								<option value="none">카테고리</option>
+								<option value="none">전체</option>
 								<option value="title">제목</option>
 								<option value="writer" selected>작성자</option>
 								<option value="titleContent">제목 및 내용</option>
 								<option value="content">내용</option>
 							</th:block>
 							<th:block th:if="${type=='titleContent'}">
-								<option value="none">카테고리</option>
+								<option value="none">전체</option>
 								<option value="title">제목</option>
 								<option value="writer">작성자</option>
 								<option value="titleContent" selected>제목 및 내용</option>
 								<option value="content">내용</option>
 							</th:block>
 							<th:block th:if="${type=='content'}">
-								<option value="none">카테고리</option>
+								<option value="none">전체</option>
 								<option value="title">제목</option>
 								<option value="writer">작성자</option>
 								<option value="titleContent">제목 및 내용</option>
@@ -184,7 +184,7 @@
 								<option value="readCount">조회수 순</option>
 								<!--<option th:value="${type}">가나다 순</option>-->
 							</th:block>
-							<th:block th:if="${option=='read_Count desc'}">
+							<th:block th:if="${option=='readCount'}">
 								<option value="new">최신순</option>
 								<option value="old">오래된순</option>
 								<option value="readCount" selected>조회수 순</option>
@@ -197,7 +197,7 @@
 								<option th:value="${type}" selected>가나다 순</option>
 							</th:block>-->
 						</select>
-						<input type="text" name="keyword" id="inputText">
+						<input type="text" name="keyword" id="inputText" th:value="${keyword}">
 						<input type="hidden" name="reqPage" value="1">
 						<button type="submit" class="btn">조회</button>
 					</div>

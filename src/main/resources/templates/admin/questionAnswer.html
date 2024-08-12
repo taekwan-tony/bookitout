@@ -4,7 +4,18 @@
 <link rel="stylesheet" href="/css/main.css" />
 <link rel="stylesheet" href="/css/admin.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
+<style>
+	.btn-content-box>table>thead>tr>th{
+		height : 70px;
+	}
+	
+	.btn-content-box>table>tbody>tr>td{
+		height : 50px;
+	}
+</style>
 <body>
     <div class="nav1">
         <div class="icons-menu">
@@ -13,10 +24,10 @@
                     <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
                 </li>
                 <li class="icon1">
-                    <a href="#"><i class="fa-solid fa-house"></i></a>
+                    <a href="/admin/adminIndex?rePage=1"><i class="fa-solid fa-house"></i></a>
                 </li>
                 <li class="icon1">
-                    <a href="#"><i class="fa-solid fa-book-open"></i></a>
+                    <a href="/admin/bookListFrm?rePage=1"><i class="fa-solid fa-book-open"></i></a>
                 </li>
                 <li class="icon1">
                     <a href="#"><i class="fa-solid fa-circle-user"></i></a>
@@ -30,36 +41,40 @@
         <ul>
             <li>
                 <h1 class="logo1">
-                    <a href="/adminIndex">책키라웃 관리자</a>
+                    <a href="/admin/adminIndex?rePage=1">책키라웃 관리자</a>
                 </h1>
             </li>
             <li>
-            <a href="#">판매점 관리</a>
+            <a href="/admin/adminIndex?rePage=1">판매점 관리</a>
             <ul class="sub-menu">
-                <li><a href="#">판매점 리스트</a></li>
-                <li><a href="#">판매점 등록</a></li>
-                <li><a href="#">비밀번호 수정</a></li>
+                <li><a href="/admin/adminIndex?rePage=1">판매점 리스트</a></li>
+                <li><a href="/admin/insertAdminFrm">판매점 등록</a></li>
+                <li><a href="/admin/updatePwFrm">비밀번호 변경</a></li>
             </ul>
             </li>
             <li>
-            <a href="#">책 관리</a>
+            <a href="/admin/bookListFrm">책 관리</a>
             <ul class="sub-menu">
-                <li><a href="#">책 리스트</a></li>
-                <li><a href="#">책 등록</a></li>
-                <li><a href="#">책 정보 수정</a></li>
+                <li><a href="/admin/bookListFrm?rePage=1">책 리스트</a></li>
+                <li><a href="/admin/insertBookFrm">책 등록</a></li>
+                <li><a href="/admin/updateBookFrm">책 상세 정보 수정</a></li>
             </ul>
             </li>
-            <li>
-            <a href="#">1대1 문의</a>
-            </li>
-            <li>
-            <a href="#">챗봇</a>
-            </li>
+            <th:block th:if="${session.admin.adminType}==1">
+	            <li>
+	            <a href="/admin/questionAnswer?reqPage=1">1대1 문의</a>
+	            </li>
+	            <li>
+	            <a href="/FAQ/faqfrm?type=1&reqPage=1">FAQ</a>
+	            </li>
+	            <li>
+	            <a href="/notice/noticeFrm?reqPage=1">공지사항</a>
+	            </li>
+            </th:block>
         </ul>
         </div>
     </div>
     <!-- 네비 사이드 메뉴 끝 -->
-
     <div class="wrap">
         <!-- 헤더 -->
         <div>
@@ -75,13 +90,13 @@
                         <div class="lnb">
                             <ul>
                             <li>
-                                <a href="#">관리자</a>
+                                <a href="/admin/adminIndex?rePage=1">판매점</a>
                             </li>
                             <li>
-                                <a href="#">비밀번호 변경</a>
+                                <a href="/admin/updatePwFrm">비밀번호 변경</a>
                             </li>
                             <li>
-                                <a href="#">로그아웃</a>
+                                <a href="/admin/logout">로그아웃</a>
                             </li>
                             </ul>
                         </div>
@@ -96,63 +111,33 @@
             <div class="inner">
                 <div class="container">
                     <div class="page-title">
-                        <h1>판매점 관리</h1>
+                        <h1>1:1문의 답변</h1>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style="width: 3%">input</th>
-              					<th style="width: 7%">매장번</th>
-              					<th style="width: 10%">매장명</th>
-              					<th style="width: 30%">매장주소</th>
-              					<th style="width: 20%">입접일</th>
-              					<th style="width: 20%">이메일</th>
-              					<th style="width: 10%">관리</th>
-                            </tr>
-                        </thead>
-                        <tbody>                            
-                            <tr>
-                                <td>input</td>
-              					<td>10</td>
-              					<td>풍무점</td>
-              					<td>경기도 김포시</td>
-             					<td>1999/2/17</td>
-              					<td>mda@208.naver.com</td>
-              					<td>책 관리</td>
-                            </tr>
-                            <tr>
-                                <td>input</td>
-              					<td>10</td>
-              					<td>풍무점</td>
-              					<td>경기도 김포시</td>
-             					<td>1999/2/17</td>
-              					<td>mda@208.naver.com</td>
-              					<td>책 관리</td>
-                            </tr>
-                            <tr>
-                                <td>input</td>
-              					<td>10</td>
-              					<td>풍무점</td>
-              					<td>경기도 김포시</td>
-             					<td>1999/2/17</td>
-              					<td>mda@208.naver.com</td>
-              					<td>책 관리</td>
-                            </tr>
-                            <tr>
-                                <td>input</td>
-              					<td>10</td>
-              					<td>풍무점</td>
-              					<td>경기도 김포시</td>
-             					<td>1999/2/17</td>
-              					<td>mda@208.naver.com</td>
-              					<td>책 관리</td>
-                            </tr>
-                        </tbody>
-                    </table>
+					<div class="total-faq-box">
+						<div class="btn-content-box">
+							<table>
+								<thead>
+	                            	<tr>
+	              						<th style="width: 30%">문의유형</th>
+	              						<th style="width: 70%">제목</th>
+	                           		</tr>
+	                        	</thead>
+	                       		<tbody>                            
+	                            	<tr th:each="q :${list}"><!-- -->                            	
+	             						<td th:text="${q.questionType}"></td>
+	              						<td><a th:href="@{/admin/questionAnswerFrm(questionNo=${q.questionNo})}" th:text="${q.questionTitle}"></a></td>
+	                           		</tr>
+	                      		</tbody>
+							</table>
+						</div>
+					</div>
                 </div>
             </div>
-        </div>
 
+		<div id="pageNavi" th:utext="${pageNavi}">
+	  	</div>
+		<!--페이지 넘기는 부분 종료 -->
+        </div>
         <!-- footer 시작  헤더 풋더 다 끌어와서 쓰면 됨 -->
         <div>
             <div class="main-footer-wrap">
@@ -171,5 +156,6 @@
             </button>
         </div>
     </div>
+
 </body>
 </html>

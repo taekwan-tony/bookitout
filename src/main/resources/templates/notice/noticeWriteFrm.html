@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http/www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>공지 사항</title>
+<link rel="stylesheet" href="/css/customercenter.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+	.write-btn{
+		overflow : hidden;
+	}
+	.write-btn>*{
+		float : right;
+	}
+	.content-notice-wrap{
+		width:100%;
+	}
+	.content-notice-table{
+		width:100%;
+		
+	}
+	.content-notice-wrap>.content-notice-table tr{
+		height : 80px;
+	}
+	.content-notice-wrap>.content-notice-table th{
+		border-bottom : 1px solid var(--gray2);
+	}
+	.content-notice-table tr>td{
+		text-align: center;
+		border-bottom : 1px solid var(--gray2);
+	}
+	.customer-content-wrap>.page-wrap>div{
+		display : flex;
+		align-items:center;
+		justify-content : center;
+	}
+	.content-notice-table tr>td>a:hover{
+		font-weight: 700;
+		text-decoration: underline;
+	}
+	.customer-content-wrap{
+		width:100%;
+	}
+	.content-title-wrap{
+		min-height : 100px;
+		border-bottom : 1px solid var(--gray3);
+	}
+	.content-title-wrap>div{
+		margin-bottom : 20px;
+		
+	}
+	.write-notice-wrap{
+		width:100%;
+		display:flex;
+		justify-content:center;
+	}
+	.write-form>table{
+		width:700px;
+		
+	}
+	.notice-tbl{
+		margin-bottom : 15px;
+	}
+	.notice-tbl th{
+		text-align:center;
+		padding : 15px 0;
+	}
+	.notice-tbl td>input{
+		width:100%;
+		height:50px;
+    	padding: 5px;
+    	font-size:20px;
+    	border-radius:10px;
+    	align-items: center;
+    	box-sizing: border-box;
+	}
+	.select-width{
+		width:100%;
+		text-align:center;
+	}
+	.notice-tr>th>button{
+		width : 90%;
+		height : 50px;
+		font-size:24px;
+	}
+	
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<script src="/summernote/summernote-lite.js"></script>
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/summernote/summernote-lite.css">
+	<main class="content">
+		<div class="customer-main-wrap">
+			<div class="customer-list-wrap">
+				<div class="content-msg">
+					<h2>고객센터</h2>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/FAQ/customerMain">메인</a>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/FAQ/faqfrm?type=1&reqPage=1">자주 묻는 질문</a>
+						<li><a href="/FAQ/faqfrm?type=1&reqPage=1">회원가입/탈퇴</a></li>
+						<li><a href="/FAQ/faqfrm?type=2&reqPage=1">반품/교환/환불</a></li>
+						<li><a href="/FAQ/faqfrm?type=3&reqPage=1">주문/결제</a></li>
+						<li><a href="/FAQ/faqfrm?type=4&reqPage=1">배송/수령일 안내</a></li>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/Question/questionList?type=1&reqPage=1">1:1 문의</a>
+						<li><a href="/Question/writeQuestionFrm">1:1 문의 접수</a></li>
+						<li><a href="/Question/questionList?type=1&reqPage=1">1:1 문의 내역</a></li>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/notice/noticeFrm?reqPage=1">공지사항</a>
+					</ul>
+				</div>
+			</div>
+			<div class="customer-content-wrap">
+				<div class="content-msg customer-main-msg">
+					<h2>공지사항 작성</h2>
+				</div>
+				<div class="write-notice-wrap">
+					<form action="/notice/writeNotice"  method="post" class="write-form">
+						<table class="notice-tbl tbl">
+							<tr class="notice-tr">
+								<th>공지사항 제목 : </th>
+								<td><input type="text" name="noticeTitle" id="noticeTitle"></td>
+							</tr>
+							
+							<tr class="notice-tr">
+								<td colspan="2"><textarea name="noticeContent" id="noticeContent"></textarea></td>
+							</tr>
+							<tr class="notice-tr">
+								<th colspan="2">
+									<button type="submit" class="btn-type3 btn">공지사항 작성</button>
+								</th>	
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
+	<script>
+		$("#noticeContent").summernote({
+			height : 500,
+			weight : 800,
+			lang : "ko-KR",
+			disableResize : true,
+			disableResizeEditor : false,
+			resize : false
+		});
+	</script>
+	<th:block th:include="common/footer"></th:block>
+</body>
+
+</html>

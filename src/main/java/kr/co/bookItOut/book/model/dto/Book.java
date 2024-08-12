@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class Book {
 	private int bookNo;
-	private String bookName;
+	private String bookName;//
 	private String bookWriter;
 	private int bookPrice;
 	private String bookPublisher;

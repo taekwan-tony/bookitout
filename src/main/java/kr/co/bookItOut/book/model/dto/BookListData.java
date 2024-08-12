@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class BookListData {
 	private List list;
 	private String pageNavi;
+	
 
 }

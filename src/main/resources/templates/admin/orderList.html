@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/admin.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<script src="/js/jquery-3.7.1.js"></script>
+	<script src="/js/sweetalert.min.js"></script>
+	<style>
+	 .bookTbl tbody td input{
+	 	width : 100%;
+	 	border: none;
+		outline: none;
+		font-size: 15px;
+		text-align: center;
+	 }
+	 table tbody tr:nth-child(2n) td input{
+		background-color: var(--color1);	
+	}
+	tbody tbody tr td div div{
+		padding: 10px 0px!important ;
+	}
+	
+	
+	
+	</style>
+</head>
+<body>
+    <div class="nav1">
+        <div class="icons-menu">
+            <ul>
+                <li class="arrow">
+                    <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
+                </li>
+                <li class="icon1">
+                    <a href="/admin/adminIndex?rePage=1"><i class="fa-solid fa-house"></i></a>
+                </li>
+                <li class="icon1">
+                    <a href="/admin/bookListFrm?rePage=1"><i class="fa-solid fa-book-open"></i></a>
+                </li>
+                <li class="icon1">
+                    <a href="#"><i class="fa-solid fa-circle-user"></i></a>
+                </li>
+                <li class="icon1">
+                    <a href="#"><i class="fa-brands fa-android"></i></a>
+                </li>
+            </ul>
+        </div>
+        <div class="admin-menu">
+        <ul>
+            <li>
+                <h1 class="logo1">
+                    <a href="/admin/adminIndex?rePage=1">책키라웃 관리자</a>
+                </h1>
+            </li>
+            <li>
+            <a href="/admin/adminIndex?rePage=1">판매점 관리</a>
+            <ul class="sub-menu">
+                <li><a href="/admin/adminIndex?rePage=1">판매점 리스트</a></li>
+                <li><a href="/admin/insertAdminFrm">판매점 등록</a></li>
+                <li><a href="/admin/updatePwFrm">비밀번호 변경</a></li>
+            </ul>
+            </li>
+            <li>
+            <a href="#">책 관리</a>
+            <ul class="sub-menu">
+                <li><a href="/admin/bookListFrm?rePage=1">책 리스트</a></li>
+                <li><a href="/admin/insertBookFrm">책 등록</a></li>
+                <li><a href="/admin/bookListFrm">책 정보 수정</a></li>
+            </ul>
+            </li>
+            <li>
+            <a href="#">1대1 문의</a>
+            </li>
+            <li>
+            <a href="#">챗봇</a>
+            </li>
+        </ul>
+        </div>
+    </div>
+    <!-- 네비 사이드 메뉴 끝 -->
+    <div class="wrap">
+        <!-- 헤더 -->
+        <div>
+            <div class="main-header-wrap">
+                <div class="header-main1">
+                    <div class="inner">
+                        <div class="search">
+                            <input type="text" name="search" />
+                            <button class="search-btn" type="button">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                        <div class="lnb">
+                            <ul>
+                            <li>
+                                <a href="/admin/adminIndex?rePage=1">판매점</a>
+                            </li>
+                            <li>
+                                <a href="/admin/updatePwFrm">비밀번호 변경</a>
+                            </li>
+                            <li>
+                                <a href="/admin/logout">로그아웃</a>
+                            </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 헤더 -->
+        </div>
+
+        <!-- 컨텐츠 영역 -->
+        <div class="content">
+            <div class="inner">
+                <div class="container">
+                    <div class="page-title">
+                        <h1>총발주</h1><span>(리스트)</span>
+                    </div>
+                    <div class="orderList-wrap">
+                    	<div class="tab-list-wrap" th:switch="${click}">
+							<ul class="tab-ul" th:case="발주중">
+									<li class="tab-item ui-state-active click">
+										<button for="type1" class="tab-btn">
+											<span><a id="type1" href="/admin/orderList?type=1&reqPage=1">발주중</a></span>
+										</button>
+									</li>
+									<li class="tab-item ui-state-active">
+										<button for="type2" class="tab-btn" >
+											<span><a id="type2" href="/admin/orderList?type=2&reqPage=1">반려</a></span>
+										</button>
+									</li>
+									<li class="tab-item ui-state-active">
+										<button for="type3" class="tab-btn">
+											<span><a id="type3" href="/admin/orderList?type=3&reqPage=1">승인</a></span>
+										</button>
+									</li>
+							</ul>
+							<ul class="tab-ul" th:case="반려">
+									<li class="tab-item ui-state-active">
+										<button for="type1" class="tab-btn">
+											<span><a id="type1" href="/admin/orderList?type=1&reqPage=1">발주중</a></span>
+										</button>
+									</li>
+									<li class="tab-item ui-state-active click">
+										<button for="type2" class="tab-btn" >
+											<span><a id="type2" href="/admin/orderList?type=2&reqPage=1">반려</a></span>
+										</button>
+									</li>
+									<li class="tab-item ui-state-active">
+										<button for="type3" class="tab-btn">
+											<span><a id="type3" href="/admin/orderList?type=3&reqPage=1">승인</a></span>
+										</button>
+									</li>
+							</ul>
+							<ul class="tab-ul" th:case="승인">
+									<li class="tab-item ui-state-active">
+										<button for="type1" class="tab-btn">
+											<span><a id="type1" href="/admin/orderList?type=1&reqPage=1">전체</a></span>
+										</button>
+									</li>
+									<li class="tab-item ui-state-active">
+										<button for="type2" class="tab-btn" >
+											<span><a id="type2" href="/admin/orderList?type=2&reqPage=1">반려</a></span>
+										</button>
+									</li>
+									<li class="tab-item ui-state-active click">
+										<button for="type3" class="tab-btn">
+											<span><a id="type3" href="/admin/orderList?type=3&reqPage=1">승인</a></span>
+										</button>
+									</li>
+							</ul>
+						</div>
+								<table class="bookTbl">
+	                        <thead>
+	                            <tr>
+	              					<th style="width: 3%">발주번호</th>
+	              					<th style="width: 7%">매장명</th>
+	              					<th style="width: 7%">책이름</th>
+	              					<th style="width: 9%">책저자 </th>
+	              					<th style="width: 7%">출판사</th>
+	              					<th style="width: 9%">현수량</th>
+	              					<th style="width: 9%">발주수량</th>
+	              					<th style="width: 8%">발주승인여부</th>
+	                            </tr>
+	                        </thead>
+	                        <tbody>                            
+	                            <tr th:each="CenterInventory :${Admin2BookList}"><!-- -->                            	
+	                            	<td th:text="${CenterInventory.bookNo}"></td>
+	              					<td th:text="${CenterInventory.bookType}"></td>
+	              					<td th:text="${CenterInventory.bookGenre}"></td>
+	              					<td th:text=${CenterInventory.bookName}></td>
+	             					<td th:text=${CenterInventory.bookWriter}></td>
+	              					<td th:text=${CenterInventory.bookPublisher}></td>
+		              				<td th:text="${CenterInventory.publicationDate}"></td>
+		              				<td th:text="${CenterInventory.enrollDate}"></td>
+		              				<td th:text="${CenterInventory.centerBookCount}"></td>
+	              					<td>
+	              						<input type="text" name="orderBookCount">
+	              					</td>
+	              						<td th:text="${CenterInventory.bookPrice}"></td>
+	              					<td>
+		              					<button type="submit" class="btn-type2 btn" id="orderButton">발주</button>
+		              					<!--<input type="hidden" name="centerBookNo" th:value="${CenterInventory.centerBookNo}">  -->                      
+	              					</td>
+	                            </tr>
+	                        </tbody>
+	                    </table>
+                    </div>
+                </div>
+            </div>
+		<div id="pageNavi" th:utext="${pageNavi}">
+	  	</div>
+		<!--페이지 넘기는 부분 종료 -->
+        </div>
+        <!-- footer 시작  헤더 풋더 다 끌어와서 쓰면 됨 -->
+        <div>
+            <div class="main-footer-wrap">
+                <div class="copyright">
+                    <div class="inner">
+                    <h4>COPYRIGHT &copy;책키라웃 ALL RIGHTS RESERVED.</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer 끝 -->
+
+        <div id="scroll-btn">
+            <button id="top-btn">
+                <i style=" --fa-bounce-start-scale-x: 1; --fa-bounce-start-scale-y: 1; --fa-bounce-jump-scale-x: 1; --fa-bounce-jump-scale-y: 1; --fa-bounce-land-scale-x: 1; --fa-bounce-land-scale-y: 1; --fa-bounce-rebound: 0;" class="fa-solid fa-angles-up fa-bounce" ></i>
+            </button>
+        </div>
+    </div>
+    
+    <script>
+   	function	
+     
+    
+    
+    </script>
+</body>
+</html>

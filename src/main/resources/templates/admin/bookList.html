@@ -1,11 +1,30 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<link rel="stylesheet" href="/css/main.css" />
-<link rel="stylesheet" href="/css/admin.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/admin.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+<script src="/js/jquery-3.7.1.js"></script>
+	<script src="/js/sweetalert.min.js"></script>
+	<style>
+	 .bookTbl tbody td input{
+	 	width : 100%;
+	 	border: none;
+		outline: none;
+		font-size: 15px;
+		text-align: center;
+	 }
+	 table tbody tr:nth-child(2n) td input{
+		background-color: var(--color1);	
+	}
+	tbody tbody tr td div div{
+		padding: 10px 0px!important ;
+	}
+	
+	
+	
+	</style>
 </head>
-<!-- 처음 부터 다시 복붙 &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&-->
 <body>
     <div class="nav1">
         <div class="icons-menu">
@@ -14,10 +33,10 @@
                     <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
                 </li>
                 <li class="icon1">
-                    <a href="#"><i class="fa-solid fa-house"></i></a>
+                    <a href="/admin/adminIndex?rePage=1"><i class="fa-solid fa-house"></i></a>
                 </li>
                 <li class="icon1">
-                    <a href="#"><i class="fa-solid fa-book-open"></i></a>
+                    <a href="/admin/bookListFrm?rePage=1"><i class="fa-solid fa-book-open"></i></a>
                 </li>
                 <li class="icon1">
                     <a href="#"><i class="fa-solid fa-circle-user"></i></a>
@@ -31,23 +50,22 @@
         <ul>
             <li>
                 <h1 class="logo1">
-                    <a href="/adminIndex">책키라웃 관리자</a>
+                    <a href="/admin/adminIndex?rePage=1">책키라웃 관리자</a>
                 </h1>
             </li>
             <li>
-            <a href="#">판매점 관리</a>
+            <a href="/admin/adminIndex?rePage=1">판매점 관리</a>
             <ul class="sub-menu">
-                <li><a href="#">판매점 리스트</a></li>
-                <li><a href="#">판매점 등록</a></li>
-                <li><a href="/admin/updatePw">비밀번호변경</a></li>
+                <li><a href="/admin/adminIndex?rePage=1">판매점 리스트</a></li>
+                <li><a href="/admin/insertAdminFrm">판매점 등록</a></li>
+                <li><a href="/admin/updatePwFrm">비밀번호 변경</a></li>
             </ul>
             </li>
             <li>
             <a href="#">책 관리</a>
             <ul class="sub-menu">
-                <li><a href="#">책 리스트</a></li>
-                <li><a href="#">책 등록</a></li>
-                <li><a href="#">책 정보 수정</a></li>
+                <li><a href="/admin/bookListFrm?rePage=1">책 리스트</a></li>
+                <li><a href="/admin/insertBookFrm">책 등록</a></li>
             </ul>
             </li>
             <li>
@@ -75,13 +93,13 @@
                         <div class="lnb">
                             <ul>
                             <li>
-                                <a href="#">관리자</a>
+                                <a href="/admin/adminIndex?rePage=1">판매점</a>
                             </li>
                             <li>
-                                <a href="#">비밀번호 변경</a>
+                                <a href="/admin/updatePwFrm">비밀번호 변경</a>
                             </li>
                             <li>
-                                <a href="#">로그아웃</a>
+                                <a href="/admin/logout">로그아웃</a>
                             </li>
                             </ul>
                         </div>
@@ -96,46 +114,100 @@
             <div class="inner">
                 <div class="container">
                     <div class="page-title">
-                        <h1>판매점 관리</h1>
+                        <h1>책 관리</h1><span>(리스트)</span>
                     </div>
-                    <form action="">
-                    <table>
+                    <form action="/admin/bookListFrm" method="get">
+                    <table class="bookTbl">
                         <thead>
                             <tr>
                                 <th style="width: 3%">
                                 	<label></label>
                                 	<input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
                                 </th>
-              					<th style="width: 7%">책번호</th>
-              					<th style="width: 10%">책이름</th>
-              					<th style="width: 30%"></th>
-              					<th style="width: 10%">입접일</th>
-              					<th style="width: 20%">이메일</th>
-              					<th style="width: 10%">관리</th>
-              					<th style="width: 10%">수정/삭제</th>
+              					<th style="width: 3%">번호</th>
+              					<th style="width: 5%">책유형</th>
+              					<th style="width: 5%">책장르</th>
+              					<th style="width: 7%">책이름</th>
+              					<th style="width: 9%">책저자 </th>
+              					<th style="width: 7%">출판사</th>
+              					<th style="width: 8%">출판일</th>
+              					<th style="width: 9%">등록일</th>
+              					<th style="width: 8%">판매가격</th>
+              					<th style="width: 6%">발주</th>
+              					<th style="width: 6%">수정/상세수정</th> 
+              					<th style="width: 6%">삭제</th>
                             </tr>
                         </thead>
                         <tbody>                            
-
-
+                            <tr th:each="book :${bookList}"><!-- -->                            	
+                            	<td>
+                                	<input type="checkbox" name="chk[]" value="1">
+                                </td>
+                            	<td th:text="${book.bookNo}"></td>
+              					<td>
+              						<div class="input-item">
+	  			 						<div class="select" th:switch="${book.bookType}">
+	  			 							<select name ="bookType" th:case="국내도서">
+	  											<option selected value="국내도서">국내도서</option>
+	  											<option value="해외도서">해외도서</option>
+	  										</select>
+	  			 							<select name ="bookType" th:case="해외도서">
+	  											<option value="국내도서">국내도서</option>
+	  											<option selected value="해외도서">해외도서</option>
+	  										</select>
+	  			 						</div>
+	  			 					</div>
+	  			 					
+              					</td>
+              					<td>
+              						<div class="input-item">
+	  			 							<div class="select" th:switch="${book.bookGenre}">
+	  			 								<select name ="bookGenre" th:case="문학">
+	  												<option selected value="문학">문학</option>
+	  												<option value="재테크">재테크</option>
+	  												<option value="기타">기타</option>
+	  											</select>
+	  											<select name ="bookGenre" th:case="재테크">
+	  												<option value="문학">문학</option>
+	  												<option selected value="재테크">재테크</option>
+	  												<option value="기타">기타</option>
+	  											</select>
+	  											<select name ="bookGenre" th:case="기타">
+	  												<option value="문학">문학</option>
+	  												<option value="재테크">재테크</option>
+	  												<option selected value="기타">기타</option>
+	  											</select>
+	  			 							</div>
+	  			 					</div>
+              					</td>
+              					<td th:text=${book.bookName}></td>
+             					<td th:text=${book.bookWriter}></td>
+              					<td th:text=${book.bookPublisher}></td>
+	              				<td th:text="${book.publicationDate}"></td>
+	              				<td th:text="${book.enrollDate}"></td>
+              					<td>
+              						<input type="text" name="bookPrice" th:value=${book.bookPrice}>
+              					</td>
+              					<td>
+	              					<button type="button" class="btn-type2 btn orderAdmin" id="orderAdmin2" th:onclick="orderAdminBook(this, [[${book.bookNo}]]);">발주창</button>
+              					</td>
+              					<td>
+              						
+	              					<button type="button" class="btn-type2 btn updateBook" id="updateBook" th:onclick="updateBook1(this, [[${book.bookNo}]]);">수정</button>
+	              					<!-- <a href="/admin/updateDetail" class="btn-type2 btn">상세</a> 이런식으로 넣어줘도 됨 -->
+	              					<button type="button" class="btn-type2 btn updateDetail" id="updateDetail" th:onclick="updateDetail1(this, [[${book.bookNo}]]);">상세</button>
+              					
+              					</td>
+              					<td>
+              						<button type="button"  class="btn-type2 btn" th:onclick="bookDelete([[${book.bookNo}]]);">삭제</button>
+              					</td>
+                            </tr>
+                            	
                         </tbody>
                     </table>
                    </form>
                 </div>
             </div>
-        <!--페이지 넘기는 부분 (책리스트,매장리스트)
-        <div class="pagination">
-            <ul>
-                <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-left"></i></span></a></li>
-                <li><a class="page-item active-page" href="#">1</a></li>
-                <li><a class="page-item" href="#">2</a></li>
-                <li><a class="page-item" href="#">3</a></li>
-                <li><a class="page-item" href="#">4</a></li>
-                <li><a class="page-item" href="#">5</a></li>
-                <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-right"></i></span></a></li>
-            </ul>
-        </div>
-        -->
 		<div id="pageNavi" th:utext="${pageNavi}">
 	  	</div>
 		<!--페이지 넘기는 부분 종료 -->
@@ -160,7 +232,7 @@
     </div>
     
     <script>
-    <!--전체 선택 로직 -->
+    <!--input 전체 선택 로직 -->
     function check_all(f)
     {
         var chk = document.getElementsByName("chk[]");
@@ -168,6 +240,61 @@
         for (i=0; i<chk.length; i++)
             chk[i].checked = f.chkall.checked;
     }
+    <!--북리스트 삭제-->
+    function bookDelete(bookNo){
+  		swal({
+  			title:"게시글 삭제",
+  			text:"게시글을 삭제하시겠습니까?",
+  			icon:"warning",
+  			buttons:{
+  				cancel:{
+  					text:"취소",
+  					value:false,
+  					visible:true,
+  					className:"btn-secondary",
+  					closeModal:true
+  				},
+  				confirm:{
+  					text:"삭제",
+  					value:true,
+  					visible:true,
+  					className:"btn-point",
+  					closeModal:true
+  				}
+  			}
+  		
+  		}).then(function(isConfirm){
+  			if(isConfirm){
+  				console.log(1);
+  				location.href="/admin/delete?bookNo="+bookNo;
+  			}
+  		});
+  	}
+    
+    //바뀐 update 부분
+    function updateBook1(obj, bookNo) {
+      const bookType = $(obj).parent().parent().children().eq(2).children().children().children().val()
+    	 const bookGenre =  $(obj).parent().parent().children().eq(3).children().children().children().val()
+    	 const bookPrice =  $(obj).parent().parent().children().eq(9).children().val()
+
+        location.href="/admin/updateBook?bookNo="+bookNo+"&bookType="+bookType+"&bookGenre="+bookGenre+"&bookPrice="+bookPrice;
+    }
+    
+ 
+    // 상세 수정
+    function updateDetail1(obj, bookNo){
+    	
+    	location.href="/admin/updateDetailFrm?bookNo="+bookNo;
+    }
+    
+  //-발주창
+   function orderAdminBook(obj, bookNo){
+    	
+    	location.href="/admin/orderAdmin2?rePage=1";
+    }
+    
+     
+    
     
     </script>
 </body>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http/www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/customercenter.css">
+<style>
+	.write-faq-wrap{
+		width:100%;
+		display:flex;
+		justify-content:center;
+	}
+	.write-form>table{
+		width:700px;
+		
+	}
+	.faq-tbl{
+		margin-bottom : 15px;
+	}
+	.faq-tbl th{
+		text-align:center;
+		padding : 15px 0;
+	}
+	.faq-tbl td>input{
+		width:100%;
+		height:50px;
+    	padding: 5px;
+    	font-size:20px;
+    	border-radius:10px;
+    	align-items: center;
+    	box-sizing: border-box;
+	}
+	.select-width{
+		width:100%;
+		text-align:center;
+	}
+	.faq-tr>th>button{
+		width : 90%;
+		height : 50px;
+		font-size:24px;
+	}
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<script src="/summernote/summernote-lite.js"></script>
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/summernote/summernote-lite.css">
+	<main class="content">
+		<div class="customer-main-wrap">
+			<div class="customer-list-wrap">
+				<div class="content-msg">
+					<h2>고객센터</h2>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/FAQ/customerMain">메인</a>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/FAQ/faqfrm?type=1&reqPage=1">자주 묻는 질문</a>
+						<li><a href="/FAQ/faqfrm?type=1&reqPage=1">회원가입/탈퇴</a></li>
+						<li><a href="/FAQ/faqfrm?type=2&reqPage=1">반품/교환/환불</a></li>
+						<li><a href="/FAQ/faqfrm?type=3&reqPage=1">주문/결제</a></li>
+						<li><a href="/FAQ/faqfrm?type=4&reqPage=1">배송/수령일 안내</a></li>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/Question/questionList?type=1&reqPage=1">1:1 문의</a>
+						<li><a href="/Question/writeQuestionFrm">1:1 문의 접수</a></li>
+						<li><a href="/Question/questionList?type=1&reqPage=1">1:1 문의 내역</a></li>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/notice/noticeFrm?reqPage=1">공지사항</a>
+					</ul>
+				</div>
+			</div>
+			<div class="customer-content-wrap">
+				<div class="content-msg customer-main-msg">
+					<h2>FAQ 글쓰기</h2>
+				</div>
+				<div class="write-faq-wrap">
+					<form action="/FAQ/updateFaq"  method="post" class="write-form">
+						<table class="faq-tbl tbl">
+							<tr class="faq-tr">
+								<th>FAQ 제목 : </th>
+								<td><input type="text" name="faqTitle" id="faqTitle" th:value="${faq.faqTitle}"></td>
+								<input type="hidden" name="faqNo" th:value="${faq.faqNo}">
+							</tr>
+							<tr class="faq-tr">
+								<th>FAQ 유형 : </th>
+								<td  th:switch="${faq.faqType}">
+									<select class="select-width" name="faqType" readonly th:case="${'회원가입/탈퇴'}">
+										<option value="회원가입/탈퇴" selected>회원가입/탈퇴</option>
+										<option value="반품/교환/환불">반품/교환/환불</option>
+										<option value="주문/결제">주문/결제</option>
+										<option value="배송/수령일 안내">배송/수령일 안내</option>
+									</select>
+									<select class="select-width" name="faqType" readonly th:case="${'반품/교환/환불'}">
+										<option value="회원가입/탈퇴">회원가입/탈퇴</option>
+										<option value="반품/교환/환불"  selected>반품/교환/환불</option>
+										<option value="주문/결제">주문/결제</option>
+										<option value="배송/수령일 안내">배송/수령일 안내</option>
+									</select>
+									<select class="select-width" name="faqType" readonly th:case="${'주문/결제'}">
+										<option value="회원가입/탈퇴">회원가입/탈퇴</option>
+										<option value="반품/교환/환불">반품/교환/환불</option>
+										<option value="주문/결제" selected>주문/결제</option>
+										<option value="배송/수령일 안내">배송/수령일 안내</option>
+									</select>
+									<select class="select-width" name="faqType" readonly th:case="${'배송/수령일 안내'}">
+										<option value="회원가입/탈퇴">회원가입/탈퇴</option>
+										<option value="반품/교환/환불">반품/교환/환불</option>
+										<option value="주문/결제">주문/결제</option>
+										<option value="배송/수령일 안내" selected>배송/수령일 안내</option>
+									</select>
+								</td>
+							</tr>
+							<tr class="faq-tr">
+								<td  colspan="2"><textarea name="faqContent" id="faqContent" th:utext="${faq.faqContent}"></textarea></td>
+							</tr>
+							<tr class="faq-tr">
+								<th colspan="2">
+									<button type="submit" class="btn-type3 btn">FAQ 작성</button>
+								</th>	
+							</tr>
+						</table>
+					</form>
+				</div>
+			</div>
+				
+		</div>
+	</main>
+	<th:block th:include="common/footer"></th:block>
+</body>
+<script>
+		$("#faqContent").summernote({
+			height : 500,
+			width : 800,
+			lang : "ko-KR",
+			disableResize : true,
+			disableResizeEditor : true,
+			resize : false
+			
+		});
+</script>
+</html>

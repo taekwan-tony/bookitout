@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns:th="http/www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>1:1문의 수정</title>
+<link rel="stylesheet" href="/css/customercenter.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+	.question-tbl{
+		width:100%;
+	}
+	.question-tbl tr{
+		height : 100px;
+	}
+	.question-tbl tr>td>*{
+		width:90%;
+	}
+	#questionTitle{
+		border-radius:10px;
+		height: 47px;
+		border:1px solid var(--gray1);
+		padding-left : 15px;
+	}
+	.question-tbl tr>td>#questionEmail{
+		width:60%;
+	}
+	#questionEmail{
+		border-radius:10px;
+		height: 47px;
+		border:1px solid var(--gray1);
+		padding-left : 15px;
+	}
+	.question-btn-wrap>button{
+		width:30%;
+	}
+	.question-tbl tr>th>sup{
+		color : red;
+	}
+	.answer-method-wrap{
+		border-bottom : 1px solid var(--gray1);
+		border-top : 1px solid var(--gray1);
+	}
+	.answer-method-wrap{
+		padding: 15px 0;
+	}
+	.question-btn-wrap{
+		padding : 20px; 
+		display : flex;
+		gap : 10px;
+		justify-content : center;	
+		align-items: center;	
+	}
+	.answer-method-wrap>div:first-child{
+		padding-left : 15px;
+	}
+</style>
+</head>
+<body>
+	<th:block th:include="common/header"></th:block>
+	<script src="/summernote/summernote-lite.js"></script>
+	<script src="/summernote/lang/summernote-ko-KR.js"></script>
+	<link rel="stylesheet" href="/summernote/summernote-lite.css">
+	
+	<main class="content">
+		<div class="customer-main-wrap">
+			<div class="customer-list-wrap">
+				<div class="content-msg">
+					<h2>고객센터</h2>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/FAQ/customerMain">메인</a>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/FAQ/faqfrm?type=1&reqPage=1">자주 묻는 질문</a>
+						<li><a href="/FAQ/faqfrm?type=1&reqPage=1">회원가입/탈퇴</a></li>
+						<li><a href="/FAQ/faqfrm?type=2&reqPage=1">반품/교환/환불</a></li>
+						<li><a href="/FAQ/faqfrm?type=3&reqPage=1">주문/결제</a></li>
+						<li><a href="/FAQ/faqfrm?type=4&reqPage=1">배송/수령일 안내</a></li>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/Question/questionList?type=1&reqPage=1">1:1 문의</a>
+						<li><a href="/Question/writeQuestionFrm">1:1 문의 접수</a></li>
+						<li><a href="/Question/questionList?type=1&reqPage=1">1:1 문의 내역</a></li>
+					</ul>
+				</div>
+				<div class="content-main-text">
+					<ul>
+						<a href="/notice/noticeFrm?reqPage=1">공지사항</a>
+					</ul>
+				</div>
+			</div>
+			<div class="customer-content-wrap">
+				<div class="content-msg customer-main-msg">
+					<h2>1:1 문의 수정</h2>
+				</div>
+				<div class="write-question-wrap">
+					<form action="/Question/updateQuestion"  method="post" class="write-form" enctype="multipart/form-data" >
+						<table class="question-tbl tbl">
+							<tr>
+								<th style="width:20%;">문의 유형 <sup>*</sup></th>
+								<td style="width:80%;"  th:switch="${q.questionType}">
+									<select class="select-width" name="questionType" readonly th:case="${'회원가입/탈퇴'}">
+										<option value="회원가입/탈퇴" selected>회원가입/탈퇴</option>
+										<option value="반품/교환/환불">반품/교환/환불</option>
+										<option value="주문/결제">주문/결제</option>
+										<option value="배송/수령일 안내">배송/수령일 안내</option>
+									</select>
+									<select class="select-width" name="questionType" readonly th:case="${'반품/교환/환불'}">
+										<option value="회원가입/탈퇴">회원가입/탈퇴</option>
+										<option value="반품/교환/환불"  selected>반품/교환/환불</option>
+										<option value="주문/결제">주문/결제</option>
+										<option value="배송/수령일 안내">배송/수령일 안내</option>
+									</select>
+									<select class="select-width" name="questionType" readonly th:case="${'주문/결제'}">
+										<option value="회원가입/탈퇴">회원가입/탈퇴</option>
+										<option value="반품/교환/환불">반품/교환/환불</option>
+										<option value="주문/결제" selected>주문/결제</option>
+										<option value="배송/수령일 안내">배송/수령일 안내</option>
+									</select>
+									<select class="select-width" name="questionType" readonly th:case="${'배송/수령일 안내'}">
+										<option value="회원가입/탈퇴">회원가입/탈퇴</option>
+										<option value="반품/교환/환불">반품/교환/환불</option>
+										<option value="주문/결제">주문/결제</option>
+										<option value="배송/수령일 안내" selected>배송/수령일 안내</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th>문의 제목 <sup>*</sup> </th>
+								<td><input type="text" name="questionTitle" id="questionTitle" th:value="${q.questionTitle}" required></td>
+							</tr>
+							<tr>
+								<th></th>
+								<td><textarea name="questionContent" id="questionContent" th:utext="${q.questionContent}"></textarea></td>
+							</tr>
+							<tr>
+								<th>첨부파일</th>
+								<td>
+									<div class="file-wrap">
+										<div th:each="file : ${q.fileList}" class="files">
+											<span class="delfilename" th:text="${file.filename}"></span>
+											<span class="material-icons delBtn" th:onclick="deleteFile(this,[[${file.questionFileNo}]]);">remove_circle</span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>추가 파일</th>
+								<td>
+									<input type="file" name="upfile" accept=".gif,.jpg,.png" multiple>
+									<input type="hidden" name="questionNo" id="questionNo" th:value="${q.questionNo}">
+								</td>
+							</tr>
+							
+						</table>
+						<div class="answer-method-wrap">
+							<div>
+								<h3>문의에 대한 답변 등록 시 알려드립니다.</h3>
+							</div>
+							<table class="question-tbl tbl">
+								<tr>
+									<th>이메일</th>
+									<td><input type="text" name="questionEmail" id="questionEmail" th:value="${q.questionEmail}"></td>
+								
+								</tr>
+							</table>
+						</div>
+						<div class="question-btn-wrap">
+							<button type="button" class="btn-type2 btn" onclick="location.href='/Question/questionList?type=1&reqPage=1'">취소</button>
+							<button type="submit" class="btn-type3 btn">수정</button>	
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>	
+	
+	<th:block th:include="common/footer"></th:block>
+</body>
+<script>
+		$("#questionContent").summernote({
+			height : 500,
+			width : 800,
+			lang : "ko-KR",
+			disableResize : true,
+			disableResizeEditor : true,
+			resize : false
+		});
+		function uploadImage(file,editor){
+			
+			const form = new FormData();
+			form.append("upfile",file);
+			
+			 $.ajax({
+				 url : "/Question/editorImage",
+				 type : "post",
+				 data : form,
+				 processData : false,
+				 contentType : false,
+				 success : function(data){
+					 $(editor).summernote("insertImage",data);
+				 },
+				 error : function(){
+					 console.log("에러");
+				 }
+			 });
+			//processData : 데이터 전송 시 기본적으로 문자열로 전송하게 세팅 -> 그 기본세팅을 무효화
+			//contentType : enctype="application/x-www-form-urlencoded;charset=utf-8"
+			//				-> enctype 기본값 해제
+			//processData, contentType 기본설정을 해제해야 파일전송 가능
+			// enctype="multipart/form-data"
+		}
+		function deleteFile(obj,fileNo){
+			swal({
+				title:"파일 삭제",
+				msg:"첨부파일을 삭제하시겠습니까?",
+				icon : "info",
+				buttons:{
+					cancel:{
+						text:"취소",
+						value : false,
+						visible : true,
+						className : "btn-type2",
+						closeModal : true
+						
+					},
+					confirm : {
+						text : "삭제",
+						value : true,
+						visible : true,
+						className : "btn-type3",
+						closeModal : true
+						
+					}
+				}
+			}).then(function(isConfirm){
+				if(isConfirm){
+					const input = $("<input>");
+					input.attr("name","delFileNo");
+					input.attr("type","hidden");
+					input.val(fileNo);
+					$(".answer-method-wrap").append(input);
+					$(obj).parent().remove();
+				}
+			});
+		}
+</script>
+</html>

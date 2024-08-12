@@ -13,12 +13,10 @@ public class CartRowMapper implements RowMapper<Cart>{
 	@Override
 	public Cart mapRow(ResultSet rs, int rowNum) throws SQLException{
 		Cart c = new Cart();
-		c.setOrderNo(rs.getInt("order_no"));
-		c.setOrderQuntity(rs.getInt("order_quntity"));
-		c.setOrderDate(rs.getString("order_date"));
-		c.setOrderCheck(rs.getInt("order_check"));
-		c.setAdminNo(rs.getInt("admin_no"));
+		c.setCartNo(rs.getInt("cart_no"));
 		c.setBookNo(rs.getInt("book_no"));
+		c.setBookCartCount(rs.getInt("book_cart_count"));
+		c.setMemberNo(rs.getInt("member_no"));
 		return c;
 	}
 }

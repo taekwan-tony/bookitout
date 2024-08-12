@@ -8,10 +8,18 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.bookItOut.board.model.dto.Board;
 import kr.co.bookItOut.board.model.dto.BoardComment;
+import kr.co.bookItOut.board.model.dto.BoardCommentLike;
+import kr.co.bookItOut.board.model.dto.BoardCommentLikeCount;
+import kr.co.bookItOut.board.model.dto.BoardCommentLikeCountRowMapper;
+import kr.co.bookItOut.board.model.dto.BoardCommentLikeRowMapper;
+import kr.co.bookItOut.board.model.dto.BoardCommentMember;
+import kr.co.bookItOut.board.model.dto.BoardCommentMemberRowMapper;
 import kr.co.bookItOut.board.model.dto.BoardCommentRowMapper;
 import kr.co.bookItOut.board.model.dto.BoardFileRowMapper;
 import kr.co.bookItOut.board.model.dto.BoardF‎ile;
 import kr.co.bookItOut.board.model.dto.BoardRowMapper;
+import kr.co.bookItOut.member.model.dto.Member;
+import kr.co.bookItOut.member.model.dto.MemberRowMapper;
 
 @Repository
 public class BoardDao {
@@ -23,6 +31,12 @@ public class BoardDao {
 	private BoardFileRowMapper boardFileRowMapper;
 	@Autowired
 	private BoardCommentRowMapper boardCommentRowMapper;
+	@Autowired
+	private BoardCommentMemberRowMapper boardCommentMemberRowMapper;
+	@Autowired
+	private MemberRowMapper memberRowMapper;
+	@Autowired
+	private BoardCommentLikeRowMapper boardCommentLikeRowMapper; 
 
 	public List selectBoardList(int start, int end) {
 		String query = "select * from (select rownum as rnum, n.* from (select * from board order by 1 desc)n) where rnum between ? and ?";
@@ -227,11 +241,60 @@ public class BoardDao {
 		int result = jdbc.update(query, params);
 		return result;
 	}
-
+	public int selectBoardCommentIsLike(int boardCommentNo, int memberNo) {
+		String query = "select count(*) from board_comment_like where board_comment_no=? and member_no=?";
+		Object[] params = { boardCommentNo, memberNo };
+		int isLike = jdbc.queryForObject(query, Integer.class, params);
+		return isLike;
+	}
 	public int selectBoardCommentLikeCount(int boardCommentNo) {
 		String query = "select count(*) from board_comment_like where board_comment_no=?";
 		Object[] params = { boardCommentNo };
 		int likeCount = jdbc.queryForObject(query, Integer.class, params);
 		return likeCount;
+	}
+
+	public List selectCommentWriterMemberList(int boardNo) {
+		String query = "select board_comment.BOARD_COMMENT_NO,MEMBER_TBL.MEMBER_Id,MEMBER_TBL.MEMBER_IMG from MEMBER_TBL join board_comment on(board_comment.BOARD_COMMENT_WRITER=MEMBER_TBL.MEMBER_ID) where board_ref=?";
+		Object[] params = {boardNo};
+		List list = jdbc.query(query, boardCommentMemberRowMapper, params);
+		return(List<BoardCommentMember>)list;
+	}
+
+	public List<Member> selectAllMemberList() {
+		String query = "SELECT * FROM MEMBER_TBL";
+		List list = jdbc.query(query, memberRowMapper);
+		return (List<Member>)list;
+	}
+
+	public List<BoardCommentLike> selectBoardCommentLikeList() {
+		String query = "select * from board_comment_like order by BOARD_COMMENT_NO"; 
+		List list = jdbc.query(query, boardCommentLikeRowMapper);
+		return (List<BoardCommentLike>) list;
+	}
+
+	public int selectLikeCount(int boardCommentNo) {
+		String query = "select COUNT(*) from board_comment_like GROUP BY BOARD_COMMENT_NO HAVING BOARD_COMMENT_NO=?";
+		Object[] params = {boardCommentNo};
+		int isLike = jdbc.queryForObject(query, Integer.class, params);
+		return isLike;
+	}
+	public List<BoardComment> selectBoardComment() {
+		String query = "select * from board_comment";
+		List list = jdbc.query(query, boardCommentRowMapper);
+		return (List<BoardComment>) list;
+	}
+
+	public List<Member> selectAllMember() {
+		String query = "select * from member_tbl";
+		List list = jdbc.query(query, memberRowMapper);
+		return (List<Member>)list;
+	}
+
+	public int selectCommentCount(int boardCommentNo, int memberNo) {
+		String query = "SELECT COUNT(*) FROM BOARD_COMMENT_LIKE WHERE BOARD_COMMENT_NO=? and MEMBER_NO=?";
+		Object[] params = {boardCommentNo, memberNo};
+		int result = jdbc.queryForObject(query, Integer.class, params);
+		return result;
 	}
 }
