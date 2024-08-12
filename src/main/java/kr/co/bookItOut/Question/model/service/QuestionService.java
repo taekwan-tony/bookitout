@@ -175,6 +175,7 @@ public class QuestionService {
 		return qld;
 	}
 
+	@Transactional
 	public int updateQuestionAnswer(Question q) {
 		int result = questionDao.updateQuestionAnswer(q);
 		if(result>0) {

@@ -291,7 +291,7 @@
 								<div th:utext="${q.questionContent}"></div>
 								<div class="content-btn-box">
 									<th:block th:if="${q.questionAnswer}==null">
-										<a th:href="@{/Question/updateQuestionFrm(questionNo=${q.questionNo})}" id="update">수정</a>
+										<a th:href="@{/Question/updateQuestionFrm(questionNo=${q.questionNo})" id="update">수정</a>
 									</th:block>
 									<a id="delete" th:onclick="delQuestion(this,[[${q.questionNo}]])">삭제</a>
 								</div>
