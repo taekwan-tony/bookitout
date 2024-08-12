@@ -95,7 +95,7 @@ public class CartController {
 	
 	@GetMapping(value="/nowPay")//
 	public String nowPay (int bookNo, @SessionAttribute Member member, Model model) {
-		System.out.println("나우페이");
+
 		int memberNo = member.getMemberNo();
 		
 		List<Cart> list = cartService.insertCartNo(bookNo,memberNo);

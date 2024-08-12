@@ -143,7 +143,7 @@ input, textarea{
 	text-align: center;
 	padding:24px;
 }
-.text-wrap h2{
+.text-wrap h2, .text-wrap h2>span{
 	font-size: 24px;
 	line-height: 1.2;
 	color: #fff;
@@ -157,7 +157,7 @@ input, textarea{
     font-weight: 900;
     font-size: 18px;
 }
-.text-wrap th, .text-wrap td{
+.text-wrap th, .text-wrap td, .text-wrap td>span{
 	color: var(--white);
 }
 .close-btn{

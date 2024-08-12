@@ -224,7 +224,9 @@ margin-bottom: 10px;
 
                                 <td style="vertical-align: baseline;">
                                     <div class="book-details">
-                                        <div class="book-first b-name"  th:text="${book.bookName}"></div>
+                                        <div class="book-first b-name"><a
+												th:href="@{/book/detail?(bookNo=${book.bookNo})}"
+												th:text="${book.bookName}"></a></div>
                                         <div class="book-second">
                                             <span class="book-writer" th:text="${book.bookWriter}"></span>
                                             <span class="book-publisher" th:text="${book.bookPublisher}"></span>
@@ -241,7 +243,7 @@ margin-bottom: 10px;
                                 
                                 	<div th:if="${session.member !=null}">
                                 		<button class ="btn-list list"  type="button" id="listCart" name="bookCart" th:onclick="addCart([[${book.bookNo}]])">장바구니</button>
-	                                    <button class ="btn-list list"  type="button" id="listBuy"  name="bookBuy">바로구매</button>    
+	                                    <button class ="btn-list list"  type="button" id="listBuy"  name="bookBuy" th:onclick="nowPay([[${book.bookNo}]])">바로구매</button>    
                                 	</div>
                                 	<div th:if="${session.member ==null}">
                                 		<button class ="btn-list list"  type="button" id="listCart" name="bookCart" onclick="loginMsg()">장바구니</button>
@@ -340,7 +342,9 @@ margin-bottom: 10px;
 			});
 		}
 	
-	
+		function nowPay(bookNo) {
+			location.href = "/cart/nowPay?bookNo="+bookNo;
+		}
 	
 	</script>
 	

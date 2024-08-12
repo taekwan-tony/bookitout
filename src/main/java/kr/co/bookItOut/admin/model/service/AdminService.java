@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.bookItOut.Question.model.dto.QuestionListData;
 import kr.co.bookItOut.admin.model.dao.AdminDao;
 import kr.co.bookItOut.admin.model.dto.Admin;
+import kr.co.bookItOut.admin.model.dto.AdminCenterBook;
 import kr.co.bookItOut.admin.model.dto.AdminListData;
 import kr.co.bookItOut.admin.model.dto.AdminOrderBook;
 import kr.co.bookItOut.admin.model.dto.OrderBookListData;
@@ -168,15 +169,13 @@ public class AdminService {
 	
 	
 	//가맹점에 있는 책 리스트 
-public OrderBookListData selectAdminBookList(int rePage,Book book, Admin admin) {
+public OrderBookListData selectAdminBookList(int reqPage,Book book, Admin admin) {
 			List list = new ArrayList<OrderBookListData>();
-		
 		int numperPage=10;
-		int end = rePage*numperPage;
+		int end = reqPage*numperPage;
 		int start = end - numperPage+1;
 
 		list = adminDao.selectBookList2(start,end,book,admin); //관리자번호 가져와서/ 책번호
-			
 			
 		
 		int totalCount = adminDao.selectBookTotoalCount();
@@ -190,7 +189,7 @@ public OrderBookListData selectAdminBookList(int rePage,Book book, Admin admin) 
 		
 		int pagNavSize = 3;
 		
-		int pageNo = ((rePage-1)/pagNavSize)*pagNavSize+1;
+		int pageNo = ((reqPage-1)/pagNavSize)*pagNavSize+1;
 		
 		String pageNavi = "<div class = 'pagination'> <ul>";
 		
@@ -203,7 +202,7 @@ public OrderBookListData selectAdminBookList(int rePage,Book book, Admin admin) 
 		
 		for(int i=0;i<pagNavSize;i++) {
 			pageNavi +="<li>";
-			if(pageNo == rePage) {
+			if(pageNo == reqPage) {
 				pageNavi += "<a class='page-item active-page' href='/admin/orderAdmin2?rePage="+pageNo+"'>";
 			}else {
 				pageNavi +="<a class='page-item' href='/admin/orderAdmin2?rePage="+pageNo+"'>";
@@ -277,7 +276,7 @@ public int updateDetailBook(Book b) {
 	
 	return 0;
 }
-
+//발주된 수량 보내줌
 public int insertOrderAdmin(CenterInventory centerInventory, int orderBookCount) {
 	CenterInventory c = adminDao.selectCenterInventory(centerInventory);
 	int result = adminDao.inserOrderAdmin(c,orderBookCount);
@@ -294,6 +293,7 @@ public OrderListData selectAllOrder(Admin admin, int type, int reqPage) {
 	
 	int end = reqPage*numPerPage;
 	int start = end - numPerPage +1;
+	System.out.println("발주중"+type);
 	int totalCount = adminDao.selectOrderTotoalCount(admin,type); 	
 	
 	List list = adminDao.selectOrderList(start,end,admin,type);
@@ -309,14 +309,14 @@ public OrderListData selectAllOrder(Admin admin, int type, int reqPage) {
 	String pageNavi = "<div class='pagination'><ul>";
 	if(pageNo !=1) {
 		pageNavi += "<li>";
-		pageNavi += "<a class ='page-item page-btn' href='/admin/OrderAdmin1?"+type+"=&reqPage="+(pageNo-1)+"'>";
+		pageNavi += "<a class ='page-item page-btn' href='/admin/OrderAdmin1?type="+type+"&reqPage="+(pageNo-1)+"'>";
 		pageNavi += "<span><i class='fa-solid fa-angle-left'></i></span>";
 		pageNavi += "</a></li>";
 	}
 	for(int i =0;i<pageNaviSize;i++) {
 		pageNavi += "<li>";
 		if(pageNo==reqPage) {
-			pageNavi += "<a class ='page-item active-page' href='/admin/OrderAdmin1?"+type+"=&reqPage="+pageNo+"'>";
+			pageNavi += "<a class ='page-item active-page' href='/admin/OrderAdmin1?type="+type+"&reqPage="+pageNo+"'>";
 		}else {
 			pageNavi += "<a class ='page-item' href='/admin/OrderAdmin1?type="+type+"&reqPage="+pageNo+"'>";
 		}
@@ -338,6 +338,15 @@ public OrderListData selectAllOrder(Admin admin, int type, int reqPage) {
 	OrderListData old = new OrderListData(list, pageNavi);
 	return old;
 }
+
+//발주할 책 하나 보이는 select
+public  AdminCenterBook selectOneOrder(int bookNo, Admin admin) {
+	//Book book  = adminDao.selectOrderBook(bookNo);
+	AdminCenterBook acb = adminDao.selectOneOrder(bookNo,admin);
+	System.out.println("ddddd"+acb);
+	return acb;
+}
+	
 
 
 

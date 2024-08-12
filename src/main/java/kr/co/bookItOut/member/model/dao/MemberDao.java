@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.bookItOut.board.model.dto.Board;
 import kr.co.bookItOut.board.model.dto.BoardRowMapper;
+import kr.co.bookItOut.book.model.dto.BookComment;
+import kr.co.bookItOut.book.model.dto.BookCommentRowMapper2;
 import kr.co.bookItOut.member.model.dto.Member;
 import kr.co.bookItOut.member.model.dto.MemberRowMapper;
 import kr.co.bookItOut.pay.model.dto.PayRowMapper;
@@ -23,6 +25,8 @@ public class MemberDao {
 	private PayRowMapper payRowMapper;
 	@Autowired
 	private BoardRowMapper boardRowMapper;
+	@Autowired
+	private BookCommentRowMapper2 bookCommentRowMapper2;
 	
 	public Member selectOneMember(String memberId, String memberPw) {
 		String query = "select * from member_tbl where member_id=? and member_pw=?";
@@ -97,6 +101,16 @@ public class MemberDao {
 		String query = "SELECT b.board_no,b.board_title,b.board_content,b.board_writer,b.read_count,b.reg_date FROM board b JOIN member_tbl m ON b.board_writer = m.member_id where m.MEMBER_ID=?";
 		Object[] params = {memberId};
 		List list = jdbc.query(query, boardRowMapper, params);
+		if (list.isEmpty()) {
+			return null;
+		} else {
+			return list;
+		}
+	}
+	public List<BookComment> selectCommentList(String memberId) {
+		String query = "select BOOK_COMMENT_NO, BOOK_COMMENT_WRITER, BOOK_COMMENT_CONTENT, BOOK_COMMENT_DATE, BOOK_REF, book_img, book_name from book_comment join book on book_no=book_Ref where BOOK_COMMENT_WRITER=? and BOOK_COMMENT_REF is null";
+		Object[] params = {memberId};
+		List<BookComment> list = jdbc.query(query, bookCommentRowMapper2, params);
 		if (list.isEmpty()) {
 			return null;
 		} else {

@@ -10,6 +10,9 @@ import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookComment;
 import kr.co.bookItOut.book.model.dto.BookCommentRowMapper;
 import kr.co.bookItOut.book.model.dto.BookRowMapper;
+import kr.co.bookItOut.book.model.dto.CenterMap;
+import kr.co.bookItOut.book.model.dto.CenterMapRowMapper;
+import kr.co.bookItOut.centerInventory.model.dto.CenterInventoryBook;
 import kr.co.bookItOut.centerInventory.model.dto.CenterInventoryBookRowMapper;
 
 
@@ -26,6 +29,9 @@ public class BookDao {
 	
 	@Autowired
 	private BookCommentRowMapper bookCommentRowMapper;
+	
+	@Autowired
+	private CenterMapRowMapper centerMapRowMapper;
 
 	public Book selectOneBook(Book book1) {
 		String query = "select * from book where book_no = ?";
@@ -39,10 +45,10 @@ public class BookDao {
 	}
 
 	// 판매점 위치 ajax 비동기처리
-	public List selectAllCenterInventory(int bookNo) {
-		String query = "select admin_name, admin_addr, center_book_count from admin_tbl join center_inventory using (admin_no) join book on (book_no = book_no2) where book_no = ? and admin_type = 2";
+	public List<CenterInventoryBook> selectAllCenterInventory(int bookNo) {
+		String query = "select admin_tbl.admin_no, admin_name, admin_addr, book_name, center_book_count from admin_tbl join center_inventory on (admin_tbl.admin_no = center_inventory.admin_no) join book on (book_no = book_no2) where book_no = ? and admin_type = 2";
 		Object[] params = {bookNo};
-		List centerList = jdbc.query(query, centerInventoryBookRowMapper, params);
+		List<CenterInventoryBook> centerList = jdbc.query(query, centerInventoryBookRowMapper, params);
 		System.out.println(centerList.size());
 		return centerList;
 	}
@@ -96,7 +102,7 @@ public class BookDao {
 	public List selectBookList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book order by 1 desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
-		List list = jdbc.query(query,bookRowMapper, params);			
+		List list = jdbc.query(query, bookRowMapper, params);		
 		return list;
 	}
 
@@ -464,6 +470,17 @@ public class BookDao {
 		return result;
 	}
 
+//	public CenterMap selectCenterMap(CenterMap cm) {
+//		String query = "SELECT ADMIN_NO, ADMIN_NAME, ADMIN_ADDR, LATITUDE, LONGITUDE FROM CENTER_MAP JOIN ADMIN_TBL USING(ADMIN_NO) WHERE ADMIN_NO = ?";
+//		Object[] params = {cm.getAdminNo()};
+//		List list = jdbc.query(query, centerMapRowMapper, params);
+//		if(list.isEmpty()) {
+//			return null;
+//		}else {
+//			return (CenterMap)list.get(0);
+//		}
+//	}
+
 	public int insertBookCommentLike(int bookCommentNo, int memberNo) {
 		String query = "insert into book_comment_thumb values(?, ?)";
 		Object[] params = {bookCommentNo, memberNo};
@@ -491,7 +508,23 @@ public class BookDao {
 		List list = jdbc.query(query, bookRowMapper,params);
 		return list;
 	}
+	public List<CenterMap> selectOneMap(int adminNo) {
+		String query = "SELECT * FROM CENTER_MAP JOIN ADMIN_TBL USING(ADMIN_NO) WHERE ADMIN_NO = ?";
+		Object[] params = {adminNo};
+		List<CenterMap> centerMap = jdbc.query(query, centerMapRowMapper, params);
+		return centerMap;
+	}
 	
+	/*
+	// 판매점 위치 ajax 비동기처리
+	public List<CenterInventoryBook> selectAllCenterInventory(int bookNo) {
+		String query = "select admin_name, admin_addr, center_book_count, admin_tbl.admin_no from admin_tbl join center_inventory on (admin_tbl.admin_no = center_inventory.admin_no) join book on (book_no = book_no2) where book_no = ? and admin_type = 2";
+		Object[] params = {bookNo};
+		List<CenterInventoryBook> centerList = jdbc.query(query, centerInventoryBookRowMapper, params);
+		System.out.println(centerList.size());
+		return centerList;
+	}
+	 */
 }
 
 

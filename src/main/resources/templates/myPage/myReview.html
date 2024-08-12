@@ -70,7 +70,6 @@ a {
 	margin-left: 50px;
 	margin-right: 50px;
 	width: 100%;
-	height: 500px;
 	background-color: #F8F4E1;
 	color: white;
 	padding: 20px;
@@ -94,9 +93,13 @@ a {
 }
 
 .tbl {
-	border: 2px solid;
 	border-collapse: collapse;
-	width:1000px;
+	width: 1000px;
+}
+
+.commentTbl{
+	border-collapse: collapse;
+	width: 1000px;
 }
 
 th {
@@ -104,8 +107,11 @@ th {
 	background-color: #AF8F6F;
 }
 
-th, td {
-	border: 2px solid;
+
+#boardTitle {
+	color: blue;
+	cursor: pointer;
+	text-decoration: underline;
 }
 </style>
 </head>
@@ -128,24 +134,35 @@ th, td {
 		</div>
 		<div class="information">
 			<div class="info-wrap">
-				<h1>주문조회</h1>
-				<h3>전체 주문 내역</h3>
+				<h1 style="margin-bottom: 50px;">
+					<span th:text="${member.getMemberName()}"></span>님의 리뷰
+				</h1>
 				<table class="tbl">
-					<tr>
-						<th style="width:5%">주문번호</th>
-						<th style="width:10%">주문일</th>
-						<th style="width:15%">수령인</th>
-						<th>총 가격</th>
-						<th style="width:40%">주문상품</th>
-						<th>배송지</th>
-					</tr>
-					<tr th:each="p,status : ${list}">
-						<td th:text="${p.payNo}" class="payNo"></td>
-						<td th:text="${p.payDate}"></td>
-						<td th:text="${p.name}"></td>
-						<td th:text="${p.totalPrice}"></td>
-						<td class="order-items"></td>
-						<td th:text="${p.addr}"></td>
+
+					<tr th:each="bc,status : ${list}" style="float:left;">
+						<td>
+							<ul>
+								<li style="float:left;"><img style="width: 200px;" id="previewImg" th:src="@{/book/{filename}(filename=${bc.bookImg})}" alt="책 표지"></li>
+								<li style="float:left;">
+									<span style="font-weight:bold;">책 이름 : </span>
+									<span th:text="${bc.bookName}" class="bookName" style="font-weight:bold;"></span>
+									<h4><span style="font-weight:bold;">작성일 : </span><span th:text="${bc.bookCommentDate}" class="bookCommentDate"></span></h4>
+									<h4></h4>
+								</li>
+							</ul>
+						</td>
+
+						
+						<table class="commentTbl">
+							<tr style=" width:50px; border-radius: 5px;">
+								<td style="border-radius: 5px;">
+									<div style="background-color:white; margin-bottom:50px; border-radius: 5px; border:2px solid black; width:600px; height:150px; overflow-y:scroll;">
+										<a th:text="${bc.bookCommentContent}" class="bookCommentContent"></a>
+									</div>
+								</td>
+							</tr>							
+						</table>
+						
 					</tr>
 				</table>
 			</div>
@@ -154,30 +171,17 @@ th, td {
 	</main>
 
 	<th:block th:include="common/footer"></th:block>
-	</script>
-	<th:block th:include="common/footer"></th:block>
 </body>
 <script>
-$(document).ready(function() {
-    $('.order-items').each(function() {
-        var $this = $(this);
-        var payNo = $this.prevAll('.payNo').text();
-    	console.log(payNo);
+	$(document).ready(function() {
+		$(".boardTitle").on("click", function() {
+			// 클릭된 버튼의 부모 tr에서 boardNo 값을 가져오기
+			const boardNo = $(this).closest("tr").find(".boardNo").text();
 
-    	$.ajax({
-    	    url: '/cart/selectPayNames',  // URL이 정확한지 확인
-    	    type: 'GET',
-    	    data: { payNo: payNo },
-    	    dataType: 'text',
-    	    success: function(data) {
-    	        
-    	        $this.text(data);
-    	    },
-    	    error: function(xhr, status, error) {
-    	        console.error('AJAX 요청 실패:', status, error);
-    	    }
-    	});
-    });
-});
+			// 페이지 이동
+			location.href = "/board/view?boardNo=" + boardNo;
+		});
+	});
 </script>
+</body>
 </html>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.bookItOut.book.model.dto.BookComment;
 import kr.co.bookItOut.member.model.dao.MemberDao;
 import kr.co.bookItOut.member.model.dto.Member;
 import kr.co.bookItOut.pay.model.dto.Pay;
@@ -53,6 +54,11 @@ public class MemberService {
 	public List selectMyBoard(String memberId) {
 		List list = memberDao.selectMyBoard(memberId);
 		return list;
+	}
+
+	public List<BookComment> selectCommentList(String memberId) {
+		List<BookComment> commentList = memberDao.selectCommentList(memberId);
+		return commentList;
 	}
 	
 }
