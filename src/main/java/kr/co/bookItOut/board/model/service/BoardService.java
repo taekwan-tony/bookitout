@@ -16,6 +16,7 @@ import kr.co.bookItOut.board.model.dto.BoardCommentLikeCount;
 import kr.co.bookItOut.board.model.dto.BoardCommentMember;
 import kr.co.bookItOut.board.model.dto.BoardF‎ile;
 import kr.co.bookItOut.board.model.dto.BoardListData;
+import kr.co.bookItOut.board.model.dto.Islike;
 import kr.co.bookItOut.member.model.dto.Member;
 
 @Service
@@ -217,20 +218,45 @@ public class BoardService {
 		List memberList=boardDao.selectAllMemberList();
 		return memberList;
 	}
-	public List<BoardCommentLikeCount> selectBoardCommentLikeList() {
-		List<BoardCommentLike> boardCommentLikeList=(List<BoardCommentLike>)boardDao.selectBoardCommentList();
+	public List<BoardComment> selectBoardCommentLikeList() {
+		List<BoardCommentLike> boardCommentLikeList=boardDao.selectBoardCommentLikeList();
 		List<BoardCommentLike> boardCommentNoList= boardCommentLikeList.stream().distinct().collect(Collectors.toList());
 		List<BoardCommentLikeCount> boardCommentLikeCountList=new ArrayList<BoardCommentLikeCount>();
-		System.out.println(boardCommentLikeList.size());
-		System.out.println(boardCommentNoList.size());
+		List<BoardComment> boardCommentList=boardDao.selectBoardComment();
 		for (int i=0;i<boardCommentNoList.size();i++) {
 			BoardCommentLikeCount bclc=new BoardCommentLikeCount(boardCommentNoList.get(i).getBoardCommentNo(),boardCommentNoList.get(i).getMemberNo()
 			,boardDao.selectLikeCount(boardCommentNoList.get(i).getBoardCommentNo()));
 			boardCommentLikeCountList.add(bclc);
 		}
-		for(int h=0;h<boardCommentLikeCountList.size();h++) {
-			System.out.println(boardCommentLikeCountList.get(h));
+		for (int i=0;i<boardCommentList.size();i++) {
+			for (int j=0;j<boardCommentLikeCountList.size();j++) {
+				if(boardCommentList.get(i).getBoardCommentNo()==boardCommentLikeCountList.get(j).getBoardCommentNo()) {
+					BoardComment bc=new BoardComment(boardCommentList.get(i).getBoardCommentNo(),boardCommentList.get(i).getBoardCommentWriter(),boardCommentList.get(i).getBoardCommentContent(),boardCommentList.get(i).getBoardCommentDate(),boardCommentList.get(i).getBoardRef(),boardCommentList.get(i).getBoardCommentRef(),boardCommentLikeCountList.get(j).getLikeCount(),0);
+					boardCommentList.set(i, bc);
+				}
+			}
 		}
-		return boardCommentLikeCountList;
+		return boardCommentList;
+	}
+	public List<Islike> selectIsLike() {
+		List<Islike> isLikeList= new ArrayList<Islike>();
+		List<BoardCommentLike> boardCommentLikeList=boardDao.selectBoardCommentLikeList();
+		List<BoardComment> boardCommentList=boardDao.selectBoardComment();
+		List<BoardCommentLike> boardCommentNoList= boardCommentLikeList.stream().distinct().collect(Collectors.toList());
+		List<BoardCommentLikeCount> boardCommentLikeCountList=new ArrayList<BoardCommentLikeCount>();
+		for (int i=0;i<boardCommentNoList.size();i++) {
+			BoardCommentLikeCount bclc=new BoardCommentLikeCount(boardCommentNoList.get(i).getBoardCommentNo(),boardCommentNoList.get(i).getMemberNo()
+			,boardDao.selectLikeCount(boardCommentNoList.get(i).getBoardCommentNo()));
+			boardCommentLikeCountList.add(bclc);
+		}
+		for (int i=0;i<boardCommentList.size();i++) {
+			for (int j=0;j<boardCommentLikeCountList.size();j++) {
+				if(boardCommentList.get(i).getBoardCommentNo()==boardCommentLikeCountList.get(j).getBoardCommentNo()) {
+					Islike isLike=new Islike(boardCommentLikeCountList.get(j).getBoardCommentNo(),boardCommentLikeCountList.get(j).getMemberNo(),1);
+					isLikeList.add(isLike);
+				}
+			}
+		}
+		return null;
 	}
 }
