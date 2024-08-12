@@ -95,19 +95,27 @@ public class CartController {
 	
 	@GetMapping(value="/nowPay")//
 	public String nowPay (int bookNo, @SessionAttribute Member member, Model model) {
+		
 		System.out.println("나우페이");
 		int memberNo = member.getMemberNo();
 		
 		List<Cart> list = cartService.insertCartNo(bookNo,memberNo);
 		//카트 객체가 담긴 리스트
+		
+		
 		String totalPrice = ((Cart)(list.get(0))).getBookPrice()+3000+"";
+		//((Cart)(list.get(0))) >> list에 listdml 0번째 객체를 Cart 객체로 형변혼 >> 지금 상태는 Cart 
+		//+""를 더한 이유는 selPay에서 totalPrice를 String으로 받고 있음
 		
 		List cartNo = new ArrayList<Integer>();
-		cartNo.add(((Cart)(list.get(0))).getCartNo());
+		cartNo.add(((Cart)(list.get(0))).getCartNo());//((Cart)(list.get(0)) >>Cart
+		
+		//selPay.html로 보내는 데이터
 		model.addAttribute("list",list);
+		
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("member", member);
-		model.addAttribute("cartNo", cartNo);
+		model.addAttribute("cartNo", cartNo); //모델로 html에 데이터 전송(총 4개)
 		return "/cart/selPay";
 	}
 	
