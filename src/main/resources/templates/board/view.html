@@ -296,7 +296,7 @@
 									th:onclick="likePush(this,[[${bc.boardCommentNo}]]);">favorite</span>
 									<span th:if="${bc.isLike == 0}" class="material-icons heart"
 									th:onclick="likePush(this,[[${bc.boardCommentNo}]]);">favorite_border</span>
-									<th:block th:each="lc:${likeCountList}">
+									<th:block th:each="lc:${boardCommentList}">
 										<th:blook th:if="${lc.boardCommentNo==bc.boardCommentNo}">
 											<span th:text="${lc.likeCount}"></span>
 										</th:blook>
@@ -368,7 +368,11 @@
 									th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite</span>
 									<span th:if="${bcc.isLike == 0}" class="material-icons heart" id="el"
 									th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite_border</span>
-									<span th:text="${bcc.likeCount}"></span>
+									<th:block th:each="lc:${boardCommentList}">
+										<th:blook th:if="${lc.boardCommentNo==bcc.boardCommentNo}">
+											<span th:text="${lc.likeCount}"></span>
+										</th:blook>
+									</th:block>
 								</span>
 									<span class="comment-content" th:text="${bcc.boardCommentContent}"></span>
 							</p>

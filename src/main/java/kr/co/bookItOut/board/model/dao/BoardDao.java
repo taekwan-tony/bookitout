@@ -267,10 +267,10 @@ public class BoardDao {
 		return (List<Member>)list;
 	}
 
-	public List selectBoardCommentList() {
+	public List selectBoardCommentLikeList() {
 		String query = "select * from board_comment_like order by BOARD_COMMENT_NO"; 
 		List list = jdbc.query(query, boardCommentLikeRowMapper);
-		return list;
+		return (List<BoardCommentLike>) list;
 	}
 
 	public int selectLikeCount(int boardCommentNo) {
@@ -278,5 +278,10 @@ public class BoardDao {
 		Object[] params = {boardCommentNo};
 		int isLike = jdbc.queryForObject(query, Integer.class, params);
 		return isLike;
+	}
+	public List<BoardComment> selectBoardComment() {
+		String query = "select * from board_comment";
+		List list = jdbc.query(query, boardCommentRowMapper);
+		return (List<BoardComment>) list;
 	}
 }

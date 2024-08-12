@@ -72,7 +72,7 @@
 
 
 					<td th:text="${c.bookName}"></td>
-
+					<td  th:text="${c.bookNo}" id="bookNo" hidden></td>
 
 
 					<td>
@@ -209,20 +209,20 @@
 				return;
 			}
 
-			const name = new Array(); //책 이름 저장할 배열
+			const no = new Array(); //책 이름 저장할 배열
 
 			checked.each(function(index, item) {
-				const bookName = $(item).parent().next().next().text();
-				console.log(bookName);
-				name.push(bookName);
+				const bookNo = $(item).parent().next().next().next().text();
+				console.log(bookNo);
+				no.push(bookNo);
 
-				console.log(bookName);
+				console.log(bookNo);
 			});
 
 			//console.log(name);
 
 			//화면 >> 컨트롤러 데이터 전송(배열형태 X 문자열로만 가능)
-			location.href = "/cart/selDel?name=" + name.join("/");
+			location.href = "/cart/selDel?no=" + no.join("/");
 			//join = 자바스크립트에 있는 배열 데이터를 String 타입으로 리턴
 
 			console.log(checked.length);
@@ -235,24 +235,24 @@
 				return;
 			}
 
-			const name = new Array(); //책 이름 저장할 배열
+			const no = new Array(); //책 이름 저장할 배열
 			const bookCountArray = new Array();
 			
 			checked.each(function(index, item) {
-				const bookName = $(item).parent().next().next().text();
+				const bookNo = $(item).parent().next().next().next().text();
 				const bookCount = $(item).closest('tr').find(".count").val();
 				
-				console.log(bookName);
-				name.push(bookName);
+				console.log(bookNo);
+				no.push(bookNo);
 				bookCountArray.push(bookCount);
 
-				console.log(bookName);
+				console.log(bookNo);
 			});
 
 			//console.log(name);
 			
 			//화면 >> 컨트롤러 데이터 전송(배열형태 X 문자열로만 가능)
-			location.href = "/cart/selPay?name=" + name.join("/")+"&totalPrice="+$("#finalPrice").text()+"&bookCount="+bookCountArray.join("/");
+			location.href = "/cart/selPay?no=" + no.join("/")+"&totalPrice="+$("#finalPrice").text()+"&bookCount="+bookCountArray.join("/");
 			//join = 자바스크립트에 있는 배열 데이터를 String 타입으로 리턴
 			
 			console.log(checked.length);
@@ -268,24 +268,24 @@
 				return;
 			}
 
-			const name = new Array(); //책 이름 저장할 배열
+			const no = new Array(); //책 이름 저장할 배열
 			const bookCountArray = new Array();
 			
 			checked.each(function(index, item) {
-				const bookName = $(item).parent().next().next().text();
+				const bookNo = $(item).parent().next().next().next().text();
 				const bookCount = $(item).closest('tr').find(".count").val();
 				
-				console.log(bookName);
-				name.push(bookName);
+				console.log(bookNo);
+				no.push(bookNo);
 				bookCountArray.push(bookCount);
 
-				console.log(bookName);
+				console.log(bookNo);
 			});
 
 			//console.log(name);
 			
 			//화면 >> 컨트롤러 데이터 전송(배열형태 X 문자열로만 가능)
-			location.href = "/cart/selPay?name=" + name.join("/")+"&totalPrice="+$("#finalPrice").text()+"&bookCount="+bookCountArray.join("/");
+			location.href = "/cart/selPay?no=" + no.join("/")+"&totalPrice="+$("#finalPrice").text()+"&bookCount="+bookCountArray.join("/");
 			//join = 자바스크립트에 있는 배열 데이터를 String 타입으로 리턴
 			
 			console.log(checked.length);
