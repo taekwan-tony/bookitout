@@ -28,14 +28,16 @@ public class CartService {
 	}
 	
 	@Transactional
-	public int insertCartNo(int bookNo, int memberNo) {
+	public List insertCartNo(int bookNo, int memberNo) {
 		int result = cartDao.insertCart(bookNo, memberNo);
+		
 		if(result>0) {
 			int cartNo = cartDao.selectCartNo();
-			return cartNo; //
+			List<Cart> list = (List<Cart>) cartDao.selectCart(cartNo);
+			return list;
+		}else {
+			return null;
 		}
-		
-		return result;
 	}
 	
 	

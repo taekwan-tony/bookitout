@@ -94,17 +94,20 @@ public class CartController {
 	
 	@ResponseBody
 	@GetMapping(value="/nowPay")//
-	public List nowPay (int bookNo, @SessionAttribute Member member, Model model) {
+	public String nowPay (int bookNo, @SessionAttribute Member member, Model model) {
 		int memberNo = member.getMemberNo();
 		
-		int result = cartService.insertCartNo(bookNo,memberNo);
-		System.out.println(result);
-		List list = new ArrayList<Integer>();
-		list.add(result);
-		System.out.println(list);
-		model.addAttribute("list", list);
+		List list = cartService.insertCartNo(bookNo,memberNo);
+		//카트 객체가 담긴 리스트
+		int totalPrice = ((Cart)(list.get(0))).getBookPrice()+3000;
 		
-		return list;
+		List cartNo = new ArrayList<Integer>();
+		cartNo.add(((Cart)(list.get(0))).getCartNo());
+		model.addAttribute("list",list);
+		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("member", member);
+		model.addAttribute("cartNo", cartNo);
+		return "/cart/selPay";
 	}
 	
 	
