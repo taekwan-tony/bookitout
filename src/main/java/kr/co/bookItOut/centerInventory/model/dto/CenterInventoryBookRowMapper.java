@@ -14,9 +14,11 @@ public class CenterInventoryBookRowMapper implements RowMapper<CenterInventoryBo
 		CenterInventoryBook cib = new CenterInventoryBook();
 		cib.setAdminName(rs.getString("admin_name"));
 		cib.setAdminAddr(rs.getString("admin_addr"));
+		cib.setAdminNo(rs.getInt("admin_no"));
 		cib.setCenterBookCount(rs.getInt("center_book_count"));
+		cib.setBookName(rs.getString("book_name"));
+		
 		//cib.setBookNo(rs.getInt("book_no"));
-		//cib.setBookName(rs.getString("book_name"));
 		
 		return cib;
 	}

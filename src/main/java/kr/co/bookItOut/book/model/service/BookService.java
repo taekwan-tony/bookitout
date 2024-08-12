@@ -10,6 +10,8 @@ import kr.co.bookItOut.book.model.dao.BookDao;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookComment;
 import kr.co.bookItOut.book.model.dto.BookListData;
+import kr.co.bookItOut.book.model.dto.CenterMap;
+import kr.co.bookItOut.centerInventory.model.dto.CenterInventoryBook;
 
 @Service
 public class BookService {
@@ -21,8 +23,8 @@ public class BookService {
 		return book;
 	}
 
-	public List selectAllCenterInventory(int bookNo) {
-		List centerList = bookDao.selectAllCenterInventory(bookNo);
+	public List<CenterInventoryBook> selectAllCenterInventory(int bookNo) {
+		List<CenterInventoryBook> centerList = bookDao.selectAllCenterInventory(bookNo);
 		return centerList;
 	}
 
@@ -78,6 +80,16 @@ public class BookService {
 		}else {			
 			return -1;
 		}
+	}
+
+//	public CenterMap selectCenterMap(CenterMap cm) {
+//		CenterMap list = bookDao.selectCenterMap(cm);
+//		return list;
+//	}
+
+	public List<CenterMap> selectOneMap(int adminNo) {
+		List<CenterMap> centerMap = bookDao.selectOneMap(adminNo);
+		return centerMap;
 	}
 
 	public BookListData selectBookList(int reqPage) {

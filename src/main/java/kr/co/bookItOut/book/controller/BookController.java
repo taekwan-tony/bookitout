@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookComment;
 import kr.co.bookItOut.book.model.dto.BookListData;
+import kr.co.bookItOut.book.model.dto.CenterMap;
 import kr.co.bookItOut.book.model.service.BookService;
 import kr.co.bookItOut.centerInventory.model.dto.CenterInventoryBook;
 import kr.co.bookItOut.member.model.dto.Member;
@@ -25,9 +26,14 @@ public class BookController {
 	private BookService bookService;
 	
 	@GetMapping(value="/detail")
-	public String detail(Book book1, Model model, int bookNo, String check, @SessionAttribute(required = false) Member member) {
+	public String detail(Book book1, Model model, int bookNo, String check, @SessionAttribute(required = false) Member member, CenterMap cm) {
 		Book book = bookService.selectOneBook(book1);
 		model.addAttribute("book", book);
+		
+//		CenterMap list = bookService.selectCenterMap(cm);
+//		model.addAttribute("cm", cm);
+//		System.out.println(list);
+		
 		
 		int memberNo = 0;
 		if(member != null) {
@@ -52,7 +58,7 @@ public class BookController {
 	@GetMapping(value="/ajax1")
 	public List<CenterInventoryBook> ajax1(int bookNo) {
 		List<CenterInventoryBook> centerList = bookService.selectAllCenterInventory(bookNo);
-		//System.out.println(centerList);
+		System.out.println(centerList);
 		return centerList;// 출력 가능 데이터 : 재고수량, 지점명, 주소, 책이름
 	}
 	
@@ -118,7 +124,25 @@ public class BookController {
 			return result;
 		}
 	}
-
+	
+	@ResponseBody
+	@PostMapping(value="/centerMap")
+	public List<CenterMap> centerMap(int adminNo){
+		List<CenterMap> centerMap = bookService.selectOneMap(adminNo);
+		return centerMap;
+	}
+	
+	@GetMapping(value="/centerMap")
+	public String centerMap(int adminNo, String adminName, String adminAddr, String latitude, String longitude, Model model) {
+		//List<CenterMap> centerMap = bookService.selectOneMap(adminNo);
+		model.addAttribute("adminNo", adminNo);
+		model.addAttribute("adminName", adminName);
+		model.addAttribute("adminAddr", adminAddr);
+		model.addAttribute("latitude", latitude);
+		model.addAttribute("longitude", longitude);
+		return "book/centerMap";
+	}
+	
 	@GetMapping(value="list")
 	public String list(Model model, int reqPage) {
 		BookListData bld = bookService.selectBookList(reqPage);

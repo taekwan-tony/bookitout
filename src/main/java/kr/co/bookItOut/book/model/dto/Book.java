@@ -25,6 +25,7 @@ public class Book {
 	private String bookType;
 	private String bookGenre;
 	private int readCount;
+	
 	private List<BookComment> commentList;
 	private List<BookComment> reCommentList;
 }
