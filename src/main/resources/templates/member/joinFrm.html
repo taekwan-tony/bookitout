@@ -260,7 +260,7 @@ img {
 							<label for="memberAge">나이</label>
 						</div>
 						<div class="input-item">
-							<input type="text" name="memberAge" id="memberAge">
+							<input type="number" name="memberAge" id="memberAge">
 						</div>
 					</div>
 					<div class="input-wrap">
@@ -313,7 +313,7 @@ img {
 					</div>
 					<div class="input-item">
 						<div class="radio">
-							<input type="radio" name="memberGender" id="man" value="남자"><label for="man">남자</label> 
+							<input type="radio" name="memberGender" id="man" value="남자" checked><label for="man">남자</label> 
 							<input type="radio" name="memberGender" id="woman" value="여자"><label for="woman">여자</label>
 						</div>
 					</div>
@@ -455,13 +455,54 @@ img {
 	      });
 	      
 	      function checkValue() {
-	            const memberAddr = $("#memberAddrIn").val();
-	            const address = $("#address").val();
-	            const detailAddress = $("#detailAddress").val();
-	            
-	            const fullAddress = `${memberAddr} ${address} ${detailAddress}`.trim();
-	            $("#memberAddr").val(fullAddress);
-	            return true; // 폼을 제출하려면 true 반환
+	    	  
+	    	  const memberId = $("#memberId").val();
+	    	  const memberPw = $("#memberPw").val();
+	    	  const memberPwRe = $("#memberPwRe").val();
+	    	  const memberName = $("#memberName").val();
+	    	  const memberAge = $("#memberAge").val();
+	    	  const memberPhone = $("#memberPhone").val();
+	    	  const memberMail = $("#memberMail").val();
+	    	  const check = $("#check").text();
+	    	  const memberAddrIn = $("#memberAddrIn").val();
+	    	  const detailAddress = $("#detailAddress").val();
+	    	  
+	    	    if (!memberId) {
+	    	        alert("아이디를 입력해주세요.");
+	    	        return false; // 폼 제출을 중단
+	    	    }else if(!memberPw){
+	    	    	alert("비밀번호를 입력해주세요.");
+	    	        return false; // 폼 제출을 중단
+	    	    }else if(!memberPwRe){
+	    	    	alert("비밀번호 확인을 입력해주세요");
+	    	        return false; // 폼 제출을 중단
+	    	    }else if(!memberName){
+	    	    	alert("이름을 입력해주세요.");
+	    	        return false; // 폼 제출을 중단
+	    	    }else if(!memberAge){
+	    	    	alert("나이를 입력해주세요.");
+	    	        return false; // 폼 제출을 중단
+	    	    }else if(!memberPhone){
+	    	    	alert("휴대폰번호를 입력해주세요.");
+	    	        return false; // 폼 제출을 중단
+	    	    }else if(check != "인증완료"){
+	    	    	alert("이메일 인증을 진행해주세요.");
+	    	        return false; // 폼 제출을 중단
+	    	    }else if(!memberAddrIn){
+	    	    	alert("주소를 입력해주세요.");
+	    	        return false; // 폼 제출을 중단
+	    	    }else if(!detailAddress){
+	    	    	alert("상세주소를 입력해주세요.");
+	    	        return false; // 폼 제출을 중단
+	    	    }else{
+	    	    	 const memberAddr = $("#memberAddrIn").val();
+	 	            const address = $("#address").val();
+	 	            const detailAddress = $("#detailAddress").val();
+	 	            
+	 	            const fullAddress = `${memberAddr} ${address} ${detailAddress}`.trim();
+	 	            $("#memberAddr").val(fullAddress);
+	 	            return true; // 폼을 제출하려면 true 반환
+	    	    } 
 	        }
 	</script>
 

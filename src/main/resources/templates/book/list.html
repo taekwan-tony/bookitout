@@ -200,6 +200,7 @@
 		span {
 			font-size: 12pt;
 		}
+		
 	</style>
 
 </head>
@@ -221,7 +222,7 @@
 
 				<div class="list-contect">
 					<div class="list-array-title">
-						<!-- <p>이 분야에 <span th:text="${list.length}"></span>개의 상품이 있습니다.</p> -->
+						 <!--  <p>이 분야에 <span th:text="${list.size()}"></span>개의 상품이 있습니다.</p> -->
 
 						<ul class="array-title">
 							<li><a class="list" th:href="@{/book/list(reqPage=1,type=2,genre=${genre})}">상품명순</a></li>
@@ -236,18 +237,18 @@
 						<table class="book-info-tbl">
 							<tr th:each="book : ${list}">
 								<td class="check-box" style="width:5%; vertical-align: baseline;">
-									<input type="checkbox" name="checkbox" id="checkbox">
+									<input type="checkbox" class="checkbox" name="checkbox" id="checkbox" th:onclick="selectBook();">
 								</td>
 
 								<td style="width:20%;">
-									<img id=book_img th:src="@{/book/{filename}(filename=${book.bookImg})}">
+								<a th:href="@{/book/detail?(bookNo=${book.bookNo})}">
+									<img id=book_img th:src="@{/book/{filename}(filename=${book.bookImg})}" style="cursor:pointer;">
+								</a>
 								</td>
 
 								<td style="vertical-align: baseline;">
 									<div class="book-details">
-										<div class="book-first b-name"><a
-												th:href="@{/book/detail?(bookNo=${book.bookNo})}"
-												th:text="${book.bookName}"></a></div>
+										<div class="book-first b-name"><a th:href="@{/book/detail?(bookNo=${book.bookNo})}" th:text="${book.bookName}"></a></div>
 										<div class="book-second">
 											<span class="book-writer" th:text="${book.bookWriter}"></span>
 											<span class="book-publisher" th:text="${book.bookPublisher}"></span>
@@ -278,7 +279,14 @@
 
 								</td>
 							</tr>
+							
+							<tr>
+								<td>
+									<button class="btn-list list"  type="button" id=selectCart>선택??</button>
+								</td>
+							</tr>
 						</table>
+											
 					</div>
 
 
@@ -379,47 +387,28 @@
 		}
 
 		function nowPay(bookNo) {
-			swal({
-				title: "바로 구매",
-				text: "바로 구매하시겠습니까?",
-				icon: "info",
-				buttons: {
-					cancel: {
-						text: "아니오",
-						value: false,
-						visible: true,
-						className: "btn-cancel",
-						closeModel: true
-					},
-					confirm: {
-						text: "예",
-						value: true,
-						visible: true,
-						className: "btn-confirm",
-						closeModel: true
-					}
-				}
-			}).then(function (isConfirm) {
-				if (isConfirm) {
-
-					$.ajax({
-						url: "/cart/nowPay",
-						type: "get",
-						data: { bookNo: bookNo },
-						success: function (data) {
-
-							//location.href="/cart/selPay?list="+data;
-
-							console.log(data)
-
-						}
-
-					});
-				}
-			});
+			location.href = "/cart/nowPay?bookNo="+bookNo;
 		}
-
-
+		
+		
+		
+		/*
+		$("#selectCart").on("click", function(){
+			const checked = $(".checkbox:checked");
+			if(checked.length ==0){
+				return;
+			}
+			const no = new Array();
+			checked.each(function(index, item){
+				const bookNo = $(item).parent().next().next().next().find("a");
+				console.log(bookNo);
+				no.push(bookNo);
+				console.log(bookNo);
+			});
+			location.href = "/cart/main";
+			
+		});
+		*/
 
 
 

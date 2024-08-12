@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpSession;
+import kr.co.bookItOut.book.model.dto.BookComment;
 import kr.co.bookItOut.member.model.dto.Member;
 import kr.co.bookItOut.member.model.service.MemberService;
 import kr.co.bookItOut.util.EmailSender;
@@ -64,6 +65,17 @@ public class MemberController {
 		model.addAttribute("list", list);
 		System.out.println(list);
 		return "myPage/myBoard";
+	}
+	
+	@GetMapping(value = "/myReview")
+	private String myReview(@SessionAttribute(required=false) Member member, Model model) {
+		String memberId = member.getMemberId();
+		List<BookComment> list = memberService.selectCommentList(memberId);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("member", member);
+		System.out.println(list);
+		return "myPage/myReview";
 	}
 
 	@GetMapping(value = "/loginFrm")
