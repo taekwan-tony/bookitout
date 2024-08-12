@@ -257,25 +257,42 @@ public class AdminController {
 	 	//	return "redirect:/admin/bookListFrm?rePage=1";
 	 	}
 	 	//orderList
+	 	//판매자가 보는 화면 
 	 	@GetMapping(value = "/orderList")
-	 	public String orderList() {
-	 		
+	 	public String orderList(@SessionAttribute(required =false) Admin admin, int type ,int reqPage,Model model ) {
+	 		String click = null;
+	 		switch(type) {
+	 		case 1 : 
+	 			click="발주중";
+	 			break;
+	 		case 2 : 
+	 			click="반려";
+	 			break;
+	 		case 3 : 
+	 			click="승인";
+	 			break;
+	 		}
+	 		OrderListData old = adminService.selectAllOrder(admin,type,reqPage);
+	 		model.addAttribute("list",old.getList());
+	 		model.addAttribute("pageNavi",old.getPageNavi());
+	 		model.addAttribute("click",click);
+	 		return "admin/orderList";
 	 		
 	 	}
 	 	
 	 	
 	 	//총관리자 select 부분(발주)
 	 	//총관리자 발주된 책 리스트
-		@GetMapping(value = "/orderAdmin1")
-		public String orderAdmin1(AdminOrderBook aob, Model model,int reqPage) {
-			OrderListData old = adminService.selectOrderList(aob,reqPage);
-			
-			model.addAttribute("orderAdmin1",old.getList());
-			model.addAttribute("pageNavi",old.getPageNavi());
-			
-			
-			return "admin/orderAdmin1";
-		}
+//		@GetMapping(value = "/orderAdmin1")
+//		public String orderAdmin1(AdminOrderBook aob, Model model,int reqPage) {
+//			OrderListData old = adminService.selectOrderList(aob,reqPage);
+//			
+//			model.addAttribute("orderAdmin1",old.getList());
+//			model.addAttribute("pageNavi",old.getPageNavi());
+//			
+//			
+//			return "admin/orderAdmin1";
+//		}
 	 	
 	 	
 	 	
