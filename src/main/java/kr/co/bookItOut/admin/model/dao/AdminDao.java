@@ -7,10 +7,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.co.bookItOut.admin.model.dto.Admin;
+import kr.co.bookItOut.admin.model.dto.AdminCenterBook;
 import kr.co.bookItOut.admin.model.dto.AdminCenterBookRowMapper;
 import kr.co.bookItOut.admin.model.dto.AdminOrderBook;
 import kr.co.bookItOut.admin.model.dto.AdminOrderBookRowMapper;
 import kr.co.bookItOut.admin.model.dto.AdminRowMapper;
+import kr.co.bookItOut.admin.model.dto.OrderBookListData;
 import kr.co.bookItOut.book.model.dto.AdminBook;
 import kr.co.bookItOut.book.model.dto.AdminBookRowMapper;
 import kr.co.bookItOut.book.model.dto.Book;
@@ -88,8 +90,8 @@ public class AdminDao {
 		String query = "select * from " + 
 				"(select rownum as rnum, b.* from " + 
 				"(SELECT * FROM book " + 
-				"JOIN center_inventory ON book.book_no = center_inventory.book_no2 " + 
-				"JOIN admin_tbl ON center_inventory.admin_no = admin_tbl.admin_no " + 
+				"left JOIN center_inventory ON book.book_no = center_inventory.book_no2 " + 
+				"left JOIN admin_tbl ON center_inventory.admin_no = admin_tbl.admin_no " + 
 				"WHERE admin_tbl.admin_no = ? order by book.book_no desc)b) where rnum between ? and ?";
 		Object[] params = {admin.getAdminNo(),start,end};
 		List list = jdbc.query(query,adminCenterBookRowMapper,params);
@@ -181,6 +183,7 @@ public class AdminDao {
 	}
 	//발주------------------
 	//센터 인벤에서 값 가져오기
+	
 	public CenterInventory selectCenterInventory(CenterInventory centerInventory) {
 		String query = "select * from center_inventory where center_book_no=?";
 		Object[] params = {centerInventory.getCenterBookNo()};
@@ -206,18 +209,33 @@ public class AdminDao {
 				+ "(select rownum as rnum, o.* from "
 				+ "(SELECT * " + 
 				"FROM book " + 
-				"JOIN order_tbl ON book.book_no = order_tbl.book_no " + 
-				"JOIN admin_tbl ON order_tbl.admin_no = admin_tbl.admin_no " + 
+				"left JOIN order_tbl ON book.book_no = order_tbl.book_no " + 
+				"left JOIN admin_tbl ON order_tbl.admin_no = admin_tbl.admin_no " + 
 				"WHERE admin_tbl.admin_no = ? and order_check=?)o) where rnum between ? and ?";
 		Object[] params = {admin.getAdminNo(),type,start,end};
 		List list = jdbc.query(query,adminOrderBookRowMapper,params);
 		return list;
 	}
+	//가맹점 발주버튼 눌렀을때 
+	public Book selectOneAdminBook(int bookNo) {
+		String query = "select * from book where book_no = ?";
+		Object[] params = {bookNo};
+		List list = jdbc.query(query,bookRowMapper,params);
+		return (Book)list.get(0);
+	}
+	//발주 버튼 누르고 나오는 화면
+	public AdminCenterBook selectOneOrder(int bookNo, Admin admin) {
+		String query = "SELECT * " + 
+				"FROM book " + 
+				"left JOIN center_inventory ON book.book_no = center_inventory.book_no2 " + 
+				"left JOIN admin_tbl ON center_inventory.admin_no = admin_tbl.admin_no " + 
+				"WHERE admin_tbl.admin_no = ? and book.book_no= ?";
+		Object[] params = {admin.getAdminNo(),bookNo};
+		List list = jdbc.query(query,adminCenterBookRowMapper,params);
+		
+		return (AdminCenterBook)list.get(0);
+	}
 	
-	
-
-
-
 
 
 	
