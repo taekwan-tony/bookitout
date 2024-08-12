@@ -93,13 +93,18 @@ public class CartController {
 	}
 	
 	@ResponseBody
-	@GetMapping(value="/nowPay")
-	public int nowPay (int bookNo, @SessionAttribute Member member) {
+	@GetMapping(value="/nowPay")//
+	public List nowPay (int bookNo, @SessionAttribute Member member, Model model) {
 		int memberNo = member.getMemberNo();
 		
 		int result = cartService.insertCartNo(bookNo,memberNo);
 		System.out.println(result);
-		return result;
+		List list = new ArrayList<Integer>();
+		list.add(result);
+		System.out.println(list);
+		model.addAttribute("list", list);
+		
+		return list;
 	}
 	
 	
@@ -184,16 +189,16 @@ public class CartController {
 		return "cart/selPay";
 	}
 	
-	
-
 	/*
-	 	@ResponseBody
-		@GetMapping(value="/nowPay")
-		public int nowPay(int bookNo, @SessionAttribute Member member) {
-			int memberNo = member.getMemberNo();
-			int result = cartService.insertCart(bookNo, memberNo);
-			return result;
-		}
-	 */
+ 	@ResponseBody
+	@GetMapping(value="/nowPay")
+	public int nowPay(int bookNo, @SessionAttribute Member member) {
+		int memberNo = member.getMemberNo();
+		int result = cartService.insertCartNo(bookNo, memberNo);
+		return result;
+	}
+ */
+
+	
 	
 }
