@@ -296,17 +296,33 @@ public class AdminController {
 	 	
 	 	//총관리자 select 부분(발주)
 	 	//총관리자 발주된 책 리스트
-//		@GetMapping(value = "/order")
-//		public String orderAdmin1(Model model,int reqPage) {
-//			OrderListData old =  adminService.selectAllOrderList(reqPage);
-//			
-//			model.addAttribute("orderAdmin1",old.getList());
-//			model.addAttribute("pageNavi",old.getPageNavi());
-//			
-//			
-//			return "admin/order";
-//		}
-//	 	
+	@GetMapping(value = "/order")
+ 		  public String orderAdmin1(Model model,int reqPage) {
+			OrderListData old =  adminService.selectAllOrderList(reqPage);
+			
+			model.addAttribute("orderList",old.getList());
+			model.addAttribute("pageNavi",old.getPageNavi());
+			
+			
+			return "admin/order";
+		}
+	// 발주 변경
+	@GetMapping(value = "/orderCheck")
+	public String orderCheck(int orderAllCheck,int orderNo, Model model) {
+		int result = adminService.updateOrdercheck(orderAllCheck,orderNo);
+		 if( result>0) {	model.addAttribute("title","수정성공");
+			model.addAttribute("msg","책 수정에 성공했습니다");
+			model.addAttribute("icon","success");
+			model.addAttribute("loc","/admin/order?reqPage=1");
+			return "common/msg";
+			}else {
+				model.addAttribute("title","수정실패!");
+				model.addAttribute("msg","책 수정에 실패 했습니다");
+				model.addAttribute("icon","error");	
+				model.addAttribute("loc","/admin/order?reqPage=1");
+			}
+			return "common/msg";
+	}
 	 	
 	 	
 	 	//update-> 발주 승인하면 

@@ -235,4 +235,31 @@ public class AdminDao {
 		List list = jdbc.query(query,adminCenterBookRowMapper,params);
 		return (AdminCenterBook)list.get(0);
 	}
+	public List selectAllOrderList(int start, int end) {
+	String query =	"select * from " + 
+			"(select rownum as rnum, o.* from " + 
+			"(SELECT * " + 
+			"FROM book " + 
+			"JOIN order_tbl ON book.book_no = order_tbl.book_no " + 
+			"JOIN admin_tbl ON order_tbl.admin_no = admin_tbl.admin_no order by order_check asc)o) where rnum between ? and ?";
+		Object[] params = {start,end};
+		List list = jdbc.query(query,adminOrderBookRowMapper,params);
+		return list;
+	}
+	public int selectOrderListTotoalCount() {
+		String qurey = "select count(*) from " + 
+				"(select rownum as rnum, o.* from " + 
+				"(SELECT * " + 
+				"FROM book " + 
+				"JOIN order_tbl ON book.book_no = order_tbl.book_no " + 
+				"JOIN admin_tbl ON order_tbl.admin_no = admin_tbl.admin_no )o)";
+		int totalCount = jdbc.queryForObject(qurey,Integer.class);
+		return totalCount;
+	}
+	public int updateOrderCheck(int orderAllCheck, int orderNo) {
+		String query =  "update order_tbl set order_check=? where order_no=?";
+		Object[] params = {orderAllCheck,orderNo};
+		int result = jdbc.update(query,params);
+		return result;
+	}
 }
