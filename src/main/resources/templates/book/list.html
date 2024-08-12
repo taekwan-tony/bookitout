@@ -213,7 +213,7 @@ font-size: 12pt;
 
                                 <td style="vertical-align: baseline;">
                                     <div class="book-details">
-                                        <div class="book-first b-name"  th:text="${book.bookName}"></div>
+                                        <div class="book-first b-name"><a th:href="@{/book/detail?(bookNo=${book.bookNo})}"th:text="${book.bookName}"></a></div>
                                         <div class="book-second">
                                             <span class="book-writer" th:text="${book.bookWriter}"></span>
                                             <span class="book-publisher" th:text="${book.bookPublisher}"></span>
@@ -369,19 +369,16 @@ font-size: 12pt;
     					type : "get",
     					data : {bookNo:bookNo},
     					success : function(data){
-    						console.log(data)
-    						
-    					
-    						
+    						//location.href="/cart/selPay?list="+data;
     					}
     					
     				});
     			}    	
     		});	   		
     	}
+
     
-    	
-    	
+    
     	
    		
     </script>

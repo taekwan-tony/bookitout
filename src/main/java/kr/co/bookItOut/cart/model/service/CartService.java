@@ -27,12 +27,12 @@ public class CartService {
 		return result;
 	}
 	
-	@Transactional//
+	@Transactional
 	public int insertCartNo(int bookNo, int memberNo) {
 		int result = cartDao.insertCart(bookNo, memberNo);
 		if(result>0) {
 			int cartNo = cartDao.selectCartNo();
-			return cartNo;
+			return cartNo; //
 		}
 		
 		return result;
