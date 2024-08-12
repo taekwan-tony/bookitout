@@ -39,6 +39,12 @@ public class BoardService {
 		int pageNaviSize=10;
 		int pageNo=((reqPage-1)/pageNaviSize)*pageNaviSize + 1;
 		String pageNavi = "<ul class='pagination circle-style'>";
+		if(pageNo != 1) {
+			pageNavi += "<li>";
+			pageNavi += "<a class='page-item' href='/board/list?reqPage="+(pageNo-1)+"'>";
+			pageNavi += "<span><i class='fa-solid fa-angle-left'></i></span>";
+			pageNavi += "</a></li>";
+		}
 		for(int i=0;i<pageNaviSize;i++) {
 			pageNavi += "<li>";
 			if(pageNo == reqPage) {
@@ -46,7 +52,6 @@ public class BoardService {
 			}else {
 				pageNavi += "<a class='page-item' href='/board/list?reqPage="+pageNo+"'>";
 			}
-			
 			pageNavi += pageNo;
 			pageNavi += "</a></li>";
 			pageNo++;
@@ -56,8 +61,8 @@ public class BoardService {
 		}
 		if(pageNo <= totalPage) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/board/list?reqPage="+pageNo+"'>";
-			pageNavi += "<span class='material-icons'>chevron_right</span>";
+			pageNavi += "<a class='page-item page-btn' href='/board/list?reqPage="+pageNo+"'>";
+			pageNavi += "<span><i class='fa-solid fa-angle-right'></i></span>";
 			pageNavi += "</a></li>";
 		}
 		pageNavi += "</ul>";
@@ -111,8 +116,8 @@ public class BoardService {
 		if(pageNo != 1) {
 			pageNavi += "<li>";
 			pageNavi += "<a class='page-item' href='/board/search?type="+type+"&option="+option+
-			"keyword="+keyword+"reqPage="+(pageNo-1)+"'>";
-			pageNavi += "<span class='material-icons'>chevron_left</span>";
+			"&keyword="+keyword+"&reqPage="+(pageNo-1)+"'>";
+			pageNavi += "<span><i class='fa-solid fa-angle-left'></i></span>";
 			pageNavi += "</a></li>";
 		}
 		for(int i=0;i<pageNaviSize;i++) {
@@ -135,7 +140,7 @@ public class BoardService {
 			pageNavi += "<li>";
 			pageNavi += "<a class='page-item' href='/board/search?type="+type+"&option="+option+
 			"&keyword="+keyword+"&reqPage="+(pageNo)+"'>";
-			pageNavi += "<span class='material-icons'>chevron_right</span>";
+			pageNavi += "<span><i class='fa-solid fa-angle-right'></i></span>";
 			pageNavi += "</a></li>";
 		}
 		pageNavi += "</ul>";
