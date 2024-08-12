@@ -30,5 +30,9 @@ public class WebConfig implements WebMvcConfigurer{
 		.addResourceHandler("/question/**")
 		.addResourceLocations("file:///"+root+"/question/");
 		
+		registry
+		.addResourceHandler("/board/**")
+		.addResourceLocations("file:///"+root+"/board/");
+		
 	}
 }
