@@ -150,16 +150,10 @@ public class BookController {
 		model.addAttribute("longitude", longitude);
 		return "book/centerMap";
 	}
-	
-	@GetMapping(value="list")
-	public String list(Model model, int reqPage) {
-		BookListData bld = bookService.selectBookList(reqPage);
-	}
 
 	@GetMapping(value="/list")
 	public String list(Model model, int reqPage, int type, int genre) {
 		BookListData bld = bookService.selectBookList(reqPage, type, genre);
-
 		model.addAttribute("list", bld.getList());
 		model.addAttribute("pageNavi", bld.getPageNavi());
 		model.addAttribute("genre",genre);
@@ -175,9 +169,4 @@ public class BookController {
 		return "book/listFore";
 	}
 	
-	
 }
-
-
-
-

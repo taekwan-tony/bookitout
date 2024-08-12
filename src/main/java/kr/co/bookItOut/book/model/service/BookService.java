@@ -82,23 +82,20 @@ public class BookService {
 			return -1;
 		}
 	}
-	
-	public BookListData selectBookList(int reqPage, int type, int genre) {
-		int numPerPage = 5;
-	}
-	
-//	public CenterMap selectCenterMap(CenterMap cm) {
-//		CenterMap list = bookDao.selectCenterMap(cm);
-//		return list;
-//	}
 
+	//	public CenterMap selectCenterMap(CenterMap cm) {
+	//		CenterMap list = bookDao.selectCenterMap(cm);
+	//		return list;
+	//	}
+	
 	public List<CenterMap> selectOneMap(int adminNo) {
 		List<CenterMap> centerMap = bookDao.selectOneMap(adminNo);
 		return centerMap;
 	}
-
-	public BookListData selectBookList(int reqPage) {
-		int numPerPage = 10;
+	
+	// 국내목록
+	public BookListData selectBookList(int reqPage, int type, int genre) {
+		int numPerPage = 5;
 
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage +1;
@@ -233,6 +230,7 @@ public class BookService {
 		return bld;
 	}
 
+	// 해외목록
 	public BookListData selectBookListFore(int reqPage, int type, int genre) {
 		int numPerPage = 5;
 		int end = reqPage * numPerPage;
@@ -347,12 +345,3 @@ public class BookService {
 	}
 
 }
-
-
-
-
-
-
-
-
-

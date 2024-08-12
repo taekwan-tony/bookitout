@@ -102,11 +102,7 @@ public class BookDao {
 	public List selectBookList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book order by 1 desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
-
-		List list = jdbc.query(query, bookRowMapper, params);
-
-		List list = jdbc.query(query,bookRowMapper, params);			
-
+		List list = jdbc.query(query, bookRowMapper, params);		
 		return list;
 	}
 
