@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.book.model.dao.BookDao;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookComment;
@@ -91,6 +92,11 @@ public class BookService {
 	public List<CenterMap> selectOneMap(int adminNo) {
 		List<CenterMap> centerMap = bookDao.selectOneMap(adminNo);
 		return centerMap;
+	}
+
+	public Admin selectOneAdmin(Admin admin, int adminNo) {
+		Admin adm = bookDao.selectOneAdmin(admin, adminNo);
+		return adm;
 	}
 	
 	// 국내목록
