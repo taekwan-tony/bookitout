@@ -20,10 +20,15 @@ public class CartService {
 	@Autowired
 	private CartDao cartDao;
 
-	
 	@Transactional
 	public int insertCart(int bookNo, int memberNo) {
 		int result = cartDao.insertCart(bookNo, memberNo);
+		return result;
+	}
+	
+	@Transactional
+	public int insertCart(int bookNo, int memberNo, int count) {
+		int result = cartDao.insertCart(bookNo, memberNo, count);
 		return result;
 	}
 	
@@ -44,6 +49,7 @@ public class CartService {
 			return null;
 		}
 	}
+
 	@Transactional
 	public List<Cart> insertCartNo1(int bookNo, int memberNo, int bookCount) {
 		int result = cartDao.insertCart1(bookNo, memberNo, bookCount);
@@ -62,6 +68,24 @@ public class CartService {
 		}
 	}
 	
+	@Transactional
+	public List<Cart> insertCartNo(int bookNo, int memberNo, int count) {
+		int result = cartDao.insertCart(bookNo, memberNo, count);
+		
+		if(result>0) {
+			int cartNo = cartDao.selectCartNo();
+			Cart c = cartDao.selectCart(cartNo);//bookNo로 카트번호를 조회하고, 그 카트 번호로 카트 객체를 가지고 옴(카트 번호 뿐만 아니라 해당 카트 번호에 해당하는 모든 데이터가 필요하기 때문에)
+			
+			List<Cart> list = new ArrayList<Cart>();//리스트 선언
+			list.add(c);//카트 객체를 리스트에 넣음
+
+			//List<Cart> list = (List<Cart>) cartDao.selectCart(cartNo);
+			return list;
+		}else {
+			return null;
+		}
+	}	
+	
 	public int selectCart(int bookNo, int memberNo) {
 		int result = cartDao.selectCartCount(bookNo, memberNo);
 		if(result > 0) {
@@ -69,13 +93,18 @@ public class CartService {
 		}
 		return result;
 	}
+	
 	@Transactional
 	public int plusCart( int cartNo) {
 		int result = cartDao.plusCart(cartNo);
 		return result;
 	}
-	
 
+	@Transactional
+	public int plusCart(int cartNo, int count) {
+		int result = cartDao.plusCart(cartNo, count);
+		return result;
+	}
 
 	public List selectAllCart(int memberNo) {
 		List list = cartDao.selectAllCart(memberNo);
@@ -171,14 +200,10 @@ public class CartService {
 		
 		return list;
 	}
+	
 	public List selectPayNames(int payNo) {
 		List list = cartDao.selectPayNames(payNo);
 		return list;
-	}
-
-	
-	
+	}	
 
 }
-
-
