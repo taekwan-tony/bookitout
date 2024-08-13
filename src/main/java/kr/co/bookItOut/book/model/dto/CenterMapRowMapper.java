@@ -18,6 +18,8 @@ public class CenterMapRowMapper implements RowMapper<CenterMap> {
 		cm.setAdminNo(rs.getInt("admin_no"));
 		cm.setAdminName(rs.getString("admin_name"));
 		cm.setAdminAddr(rs.getString("admin_addr"));
+		cm.setAdminPhone(rs.getString("admin_phone"));
+		cm.setOpeningDay(rs.getString("opening_day"));
 		return cm;
 	}
 	

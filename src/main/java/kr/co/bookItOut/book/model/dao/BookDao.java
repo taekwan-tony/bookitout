@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.bookItOut.admin.model.dto.Admin;
+import kr.co.bookItOut.admin.model.dto.AdminRowMapper;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookComment;
 import kr.co.bookItOut.book.model.dto.BookCommentRowMapper;
@@ -32,6 +34,9 @@ public class BookDao {
 	
 	@Autowired
 	private CenterMapRowMapper centerMapRowMapper;
+	
+	@Autowired
+	private AdminRowMapper adminRowMapper;
 
 	public Book selectOneBook(Book book1) {
 		String query = "select * from book where book_no = ?";
@@ -516,6 +521,7 @@ public class BookDao {
 		String query = "SELECT * FROM CENTER_MAP JOIN ADMIN_TBL USING(ADMIN_NO) WHERE ADMIN_NO = ?";
 		Object[] params = {adminNo};
 		List<CenterMap> centerMap = jdbc.query(query, centerMapRowMapper, params);
+		System.out.println(centerMap);
 		return centerMap;
 	}
 
@@ -524,6 +530,17 @@ public class BookDao {
 		Object[] params = {bookNo};
 		int commentCount = jdbc.queryForObject(query, Integer.class, params);
 		return commentCount;
+	}
+
+	public Admin selectOneAdmin(Admin admin, int adminNo) {
+		String query = "select * from admin_tbl where admin_no = ?";
+		Object[] params = {adminNo};
+		List list = jdbc.query(query, adminRowMapper, params);
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return (Admin)list.get(0);
+		}
 	}
 	
 	/*
