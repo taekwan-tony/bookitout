@@ -134,7 +134,7 @@ public class BookController {
 	}
 	
 	@ResponseBody
-	@PostMapping(value="/centerMap")
+	@PostMapping(value="/centerMap") 
 	public List<CenterMap> centerMap(int adminNo){
 		List<CenterMap> centerMap = bookService.selectOneMap(adminNo);
 		return centerMap;
