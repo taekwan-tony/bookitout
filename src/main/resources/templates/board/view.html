@@ -156,7 +156,6 @@
 	}
 	.comment-content{
 		width: 650px;
-		margin-left: 40px;
 	}
 	.comment-title{
 		text-align: center;
@@ -224,6 +223,7 @@
 		margin: 0
 	}
 	.comment-info{
+		margin: 0;
 	}
 	#likeCount{
 		margin: 0;
@@ -252,6 +252,9 @@
 	}
 	#manus{
 		font-size: 39px;
+	}
+	.id{
+		font-weight: bolder;
 	}
 </style>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -340,7 +343,7 @@
 						</li>
 						<li class="comment-wrap">
 							<p class="comment-info" id="comment-info">
-								<span th:text="${bc.boardCommentWriter}"></span> 
+								<span class="id" th:text="${bc.boardCommentWriter}"></span> 
 								<span th:text="${bc.boardCommentDate}"></span> 
 								<span class="like-box">
 									<th:block th:if="${session.member!=null}">
@@ -426,7 +429,7 @@
 							</th:block>
 							</th:block>
 							<p class="comment-info">
-								<span th:text="${bcc.boardCommentWriter}"></span> 
+								<span class="id" th:text="${bcc.boardCommentWriter}"></span> 
 								<span th:text="${bcc.boardCommentDate}"></span>
 								<span class="like-box"> 
 									<th:block th:if="${session.member!=null}">
