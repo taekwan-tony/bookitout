@@ -160,7 +160,7 @@ public class BookService {
 			}
 		}
 		
-		//
+		//국내
 				
 		int totalCount = bookDao.selectBookTotalCount();
 		int totalPage = 0;
@@ -294,8 +294,8 @@ public class BookService {
 				list = bookDao.selectGenreFiveFourBookPriceDescList(start, end);
 			}
 		}
-		
-		int totalCount = bookDao.selectBookTotalCount();
+		//해외
+		int totalCount = bookDao.selectBookTotalCountFore();
 		int totalPage =0;
 		if(totalCount % numPerPage ==0) {
 			totalPage = totalCount / numPerPage;
