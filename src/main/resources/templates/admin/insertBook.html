@@ -50,6 +50,7 @@
 </style>
 </head>
 <body>
+  <th:block th:if="${session.admin.adminType}==1">v
     <div class="nav1">
         <div class="icons-menu">
             <ul>
@@ -102,8 +103,14 @@
         </ul>
         </div>
     </div>
+    </th:block>
     <!-- 네비 사이드 메뉴 끝 -->
+     <th:block th:if="${session.admin.adminType}==1">
     <div class="wrap">
+    </th:block>
+     <th:block th:if="${session.admin.adminType}==2">
+    <div class="wrap" style="width: 100%!important;">
+    </th:block>
         <!-- 헤더 -->
         <div>
             <div class="main-header-wrap">
@@ -120,8 +127,8 @@
                             <li>
                                 <a href="/admin/adminIndex?rePage=1">판매점</a>
                             </li>
-                            <li>
-                                <a href="/admin/updatePwFrm">비밀번호 변경</a>
+                              <li>
+                            	<a href="/admin/bookListFrm?rePage=1">책리스트</a>
                             </li>
                             <li>
                                 <a href="/admin/logout">로그아웃</a>
@@ -266,8 +273,12 @@
                 <i style=" --fa-bounce-start-scale-x: 1; --fa-bounce-start-scale-y: 1; --fa-bounce-jump-scale-x: 1; --fa-bounce-jump-scale-y: 1; --fa-bounce-land-scale-x: 1; --fa-bounce-land-scale-y: 1; --fa-bounce-rebound: 0;" class="fa-solid fa-angles-up fa-bounce" ></i>
             </button>
         </div>
+     <th:block th:if="${session.admin.adminType}==1">
     </div>
-    
+    </th:block>
+     <th:block th:if="${session.admin.adminType}==2">
+    </div>
+    </th:block>
     <script>
     <!--전체 선택 로직 -->
     function check_all(f)

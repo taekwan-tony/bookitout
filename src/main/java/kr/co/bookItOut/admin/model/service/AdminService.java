@@ -232,8 +232,8 @@ public OrderBookListData selectAdminBookList(int reqPage,Book book, Admin admin)
 
 //북 등록
 @Transactional //변화 있을때 커밋 롤백
-public int insertBook(Book book) {
-	 int result = adminDao.insertBook(book);
+public int insertBook(Book book ,Admin admin) {
+	 int result = adminDao.insertBook(book,admin);
 	
 	return result;
 }
@@ -397,10 +397,21 @@ int numPerPage = 10;
 	return old;
 }
 
-public int updateOrdercheck(int orderAllCheck, int orderNo) {
+public int updateOrdercheck(int orderAllCheck, int orderNo,int orderQuntity, int bookNo,int adminNo) {
 	int result = adminDao.updateOrderCheck(orderAllCheck,orderNo);
+	
 	if(result>0) {
-		return result;
+		if(orderAllCheck == 3) {
+			int totalCount =+ orderQuntity;
+			result += adminDao.updateCount(totalCount,adminNo,bookNo);
+			if(result>0) {
+				return result;
+			}else {
+				return 0;
+			}
+		}else {
+			return 0;
+		}
 	}
 	return 0;
 }

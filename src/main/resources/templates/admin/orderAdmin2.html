@@ -20,13 +20,12 @@
 	tbody tbody tr td div div{
 		padding: 10px 0px!important ;
 	}
-	
-	
-	
 	</style>
 </head>
 <body>
+<th:block th:if="${session.admin.adminType}==1">
     <div class="nav1">
+  
         <div class="icons-menu">
             <ul>
                 <li class="arrow">
@@ -66,7 +65,6 @@
             <ul class="sub-menu">
                 <li><a href="/admin/bookListFrm?rePage=1">책 리스트</a></li>
                 <li><a href="/admin/insertBookFrm">책 등록</a></li>
-                <li><a href="/admin/orderAdmin1">발주승인</a></li>
             </ul>
             </li>
             <li>
@@ -78,8 +76,14 @@
         </ul>
         </div>
     </div>
+     </th:block>
     <!-- 네비 사이드 메뉴 끝 -->
+   <th:block th:if="${session.admin.adminType}==1">
     <div class="wrap">
+    </th:block>
+     <th:block th:if="${session.admin.adminType}==2">
+    <div class="wrap" style="width: 100%!important;">
+    </th:block>
         <!-- 헤더 -->
         <div>
             <div class="main-header-wrap">
@@ -181,7 +185,12 @@
                 <i style=" --fa-bounce-start-scale-x: 1; --fa-bounce-start-scale-y: 1; --fa-bounce-jump-scale-x: 1; --fa-bounce-jump-scale-y: 1; --fa-bounce-land-scale-x: 1; --fa-bounce-land-scale-y: 1; --fa-bounce-rebound: 0;" class="fa-solid fa-angles-up fa-bounce" ></i>
             </button>
         </div>
-    </div>
+    <th:block th:if="${session.admin.adminType}==1">
+    <div class="wrap">
+    </th:block>
+     <th:block th:if="${session.admin.adminType}==2">
+    <div class="wrap" style="width: 100%!important;">
+    </th:block>
     
     <script>
     
