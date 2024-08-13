@@ -168,7 +168,6 @@ public class CartController {
 		
 		//selPay.html로 보내는 데이터
 		model.addAttribute("list",list);
-		model.addAttribute("count",count);
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("member", member);
 		model.addAttribute("cartNo", cartNo); //모델로 html에 데이터 전송(총 4개)
