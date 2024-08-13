@@ -260,12 +260,12 @@ img {
 							<label for="memberAge">나이</label>
 						</div>
 						<div class="input-item">
-							<input type="number" name="memberAge" id="memberAge">
+							<input type="number" name="memberAge" id="memberAge" min='1'>
 						</div>
 					</div>
 					<div class="input-wrap">
 						<div class="input-title">
-							<label for="memberPhone">전화번호</label>
+							<label for="memberPhone">전화번호(- 제외 숫자만 입력하세요)</label>
 						</div>
 						<div class="input-item">
 							<input type="text" name="memberPhone" id="memberPhone">
@@ -327,6 +327,26 @@ img {
 		<div class="clear"></div>
 	</main>
 	<script>
+	
+	 $(document).ready(function() {
+	        $("#memberPhone").blur(function() {
+	            // 입력된 전화번호 가져오기
+	            var phoneNumber = $("#memberPhone").val();
+	            if(phoneNumber) {
+	                // 정규식을 사용하여 형식 검사
+	                var regex = /^01[0-9]{1}[0-9]{8,9}$/;
+
+	                if (regex.test(phoneNumber)) {
+	                    // 올바른 형식일 경우
+	                } else {
+	                    // 잘못된 형식일 경우
+	                    alert("잘못된 형식의 전화번호 입니다.");
+	                    $("#memberPhone").val("");
+	                }
+	            }
+	        });
+	    });
+	 
 		$("#memberPwRe").on("change", function() {
 			const pwValue = $("#memberPw").val();
 			const pwReValue = $("#memberPwRe").val();
@@ -481,6 +501,9 @@ img {
 	    	        return false; // 폼 제출을 중단
 	    	    }else if(!memberAge){
 	    	    	alert("나이를 입력해주세요.");
+	    	        return false; // 폼 제출을 중단
+	    	    }else if(1>memberAge){
+	    	    	alert("나이는 1보다 커야합니다.");
 	    	        return false; // 폼 제출을 중단
 	    	    }else if(!memberPhone){
 	    	    	alert("휴대폰번호를 입력해주세요.");
