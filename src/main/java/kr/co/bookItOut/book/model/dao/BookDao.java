@@ -116,9 +116,49 @@ public class BookDao {
 		int totalCount = jdbc.queryForObject(query, Integer.class);
 		return totalCount;
 	}
+	//국내 문학
+	public int selectGenreTwoBookNoListTwo() {
+		String query = "select count(*) from book where book_type = '국내도서' and book_genre = '문학'";		
+		int totalCount = jdbc.queryForObject(query, Integer.class);
+		return totalCount;
+	}
+	//국내 재테크
+	public int selectGenreTwoBookNoListThree() {
+		String query = "select count(*) from book where book_type = '국내도서' and book_genre = '재테크'";		
+		int totalCount = jdbc.queryForObject(query, Integer.class);
+		return totalCount;
+	}
+	//국내 기타
+	public int selectGenreTwoBookNoListFour() {
+		String query = "select count(*) from book where book_type = '국내도서' and book_genre = '기타'";		
+		int totalCount = jdbc.queryForObject(query, Integer.class);
+		return totalCount;
+	}
 	
+	
+	//해외
 	public int selectBookTotalCountFore() {
 		String query = "select count(*) from book where book_type = '해외도서'";
+		int totalCount = jdbc.queryForObject(query, Integer.class);
+		return totalCount;
+	}
+	//해외 문학
+	public int selectGenreFiveTwoBookNoListTwo() {
+		String query = "select count(*) from book where book_type = '해외도서' and book_genre = '문학'";		
+		int totalCount = jdbc.queryForObject(query, Integer.class);
+		return totalCount;
+	}
+	//해외 재테크
+	public int selectGenreFiveTwoBookNoListThree() {
+		String query = "select count(*) from book where book_type = '해외도서' and book_genre = '재테크'";		
+		int totalCount = jdbc.queryForObject(query, Integer.class);
+		return totalCount;
+	}
+	
+
+	//해외 기타
+	public int selectGenreFiveTwoBookNoListFour() {
+		String query = "select count(*) from book where book_type = '해외도서' and book_genre = '기타'";		
 		int totalCount = jdbc.queryForObject(query, Integer.class);
 		return totalCount;
 	}
@@ -550,6 +590,7 @@ public class BookDao {
 			return (Admin)list.get(0);
 		}
 	}
+
 	
 	/*
 	// 판매점 위치 ajax 비동기처리
@@ -562,7 +603,6 @@ public class BookDao {
 	}
 	 */
 }
-
 
 
 

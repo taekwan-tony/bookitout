@@ -155,20 +155,22 @@ public class BookController {
 	}
 
 	@GetMapping(value="/list")
-	public String list(Model model, int reqPage, int type, int genre) {
-		BookListData bld = bookService.selectBookList(reqPage, type, genre);
+	public String list(Model model, int reqPage, int type, int genre, int group) {
+		BookListData bld = bookService.selectBookList(reqPage, type, genre, group);
 		model.addAttribute("list", bld.getList());
 		model.addAttribute("pageNavi", bld.getPageNavi());
 		model.addAttribute("genre",genre);
+		model.addAttribute("group",group);
 		return "book/list";
 	}
 	
 	@GetMapping(value="listFore")
-	public String listFore(Model model, int reqPage, int type, int genre) {
-		BookListData bld = bookService.selectBookListFore(reqPage, type, genre);
+	public String listFore(Model model, int reqPage, int type, int genre, int group) {
+		BookListData bld = bookService.selectBookListFore(reqPage, type, genre, group);
 		model.addAttribute("list", bld.getList());
 		model.addAttribute("pageNavi", bld.getPageNavi());
-		model.addAttribute("genre", genre);		
+		model.addAttribute("genre", genre);	
+		model.addAttribute("group",group);
 		return "book/listFore";
 	}
 	
