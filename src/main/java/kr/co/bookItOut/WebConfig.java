@@ -7,8 +7,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import kr.co.bookItOut.error.controller.AdminIntercepter;
 import kr.co.bookItOut.error.controller.LoginIntercepter;
-import kr.co.iei.util.AdminInterceptor;
 
 @Configuration
 @EnableWebMvc
@@ -43,11 +43,36 @@ public class WebConfig implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new LoginIntercepter())
-				.addPathPatterns("/member/)
-				.excludePathPatterns("/notice/list","/notice/view","/notice/search","/notice/filedown","/notice/editor/**");
+				.addPathPatterns("/member/mypage",
+						"/member/myInfo",
+						"/member/myOrder",
+						"/member/myBoard",
+						"/member/myReview",
+						"/member/logout",
+						"/board/writeFrm",
+						"/board/editorFrm",
+						"/board/write",
+						"/board/delete",
+						"/board/updateFrm",
+						"/board/update",
+						"/board/insertComment",
+						"/board/updateComment",
+						"/board/delteComment",
+						"/book/insertComment",
+						"/book/updateComment",
+						"/book/deleteComment",
+						"/cart/**",
+						"/myPage/myPage",
+						"/Question/**"
+						);
+				
 	
-		registry.addInterceptor(new AdminInterceptor())
-				.addPathPatterns("/admin/**");
+		registry.addInterceptor(new AdminIntercepter())
+				.addPathPatterns("/admin/**",
+						"/notice/writeNoticeFrm",
+						"/notice/writeNotice",
+						"/notice/updateFrm","/notice/deleteNotice")
+				.excludePathPatterns("/member/login","/admin/login");
 	}
 	
 }
