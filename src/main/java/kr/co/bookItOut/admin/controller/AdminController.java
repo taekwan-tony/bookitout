@@ -24,6 +24,7 @@ import kr.co.bookItOut.Question.model.dto.Question;
 import kr.co.bookItOut.Question.model.dto.QuestionListData;
 import kr.co.bookItOut.Question.model.service.QuestionService;
 import kr.co.bookItOut.admin.model.dto.Admin;
+import kr.co.bookItOut.admin.model.dto.AdminCenterBook;
 import kr.co.bookItOut.admin.model.dto.AdminListData;
 import kr.co.bookItOut.admin.model.dto.AdminOrderBook;
 import kr.co.bookItOut.admin.model.dto.OrderBookListData;
@@ -111,16 +112,19 @@ public class AdminController {
 		
 		return "admin/bookList";
 	}
-	//판매점 내 책 리스트
-	@GetMapping(value = "/orderAdmin2")
-	public String orderAdmin2(Model model,int rePage ,Book book,@SessionAttribute(required=false) Admin admin) {
-		OrderBookListData obld = adminService.selectAdminBookList(rePage,book,admin);
+	
+	//판매점 내 책 리스트(가맹점 안에있는 책)
+	@GetMapping(value = "/admin2BookList")
+	public String admin2BookList(Model model,int reqPage,Book book,@SessionAttribute(required=false) Admin admin) {
 		
+		OrderBookListData obld = adminService.selectAdminBookList(reqPage,book,admin);
+										
 		model.addAttribute("Admin2BookList",obld.getList());
 		model.addAttribute("pageNavi",obld.getPageNavi());
 		
-		return "admin/orderAdmin2";
+		return "admin/admin2BookList";
 	}
+	
 	
 	
 	@GetMapping(value = "/insertBookFrm")
@@ -233,24 +237,34 @@ public class AdminController {
 			}
 			return "common/msg";
 		}
+	 //발주 버튼을 눌렀을때 
+	 //select
+	 @GetMapping(value = "/orderAdmin2")
+	 public String orderAdmin2(int bookNo,@SessionAttribute(required=false) Admin admin,Model model) {
+		 
+		 AdminCenterBook acb = adminService.selectOneOrder(bookNo,admin);
+		 
+		 model.addAttribute("order",acb);
+		 
+		 return "admin/orderAdmin2"; 
+	 }
+	 
+	 
 	 //--발주창-------------------------------------------------
 	 	//판매자가 값을 총관리자에게 보내주기
 	 	@GetMapping(value = "/centerInventoryOrder")
-	 	public String centerInventoryOrder(CenterInventory centerInventory, int orderBookCount ,Model model) {
-	 		System.out.println("발주"+centerInventory.getCenterBookNo());
-	 		int result = adminService.insertOrderAdmin(centerInventory,orderBookCount);
-	 		System.out.println("발주"+centerInventory.getCenterBookNo());
-	 		System.out.println("발주:"+result);
+	 	public String centerInventoryOrder(int centerBookNo, int orderBookCount ,Model model,@SessionAttribute(required=false) Admin admin) {
+	 		int result = adminService.insertOrderAdmin(centerBookNo,orderBookCount,admin);
 	 		if( result>0) {model.addAttribute("title","완료");
 			model.addAttribute("msg","발주완료");
 			model.addAttribute("icon","success");
-			model.addAttribute("loc","/admin/bookListFrm?rePage=1");
+			model.addAttribute("loc","/admin/orderList?type=1&reqPage=1");
 			return "common/msg";
 			}else {
-				model.addAttribute("title","수정실패!");
-				model.addAttribute("msg","책 수정에 실패 했습니다");
+				model.addAttribute("title","실패!");
+				model.addAttribute("msg","실패 했습니다");
 				model.addAttribute("icon","error");	
-				model.addAttribute("loc","/admin/bookListFrm?rePage=1");
+				model.addAttribute("loc","/admin/orderList?type=1&reqPage=1");
 			}
 			return "common/msg";
 	 		
@@ -277,23 +291,38 @@ public class AdminController {
 	 		model.addAttribute("pageNavi",old.getPageNavi());
 	 		model.addAttribute("click",click);
 	 		return "admin/orderList";
-	 		
 	 	}
 	 	
 	 	
 	 	//총관리자 select 부분(발주)
 	 	//총관리자 발주된 책 리스트
-//		@GetMapping(value = "/orderAdmin1")
-//		public String orderAdmin1(AdminOrderBook aob, Model model,int reqPage) {
-//			OrderListData old = adminService.selectOrderList(aob,reqPage);
-//			
-//			model.addAttribute("orderAdmin1",old.getList());
-//			model.addAttribute("pageNavi",old.getPageNavi());
-//			
-//			
-//			return "admin/orderAdmin1";
-//		}
-	 	
+	@GetMapping(value = "/order")
+ 		  public String orderAdmin1(Model model,int reqPage) {
+			OrderListData old =  adminService.selectAllOrderList(reqPage);
+			
+			model.addAttribute("orderList",old.getList());
+			model.addAttribute("pageNavi",old.getPageNavi());
+			
+			
+			return "admin/order";
+		}
+	// 발주 변경
+	@GetMapping(value = "/orderCheck")
+	public String orderCheck(int orderAllCheck,int orderNo, Model model) {
+		int result = adminService.updateOrdercheck(orderAllCheck,orderNo);
+		 if( result>0) {	model.addAttribute("title","수정성공");
+			model.addAttribute("msg","책 수정에 성공했습니다");
+			model.addAttribute("icon","success");
+			model.addAttribute("loc","/admin/order?reqPage=1");
+			return "common/msg";
+			}else {
+				model.addAttribute("title","수정실패!");
+				model.addAttribute("msg","책 수정에 실패 했습니다");
+				model.addAttribute("icon","error");	
+				model.addAttribute("loc","/admin/order?reqPage=1");
+			}
+			return "common/msg";
+	}
 	 	
 	 	
 	 	//update-> 발주 승인하면 

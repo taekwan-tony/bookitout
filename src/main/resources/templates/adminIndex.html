@@ -50,7 +50,7 @@
                 <li><a href="/admin/bookListFrm?rePage=1">책 리스트</a></li>
                 <li><a href="/admin/insertBookFrm">책 등록</a></li>
                 <th:block th:if="${session.admin.adminType}==1">
-                	<li><a href="/admin/orderAdmin1">발주승인</a></li>
+                	<li><a href="/admin/order?reqPage=1">발주승인</a></li>
                 </th:block>
             </ul>
             </li>
@@ -136,7 +136,7 @@
                                 <td th:text="${admin.openingDay}"></td>
                                 <td th:text="${admin.adminEmail}"></td>
                                 <td th:text="${admin.adminPhone}"></td>
-                                <td><a href="/admin/bookList">책 재고관리</a></td>
+                                <td><a href="/admin/admin2BookList?reqPage=1">책 재고관리</a></td>
                                 <td>
                                     <button class="btn-type2 btn">수정</button>
                                     <button class="btn-type2 btn">삭제</button>

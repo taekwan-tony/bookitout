@@ -144,16 +144,18 @@ public class FaqService {
 		return fld;
 	}
 
+	@Transactional
 	public int deleteFaq(int faqNo) {
 		int result = faqDao.deleteFaq(faqNo);
 		return result;
 	}
-
+	
 	public Faq selectOneFaq(int faqNo) {
 		Faq f = faqDao.selectOneFaq(faqNo);
 		return f;
 	}
 
+	@Transactional
 	public int updateFaq(Faq f) {
 		int result = faqDao.updateFaq(f);
 		return result;

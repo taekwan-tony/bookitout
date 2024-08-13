@@ -350,4 +350,29 @@ public class BookService {
 		return bld;
 	}
 
+	public List<Book> selectThreeBook() {
+		List<Book> bList = bookDao.selectThreeBook();
+		
+		return bList;
+	}
+	public List<Book> selectFiveBook() {
+		List<Book> bList = bookDao.selectFiveBook();
+		
+		return bList;
+	}
+
+	public int selectBookCommentCount(int bookNo) {
+		int commentCount=bookDao.selectBookCommentCount(bookNo);
+		return commentCount;
+	}
+
 }
+
+
+
+
+
+
+
+
+

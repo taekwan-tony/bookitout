@@ -507,12 +507,29 @@ public class BookDao {
 		return likeCount;
 	}
 
+	public List<Book> selectThreeBook() {
+		String query = "select * from (select rownum as rnum, b.* from (select * from book order by 1 desc)b) where rnum between 5 and 8";
+		List list = jdbc.query(query, bookRowMapper);
+		return list;
+	}
+	public List<Book> selectFiveBook() {
+		String query = "select * from (select rownum as rnum, b.* from (select * from book order by book_genre desc)b) where rnum between 1 and 5";
+		List list = jdbc.query(query, bookRowMapper);
+		return list;
+	}
 	public List<CenterMap> selectOneMap(int adminNo) {
 		String query = "SELECT * FROM CENTER_MAP JOIN ADMIN_TBL USING(ADMIN_NO) WHERE ADMIN_NO = ?";
 		Object[] params = {adminNo};
 		List<CenterMap> centerMap = jdbc.query(query, centerMapRowMapper, params);
 		System.out.println(centerMap);
 		return centerMap;
+	}
+
+	public int selectBookCommentCount(int bookNo) {
+		String query = "SELECT COUNT(*) FROM BOOK_COMMENT WHERE BOOK_REF=? and BOOK_COMMENT_REF is null";
+		Object[] params = {bookNo};
+		int commentCount = jdbc.queryForObject(query, Integer.class, params);
+		return commentCount;
 	}
 
 	public Admin selectOneAdmin(Admin admin, int adminNo) {

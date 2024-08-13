@@ -10,6 +10,48 @@
 	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
+<style>
+	.main-second-wrap>div{
+		margin-bottom : 100px;
+		width:1200px;
+		margin : 50px auto;
+	}
+	.main-book-visual-wrap{
+		width:1200px;
+		display : flex;
+		margin : 0 auto;
+		justify-content : space-between;
+		 
+	}
+	.main-book-title{
+		width : 1200px;
+	}
+	.main-book-visual-wrap>div{
+		width: 280px;
+	}
+	.main-book-visual-wrap>div>div>a>img{
+		width: 280px;
+	}
+	.main-book-visual-wrap>div>div{
+		margin-top : 15px;
+	}
+	.main-book-visual-wrap1{
+		width:1200px;
+		display : flex;
+		margin : 0 auto;
+		justify-content : space-between;
+		 
+	}
+	.main-book-visual-wrap1>div{
+		width: 200px;
+	}
+	.main-book-visual-wrap1>div>div>a>img{
+		width: 200px;
+	}
+	.main-book-visual-wrap1>div>div{
+		margin-top : 15px;
+	}
+ </style>
 <body>
 	<th:block th:include="common/header"></th:block>
     
@@ -43,45 +85,59 @@
                 <div class="swiper-button-next"></div>
             </div>
         </div>
-        
-        <div class="clear"></div>
-        
-        <div class="pagination">
-            <ul>
-                <!-- <li><a class="page-item" href="#"><span><i class="fa-solid fa-angles-left"></i></span></a></li> -->
-                <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-left"></i></span></a></li>
-                <li><a class="page-item active-page" href="#">1</a></li>
-                <li><a class="page-item" href="#">2</a></li>
-                <li><a class="page-item" href="#">3</a></li>
-                <li><a class="page-item" href="#">4</a></li>
-                <li><a class="page-item" href="#">5</a></li>
-                <li><a class="page-item" href="#">6</a></li>
-                <li><a class="page-item" href="#">7</a></li>
-                <li><a class="page-item" href="#">8</a></li>
-                <li><a class="page-item" href="#">9</a></li>
-                <li><a class="page-item" href="#">10</a></li>
-                <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-right"></i></span></a></li>
-                <!-- <li><a class="page-item" href="#"><span><i class="fa-solid fa-angles-right"></i></span></a></li> -->
-            </ul>
+        <!-- 조회 순   -->
+        <div class="main-second-wrap">
+	        <div class="main-book-title">
+	        	<h2>급상승! 많이 보고 있는 상품!</h2>
+	        </div>
+	        <div class="main-book-visual-wrap">
+	            <th:block th:each="b : ${bList}">
+		            <div>
+		                <div class="main-book-wrap">
+				           <a th:href="@{/book/detail?(bookNo=${b.bookNo})}">
+				              <img th:src="@{/book/{filename}(filename=${b.bookImg})}" alt="">
+				           </a>
+		                </div>
+		                <div>
+		                	<a th:href="@{/book/detail?(bookNo=${b.bookNo})}">
+				              <span th:text="${b.bookGenre}"></span>
+				           </a>
+		                </div>
+		                <div>
+		                	<a th:href="@{/book/detail?(bookNo=${b.bookNo})}">
+				              <span th:text="${b.bookName}"></span>
+				           </a>
+		                </div>
+		            </div>
+	             </th:block>
+	        </div>
         </div>
         
-        <div class="clear"></div>
-        
-        <div class="btnBox">
-            <button class="btn-type1 btn">버튼1</button>
-            <button class="btn-type2 btn">버튼2</button>
-            <button class="btn-type3 btn">버튼3</button>
-            <button class="btn-type4 btn">버튼4</button>
-        </div>
-        
-        <div class="clear"></div>
-
-        <div class="select">
-            <select>
-                <option>옵션1</option>
-                <option>옵션2</option>
-                <option>옵션3</option>
-            </select>
+        <div class="main-second-wrap">
+	        <div class="main-book-title">
+	        	<h2>장르별 베스트 5</h2>
+	        </div>
+	        <div class="main-book-visual-wrap1">
+	            <th:block th:each="b1 : ${bList1}">
+		            <div>
+		                <div class="main-book-wrap">
+				           <a th:href="@{/book/detail?(bookNo=${b1.bookNo})}">
+				              <img th:src="@{/book/{filename}(filename=${b1.bookImg})}" alt="">
+				           </a>
+		                </div>
+		                <div>
+		                	<a th:href="@{/book/detail?(bookNo=${b1.bookNo})}">
+				              <span th:text="${b1.bookGenre}"></span>
+				           </a>
+		                </div>
+		                <div>
+		                	<a th:href="@{/book/detail?(bookNo=${b1.bookNo})}">
+				              <span th:text="${b1.bookName}"></span>
+				           </a>
+		                </div>
+		            </div>
+	             </th:block>
+	        </div>
         </div>
     </main>
     

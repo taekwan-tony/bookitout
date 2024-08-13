@@ -61,7 +61,7 @@ public class NoticeService {
 		}
 		pageNavi +="</ul>";
 		pageNavi +="</ul></div>";
-		NoticeListData nld = new NoticeListData(list, pageNavi);
+		NoticeListData nld = new NoticeListData(list, pageNavi,totalCount);
 		return nld;
 	}
 
@@ -105,7 +105,7 @@ public class NoticeService {
 		
 		List list = noticeDao.selectAllNotice(start,end,keyword);
 		
-		int totalCount = noticeDao.totalCount();
+		int totalCount = noticeDao.totalCount(keyword);
 		int totalPage = 0;
 		if(totalCount%numPerPage ==0) {
 			totalPage = totalCount/numPerPage;
@@ -143,7 +143,7 @@ public class NoticeService {
 		}
 		pageNavi +="</ul>";
 		pageNavi +="</ul></div>";
-		NoticeListData nld = new NoticeListData(list, pageNavi);
+		NoticeListData nld = new NoticeListData(list, pageNavi,totalCount);
 		return nld;
 	}
 

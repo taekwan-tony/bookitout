@@ -37,6 +37,8 @@ public class BookController {
 	public String detail(Book book1, Model model, int bookNo, String check, @SessionAttribute(required = false) Member member, CenterMap cm) {
 		Book book = bookService.selectOneBook(book1);
 		model.addAttribute("book", book);
+		int commentCount= bookService.selectBookCommentCount(bookNo);
+		
 		
 //		CenterMap list = bookService.selectCenterMap(cm);
 //		model.addAttribute("cm", cm);
@@ -56,6 +58,7 @@ public class BookController {
 			return "common/msg";
 		}else {
 			model.addAttribute("b", b);
+			model.addAttribute("commentCount", commentCount);
 			//System.out.println(b);
 			return "book/detail";
 		}
@@ -141,13 +144,11 @@ public class BookController {
 	}
 	
 	@GetMapping(value="/centerMap")
-	public String centerMap(int adminNo, String adminName, String adminAddr, String adminPhone, String openingDay, String latitude, String longitude, Model model) {
+	public String centerMap(int adminNo, String adminName, String adminAddr, String latitude, String longitude, Model model) {
 		//List<CenterMap> centerMap = bookService.selectOneMap(adminNo);
 		model.addAttribute("adminNo", adminNo);
 		model.addAttribute("adminName", adminName);
 		model.addAttribute("adminAddr", adminAddr);
-		model.addAttribute("adminPhone", adminPhone);
-		model.addAttribute("openingDay", openingDay);
 		model.addAttribute("latitude", latitude);
 		model.addAttribute("longitude", longitude);
 		return "book/centerMap";

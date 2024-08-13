@@ -94,12 +94,13 @@
 		line-height: 39px;
 	}
 	#inputComment{
+		float: right;
 		background-color: #AF8F6F;
 		color: white;
 		margin: 0;
 	}
 	textarea{
-		width: 1048px;
+		width: 1040px;
 		box-sizing: border-box;
 		background-color: #F8F4E1;
 		height: 39px;
@@ -117,7 +118,7 @@
 	}
 	#subdirectory{
 		font-size: 39px;
-		margin-left: 0;
+		margin: 0;
 		color: #74512D;
 	}
 	#account{
@@ -166,6 +167,9 @@
 		color: #74512D;
 		font-weight: bold;
 	}
+	.comment>:first-child{
+		margin: 0;
+	}
 	.underLine{
 		width: 100%;
 		height: 1px;
@@ -185,7 +189,8 @@
 		margin: 0;
 	}
 	.updatehidden{
-		width: 750px;
+		width: 735px;
+		margin: 0;
 	}
 	.noComment{
 		margin-top: 80px;
@@ -197,12 +202,16 @@
 	}
 	.comment-link{
 		float: right;
+		margin: 0;
+	}
+	.comment-link>:last-child{
+		margin: 0;
 	}
 	.comment-wrap{
-		width: 800px;
 		margin-right: 0;
 	}
 	.inp{
+		float: right;
 		margin: 0;
 	}
 	.material-symbols-outlined{
@@ -212,6 +221,34 @@
 	}
 	.end{
 		float: right;
+		margin: 0
+	}
+	.comment-info{
+	}
+	#likeCount{
+		margin: 0;
+	}
+	#repLikeCount{
+		margin: 0;
+	}
+	#boardCommentContent{
+		margin: 0;
+		width: 1065px;
+	}
+	#reCon{
+		width: 1020px;
+		margin: 0;
+	}
+	#memberImage{
+		width: 39px;
+		height: 39px;
+		line-height: 39px;
+	}
+	.margin0{
+		margin: 0;
+	}
+	#reContent{
+		width: 780px;
 	}
 </style>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -269,7 +306,7 @@
 					<ul class="comment">
 						<li>
 							<th:block th:each="m : ${memberList}">
-								<img th:if=${session.member.memberNo==m.memberNo&&m.memberImg!=null} class="memberImage" id="memberImage" th:src="${m.memberImg}">
+								<img th:if=${session.member.memberNo==m.memberNo&&m.memberImg!=null} class="memberImage" id="memberImage" th:src="@{/photo/{filename}(filename=${session.member.memberImg})}">
 								<span th:if=${session.member.memberNo==m.memberNo&&m.memberImg==null} class="material-icons" id="account">account_box</span>
 							</th:block>
 						</li>
@@ -293,7 +330,7 @@
 						<li> 
 							<th:block th:each="bcm : ${list}">
 								<th:block th:if="${bcm.memberId==bc.boardCommentWriter&&bcm.boardCommentNo==bc.boardCommentNo}">
-									<img th:if=${bcm.memberImg!=null} class="memberImage" id="memberImage" th:src="${bcm.memberImg}">
+									<img th:if=${bcm.memberImg!=null} class="memberImage" id="memberImage" th:src="@{/photo/{filename}(filename=${bcm.memberImg})}">
 									<span th:if=${bcm.memberImg==null} class="material-icons" id="accountbox">account_box</span>
 								</th:block>
 							</th:block>
@@ -303,34 +340,35 @@
 								<span th:text="${bc.boardCommentWriter}"></span> 
 								<span th:text="${bc.boardCommentDate}"></span> 
 								<span class="like-box">
-									<th:block th:each="il:${isLikeList}">
-										<th:block>
+									<th:block th:if="${session.member!=null}">
+										<th:block th:each="il:${isLikeList}">
 											<span th:if="${il.isLike == 1 && session.member.memberNo==il.memberNo && bc.boardCommentNo==il.boardCommentNo}"
 											class="material-icons heart" id="la"
 											th:onclick="likePush(this,[[${bc.boardCommentNo}]]);">favorite</span>
-											<span th:if="${il.isLike == 0&&session.member.memberNo==il.memberNo && bc.boardCommentNo==il.boardCommentNo}" class="material-icons heart" id="el"
-											th:onclick="likePush(this,[[${bc.boardCommentNo}]]);">favorite_border</span>
-										</th:block>	
-										<th:block>
-											<span th:if="${il.isLike == 0 && session.member.memberId==null && bc.boardCommentNo==il.boardCommentNo}" class="material-icons heart" id="tel"
+											<span th:if="${il.isLike == 0 && session.member.memberNo==il.memberNo && bc.boardCommentNo==il.boardCommentNo}" class="material-icons heart" id="el"
 											th:onclick="likePush(this,[[${bc.boardCommentNo}]]);">favorite_border</span>
 										</th:block>	
 									</th:block>	
+									<th:block th:if="${session.member==null}">
+										<span class="material-icons heart" id="tel"
+										th:onclick="likePush(this,[[${bc.boardCommentNo}]]);">favorite_border</span>
+									</th:block>	
 									<th:block th:each="lc:${boardCommentList}">
-										<th:blook th:if="${lc.boardCommentNo==bc.boardCommentNo}">
+										<th:block th:if="${lc.boardCommentNo==bc.boardCommentNo}" id="likeCount">
 											<span th:text="${lc.likeCount}"></span>
-										</th:blook>
+										</th:block>
 									</th:block>
 								</span>
-								<span class="comment-content" th:text="${bc.boardCommentContent}"></span>
 							</p>
-							<div class="input-item" style="display: none;">
-								<textarea name="boardCommentContent"
-									th:text="${bc.boardCommentContent}" class="updatehidden"></textarea>
-							</div>
+						</li>
+						<li>	
+							<span class="comment-content" th:text="${bc.boardCommentContent}"></span>
+						</li>
+						<li class="input-item" style="display: none;">
+							<textarea name="boardCommentContent"
+							th:text="${bc.boardCommentContent}" class="updatehidden" id="reContent"></textarea>
 						</li>
 						<li class="end">
-							<p class="comment-link">
 								<th:block th:if="${session.member != null}">
 									<th:block
 										th:if="${session.member != null && (session.member.memberId == bc.boardCommentWriter || session.member.memberId == b.boardWriter)}">
@@ -342,8 +380,7 @@
 											th:onclick="deleteComment(this,[[${bc.boardCommentNo}]],[[${b.boardNo}]]);">삭제</a>
 									</th:block>
 										<a href="javascript:void(0)" class="recShow">답글달기</a>
-								</th:block>
-							</p>
+							</th:block>
 						</li>	
 					</ul>
 					<div class="underLine"></div>
@@ -352,13 +389,17 @@
 							<ul class="comment">
 								<li>
 									<span class="material-icons" id="subdirectory">subdirectory_arrow_right</span>
+									<th:block th:each="m : ${memberList}">
+										<img th:if=${session.member.memberNo==m.memberNo&&m.memberImg!=null} class="memberImage" id="memberImage" th:src="@{/photo/{filename}(filename=${m.memberImg})}">
+										<span th:if=${session.member.memberNo==m.memberNo&&m.memberImg==null} class="material-icons" id="account">account_box</span>
+									</th:block>
 								</li>
 								<li>
 									<input type="hidden" name="boardCommentWriter" th:value="${session.member.memberId}"> 
 									<input type="hidden" name="boardRef" th:value="${b.boardNo}">
 									<input type="hidden" name="boardCommentRef" th:value="${bc.boardCommentNo}">
 									<div class="input-item">
-										<textarea name="boardCommentContent"></textarea>
+										<textarea name="boardCommentContent" id="reCon"></textarea>
 									</div>
 								</li>
 								<li class="inp">
@@ -376,7 +417,7 @@
 							<th:block> 
 							<th:block th:each="bcm : ${list}">
 								<th:block th:if="${bcm.memberId==bcc.boardCommentWriter&&bcm.boardCommentNo==bcc.boardCommentNo}">
-									<img th:if=${bcm.memberImg!=null} class="memberImage" id="memberImage" th:src="${bcm.memberImg}">
+									<img th:if=${bcm.memberImg!=null} class="memberImage" id="memberImage" th:src="@{/photo/{filename}(filename=${bcm.memberImg})}">
 									<span th:if=${bcm.memberImg==null} class="material-icons" id="accountbox">account_box</span>
 								</th:block>
 							</th:block>
@@ -385,27 +426,27 @@
 								<span th:text="${bcc.boardCommentWriter}"></span> 
 								<span th:text="${bcc.boardCommentDate}"></span>
 								<span class="like-box"> 
-									<th:block th:each="il:${isLikeList}">
-										<th:block>
+									<th:block th:if="${session.member!=null}">
+										<th:block th:each="il:${isLikeList}">
 											<span th:if="${il.isLike == 1 && session.member.memberNo==il.memberNo && bcc.boardCommentNo==il.boardCommentNo}"
 											class="material-icons heart" id="la"
 											th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite</span>
 											<span th:if="${il.isLike == 0&&session.member.memberNo==il.memberNo && bcc.boardCommentNo==il.boardCommentNo}" class="material-icons heart" id="el"
 											th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite_border</span>
 										</th:block>	
-										<th:block>
-											<span th:if="${il.isLike == 0 && session.member.memberId==null && bcc.boardCommentNo==il.boardCommentNo}" class="material-icons heart" id="tel"
-											th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite_border</span>
-										</th:block>	
+									</th:block>	
+									<th:block th:if="${session.member==null}">
+										<span class="material-icons heart" id="tel"
+										th:onclick="likePush(this,[[${bcc.boardCommentNo}]]);">favorite_border</span>
 									</th:block>	
 								<th:block th:each="lc:${boardCommentList}">
-									<th:blook th:if="${lc.boardCommentNo==bcc.boardCommentNo}">
+									<th:block th:if="${lc.boardCommentNo==bcc.boardCommentNo}" id="repLikeCount">
 										<span th:text="${lc.likeCount}"></span>
-									</th:blook>
+									</th:block>
 								</th:block>
 								</span>
+								</p>
 								<span class="comment-content" th:text="${bcc.boardCommentContent}"></span>
-							</p>
 							<div class="input-item" style="display: none;">
 								<textarea name="boardCommentContent"
 									th:text="${bcc.boardCommentContent}" class="updatehidden"></textarea>
@@ -445,6 +486,7 @@
 					"modifyComplete(this," + boardCommentNo + "," + boardNo
 							+ ");");
 			$(obj).next().text("수정 취소");
+			$(obj).next().addClass("margin0");
 			$(obj).next().attr(
 					"onclick",
 					"modifyCancel(this," + boardCommentNo + "," + boardNo
@@ -477,6 +519,7 @@
 					"modifyComment(this," + boardCommentNo + "," + boardNo
 							+ ");");
 			$(obj).text("삭제");
+			$(obj).removeClass("margin0");
 			$(obj).attr(
 					"onclick",
 					"deleteComment(this," + boardCommentNo + "," + boardNo
