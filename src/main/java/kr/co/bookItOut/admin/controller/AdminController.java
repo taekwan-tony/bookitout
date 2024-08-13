@@ -253,8 +253,8 @@ public class AdminController {
 	 //--발주창-------------------------------------------------
 	 	//판매자가 값을 총관리자에게 보내주기
 	 	@GetMapping(value = "/centerInventoryOrder")
-	 	public String centerInventoryOrder(CenterInventory centerInventory, int orderBookCount ,Model model) {
-	 		int result = adminService.insertOrderAdmin(centerInventory,orderBookCount);
+	 	public String centerInventoryOrder(int centerBookNo, int orderBookCount ,Model model,@SessionAttribute(required=false) Admin admin) {
+	 		int result = adminService.insertOrderAdmin(centerBookNo,orderBookCount,admin);
 	 		if( result>0) {model.addAttribute("title","완료");
 			model.addAttribute("msg","발주완료");
 			model.addAttribute("icon","success");
@@ -296,17 +296,33 @@ public class AdminController {
 	 	
 	 	//총관리자 select 부분(발주)
 	 	//총관리자 발주된 책 리스트
-//		@GetMapping(value = "/orderAdmin1")
-//		public String orderAdmin1(AdminOrderBook aob, Model model,int reqPage) {
-//			OrderListData old = adminService.selectOrderList(aob,reqPage);
-//			
-//			model.addAttribute("orderAdmin1",old.getList());
-//			model.addAttribute("pageNavi",old.getPageNavi());
-//			
-//			
-//			return "admin/orderAdmin1";
-//		}
-	 	
+	@GetMapping(value = "/order")
+ 		  public String orderAdmin1(Model model,int reqPage) {
+			OrderListData old =  adminService.selectAllOrderList(reqPage);
+			
+			model.addAttribute("orderList",old.getList());
+			model.addAttribute("pageNavi",old.getPageNavi());
+			
+			
+			return "admin/order";
+		}
+	// 발주 변경
+	@GetMapping(value = "/orderCheck")
+	public String orderCheck(int orderAllCheck,int orderNo, Model model) {
+		int result = adminService.updateOrdercheck(orderAllCheck,orderNo);
+		 if( result>0) {	model.addAttribute("title","수정성공");
+			model.addAttribute("msg","책 수정에 성공했습니다");
+			model.addAttribute("icon","success");
+			model.addAttribute("loc","/admin/order?reqPage=1");
+			return "common/msg";
+			}else {
+				model.addAttribute("title","수정실패!");
+				model.addAttribute("msg","책 수정에 실패 했습니다");
+				model.addAttribute("icon","error");	
+				model.addAttribute("loc","/admin/order?reqPage=1");
+			}
+			return "common/msg";
+	}
 	 	
 	 	
 	 	//update-> 발주 승인하면 

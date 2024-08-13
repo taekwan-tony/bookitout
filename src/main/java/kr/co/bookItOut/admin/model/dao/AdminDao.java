@@ -191,9 +191,9 @@ public class AdminDao {
 		return (CenterInventory)list.get(0);
 	}
 		
-	public int inserOrderAdmin(CenterInventory c,int orderBookCount) {
+	public int inserOrderAdmin(int centerBookNo,int orderBookCount,Admin admin) {
 		String query = "insert into order_tbl values(order_tbl_seq.nextval,?,to_char(sysdate,'yyyy-mm-dd'),1,?,?)";
-		Object[] params = {orderBookCount,c.getAdminNo(),c.getBookNo2()};
+		Object[] params = {orderBookCount,admin.getAdminNo(),centerBookNo};
 		
 		int result = jdbc.update(query,params);
 		return result;
@@ -209,11 +209,12 @@ public class AdminDao {
 				+ "(select rownum as rnum, o.* from "
 				+ "(SELECT * " + 
 				"FROM book " + 
-				"left JOIN order_tbl ON book.book_no = order_tbl.book_no " + 
-				"left JOIN admin_tbl ON order_tbl.admin_no = admin_tbl.admin_no " + 
+				"JOIN order_tbl ON book.book_no = order_tbl.book_no " + 
+				"JOIN admin_tbl ON order_tbl.admin_no = admin_tbl.admin_no " + 
 				"WHERE admin_tbl.admin_no = ? and order_check=?)o) where rnum between ? and ?";
 		Object[] params = {admin.getAdminNo(),type,start,end};
 		List list = jdbc.query(query,adminOrderBookRowMapper,params);
+		System.out.println("list="+list.size());
 		return list;
 	}
 	//가맹점 발주버튼 눌렀을때 
@@ -227,18 +228,38 @@ public class AdminDao {
 	public AdminCenterBook selectOneOrder(int bookNo, Admin admin) {
 		String query = "SELECT * " + 
 				"FROM book " + 
-				"left JOIN center_inventory ON book.book_no = center_inventory.book_no2 " + 
-				"left JOIN admin_tbl ON center_inventory.admin_no = admin_tbl.admin_no " + 
+				"JOIN center_inventory ON book.book_no = center_inventory.book_no2 " + 
+				"JOIN admin_tbl ON center_inventory.admin_no = admin_tbl.admin_no " + 
 				"WHERE admin_tbl.admin_no = ? and book.book_no= ?";
 		Object[] params = {admin.getAdminNo(),bookNo};
 		List list = jdbc.query(query,adminCenterBookRowMapper,params);
-		
 		return (AdminCenterBook)list.get(0);
 	}
-	
-
-
-	
-	
-	
+	public List selectAllOrderList(int start, int end) {
+	String query =	"select * from " + 
+			"(select rownum as rnum, o.* from " + 
+			"(SELECT * " + 
+			"FROM book " + 
+			"JOIN order_tbl ON book.book_no = order_tbl.book_no " + 
+			"JOIN admin_tbl ON order_tbl.admin_no = admin_tbl.admin_no order by order_check asc)o) where rnum between ? and ?";
+		Object[] params = {start,end};
+		List list = jdbc.query(query,adminOrderBookRowMapper,params);
+		return list;
+	}
+	public int selectOrderListTotoalCount() {
+		String qurey = "select count(*) from " + 
+				"(select rownum as rnum, o.* from " + 
+				"(SELECT * " + 
+				"FROM book " + 
+				"JOIN order_tbl ON book.book_no = order_tbl.book_no " + 
+				"JOIN admin_tbl ON order_tbl.admin_no = admin_tbl.admin_no )o)";
+		int totalCount = jdbc.queryForObject(qurey,Integer.class);
+		return totalCount;
+	}
+	public int updateOrderCheck(int orderAllCheck, int orderNo) {
+		String query =  "update order_tbl set order_check=? where order_no=?";
+		Object[] params = {orderAllCheck,orderNo};
+		int result = jdbc.update(query,params);
+		return result;
+	}
 }

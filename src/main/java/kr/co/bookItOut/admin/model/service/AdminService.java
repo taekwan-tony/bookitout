@@ -277,9 +277,9 @@ public int updateDetailBook(Book b) {
 	return 0;
 }
 //발주된 수량 보내줌
-public int insertOrderAdmin(CenterInventory centerInventory, int orderBookCount) {
-	CenterInventory c = adminDao.selectCenterInventory(centerInventory);
-	int result = adminDao.inserOrderAdmin(c,orderBookCount);
+public int insertOrderAdmin(int centerBookNo, int orderBookCount, Admin admin) {
+	//CenterInventory c = adminDao.selectCenterInventory(centerBookNo);
+	int result = adminDao.inserOrderAdmin(centerBookNo,orderBookCount,admin);
 	if(result>0) {
 		return result;
 	}
@@ -293,7 +293,6 @@ public OrderListData selectAllOrder(Admin admin, int type, int reqPage) {
 	
 	int end = reqPage*numPerPage;
 	int start = end - numPerPage +1;
-	System.out.println("발주중"+type);
 	int totalCount = adminDao.selectOrderTotoalCount(admin,type); 	
 	
 	List list = adminDao.selectOrderList(start,end,admin,type);
@@ -343,8 +342,67 @@ public OrderListData selectAllOrder(Admin admin, int type, int reqPage) {
 public  AdminCenterBook selectOneOrder(int bookNo, Admin admin) {
 	//Book book  = adminDao.selectOrderBook(bookNo);
 	AdminCenterBook acb = adminDao.selectOneOrder(bookNo,admin);
-	System.out.println("ddddd"+acb);
 	return acb;
+}
+
+//총관리자 발주 화면
+
+public OrderListData selectAllOrderList(int reqPage) {
+int numPerPage = 10;
+	
+	int end = reqPage*numPerPage;
+	int start = end - numPerPage +1;
+	
+	List list = adminDao.selectAllOrderList(start,end);
+
+	int totalCount = adminDao.selectOrderListTotoalCount(); 	
+	int totalPage = 0;
+	if(totalCount%numPerPage ==0) {
+		totalPage = totalCount/numPerPage;
+	}else {
+		totalPage = totalCount/numPerPage + 1;
+	}
+	int pageNaviSize = 5;
+	int pageNo = (reqPage-1)/pageNaviSize*pageNaviSize + 1;
+	String pageNavi = "<div class='pagination'><ul>";
+	if(pageNo !=1) {
+		pageNavi += "<li>";
+		pageNavi += "<a class ='page-item page-btn' href='/admin/order?reqPage="+(pageNo-1)+"'>";
+		pageNavi += "<span><i class='fa-solid fa-angle-left'></i></span>";
+		pageNavi += "</a></li>";
+	}
+	for(int i =0;i<pageNaviSize;i++) {
+		pageNavi += "<li>";
+		if(pageNo==reqPage) {
+			pageNavi += "<a class ='page-item active-page' href='/admin/order?reqPage="+pageNo+"'>";
+		}else {
+			pageNavi += "<a class ='page-item' href='/admin/order?reqPage="+pageNo+"'>";
+		}
+		pageNavi += pageNo;
+		pageNavi += "</a></li>";
+		pageNo++;
+		if(pageNo>totalPage) {
+			break;
+		}
+	}
+	if(pageNo <= totalPage) {
+		pageNavi += "<li>";
+		pageNavi += "<a class ='page-item page-btn' href='/admin/order?reqPage="+pageNo+"'>";
+		pageNavi += "<span><i class='fa-solid fa-angle-right'></i></span>";
+		pageNavi += "</a></li>";
+	}
+	pageNavi +="</ul>";
+	pageNavi +="</ul></div>";
+	OrderListData old = new OrderListData(list, pageNavi);
+	return old;
+}
+
+public int updateOrdercheck(int orderAllCheck, int orderNo) {
+	int result = adminDao.updateOrderCheck(orderAllCheck,orderNo);
+	if(result>0) {
+		return result;
+	}
+	return 0;
 }
 	
 
