@@ -1,11 +1,7 @@
 /* adminindex */
-.nav1,
-.wrap {
-    float: left;
-}
 
 .wrap{
-    width: 82%;
+    width: 100%;
 }
 
 .main-header-wrap {

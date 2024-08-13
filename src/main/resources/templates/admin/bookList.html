@@ -21,70 +21,10 @@
 		padding: 10px 0px!important ;
 	}
 	
-	
-	
 	</style>
 </head>
 <body>
-<th:block th:if="${session.admin.adminType}==1">
-    <div class="nav1">
-        <div class="icons-menu">
-            <ul>
-                <li class="arrow">
-                    <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
-                </li>
-                <li class="icon1">
-                    <a href="/admin/adminIndex?rePage=1"><i class="fa-solid fa-house"></i></a>
-                </li>
-                <li class="icon1">
-                    <a href="/admin/bookListFrm?rePage=1"><i class="fa-solid fa-book-open"></i></a>
-                </li>
-                <li class="icon1">
-                    <a href="#"><i class="fa-solid fa-circle-user"></i></a>
-                </li>
-                <li class="icon1">
-                    <a href="#"><i class="fa-brands fa-android"></i></a>
-                </li>
-            </ul>
-        </div>
-        <div class="admin-menu">
-        <ul>
-            <li>
-                <h1 class="logo1">
-                    <a href="/admin/adminIndex?rePage=1">책키라웃 관리자</a>
-                </h1>
-            </li>
-            <li>
-            <a href="/admin/adminIndex?rePage=1">판매점 관리</a>
-            <ul class="sub-menu">
-                <li><a href="/admin/adminIndex?rePage=1">판매점 리스트</a></li>
-                <li><a href="/admin/insertAdminFrm">판매점 등록</a></li>
-            </ul>
-            </li>
-            <li>
-            <a href="#">책 관리</a>
-            <ul class="sub-menu">
-                <li><a href="/admin/bookListFrm?rePage=1">책 리스트</a></li>
-                <li><a href="/admin/insertBookFrm">책 등록</a></li>
-            </ul>
-            </li>
-            <li>
-            <a href="#">1대1 문의</a>
-            </li>
-            <li>
-            <a href="#">챗봇</a>
-            </li>
-        </ul>
-        </div>
-    </div>
-    </th:block>
-    <!-- 네비 사이드 메뉴 끝 -->
-     <th:block th:if="${session.admin.adminType}==1">
-    <div class="wrap">
-    </th:block>
-     <th:block th:if="${session.admin.adminType}==2">
     <div class="wrap" style="width: 100%!important;">
-    </th:block>
         <!-- 헤더 -->
         <div>
             <div class="main-header-wrap">
@@ -137,7 +77,9 @@
               					<th style="width: 8%">출판일</th>
               					<th style="width: 9%">등록일</th>
               					<th style="width: 8%">판매가격</th>
+              					<th:block th:if="${session.admin.adminType}==1">
               					<th style="width: 6%">발주</th>
+              					</th:block>
               					<th style="width: 6%">수정/상세수정</th> 
               					<th:block th:if="${session.admin.adminType}==1">
               					<th style="width: 6%">삭제</th>
@@ -194,15 +136,15 @@
               					<td>
               						<input type="text" name="bookPrice" th:value=${book.bookPrice}>
               					</td>
+              					<th:block th:if="${session.admin.adminType}==1">
               					<td>
 	              					<button type="button" class="btn-type2 btn orderAdmin" id="orderAdmin" th:onclick="orderAdminBook(this, [[${book.bookNo}]]);">발주창</button>
               					</td>
+              					</th:block>
               					<td>
-              						
 	              					<button type="button" class="btn-type2 btn updateBook" id="updateBook" th:onclick="updateBook1(this, [[${book.bookNo}]]);">수정</button>
 	              					<!-- <a href="/admin/updateDetail" class="btn-type2 btn">상세</a> 이런식으로 넣어줘도 됨 -->
 	              					<button type="button" class="btn-type2 btn updateDetail" id="updateDetail" th:onclick="updateDetail1(this, [[${book.bookNo}]]);">상세</button>
-              					
               					</td>
               					<th:block th:if="${session.admin.adminType}==1">
               					<td>
