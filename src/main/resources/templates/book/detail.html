@@ -595,10 +595,10 @@
 		$(".recShow").on("click", function(){
 			// 답글달기 버튼 중 클릭한 답글달기 버튼이 몇번째 버튼인지 조회
 			const index = $(".recShow").index(this);
-			if($(this).text() === "답글"){
-				$(this).text("취소");
-			}else{
+			if($(this).text() === "취소"){
 				$(this).text("답글");
+			}else{
+				$(this).text("취소");
 			}
 			$(".inputRecommentBox").eq(index).toggle();
 		});
