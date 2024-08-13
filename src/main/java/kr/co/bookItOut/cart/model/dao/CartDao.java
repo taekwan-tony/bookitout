@@ -39,6 +39,13 @@ public class CartDao {
 		int result = jdbc.update(query, params);
 		return result;
 	}
+	
+	public int insertCart(int bookNo, int memberNo, int count) {
+		String query = "insert into cart_tbl values (CART_SEQ.nextval,?,?,?)";
+		Object[] params = { bookNo, count, memberNo };
+		int result = jdbc.update(query, params);
+		return result;
+	}
 
 	public int selectCart(int bookNo, int memberNo) {
 		String query = "select cart_no from cart_tbl where book_no=? and member_no=?";
@@ -73,6 +80,13 @@ public class CartDao {
 	public int plusCart(int cartNo) {
 		String query = "update cart_tbl set book_cart_count = book_cart_count + 1  where cart_no=?";
 		Object[] params = { cartNo };
+		int result = jdbc.update(query, params);
+		return result;
+	}
+
+	public int plusCart(int cartNo, int count) {
+		String query = "update cart_tbl set book_cart_count = book_cart_count + ?  where cart_no=?";
+		Object[] params = { count, cartNo };
 		int result = jdbc.update(query, params);
 		return result;
 	}

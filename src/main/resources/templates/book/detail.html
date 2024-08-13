@@ -30,7 +30,7 @@
                         <span class="badge">소득공제</span>
                     </div>
                     <div>
-                        <span th:text="${book.bookPrice}" id="price" class="price"></span>
+                        <span th:text="${book.bookPrice}" id="price" class="price"></span><span>원</span>
                     </div>
                     <div>
                         <p>
@@ -276,7 +276,7 @@
                 <div class="inner">
                     <div class="price-info">
                         <span>총 상품 금액</span>
-                        <span id="total" class="total" th:text="${book.bookPrice}"></span>
+                        <span id="total" class="total" th:text="${book.bookPrice}"></span><span>원</span>
                     </div>
                     <div class="bottom-btnBox">
                         <span class="btn-type1 countPM">
@@ -285,8 +285,8 @@
                             <input type="number" id="count" value="1" style="width: 34px;" readonly>
                             <button class="plus" onclick="plus();">+</button>
                         </span>
-                        <button class="btn-type2 btn" th:onclick="addCart([[${book.bookNo}]])">장바구니</button>
-                        <button class="btn-type3 btn" th:onclick="nowPay([[${book.bookNo}]])">바로구매</button>
+                        <button class="btn-type2 btn" th:onclick="addCart(this, [[${book.bookNo}]])">장바구니</button>
+                        <button class="btn-type3 btn" th:onclick="nowPay(this, [[${book.bookNo}]])">바로구매</button>
                     </div>
                 </div>
             </div>
@@ -464,7 +464,9 @@
 		}
 		
 		// 장바구니 버튼
-		function addCart(bookNo) {
+		function addCart(obj, bookNo) {
+			let count = $(obj).prev().children().eq(1).val();
+			console.log(count);
 			$.ajax({
 				url: "/cart/selectCart",
 				type: "get",
@@ -473,9 +475,9 @@
 					const cartNo = data;
 					if (cartNo == 0) {
 						$.ajax({
-							url: "/cart/addCart",
+							url: "/cart/addCart2",
 							type: "get",
-							data: { bookNo: bookNo },
+							data: { bookNo: bookNo, count : count },
 							success: function (data) {
 								console.log(data);
 								swal({
@@ -491,9 +493,9 @@
 					} else {
 						console.log(cartNo);
 						$.ajax({
-							url: "/cart/plusCart",
+							url: "/cart/plusCart2",
 							type: "get",
-							data: { cartNo: cartNo },
+							data: { cartNo: cartNo, count : count },
 							success: function (data) {
 								console.log(data);
 								swal({
@@ -515,8 +517,10 @@
 		}
 		
 		// 바로구매 버튼
-		function nowPay(bookNo) {
-			location.href = "/cart/nowPay?bookNo=" + bookNo;
+		function nowPay(obj, bookNo) {
+			let count = $(obj).prev().prev().children().eq(1).val();
+			console.log(count);
+			location.href = "/cart/nowPay2?bookNo="+bookNo+"&count="+count;
 		}
 	
 		function modifyComment(obj, bookCommentNo, bookNo){
@@ -664,7 +668,7 @@
 		        const price = getPrice();
 		        const count = getCount();
 		        const result = price * count;
-		        totalElement.innerHTML = `${result.toLocaleString()}<span>원</span>`;
+		        totalElement.innerHTML = `${result.toLocaleString()}`;
 		    };
 
 		    // 수량 감소 함수
