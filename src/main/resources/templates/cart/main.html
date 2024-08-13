@@ -75,7 +75,7 @@ margin:50px
 
 
 					<td th:text="${c.bookName}"></td>
-					<td  th:text="${c.bookNo}" id="bookNo" hidden></td>
+					<td  th:text="${c.bookNo}" id="bookNo" class="bookNo" hidden></td>
 
 
 					<td>
@@ -140,8 +140,9 @@ margin:50px
 	</main>
 	<script>
 		function selNow(obj){
-			console.log("클릭");
-			
+			var bookNo = $(obj).closest("tr").find(".bookNo").text();
+			var bookCount = $(obj).closest("tr").find(".count").val();
+			location.href = "/cart/selNow?bookNo="+bookNo+"&bookCount="+bookCount;
 		}
 		function updateTotalCount() {
 		    let total = 0;
