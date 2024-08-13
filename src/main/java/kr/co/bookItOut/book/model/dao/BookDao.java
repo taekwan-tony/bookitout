@@ -112,7 +112,7 @@ public class BookDao {
 	}
 
 	public int selectBookTotalCount() {
-		String query = "select count(*) from book";
+		String query = "select count(*) from book where book_type = '국내도서'";
 		int totalCount = jdbc.queryForObject(query, Integer.class);
 		return totalCount;
 	}
