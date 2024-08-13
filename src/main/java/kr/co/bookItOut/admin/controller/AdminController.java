@@ -118,7 +118,7 @@ public class AdminController {
 	public String admin2BookList(Model model,int reqPage,Book book,@SessionAttribute(required=false) Admin admin) {
 		
 		OrderBookListData obld = adminService.selectAdminBookList(reqPage,book,admin);
-										
+					
 		model.addAttribute("Admin2BookList",obld.getList());
 		model.addAttribute("pageNavi",obld.getPageNavi());
 		
@@ -145,7 +145,7 @@ public class AdminController {
 		book.setAdminNo(admin.getAdminNo());
 		book.setBookImg(filePath);
 		book.setBookDetailImg(filePath1);
-		int result = adminService.insertBook(book);
+		int result = adminService.insertBook(book,admin);
 		if(result>0) {
 			model.addAttribute("title","등록성공");
 			model.addAttribute("msg","책 등록에 성공했습니다.");
@@ -308,10 +308,10 @@ public class AdminController {
 		}
 	// 발주 변경
 	@GetMapping(value = "/orderCheck")
-	public String orderCheck(int orderAllCheck,int orderNo, Model model) {
-		int result = adminService.updateOrdercheck(orderAllCheck,orderNo);
-		 if( result>0) {	model.addAttribute("title","수정성공");
-			model.addAttribute("msg","책 수정에 성공했습니다");
+	public String orderCheck(int orderAllCheck,int orderNo, Model model,int orderQuntity ,int bookNo,int adminNo) {
+		int result = adminService.updateOrdercheck(orderAllCheck,orderNo,orderQuntity,bookNo,adminNo);
+		 if( result>0) {	model.addAttribute("title","발주성공");
+			model.addAttribute("msg","발주 성공했습니다");
 			model.addAttribute("icon","success");
 			model.addAttribute("loc","/admin/order?reqPage=1");
 			return "common/msg";

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.admin.model.dto.AdminCenterBook;
@@ -49,7 +50,6 @@ public class AdminDao {
 		String query = "select * from admin_tbl where admin_no =?";
 		Object[] params = {admin.getAdminNo()};
 		List list = jdbc.query(query,adminRowMapper,params);
-		System.out.println(admin.getAdminNo()+ ","+list);
 		return list;
 	}
 
@@ -115,8 +115,15 @@ public class AdminDao {
 	}
 	//-책 리스트 끝
 	//-책 등록//
-	public int insertBook(Book book) {
-		String qurey = "insert into book values(book_seq.nextval,?,?,?,?,?,to_char(sysdate,'yyyy-mm-dd'),?,?,?,?,?,?,?,0)";
+	public int insertBook(Book book ,Admin admin) {
+		String qurey = "insert all " + 
+				"into admin_tbl(admin_no) values (?);" + 
+				"into center_inventory(center_book_count) values(1);" + 
+				"into book(book_no,book_name,book_writer,book_price,book_publisher,publication_date,enroll_date,book_img,book_detail_content,book_detail_writer,book_detail_img,book_type,book_genre) values (?)" + 
+				"select * from dual";
+				
+				
+				//"insert into book values(book_seq.nextval,?,?,?,?,?,to_char(sysdate,'yyyy-mm-dd'),?,?,?,?,?,?,?,0)";
 		Object[] params = {book.getBookName(),book.getBookWriter(),
 							book.getBookPrice(),book.getBookPublisher(),
 							book.getPublicationDate(),book.getBookImg(),
@@ -125,6 +132,10 @@ public class AdminDao {
 							book.getBookType(),book.getBookGenre()};
 		int result = jdbc.update(qurey,params);
 		return result;
+//		insert all 
+//		into 테이블이름X(컬럼이름AX,컬럼이름BX) values (값X1, 값X2)
+//		into 테이블이름Y(컬럼이름AY,컬럼이름BY) values (값Y1, 값Y2)
+//	    select * from dual;
 	}
 	//-삭제
 	public int deleteBook(int bookNo) {
@@ -214,7 +225,6 @@ public class AdminDao {
 				"WHERE admin_tbl.admin_no = ? and order_check=?)o) where rnum between ? and ?";
 		Object[] params = {admin.getAdminNo(),type,start,end};
 		List list = jdbc.query(query,adminOrderBookRowMapper,params);
-		System.out.println("list="+list.size());
 		return list;
 	}
 	//가맹점 발주버튼 눌렀을때 
@@ -256,9 +266,17 @@ public class AdminDao {
 		int totalCount = jdbc.queryForObject(qurey,Integer.class);
 		return totalCount;
 	}
+	@Transactional
 	public int updateOrderCheck(int orderAllCheck, int orderNo) {
 		String query =  "update order_tbl set order_check=? where order_no=?";
 		Object[] params = {orderAllCheck,orderNo};
+		int result = jdbc.update(query,params);
+		return result;
+	}
+	@Transactional
+	public int updateCount(int totalCount,int adminNo,int bookNo) {
+		String query = "update center_inventory set CENTER_BOOK_COUNT=center_book_count + ? where admin_no=? and book_no2=?";
+		Object[] params = {totalCount,adminNo,bookNo};
 		int result = jdbc.update(query,params);
 		return result;
 	}

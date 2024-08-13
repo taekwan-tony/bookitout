@@ -66,8 +66,7 @@ public class CartService {
 		}else {
 			return null;
 		}
-	}
-	
+	}	
 	
 	public int selectCart(int bookNo, int memberNo) {
 		int result = cartDao.selectCartCount(bookNo, memberNo);
@@ -88,8 +87,6 @@ public class CartService {
 		int result = cartDao.plusCart(cartNo, count);
 		return result;
 	}
-	
-
 
 	public List selectAllCart(int memberNo) {
 		List list = cartDao.selectAllCart(memberNo);
@@ -185,14 +182,10 @@ public class CartService {
 		
 		return list;
 	}
+	
 	public List selectPayNames(int payNo) {
 		List list = cartDao.selectPayNames(payNo);
 		return list;
-	}
-
-	
-	
+	}	
 
 }
-
-

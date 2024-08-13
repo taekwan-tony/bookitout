@@ -6,9 +6,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 <script src="/js/jquery-3.7.1.js"></script>
 <script src="/js/sweetalert.min.js"></script>
-<script src="/js/admin.js"></script>
+<style>
+	
+
+</style>
 </head>
 <body>
+	<th:block th:if="${session.admin.adminType}==1">
     <div class="nav1">
         <div class="icons-menu">
             <ul>
@@ -41,7 +45,6 @@
             <ul class="sub-menu">
                 <li><a href="/admin/adminIndex?rePage=1">판매점 리스트</a></li>
                 <li><a href="/admin/insertAdminFrm">판매점 등록</a></li>
-                <li><a href="/admin/updatePwFrm">비밀번호 변경</a></li>
             </ul>
             </li>
             <li>
@@ -68,8 +71,14 @@
         </ul>
         </div>
     </div>
+    </th:block>
     <!-- 네비 사이드 메뉴 끝 -->
+     <th:block th:if="${session.admin.adminType}==1">
     <div class="wrap">
+    </th:block>
+     <th:block th:if="${session.admin.adminType}==2">
+    <div class="wrap" style="width: 100%!important;">
+    </th:block>
         <!-- 헤더 -->
         <div>
             <div class="main-header-wrap">
@@ -87,7 +96,7 @@
                                 <a href="/admin/adminIndex?rePage=1">판매점</a>
                             </li>
                             <li>
-                                <a href="/admin/updatePwFrm">비밀번호 변경</a>
+                            	<a href="/admin/bookListFrm?rePage=1">책리스트</a>
                             </li>
                             <li>
                                 <a href="/admin/logout">로그아웃</a>
@@ -99,13 +108,12 @@
             </div>
             <!-- 헤더 -->
         </div>
-
         <!-- 컨텐츠 영역 -->
         <div class="content">
             <div class="inner">
                 <div class="container">
                     <div class="page-title">
-                        <h1>판매점 관리</h1>
+                        <h1>판매점</h1>
                     </div>
                     <form action="">
                     <table>
@@ -122,7 +130,6 @@
               					<th style="width: 15%">이메일</th>
               					<th style="width: 13%">전화번호</th>
               					<th style="width: 10%">관리</th>
-              					<th style="width: 10%">수정/삭제</th>
                             </tr>
                         </thead>
                         <tbody>                            
@@ -137,10 +144,6 @@
                                 <td th:text="${admin.adminEmail}"></td>
                                 <td th:text="${admin.adminPhone}"></td>
                                 <td><a href="/admin/admin2BookList?reqPage=1">책 재고관리</a></td>
-                                <td>
-                                    <button class="btn-type2 btn">수정</button>
-                                    <button class="btn-type2 btn">삭제</button>
-                                </td>
                             </tr>
                             	
                         </tbody>
@@ -148,9 +151,10 @@
                    </form>
                 </div>
             </div>
-       
+       <th:block th:if="${session.admin.adminType}==1">
 		<div id="pageNavi" th:utext="${pageNavi}">
 	  	</div>
+	  	 </th:block>
 		<!--페이지 넘기는 부분 종료 -->
         </div>
         <!-- footer 시작  헤더 풋더 다 끌어와서 쓰면 됨 -->
@@ -170,6 +174,14 @@
                 <i style=" --fa-bounce-start-scale-x: 1; --fa-bounce-start-scale-y: 1; --fa-bounce-jump-scale-x: 1; --fa-bounce-jump-scale-y: 1; --fa-bounce-land-scale-x: 1; --fa-bounce-land-scale-y: 1; --fa-bounce-rebound: 0;" class="fa-solid fa-angles-up fa-bounce" ></i>
             </button>
         </div>
+    <th:block th:if="${session.admin.adminType}==1">
     </div>
+    </th:block>
+    <th:block th:if="${session.admin.adminType}==2">
+    </div>
+    </th:block>
+    <script>
+ 
+    </script>
 </body>
 </html>

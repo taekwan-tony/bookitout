@@ -26,6 +26,7 @@
 	</style>
 </head>
 <body>
+<th:block th:if="${session.admin.adminType}==1">
     <div class="nav1">
         <div class="icons-menu">
             <ul>
@@ -58,7 +59,6 @@
             <ul class="sub-menu">
                 <li><a href="/admin/adminIndex?rePage=1">판매점 리스트</a></li>
                 <li><a href="/admin/insertAdminFrm">판매점 등록</a></li>
-                <li><a href="/admin/updatePwFrm">비밀번호 변경</a></li>
             </ul>
             </li>
             <li>
@@ -77,8 +77,14 @@
         </ul>
         </div>
     </div>
+    </th:block>
     <!-- 네비 사이드 메뉴 끝 -->
+     <th:block th:if="${session.admin.adminType}==1">
     <div class="wrap">
+    </th:block>
+     <th:block th:if="${session.admin.adminType}==2">
+    <div class="wrap" style="width: 100%!important;">
+    </th:block>
         <!-- 헤더 -->
         <div>
             <div class="main-header-wrap">
@@ -95,9 +101,7 @@
                             <li>
                                 <a href="/admin/adminIndex?rePage=1">판매점</a>
                             </li>
-                            <li>
-                                <a href="/admin/updatePwFrm">비밀번호 변경</a>
-                            </li>
+                            <li><a href="/admin/insertBookFrm">책 등록</a></li>
                             <li>
                                 <a href="/admin/logout">로그아웃</a>
                             </li>
@@ -114,7 +118,7 @@
             <div class="inner">
                 <div class="container">
                     <div class="page-title">
-                        <h1>책 관리</h1><span>(리스트)</span>
+                        <h1>전체 책 관리</h1><span>(리스트)</span>
                     </div>
                     <form action="/admin/bookListFrm" method="get">
                     <table class="bookTbl">
@@ -135,7 +139,9 @@
               					<th style="width: 8%">판매가격</th>
               					<th style="width: 6%">발주</th>
               					<th style="width: 6%">수정/상세수정</th> 
+              					<th:block th:if="${session.admin.adminType}==1">
               					<th style="width: 6%">삭제</th>
+              					</th:block>
                             </tr>
                         </thead>
                         <tbody>                            
@@ -198,9 +204,11 @@
 	              					<button type="button" class="btn-type2 btn updateDetail" id="updateDetail" th:onclick="updateDetail1(this, [[${book.bookNo}]]);">상세</button>
               					
               					</td>
+              					<th:block th:if="${session.admin.adminType}==1">
               					<td>
               						<button type="button"  class="btn-type2 btn" th:onclick="bookDelete([[${book.bookNo}]]);">삭제</button>
               					</td>
+              					</th:block>
                             </tr>
                             	
                         </tbody>
@@ -208,8 +216,9 @@
                    </form>
                 </div>
             </div>
+            
 		<div id="pageNavi" th:utext="${pageNavi}">
-	  	</div>
+	  		</th:block>
 		<!--페이지 넘기는 부분 종료 -->
         </div>
         <!-- footer 시작  헤더 풋더 다 끌어와서 쓰면 됨 -->
@@ -229,7 +238,12 @@
                 <i style=" --fa-bounce-start-scale-x: 1; --fa-bounce-start-scale-y: 1; --fa-bounce-jump-scale-x: 1; --fa-bounce-jump-scale-y: 1; --fa-bounce-land-scale-x: 1; --fa-bounce-land-scale-y: 1; --fa-bounce-rebound: 0;" class="fa-solid fa-angles-up fa-bounce" ></i>
             </button>
         </div>
+    <th:block th:if="${session.admin.adminType}==1">
     </div>
+    </th:block>
+    <th:block th:if="${session.admin.adminType}==2">
+    </div>
+    </th:block>
     
     <script>
     <!--input 전체 선택 로직 -->
@@ -292,6 +306,8 @@
     	
     	location.href="/admin/orderAdmin2?bookNo="+bookNo;
     }
+  
+  
      
     
     </script>

@@ -112,10 +112,18 @@ public class BookDao {
 	}
 
 	public int selectBookTotalCount() {
-		String query = "select count(*) from book";
+		String query = "select count(*) from book where book_type = '국내도서'";
 		int totalCount = jdbc.queryForObject(query, Integer.class);
 		return totalCount;
 	}
+	
+	public int selectBookTotalCountFore() {
+		String query = "select count(*) from book where book_type = '해외도서'";
+		int totalCount = jdbc.queryForObject(query, Integer.class);
+		return totalCount;
+	}
+	
+	
 
 	public List selectGenreOneBookNoList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' order by book_no desc)b) where rnum between ? and ?";
@@ -158,7 +166,7 @@ public class BookDao {
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
-
+	//
 	public List selectGenreTwoBookNoList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '문학' order by book_no desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
@@ -200,7 +208,7 @@ public class BookDao {
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
-
+	//
 	public List selectGenreThreeBookNoList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '재테크' order by book_no desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
@@ -242,7 +250,7 @@ public class BookDao {
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
-
+	//
 	public List selectGenreFourBookNoList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '기타' order by book_no desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
