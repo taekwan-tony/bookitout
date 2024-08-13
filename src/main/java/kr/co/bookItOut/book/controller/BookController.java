@@ -37,6 +37,8 @@ public class BookController {
 	public String detail(Book book1, Model model, int bookNo, String check, @SessionAttribute(required = false) Member member, CenterMap cm) {
 		Book book = bookService.selectOneBook(book1);
 		model.addAttribute("book", book);
+		int commentCount= bookService.selectBookCommentCount(bookNo);
+		
 		
 //		CenterMap list = bookService.selectCenterMap(cm);
 //		model.addAttribute("cm", cm);
@@ -56,6 +58,7 @@ public class BookController {
 			return "common/msg";
 		}else {
 			model.addAttribute("b", b);
+			model.addAttribute("commentCount", commentCount);
 			//System.out.println(b);
 			return "book/detail";
 		}

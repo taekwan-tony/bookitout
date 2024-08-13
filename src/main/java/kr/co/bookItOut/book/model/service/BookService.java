@@ -350,6 +350,11 @@ public class BookService {
 		return bList;
 	}
 
+	public int selectBookCommentCount(int bookNo) {
+		int commentCount=bookDao.selectBookCommentCount(bookNo);
+		return commentCount;
+	}
+
 }
 
 
