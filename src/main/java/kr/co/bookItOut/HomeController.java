@@ -19,8 +19,10 @@ public class HomeController {
 	@GetMapping(value="/")
 	public String index(Model model) {
 		
-		List<Book> currentBook = bookService.selectThreeBook(5);
+		List<Book> currentBook = bookService.selectThreeBook();
+		List<Book> currentBook1 = bookService.selectFiveBook();
 		model.addAttribute("bList",currentBook);
+		model.addAttribute("bList1",currentBook1);
 		return "index";
 	}
 }

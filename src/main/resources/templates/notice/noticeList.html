@@ -9,7 +9,14 @@
 	.write-btn{
 		overflow : hidden;
 	}
-	.write-btn>*{
+	.write-btn>.totalcount-wrap{
+		float : left;
+		display : flex;
+	}
+	.write-btn>.totalcount-wrap>p{
+		color : var(--color2);
+	}
+	.write-btn>.admin-btn{
 		float : right;
 	}
 	.content-notice-wrap{
@@ -93,9 +100,17 @@
 						<button type="submit" class="btn-type2 btn" >검색</button>
 					</form>
 				</div>
-				<div class="write-btn">
-					<button type="button" class="btn-type3 btn"><a href="/notice/writeNoticeFrm">글쓰기</a></button>
-				</div>
+					<div class="write-btn">
+						<div class="totalcount-wrap">
+							<p th:text="${totalCount}">
+							</p><span> 건</span>
+						</div>
+						<th:block th:if="${session.admin}!=null">
+						<div class="admin-btn">
+						<button type="button" class="btn-type3 btn"><a href="/notice/writeNoticeFrm">글쓰기</a></button>
+						</div>
+						</th:block>
+					</div>
 				<div class="content-notice-wrap">
 					<table class="content-notice-table">
 						<tr>

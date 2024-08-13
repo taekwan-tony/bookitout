@@ -118,7 +118,7 @@
 	}
 	#subdirectory{
 		font-size: 39px;
-		margin-left: 0;
+		margin: 0;
 		color: #74512D;
 	}
 	#account{
@@ -156,16 +156,18 @@
 	}
 	.comment-content{
 		width: 650px;
-		margin-left: 40px;
 	}
 	.comment-title{
 		text-align: center;
 		margin-bottom: 50px;
 	}
 	.comment-title>*{
-		font-size: 24px;
+		font-size: 28px;
 		color: #74512D;
 		font-weight: bold;
+	}
+	.comment>:first-child{
+		margin: 0;
 	}
 	.underLine{
 		width: 100%;
@@ -186,7 +188,8 @@
 		margin: 0;
 	}
 	.updatehidden{
-		width: 750px;
+		width: 735px;
+		margin: 0;
 	}
 	.noComment{
 		margin-top: 80px;
@@ -198,6 +201,10 @@
 	}
 	.comment-link{
 		float: right;
+		margin: 0;
+	}
+	.comment-link>:last-child{
+		margin: 0;
 	}
 	.comment-wrap{
 		margin-right: 0;
@@ -213,8 +220,10 @@
 	}
 	.end{
 		float: right;
+		margin: 0
 	}
 	.comment-info{
+		margin: 0;
 	}
 	#likeCount{
 		margin: 0;
@@ -224,11 +233,28 @@
 	}
 	#boardCommentContent{
 		margin: 0;
-		width: 1080px;
+		width: 1065px;
 	}
 	#reCon{
-		width: 1030px;
+		width: 1020px;
 		margin: 0;
+	}
+	#memberImage{
+		width: 39px;
+		height: 39px;
+		line-height: 39px;
+	}
+	.margin0{
+		margin: 0;
+	}
+	#reContent{
+		width: 780px;
+	}
+	#manus{
+		font-size: 39px;
+	}
+	.id{
+		font-weight: bolder;
 	}
 </style>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -286,7 +312,7 @@
 					<ul class="comment">
 						<li>
 							<th:block th:each="m : ${memberList}">
-								<img th:if=${session.member.memberNo==m.memberNo&&m.memberImg!=null} class="memberImage" id="memberImage" th:src="${m.memberImg}">
+								<img th:if=${session.member.memberNo==m.memberNo&&m.memberImg!=null} class="memberImage" id="memberImage" th:src="@{/photo/{filename}(filename=${session.member.memberImg})}">
 								<span th:if=${session.member.memberNo==m.memberNo&&m.memberImg==null} class="material-icons" id="account">account_box</span>
 							</th:block>
 						</li>
@@ -310,14 +336,14 @@
 						<li> 
 							<th:block th:each="bcm : ${list}">
 								<th:block th:if="${bcm.memberId==bc.boardCommentWriter&&bcm.boardCommentNo==bc.boardCommentNo}">
-									<img th:if=${bcm.memberImg!=null} class="memberImage" id="memberImage" th:src="${bcm.memberImg}">
+									<img th:if=${bcm.memberImg!=null} class="memberImage" id="memberImage" th:src="@{/photo/{filename}(filename=${bcm.memberImg})}">
 									<span th:if=${bcm.memberImg==null} class="material-icons" id="accountbox">account_box</span>
 								</th:block>
 							</th:block>
 						</li>
 						<li class="comment-wrap">
 							<p class="comment-info" id="comment-info">
-								<span th:text="${bc.boardCommentWriter}"></span> 
+								<span class="id" th:text="${bc.boardCommentWriter}"></span> 
 								<span th:text="${bc.boardCommentDate}"></span> 
 								<span class="like-box">
 									<th:block th:if="${session.member!=null}">
@@ -340,14 +366,15 @@
 									</th:block>
 								</span>
 							</p>
+						</li>
+						<li>	
 							<span class="comment-content" th:text="${bc.boardCommentContent}"></span>
-							<div class="input-item" style="display: none;">
-								<textarea name="boardCommentContent"
-									th:text="${bc.boardCommentContent}" class="updatehidden" id="reContent"></textarea>
-							</div>
+						</li>
+						<li class="input-item" style="display: none;">
+							<textarea name="boardCommentContent"
+							th:text="${bc.boardCommentContent}" class="updatehidden" id="reContent"></textarea>
 						</li>
 						<li class="end">
-							<p class="comment-link">
 								<th:block th:if="${session.member != null}">
 									<th:block
 										th:if="${session.member != null && (session.member.memberId == bc.boardCommentWriter || session.member.memberId == b.boardWriter)}">
@@ -359,8 +386,7 @@
 											th:onclick="deleteComment(this,[[${bc.boardCommentNo}]],[[${b.boardNo}]]);">삭제</a>
 									</th:block>
 										<a href="javascript:void(0)" class="recShow">답글달기</a>
-								</th:block>
-							</p>
+							</th:block>
 						</li>	
 					</ul>
 					<div class="underLine"></div>
@@ -370,7 +396,7 @@
 								<li>
 									<span class="material-icons" id="subdirectory">subdirectory_arrow_right</span>
 									<th:block th:each="m : ${memberList}">
-										<img th:if=${session.member.memberNo==m.memberNo&&m.memberImg!=null} class="memberImage" id="memberImage" th:src="${m.memberImg}">
+										<img th:if=${session.member.memberNo==m.memberNo&&m.memberImg!=null} class="memberImage" id="memberImage" th:src="@{/photo/{filename}(filename=${m.memberImg})}">
 										<span th:if=${session.member.memberNo==m.memberNo&&m.memberImg==null} class="material-icons" id="account">account_box</span>
 									</th:block>
 								</li>
@@ -397,13 +423,13 @@
 							<th:block> 
 							<th:block th:each="bcm : ${list}">
 								<th:block th:if="${bcm.memberId==bcc.boardCommentWriter&&bcm.boardCommentNo==bcc.boardCommentNo}">
-									<img th:if=${bcm.memberImg!=null} class="memberImage" id="memberImage" th:src="${bcm.memberImg}">
+									<img th:if=${bcm.memberImg!=null} class="memberImage" id="memberImage" th:src="@{/photo/{filename}(filename=${bcm.memberImg})}">
 									<span th:if=${bcm.memberImg==null} class="material-icons" id="accountbox">account_box</span>
 								</th:block>
 							</th:block>
 							</th:block>
 							<p class="comment-info">
-								<span th:text="${bcc.boardCommentWriter}"></span> 
+								<span class="id" th:text="${bcc.boardCommentWriter}"></span> 
 								<span th:text="${bcc.boardCommentDate}"></span>
 								<span class="like-box"> 
 									<th:block th:if="${session.member!=null}">
@@ -449,7 +475,7 @@
 				</th:block>
 			</div>
 			<div th:if="${b.commentList.size()==0}" class="noComment">
-			<span class="material-symbols-outlined">
+			<span class="material-symbols-outlined" id="manus">
 				speaker_notes_off
 			</span> 
 			<p>댓글이 없습니다. 첫 댓글을 작성해주세요.</p></div>
@@ -466,6 +492,7 @@
 					"modifyComplete(this," + boardCommentNo + "," + boardNo
 							+ ");");
 			$(obj).next().text("수정 취소");
+			$(obj).next().addClass("margin0");
 			$(obj).next().attr(
 					"onclick",
 					"modifyCancel(this," + boardCommentNo + "," + boardNo
@@ -498,6 +525,7 @@
 					"modifyComment(this," + boardCommentNo + "," + boardNo
 							+ ");");
 			$(obj).text("삭제");
+			$(obj).removeClass("margin0");
 			$(obj).attr(
 					"onclick",
 					"deleteComment(this," + boardCommentNo + "," + boardNo

@@ -221,11 +221,11 @@
 		</div>
 	</main>
 	<th:block th:include="common/footer"></th:block>
-	<th:block th:include="common/chatbot"></th:block>
 	<script>
 		
 	function checkQuestion(obj){
-		if($(".left").index() != 0){
+			$(obj).parent().next().toggle(300);
+		/* if($(".left").index() != 0){
 			$(".left").parent().next().hide();
 		}
 		$(".right-btn").removeClass("left");
@@ -234,10 +234,9 @@
 		$(".right-btn").text("expand_more");
 		if($(obj).prev().children().next().children().text()=="expand_more"){
 			$(obj).prev().children().next().children().text("expand_less");
-			$(obj).parent().next().toggle(300);
 		}else{
 			$(obj).prev().children().next().children().text("expand_more");
-		}
+		} */
 	}
 	function delFaq(obj,faqNo){
 		console.log(faqNo);

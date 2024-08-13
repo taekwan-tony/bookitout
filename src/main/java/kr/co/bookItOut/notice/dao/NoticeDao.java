@@ -93,6 +93,13 @@ public class NoticeDao {
 		List list = jdbc.query(query, noticeRowMapper,params);
 		return list;
 	}
+	public int totalCount(String keyword) {
+		String query = "select count(*) from notice where notice_title like '%'||?||'%' or notice_content='%'||?||'%'";
+		Object[] params = {keyword,keyword};
+		int totalCount = jdbc.queryForObject(query, Integer.class,params);
+		
+		return totalCount;
+	}
 
 	public List selectThreeNotice() {
 		String query = "select * from (select rownum as rnum, n.* from (select * from notice order by 1 desc)n) where rnum between 1 and 3";

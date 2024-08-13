@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.bookItOut.admin.model.dto.Admin;
 import kr.co.bookItOut.book.model.dao.BookDao;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookComment;
@@ -92,6 +93,11 @@ public class BookService {
 		List<CenterMap> centerMap = bookDao.selectOneMap(adminNo);
 		return centerMap;
 	}
+
+	public Admin selectOneAdmin(Admin admin, int adminNo) {
+		Admin adm = bookDao.selectOneAdmin(admin, adminNo);
+		return adm;
+	}
 	
 	// 국내목록
 	public BookListData selectBookList(int reqPage, int type, int genre) {
@@ -160,7 +166,7 @@ public class BookService {
 			}
 		}
 		
-		//
+		//국내
 				
 		int totalCount = bookDao.selectBookTotalCount();
 		int totalPage = 0;
@@ -294,8 +300,8 @@ public class BookService {
 				list = bookDao.selectGenreFiveFourBookPriceDescList(start, end);
 			}
 		}
-		
-		int totalCount = bookDao.selectBookTotalCount();
+		//해외
+		int totalCount = bookDao.selectBookTotalCountFore();
 		int totalPage =0;
 		if(totalCount % numPerPage ==0) {
 			totalPage = totalCount / numPerPage;
@@ -344,10 +350,20 @@ public class BookService {
 		return bld;
 	}
 
-	public List<Book> selectThreeBook(int i) {
-		List<Book> bList = bookDao.selectThreeBook(i);
+	public List<Book> selectThreeBook() {
+		List<Book> bList = bookDao.selectThreeBook();
 		
 		return bList;
+	}
+	public List<Book> selectFiveBook() {
+		List<Book> bList = bookDao.selectFiveBook();
+		
+		return bList;
+	}
+
+	public int selectBookCommentCount(int bookNo) {
+		int commentCount=bookDao.selectBookCommentCount(bookNo);
+		return commentCount;
 	}
 
 }

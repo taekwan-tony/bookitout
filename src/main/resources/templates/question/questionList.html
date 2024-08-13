@@ -291,7 +291,7 @@
 								<div th:utext="${q.questionContent}"></div>
 								<div class="content-btn-box">
 									<th:block th:if="${q.questionAnswer}==null">
-										<a th:href="@{/Question/updateQuestionFrm(questionNo=${q.questionNo})" id="update">수정</a>
+										<a th:href="@{/Question/updateQuestionFrm(questionNo=${q.questionNo})}" id="update">수정</a>
 									</th:block>
 									<a id="delete" th:onclick="delQuestion(this,[[${q.questionNo}]])">삭제</a>
 								</div>
@@ -322,19 +322,29 @@
 </body>
 <script>
 	function checkQuestion(obj){
-		if($(".left").index() != 0){
-			$(".left").parent().next().hide();
-		}
-	$(".right-btn").removeClass("left");
-	$(obj).addClass("left");
-	
-	$(".right-btn").text("expand_more");
-		if($(obj).prev().children().next().children().text()=="expand_more"){
-			$(obj).prev().children().next().children().text("expand_less");
+		$(obj).parent().next().toggle(300);
+		/* if($(obj).prev().children().next().children().text()=="expand_more"){
+			$(obj).prev().children().next().children().text()=="expand_less";
 			$(obj).parent().next().toggle(300);
+			$(".right-btn").removeClass("left");
+			$(obj).addClass("left");
 		}else{
-			$(obj).prev().children().next().children().text("expand_more");
-		}
+			
+		
+			if($(".left").index() != 0){
+				$(".left").parent().next().hide();
+			}
+			$(".right-btn").removeClass("left");
+			$(obj).addClass("left");
+			
+			$(".right-btn").text("expand_more");
+			if($(obj).prev().children().next().children().text()=="expand_more"){
+				$(obj).prev().children().next().children().text("expand_less");
+				$(obj).parent().next().toggle(300);
+			}else{
+				$(obj).prev().children().next().children().text("expand_more");
+			}
+		} */
 	}
 	function delQuestion(obj,questionNo){
 		swal({

@@ -11,20 +11,46 @@
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
 <style>
-	.main-second-wrap>div:first-child{
-		width: 1200px;
-		margin : 0 auto;
-		margin-top : 50px;
-	}
- 	.main-second-wrap>div>div{
-		width: 1200px;
+	.main-second-wrap>div{
+		margin-bottom : 100px;
+		width:1200px;
 		margin : 50px auto;
 	}
-
- 	.second>.swiper-slide>a>img{
- 		width: 300px;
- 		
- 	}
+	.main-book-visual-wrap{
+		width:1200px;
+		display : flex;
+		margin : 0 auto;
+		justify-content : space-between;
+		 
+	}
+	.main-book-title{
+		width : 1200px;
+	}
+	.main-book-visual-wrap>div{
+		width: 280px;
+	}
+	.main-book-visual-wrap>div>div>a>img{
+		width: 280px;
+	}
+	.main-book-visual-wrap>div>div{
+		margin-top : 15px;
+	}
+	.main-book-visual-wrap1{
+		width:1200px;
+		display : flex;
+		margin : 0 auto;
+		justify-content : space-between;
+		 
+	}
+	.main-book-visual-wrap1>div{
+		width: 200px;
+	}
+	.main-book-visual-wrap1>div>div>a>img{
+		width: 200px;
+	}
+	.main-book-visual-wrap1>div>div{
+		margin-top : 15px;
+	}
  </style>
 <body>
 	<th:block th:include="common/header"></th:block>
@@ -61,38 +87,61 @@
         </div>
         <!-- 조회 순   -->
         <div class="main-second-wrap">
-	        <div>
+	        <div class="main-book-title">
 	        	<h2>급상승! 많이 보고 있는 상품!</h2>
 	        </div>
-	        <div class="main-visual-wrap">
-	            <div class="swiper2">
-	                <!-- Additional required wrapper -->
-	                <div class="swiper-wrapper second">
-	                    <!-- Slides -->
-	                    <th:block th:each="b : ${bList}">
-	                    <div class="swiper-slide">
-			                  <a href="javascript:void(0)">
-			                       <img th:src="@{/book/{filename}(filename=${b.bookImg})}" alt="">
-			                  </a>
-	                    </div>
-	                    </th:block>
-	                    
-	                </div>
-	                <!-- If we need pagination -->
-	                <div class="swiper2-pagination"></div>
-	
-	                <!-- If we need navigation buttons -->
-	                <div class="swiper2-button-prev"></div>
-	                <div class="swiper2-button-next"></div>
-	            </div>
+	        <div class="main-book-visual-wrap">
+	            <th:block th:each="b : ${bList}">
+		            <div>
+		                <div class="main-book-wrap">
+				           <a th:href="@{/book/detail?(bookNo=${b.bookNo})}">
+				              <img th:src="@{/book/{filename}(filename=${b.bookImg})}" alt="">
+				           </a>
+		                </div>
+		                <div>
+		                	<a th:href="@{/book/detail?(bookNo=${b.bookNo})}">
+				              <span th:text="${b.bookGenre}"></span>
+				           </a>
+		                </div>
+		                <div>
+		                	<a th:href="@{/book/detail?(bookNo=${b.bookNo})}">
+				              <span th:text="${b.bookName}"></span>
+				           </a>
+		                </div>
+		            </div>
+	             </th:block>
 	        </div>
         </div>
         
-        
+        <div class="main-second-wrap">
+	        <div class="main-book-title">
+	        	<h2>장르별 베스트 5</h2>
+	        </div>
+	        <div class="main-book-visual-wrap1">
+	            <th:block th:each="b1 : ${bList1}">
+		            <div>
+		                <div class="main-book-wrap">
+				           <a th:href="@{/book/detail?(bookNo=${b1.bookNo})}">
+				              <img th:src="@{/book/{filename}(filename=${b1.bookImg})}" alt="">
+				           </a>
+		                </div>
+		                <div>
+		                	<a th:href="@{/book/detail?(bookNo=${b1.bookNo})}">
+				              <span th:text="${b1.bookGenre}"></span>
+				           </a>
+		                </div>
+		                <div>
+		                	<a th:href="@{/book/detail?(bookNo=${b1.bookNo})}">
+				              <span th:text="${b1.bookName}"></span>
+				           </a>
+		                </div>
+		            </div>
+	             </th:block>
+	        </div>
+        </div>
     </main>
     
     <script src="js/swiper.js"></script>
-    <script src="js/swiper2.js"></script>
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

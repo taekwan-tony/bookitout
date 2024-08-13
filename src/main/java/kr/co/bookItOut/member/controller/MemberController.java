@@ -236,10 +236,10 @@ public class MemberController {
 			// 매개변수 1 세션에 저장할 속성의 이름
 			// 매개변수 2 세션에 저장할 실제 데이터
 
-			return "redirect:/";
+			return "/myPage/myInfo";
 		} else {
 			System.out.println("수정 실패");
-			return "redirect:/";
+			return "/myPage/myInfo";
 		}
 	}
 	

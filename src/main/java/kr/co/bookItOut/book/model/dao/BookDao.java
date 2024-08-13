@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.co.bookItOut.admin.model.dto.Admin;
+import kr.co.bookItOut.admin.model.dto.AdminRowMapper;
 import kr.co.bookItOut.book.model.dto.Book;
 import kr.co.bookItOut.book.model.dto.BookComment;
 import kr.co.bookItOut.book.model.dto.BookCommentRowMapper;
@@ -32,6 +34,9 @@ public class BookDao {
 	
 	@Autowired
 	private CenterMapRowMapper centerMapRowMapper;
+	
+	@Autowired
+	private AdminRowMapper adminRowMapper;
 
 	public Book selectOneBook(Book book1) {
 		String query = "select * from book where book_no = ?";
@@ -107,10 +112,18 @@ public class BookDao {
 	}
 
 	public int selectBookTotalCount() {
-		String query = "select count(*) from book";
+		String query = "select count(*) from book where book_type = '국내도서'";
 		int totalCount = jdbc.queryForObject(query, Integer.class);
 		return totalCount;
 	}
+	
+	public int selectBookTotalCountFore() {
+		String query = "select count(*) from book where book_type = '해외도서'";
+		int totalCount = jdbc.queryForObject(query, Integer.class);
+		return totalCount;
+	}
+	
+	
 
 	public List selectGenreOneBookNoList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' order by book_no desc)b) where rnum between ? and ?";
@@ -153,7 +166,7 @@ public class BookDao {
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
-
+	//
 	public List selectGenreTwoBookNoList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '문학' order by book_no desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
@@ -195,7 +208,7 @@ public class BookDao {
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
-
+	//
 	public List selectGenreThreeBookNoList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '재테크' order by book_no desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
@@ -237,7 +250,7 @@ public class BookDao {
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
-
+	//
 	public List selectGenreFourBookNoList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '기타' order by book_no desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
@@ -502,17 +515,40 @@ public class BookDao {
 		return likeCount;
 	}
 
-	public List<Book> selectThreeBook(int i) {
-		String query = "select * from (select rownum as rnum, b.* from (select * from book order by 1 desc)b) where rnum between ? and ?";
-		Object[] params = {i,i+3};
-		List list = jdbc.query(query, bookRowMapper,params);
+	public List<Book> selectThreeBook() {
+		String query = "select * from (select rownum as rnum, b.* from (select * from book order by 1 desc)b) where rnum between 5 and 8";
+		List list = jdbc.query(query, bookRowMapper);
+		return list;
+	}
+	public List<Book> selectFiveBook() {
+		String query = "select * from (select rownum as rnum, b.* from (select * from book order by book_genre desc)b) where rnum between 1 and 5";
+		List list = jdbc.query(query, bookRowMapper);
 		return list;
 	}
 	public List<CenterMap> selectOneMap(int adminNo) {
 		String query = "SELECT * FROM CENTER_MAP JOIN ADMIN_TBL USING(ADMIN_NO) WHERE ADMIN_NO = ?";
 		Object[] params = {adminNo};
 		List<CenterMap> centerMap = jdbc.query(query, centerMapRowMapper, params);
+		System.out.println(centerMap);
 		return centerMap;
+	}
+
+	public int selectBookCommentCount(int bookNo) {
+		String query = "SELECT COUNT(*) FROM BOOK_COMMENT WHERE BOOK_REF=? and BOOK_COMMENT_REF is null";
+		Object[] params = {bookNo};
+		int commentCount = jdbc.queryForObject(query, Integer.class, params);
+		return commentCount;
+	}
+
+	public Admin selectOneAdmin(Admin admin, int adminNo) {
+		String query = "select * from admin_tbl where admin_no = ?";
+		Object[] params = {adminNo};
+		List list = jdbc.query(query, adminRowMapper, params);
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return (Admin)list.get(0);
+		}
 	}
 	
 	/*

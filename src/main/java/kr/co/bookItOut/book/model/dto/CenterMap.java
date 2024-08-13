@@ -14,4 +14,6 @@ public class CenterMap {
 	private int adminNo;
 	private String adminName;
 	private String adminAddr;
+	private String adminPhone;
+	private String openingDay;
 }
