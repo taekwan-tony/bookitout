@@ -29,7 +29,7 @@ public class AdminService {
 
 	public AdminListData selectAdminList(int rePage , Admin admin) {
 		
-		int numperPage=7;
+		int numperPage=10;
 		int end = rePage*numperPage;
 		int start = end - numperPage+1;
 		List list = new ArrayList<AdminListData>();
@@ -45,7 +45,7 @@ public class AdminService {
 				totalPage = totalCount/numperPage+1;
 			}
 			
-			int pagNavSize = 3;
+			int pagNavSize = 5;
 			
 			int pageNo = ((rePage-1)/pagNavSize)*pagNavSize+1;
 			
@@ -53,7 +53,7 @@ public class AdminService {
 			
 			if(pageNo != 1) {
 				pageNavi += "<li>";
-				pageNavi += "<a class='page-item' href='/admin/adminIndex?rePage="+pageNo+"'>";
+				pageNavi += "<a class='page-item' href='/admin/adminIndex?rePage="+(pageNo-1)+"'>";
 				pageNavi += "<span><i class='fa-solid fa-angle-left'></i></span>";
 				pageNavi += "</a></li>";
 			}
@@ -87,7 +87,6 @@ public class AdminService {
 			return ald;
 		}else {
 			list = adminDao.selectAdminList2(admin);
-			System.out.println(list);
 			AdminListData ald = new AdminListData();
 			ald.setList(list);
 			return ald;
@@ -125,7 +124,7 @@ public class AdminService {
 		totalPage = totalCount/numperPage+1;
 	}
 	
-	int pagNavSize = 3;
+	int pagNavSize = 5;
 	
 	int pageNo = ((rePage-1)/pagNavSize)*pagNavSize+1;
 	
@@ -133,7 +132,7 @@ public class AdminService {
 	
 	if(pageNo != 1) {
 		pageNavi += "<li>";
-		pageNavi += "<a class='page-item' href='/admin/bookListFrm?rePage="+pageNo+"'>";
+		pageNavi += "<a class='page-item' href='/admin/bookListFrm?rePage="+(pageNo-1)+"'>";
 		pageNavi += "<span><i class='fa-solid fa-angle-left'></i></span>";
 		pageNavi += "</a></li>";
 	}
@@ -187,7 +186,7 @@ public OrderBookListData selectAdminBookList(int reqPage,Book book, Admin admin)
 			totalPage = totalCount/numperPage+1;
 		}
 		
-		int pagNavSize = 3;
+		int pagNavSize = 5;
 		
 		int pageNo = ((reqPage-1)/pagNavSize)*pagNavSize+1;
 		
@@ -195,7 +194,7 @@ public OrderBookListData selectAdminBookList(int reqPage,Book book, Admin admin)
 		
 		if(pageNo != 1) {
 			pageNavi += "<li>";
-			pageNavi += "<a class='page-item' href='/admin/orderAdmin2?rePage="+pageNo+"'>";
+			pageNavi += "<a class='page-item' href='/admin/orderAdmin2?rePage="+(pageNo-1)+"'>";
 			pageNavi += "<span><i class='fa-solid fa-angle-left'></i></span>";
 			pageNavi += "</a></li>";
 		}

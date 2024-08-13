@@ -137,40 +137,40 @@
 				<form action="/board/search" method="get" id="searchFrm">
 					<div class="input-item">
 						<select id="sel" name="type">
-							<th:block th:if="${type=='none'||type==null}">
-								<option value="none" selected>전체</option>
-								<option value="title">제목</option>
-								<option value="writer">작성자</option>
-								<option value="titleContent">제목 및 내용</option>
-								<option value="content">내용</option>
+							<th:block th:if="${type=='1'||type==null}">
+								<option value="1" selected>전체</option>
+								<option value="2">제목</option>
+								<option value="3">작성자</option>
+								<option value="4">제목 및 내용</option>
+								<option value="5">내용</option>
 							</th:block>
-							<th:block th:if="${type=='title'}">
-								<option value="none">전체</option>
-								<option value="title" selected>제목</option>
-								<option value="writer">작성자</option>
-								<option value="titleContent">제목 및 내용</option>
-								<option value="content">내용</option>
+							<th:block th:if="${type=='2'}">
+								<option value="1">전체</option>
+								<option value="2" selected>제목</option>
+								<option value="3">작성자</option>
+								<option value="4">제목 및 내용</option>
+								<option value="5">내용</option>
 							</th:block>
-							<th:block th:if="${type=='writer'}">
-								<option value="none">전체</option>
-								<option value="title">제목</option>
-								<option value="writer" selected>작성자</option>
-								<option value="titleContent">제목 및 내용</option>
-								<option value="content">내용</option>
+							<th:block th:if="${type=='3'}">
+								<option value="1">전체</option>
+								<option value="2">제목</option>
+								<option value="3" selected>작성자</option>
+								<option value="4">제목 및 내용</option>
+								<option value="5">내용</option>
 							</th:block>
-							<th:block th:if="${type=='titleContent'}">
-								<option value="none">전체</option>
-								<option value="title">제목</option>
-								<option value="writer">작성자</option>
-								<option value="titleContent" selected>제목 및 내용</option>
-								<option value="content">내용</option>
+							<th:block th:if="${type=='4'}">
+								<option value="1">전체</option>
+								<option value="2">제목</option>
+								<option value="3">작성자</option>
+								<option value="4" selected>제목 및 내용</option>
+								<option value="5">내용</option>
 							</th:block>
-							<th:block th:if="${type=='content'}">
-								<option value="none">전체</option>
-								<option value="title">제목</option>
-								<option value="writer">작성자</option>
-								<option value="titleContent">제목 및 내용</option>
-								<option value="content" selected>내용</option>
+							<th:block th:if="${type=='5'}">
+								<option value="1">전체</option>
+								<option value="2">제목</option>
+								<option value="3">작성자</option>
+								<option value="4">제목 및 내용</option>
+								<option value="5" selected>내용</option>
 							</th:block>
 						</select>
 						<select id="sele" name="option">
@@ -178,25 +178,25 @@
 								<option value="new" selected>최신순</option>
 								<option value="old">오래된순</option>
 								<option value="readCount">조회수 순</option>
-								<!--<option th:value="${type}">가나다 순</option>-->
+								<!--<option th:value="comment">댓글 순</option>-->
 							</th:block>
 							<th:block th:if="${option=='old'}">
 								<option value="new">최신순</option>
 								<option value="old" selected>오래된순</option>
 								<option value="readCount">조회수 순</option>
-								<!--<option th:value="${type}">가나다 순</option>-->
+								<!--<option th:value="comment">댓글 순</option>-->
 							</th:block>
 							<th:block th:if="${option=='readCount'}">
 								<option value="new">최신순</option>
 								<option value="old">오래된순</option>
 								<option value="readCount" selected>조회수 순</option>
-								<!--<option th:value="${type}">가나다 순</option>-->
+								<!--<option th:value="comment">댓글 순</option>-->
 							</th:block>
 							<!--<th:block th:if="${option==type}">
 								<option value="new">최신순</option>
 								<option value="old">오래된순</option>
 								<option value="readCount">조회수 순</option>
-								<option th:value="${type}" selected>가나다 순</option>
+								<option th:value="comment" selected>댓글 순</option>
 							</th:block>-->
 						</select>
 						<input type="text" name="keyword" id="inputText" th:value="${keyword}">

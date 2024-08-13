@@ -100,7 +100,7 @@ public class BookService {
 	}
 	
 	// 국내목록
-	public BookListData selectBookList(int reqPage, int type, int genre) {
+	public BookListData selectBookList(int reqPage, int type, int genre, int group) {
 		int numPerPage = 5;
 
 		int end = reqPage * numPerPage;
@@ -108,21 +108,7 @@ public class BookService {
 		
 		//List list = bookDao.selectBookList(start, end);
 		List list = new ArrayList<List>();
-		if(genre ==1) {
-			if(type==1) {
-				list = bookDao.selectGenreOneBookNoList(start, end);
-			}else if(type==2) {
-				list = bookDao.selectGenreOneBookNameList(start, end);
-			}else if(type==3) {
-				list = bookDao.selectGenreOnePublicationDateList(start, end);
-			}else if(type==4) {
-				list = bookDao.selectGenreOneEnrollDateList(start, end);
-			}else if(type==5) {
-				list = bookDao.selectGenreOneBookPriceList (start, end);
-			}else if(type==6) {
-				list = bookDao.selectGenreOneBookPriceDescList(start, end);
-			}
-		}else if (genre==2) {
+		if (group ==1 && genre==2) {
 			if(type==1) {
 				list = bookDao.selectGenreTwoBookNoList(start, end);
 			}else if(type==2) {
@@ -136,7 +122,7 @@ public class BookService {
 			}else if(type==6) {
 				list = bookDao.selectGenreTwoBookPriceDescList(start, end);
 			}
-		}else if (genre==3) {
+		}else if (group ==1 && genre==3) {
 			if(type==1) {
 				list = bookDao.selectGenreThreeBookNoList(start, end);
 			}else if(type==2) {
@@ -150,7 +136,7 @@ public class BookService {
 			}else if(type==6) {
 				list = bookDao.selectGenreThreeBookPriceDescList(start, end);
 			}
-		}else if (genre==4) {
+		}else if (group ==1 && genre==4) {
 			if(type==1) {
 				list = bookDao.selectGenreFourBookNoList(start, end);
 			}else if(type==2) {
@@ -164,11 +150,41 @@ public class BookService {
 			}else if(type==6) {
 				list = bookDao.selectGenreFourBookPriceDescList(start, end);
 			}
-		}
+		}else if(group ==1 && genre==1 ) {
+			if(type==1) {
+				list = bookDao.selectGenreOneBookNoList(start, end);
+			}else if(type==2) {
+				list = bookDao.selectGenreOneBookNameList(start, end);
+			}else if(type==3) {
+				list = bookDao.selectGenreOnePublicationDateList(start, end);
+			}else if(type==4) {
+				list = bookDao.selectGenreOneEnrollDateList(start, end);
+			}else if(type==5) {
+				list = bookDao.selectGenreOneBookPriceList (start, end);
+			}else if(type==6) {
+				list = bookDao.selectGenreOneBookPriceDescList(start, end);
+			}
+		} 
+		
+		
 		
 		//국내
-				
-		int totalCount = bookDao.selectBookTotalCount();
+		//int totalCount = bookDao.selectBookTotalCount();
+		
+		int totalCount=0;
+		
+		if(group==1 && genre==2) {
+			totalCount = bookDao.selectGenreTwoBookNoListTwo();//문학
+		}else if(group==1 && genre==3) {
+			totalCount = bookDao.selectGenreTwoBookNoListThree();//재테크
+		}else if(group==1 && genre==4) {
+			totalCount = bookDao.selectGenreTwoBookNoListFour();//기타
+		}else if(group==1) {
+			totalCount = bookDao.selectBookTotalCount();//전체
+		}
+		
+		
+		
 		int totalPage = 0;
 		if(totalCount % numPerPage == 0) {
 			totalPage = totalCount / numPerPage;			
@@ -183,7 +199,7 @@ public class BookService {
 		if(pageNo !=1) {
 			pageNavi += "<li>";
 			
-			pageNavi += "<a class='page-item' href='book/list?reqPage=" + (pageNo - 1) +"&type= "+type+" &genre= "+genre+"'>";
+			pageNavi += "<a class='page-item' href='book/list?reqPage=" + (pageNo - 1) +"&type= "+type+" &group= "+group+"'>";
 			
 			/*
 			if(genre==1) {
@@ -202,12 +218,12 @@ public class BookService {
 			pageNavi += "<li>";
 			if(pageNo == reqPage) {
 				
-					pageNavi += "<a class='page-item active-page' href='/book/list?reqPage=" + pageNo + "&type="+type+"&genre= "+genre+"'>";
+					pageNavi += "<a class='page-item active-page' href='/book/list?reqPage=" + pageNo + "&type="+type+"&genre= "+genre+" &group= "+group+"'>";
 				
 				 
 			} else {
 				
-					pageNavi += "<a class='page-item' href='/book/list?reqPage=" +pageNo + "&type="+type+"&genre= "+genre+"'>";
+					pageNavi += "<a class='page-item' href='/book/list?reqPage=" +pageNo + "&type="+type+"&genre= "+genre+" &group= "+group+"'>";
 				
 				
 			}
@@ -223,7 +239,7 @@ public class BookService {
 		if(pageNo <= totalPage) {
 			pageNavi += "<li>";
 			
-				pageNavi += "<a class='page-item' href='/book/list?reqPage=" + pageNo + "&type="+type+"&genre= "+genre+"'>";
+				pageNavi += "<a class='page-item' href='/book/list?reqPage=" + pageNo + "&type="+type+"&genre= "+genre+" &group= "+group+"'>";
 			
 			
 			pageNavi += "<span class='material-icons'>chevron_right</span>";
@@ -237,13 +253,14 @@ public class BookService {
 	}
 
 	// 해외목록
-	public BookListData selectBookListFore(int reqPage, int type, int genre) {
+	public BookListData selectBookListFore(int reqPage, int type, int genre, int group) {
 		int numPerPage = 5;
 		int end = reqPage * numPerPage;
 		int start = end - numPerPage +1;
 		
 		List list = new ArrayList<List>();
-		if(genre==5) {
+		
+		if(group==5 && genre==1) {
 			if(type==1) {
 				list = bookDao.selectGenreFiveBookNoList(start, end);
 			}else if (type==2) {
@@ -257,7 +274,7 @@ public class BookService {
 			}else if (type==6) {
 				list = bookDao.selectGenreFiveBookPriceDescList(start, end);
 			}
-		}   else if (genre==2) {
+		}   else if (group==5 && genre==2) {
 			if(type==1) {
 				list = bookDao.selectGenreFiveTwoBookNoList(start, end);
 			}else if (type==2) {
@@ -271,7 +288,7 @@ public class BookService {
 			}else if (type==6) {
 				list = bookDao.selectGenreFiveTwoBookPriceDescList(start, end);
 			}
-		}else if (genre==3) {
+		}else if (group==5 && genre==3) {
 			if(type==1) {
 				list = bookDao.selectGenreFiveThreeBookNoList(start, end);
 			}else if (type==2) {
@@ -285,7 +302,7 @@ public class BookService {
 			}else if (type==6) {
 				list = bookDao.selectGenreFiveThreeBookPriceDescList(start, end);
 			}
-		}else if(genre==4) {
+		}else if(group==5 && genre==4) {
 			if(type==1) {
 				list = bookDao.selectGenreFiveFourBookNoList(start, end);
 			}else if (type==2) {
@@ -300,8 +317,21 @@ public class BookService {
 				list = bookDao.selectGenreFiveFourBookPriceDescList(start, end);
 			}
 		}
+		
 		//해외
-		int totalCount = bookDao.selectBookTotalCountFore();
+		int totalCount=0;
+		
+		if(group==5 && genre==2) {
+			totalCount = bookDao.selectGenreFiveTwoBookNoListTwo();//문학
+		}else if(group==5 && genre==3) {
+			totalCount = bookDao.selectGenreFiveTwoBookNoListThree();//재테크
+		}else if(group==5 && genre==4) {
+			totalCount = bookDao.selectGenreFiveTwoBookNoListFour();//기타
+		}else if(group==5) {
+			totalCount = bookDao.selectBookTotalCountFore();//해외 전체
+		}
+				
+		
 		int totalPage =0;
 		if(totalCount % numPerPage ==0) {
 			totalPage = totalCount / numPerPage;
@@ -315,7 +345,7 @@ public class BookService {
 		String pageNavi = "<div class='inner'><ul>";
 		if(pageNo !=1) {
 			pageNavi += "<li>";			
-			pageNavi += "<a class='page-item' href='book/listFore?reqPage=" + (pageNo - 1) +"&type= "+type+" &genre= "+genre+"'>";						
+			pageNavi += "<a class='page-item' href='book/listFore?reqPage=" + (pageNo - 1) +"&type= "+type+" &genre= "+genre+" &group= "+group+"'>";						
 			pageNavi += "<span class='material-icons'>chevron_left</span>";
 			pageNavi += "</a></li>";			
 		}
@@ -323,9 +353,9 @@ public class BookService {
 		for(int i = 0; i< pageNaviSize; i++) {
 			pageNavi += "<li>";
 			if(pageNo == reqPage) {			
-				pageNavi += "<a class='page-item active-page' href='/book/listFore?reqPage=" + pageNo + "&type="+type+"&genre= "+genre+"'>";			
+				pageNavi += "<a class='page-item active-page' href='/book/listFore?reqPage=" + pageNo + "&type="+type+"&genre= "+genre+" &group= "+group+"'>";			
 			} else {
-					pageNavi += "<a class='page-item' href='/book/listFore?reqPage=" +pageNo + "&type="+type+"&genre= "+genre+"'>";			
+					pageNavi += "<a class='page-item' href='/book/listFore?reqPage=" +pageNo + "&type="+type+"&genre= "+genre+" &group= "+group+"'>";			
 			}
 			pageNavi += pageNo;
 			pageNavi += "</a></li>";
@@ -338,7 +368,7 @@ public class BookService {
 		
 		if(pageNo <= totalPage) {
 			pageNavi += "<li>";			
-				pageNavi += "<a class='page-item' href='/book/listFore?reqPage=" + pageNo + "&type="+type+"&genre= "+genre+"'>";	
+				pageNavi += "<a class='page-item' href='/book/listFore?reqPage=" + pageNo + "&type="+type+"&genre= "+genre+" &group= "+group+"'>";	
 			
 			pageNavi += "<span class='material-icons'>chevron_right</span>";
 			pageNavi += "</a></li>";

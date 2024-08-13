@@ -60,60 +60,8 @@
 	</style>
 </head>
 <body>
-    <div class="nav1">
-        <div class="icons-menu">
-            <ul>
-                <li class="arrow">
-                    <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
-                </li>
-                <li class="icon1">
-                    <a href="/admin/adminIndex?rePage=1"><i class="fa-solid fa-house"></i></a>
-                </li>
-                <li class="icon1">
-                    <a href="/admin/bookListFrm?rePage=1"><i class="fa-solid fa-book-open"></i></a>
-                </li>
-                <li class="icon1">
-                    <a href="#"><i class="fa-solid fa-circle-user"></i></a>
-                </li>
-                <li class="icon1">
-                    <a href="#"><i class="fa-brands fa-android"></i></a>
-                </li>
-            </ul>
-        </div>
-        <div class="admin-menu">
-        <ul>
-            <li>
-                <h1 class="logo1">
-                    <a href="/admin/adminIndex?rePage=1">책키라웃 관리자</a>
-                </h1>
-            </li>
-            <li>
-            <a href="/admin/adminIndex?rePage=1">판매점 관리</a>
-            <ul class="sub-menu">
-                <li><a href="/admin/adminIndex?rePage=1">판매점 리스트</a></li>
-                <li><a href="/admin/insertAdminFrm">판매점 등록</a></li>
-                <li><a href="/admin/updatePwFrm">비밀번호 변경</a></li>
-            </ul>
-            </li>
-            <li>
-            <a href="#">책 관리</a>
-            <ul class="sub-menu">
-                <li><a href="/admin/bookListFrm?rePage=1">책 리스트</a></li>
-                <li><a href="/admin/insertBookFrm">책 등록</a></li>
-                <li><a href="/admin/bookListFrm">책 정보 수정</a></li>
-            </ul>
-            </li>
-            <li>
-            <a href="#">1대1 문의</a>
-            </li>
-            <li>
-            <a href="#">챗봇</a>
-            </li>
-        </ul>
-        </div>
-    </div>
     <!-- 네비 사이드 메뉴 끝 -->
-    <div class="wrap">
+    <div class="wrap" style="width: 100%!important;">
         <!-- 헤더 -->
         <div>
             <div class="main-header-wrap">
@@ -130,9 +78,7 @@
                             <li>
                                 <a href="/admin/adminIndex?rePage=1">판매점</a>
                             </li>
-                            <li>
-                                <a href="/admin/updatePwFrm">비밀번호 변경</a>
-                            </li>
+                            
                             <li>
                                 <a href="/admin/logout">로그아웃</a>
                             </li>
@@ -149,7 +95,7 @@
             <div class="inner">
                 <div class="container">
                     <div class="page-title">
-                        <h1>총발주</h1><span>(리스트)</span>
+                        <h1>발주</h1><span>(리스트)</span>
                     </div>
                     <div class="orderList-wrap">
                     	<div class="tab-list-wrap" th:switch="${click}">
@@ -213,9 +159,10 @@
 	              					<th style="width: 20%">책이름</th>
 	              					<th style="width: 15%">책저자 </th>
 	              					<th style="width: 10%">발주수량</th>
-	              					<th style="width: 10%">가격</th>
+	              					<th style="width: 7%">가격</th>
 	              					<th style="width: 10%">발주날짜</th>
 	              					<th style="width: 10%">발주승인여부</th>
+	              					<th style="width: 10%">승인확인</th>
 	                            </tr>
 	                        </thead>
 	                        <tbody>                            
@@ -278,8 +225,12 @@
                 <i style=" --fa-bounce-start-scale-x: 1; --fa-bounce-start-scale-y: 1; --fa-bounce-jump-scale-x: 1; --fa-bounce-jump-scale-y: 1; --fa-bounce-land-scale-x: 1; --fa-bounce-land-scale-y: 1; --fa-bounce-rebound: 0;" class="fa-solid fa-angles-up fa-bounce" ></i>
             </button>
         </div>
+    <th:block th:if="${session.admin.adminType}==1">
     </div>
-    
+    </th:block>
+     <th:block th:if="${session.admin.adminType}==2">
+    </div>
+    </th:block>
     <script>
     
    	

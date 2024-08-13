@@ -116,18 +116,20 @@ public class AdminDao {
 	//-책 리스트 끝
 	//-책 등록//
 	public int insertBook(Book book ,Admin admin) {
-		String qurey = "insert all " + 
-				"into admin_tbl(admin_no) values (?);" + 
-				"into center_inventory(center_book_count) values(1);" + 
-				"into book(book_no,book_name,book_writer,book_price,book_publisher,publication_date,enroll_date,book_img,book_detail_content,book_detail_writer,book_detail_img,book_type,book_genre) values (?)" + 
-				"select * from dual";
-				
-				
-				//"insert into book values(book_seq.nextval,?,?,?,?,?,to_char(sysdate,'yyyy-mm-dd'),?,?,?,?,?,?,?,0)";
-		Object[] params = {book.getBookName(),book.getBookWriter(),
+		String qurey = "insert into book values(book_seq.nextval,?,?,?,?,?,to_char(sysdate,'yyyy-mm-dd'),?,?,?,?,?,?,?,0)";
+//				"insert all " + 
+//				"into admin_tbl(admin_no) values (?);" + 
+//				"into center_inventory(center_book_count,) values(1);" + 
+//				"into book(book_no,book_name,book_writer,book_price,book_publisher,publication_date,enroll_date,"
+//				+ "book_img,book_detail_content,book_detail_writer,book_detail_img,"
+//				+ "book_type,book_genre,read_count) values "
+//				+"(book_seq.nextval,?,?,?,?,?,to_char(sysdate,'yyyy-mm-dd'),?,?,?,?,?,?,0)" + 
+//				"select * from dual";
+		Object[] params = {
+							book.getBookName(),book.getBookWriter(),
 							book.getBookPrice(),book.getBookPublisher(),
 							book.getPublicationDate(),book.getBookImg(),
-							book.getAdminNo(),book.getBookDetailContent(),
+							admin.getAdminNo(),book.getBookDetailContent(),
 							book.getBookDetailWriter(),book.getBookDetailImg(),
 							book.getBookType(),book.getBookGenre()};
 		int result = jdbc.update(qurey,params);

@@ -26,67 +26,7 @@
 	</style>
 </head>
 <body>
-<th:block th:if="${session.admin.adminType}==1">
-    <div class="nav1">
-  
-        <div class="icons-menu">
-            <ul>
-                <li class="arrow">
-                    <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
-                </li>
-                <li class="icon1">
-                    <a href="/admin/adminIndex?rePage=1"><i class="fa-solid fa-house"></i></a>
-                </li>
-                <li class="icon1">
-                    <a href="/admin/bookListFrm?rePage=1"><i class="fa-solid fa-book-open"></i></a>
-                </li>
-                <li class="icon1">
-                    <a href="#"><i class="fa-solid fa-circle-user"></i></a>
-                </li>
-                <li class="icon1">
-                    <a href="#"><i class="fa-brands fa-android"></i></a>
-                </li>
-            </ul>
-        </div>
-        <div class="admin-menu">
-        <ul>
-            <li>
-                <h1 class="logo1">
-                    <a href="/admin/adminIndex?rePage=1">책키라웃 관리자</a>
-                </h1>
-            </li>
-            <li>
-            <a href="/admin/adminIndex?rePage=1">판매점 관리</a>
-            <ul class="sub-menu">
-                <li><a href="/admin/adminIndex?rePage=1">판매점 리스트</a></li>
-                <li><a href="/admin/insertAdminFrm">판매점 등록</a></li>
-                <li><a href="/admin/updatePwFrm">비밀번호 변경</a></li>
-            </ul>
-            </li>
-            <li>
-            <a href="#">책 관리</a>
-            <ul class="sub-menu">
-                <li><a href="/admin/bookListFrm?rePage=1">책 리스트</a></li>
-                <li><a href="/admin/insertBookFrm">책 등록</a></li>
-            </ul>
-            </li>
-            <li>
-            <a href="#">1대1 문의</a>
-            </li>
-            <li>
-            <a href="#">챗봇</a>
-            </li>
-        </ul>
-        </div>
-    </div>
-     </th:block>
-    <!-- 네비 사이드 메뉴 끝 -->
-   <th:block th:if="${session.admin.adminType}==1">
-    <div class="wrap">
-    </th:block>
-     <th:block th:if="${session.admin.adminType}==2">
     <div class="wrap" style="width: 100%!important;">
-    </th:block>
         <!-- 헤더 -->
         <div>
             <div class="main-header-wrap">
