@@ -189,7 +189,7 @@
 		margin: 0;
 	}
 	.updatehidden{
-		width: 730px;
+		width: 735px;
 		margin: 0;
 	}
 	.noComment{
@@ -243,7 +243,12 @@
 		width: 39px;
 		height: 39px;
 		line-height: 39px;
-		
+	}
+	.margin0{
+		margin: 0;
+	}
+	#reContent{
+		width: 780px;
 	}
 </style>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -355,14 +360,15 @@
 									</th:block>
 								</span>
 							</p>
+						</li>
+						<li>	
 							<span class="comment-content" th:text="${bc.boardCommentContent}"></span>
-							<div class="input-item" style="display: none;">
-								<textarea name="boardCommentContent"
-									th:text="${bc.boardCommentContent}" class="updatehidden" id="reContent"></textarea>
-							</div>
+						</li>
+						<li class="input-item" style="display: none;">
+							<textarea name="boardCommentContent"
+							th:text="${bc.boardCommentContent}" class="updatehidden" id="reContent"></textarea>
 						</li>
 						<li class="end">
-							<p class="comment-link">
 								<th:block th:if="${session.member != null}">
 									<th:block
 										th:if="${session.member != null && (session.member.memberId == bc.boardCommentWriter || session.member.memberId == b.boardWriter)}">
@@ -374,8 +380,7 @@
 											th:onclick="deleteComment(this,[[${bc.boardCommentNo}]],[[${b.boardNo}]]);">삭제</a>
 									</th:block>
 										<a href="javascript:void(0)" class="recShow">답글달기</a>
-								</th:block>
-							</p>
+							</th:block>
 						</li>	
 					</ul>
 					<div class="underLine"></div>
@@ -481,6 +486,7 @@
 					"modifyComplete(this," + boardCommentNo + "," + boardNo
 							+ ");");
 			$(obj).next().text("수정 취소");
+			$(obj).next().addClass("margin0");
 			$(obj).next().attr(
 					"onclick",
 					"modifyCancel(this," + boardCommentNo + "," + boardNo
@@ -513,6 +519,7 @@
 					"modifyComment(this," + boardCommentNo + "," + boardNo
 							+ ");");
 			$(obj).text("삭제");
+			$(obj).removeClass("margin0");
 			$(obj).attr(
 					"onclick",
 					"deleteComment(this," + boardCommentNo + "," + boardNo
