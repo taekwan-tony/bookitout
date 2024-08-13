@@ -33,7 +33,14 @@ public class CartDao {
 	@Autowired
 	private PayRowMapper3 payRowMapper3;
 
-	public int insertCart(int bookNo, int memberNo, int bookCount) {
+	public int insertCart(int bookNo, int memberNo) {
+		String query = "insert into cart_tbl values (CART_SEQ.nextval,?,1,?)";
+		Object[] params = { bookNo, memberNo };
+		int result = jdbc.update(query, params);
+		return result;
+	}
+	
+	public int insertCart1(int bookNo, int memberNo, int bookCount) {
 		String query = "insert into cart_tbl values (CART_SEQ.nextval,?,?,?)";
 		Object[] params = { bookNo, bookCount,memberNo };
 		int result = jdbc.update(query, params);

@@ -123,7 +123,7 @@ public class CartController {
 		System.out.println(bookNo+bookCount);
 		int memberNo = member.getMemberNo();
 		
-		List<Cart> list = cartService.insertCartNo(bookNo,memberNo,bookCount);
+		List<Cart> list = cartService.insertCartNo1(bookNo,memberNo,bookCount);
 		//카트 객체가 담긴 리스트
 
 		String totalPrice = ((Cart)(list.get(0))).getBookPrice()+3000+"";
