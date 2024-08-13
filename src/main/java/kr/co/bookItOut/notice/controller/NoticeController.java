@@ -33,6 +33,7 @@ public class NoticeController {
 		NoticeListData nld = noticeService.selectAllNotice(reqPage);
 		model.addAttribute("list",nld.getList());
 		model.addAttribute("pageNavi",nld.getPageNavi());
+		model.addAttribute("totalCount",nld.getTotalCount());
 		return "notice/noticeList";
 	}
 	
@@ -113,6 +114,7 @@ public class NoticeController {
 		model.addAttribute("list",nld.getList());
 		model.addAttribute("pageNavi",nld.getPageNavi());
 		model.addAttribute("keyword",keyword);
+		model.addAttribute("totalCount",nld.getTotalCount());
 		return "notice/noticeList";
 	}
 }
