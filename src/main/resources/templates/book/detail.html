@@ -125,18 +125,6 @@
             <div class="comment">
                 <div class="comment-title">
                     <span style="font-size: 20px;"><strong>Book리뷰(120개)</strong></span>
-                    
-                    <div class="right">
-                        <!-- <button class="btn-type3 btn">
-                            <i class="fa-solid fa-pen-clip"></i>
-                           	 리뷰 작성
-                        </button> -->
-                        
-                        <select>
-                            <option>좋아요 순</option>
-                            <option>최신 순</option>
-                        </select>
-                    </div>
                 </div>
                 <!-- 댓글 입력 -->
                 <div th:if="${session.member != null}" class="inputCommentBox">
@@ -297,9 +285,8 @@
                             <input type="number" id="count" value="1" style="width: 34px;" readonly>
                             <button class="plus" onclick="plus();">+</button>
                         </span>
-                        <button class="btn-type1 btn"><span><i class="fa-solid fa-gift"></i></span>선물하기</button>
-                        <button class="btn-type2 btn">장바구니</button>
-                        <button class="btn-type3 btn">바로구매</button>
+                        <button class="btn-type2 btn" th:onclick="addCart([[${book.bookNo}]])">장바구니</button>
+                        <button class="btn-type3 btn" th:onclick="nowPay([[${book.bookNo}]])">바로구매</button>
                     </div>
                 </div>
             </div>
@@ -309,8 +296,7 @@
     </main>
 
 	<script>
-		// 모달 팝업 오픈&클로즈
-		 
+		// 모달 팝업 오픈&클로즈		 
 		$(document).ready(function(){
 		    var $openBtn = $('.open-btn'),
 		        $closeBtn = $('.close-btn'),
@@ -475,6 +461,62 @@
 	                console.log("에러");
 	            }
 	        });
+		}
+		
+		// 장바구니 버튼
+		function addCart(bookNo) {
+			$.ajax({
+				url: "/cart/selectCart",
+				type: "get",
+				data: { bookNo: bookNo },
+				success: function (data) {
+					const cartNo = data;
+					if (cartNo == 0) {
+						$.ajax({
+							url: "/cart/addCart",
+							type: "get",
+							data: { bookNo: bookNo },
+							success: function (data) {
+								console.log(data);
+								swal({
+									title: "장바구니 담기",
+									text: "해당 책이 장바구니에 담겼습니다.",
+									icon: "info"
+								});
+							},
+							error: function () {
+								console.log("에러");
+							}
+						});
+					} else {
+						console.log(cartNo);
+						$.ajax({
+							url: "/cart/plusCart",
+							type: "get",
+							data: { cartNo: cartNo },
+							success: function (data) {
+								console.log(data);
+								swal({
+									title: "책 수량 추가",
+									text: "장바구니에 담겨있는 책입니다. 추가 하시겠습니까?",
+									icon: "info"
+								});
+							},
+							error: function () {
+								console.log("에러");
+							}
+						});
+					}
+				},
+				error: function () {
+					console.log("에러");
+				}
+			});
+		}
+		
+		// 바로구매 버튼
+		function nowPay(bookNo) {
+			location.href = "/cart/nowPay?bookNo=" + bookNo;
 		}
 	
 		function modifyComment(obj, bookCommentNo, bookNo){
