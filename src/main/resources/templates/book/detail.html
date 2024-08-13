@@ -467,8 +467,9 @@
 	            	//console.log(data[0].latitude);
 	            	const latitude = data[0].latitude;
 	            	const longitude = data[0].longitude;
-	    			window.open("/book/centerMap?adminNo="+adminNo+"&adminName="+adminName+"&adminAddr="+adminAddr+"&latitude="+latitude+"&longitude="+longitude);
-	    			//?adminNo="+adminNo+"?adminName="+adminName+"?adminAddr="+adminAddr+"?latitude="+latitude+"?longitude="+longitude
+	            	const adminPhone = data[0].adminPhone;
+	            	const openingDay = data[0].openingDay;
+	    			window.open("/book/centerMap?adminNo="+adminNo+"&adminName="+adminName+"&adminAddr="+adminAddr+"&latitude="+latitude+"&longitude="+longitude+"&adminPhone="+adminPhone+"&openingDay="+openingDay);
 	            },
 	            error : function(){
 	                console.log("에러");
