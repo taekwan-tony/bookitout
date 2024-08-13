@@ -166,6 +166,9 @@
 	              					<td>
 		              					<button type="submit" class="btn-type2 btn orderAllList1" id="orderAllList1">발주창</button>
 	              						<input type="hidden" name="orderNo" th:value="${orderAll.orderNo}">    
+	              						<input type="hidden" name="orderQuntity" th:value="${orderAll.orderQuntity}">
+	              						<input type="hidden" name="bookNo" th:value="${orderAll.bookNo}">
+	              						<input type="hidden" name="adminNo" th:value="${orderAll.adminNo}">
 	              					</td>
 	              					</form>
 	                            </tr>
@@ -200,12 +203,12 @@
    
     
   //-발주창
-   function orderAllList(obj,orderNo){
-	  	const orderCheck = $(".orderCheck").val();
-	  	console.log(orderCheck);
+ //  function orderAllList(obj,orderNo){
+	//  	const orderCheck = $(".orderCheck").val();
+	  //	console.log(orderCheck);
     	//th:onclick="orderAllList(this, [[${orderAll.orderCheck}]],[[${orderAll.orderNo}]]);"
-    	location.href="/admin/orderCheck?orderCheck="+orderCheck+"&orderNo="+orderNo;
-    }
+   // 	location.href="/admin/orderCheck?orderCheck="+orderCheck+"&orderNo="+orderNo;
+   // }
      
     
     </script>
