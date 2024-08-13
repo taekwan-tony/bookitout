@@ -112,19 +112,16 @@ public class BookDao {
 	}
 
 	public int selectBookTotalCount() {
-		String query = "select count(*) from book where book_type = '국내도서'";
+		String query = "select count(*) from book";
 		int totalCount = jdbc.queryForObject(query, Integer.class);
 		return totalCount;
 	}
-	
+
 	public int selectBookTotalCountFore() {
 		String query = "select count(*) from book where book_type = '해외도서'";
 		int totalCount = jdbc.queryForObject(query, Integer.class);
 		return totalCount;
 	}
-	
-	
-
 	public List selectGenreOneBookNoList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' order by book_no desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
@@ -166,7 +163,7 @@ public class BookDao {
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
-	//
+
 	public List selectGenreTwoBookNoList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '문학' order by book_no desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
@@ -208,7 +205,7 @@ public class BookDao {
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
-	//
+
 	public List selectGenreThreeBookNoList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '재테크' order by book_no desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
@@ -250,7 +247,7 @@ public class BookDao {
 		List list = jdbc.query(query, bookRowMapper, params);
 		return list;
 	}
-	//
+
 	public List selectGenreFourBookNoList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' and book_genre = '기타' order by book_no desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
@@ -483,17 +480,6 @@ public class BookDao {
 		return result;
 	}
 
-//	public CenterMap selectCenterMap(CenterMap cm) {
-//		String query = "SELECT ADMIN_NO, ADMIN_NAME, ADMIN_ADDR, LATITUDE, LONGITUDE FROM CENTER_MAP JOIN ADMIN_TBL USING(ADMIN_NO) WHERE ADMIN_NO = ?";
-//		Object[] params = {cm.getAdminNo()};
-//		List list = jdbc.query(query, centerMapRowMapper, params);
-//		if(list.isEmpty()) {
-//			return null;
-//		}else {
-//			return (CenterMap)list.get(0);
-//		}
-//	}
-
 	public int insertBookCommentLike(int bookCommentNo, int memberNo) {
 		String query = "insert into book_comment_thumb values(?, ?)";
 		Object[] params = {bookCommentNo, memberNo};
@@ -516,7 +502,7 @@ public class BookDao {
 	}
 
 	public List<Book> selectThreeBook() {
-		String query = "select * from (select rownum as rnum, b.* from (select * from book order by 1 desc)b) where rnum between 5 and 8";
+		String query = "select * from (select rownum as rnum, b.* from (select * from book order by 1 desc)b) where rnum between 1 and 4";
 		List list = jdbc.query(query, bookRowMapper);
 		return list;
 	}
@@ -534,11 +520,11 @@ public class BookDao {
 	}
 
 	public int selectBookCommentCount(int bookNo) {
-		String query = "SELECT COUNT(*) FROM BOOK_COMMENT WHERE BOOK_REF=? and BOOK_COMMENT_REF is null";
-		Object[] params = {bookNo};
-		int commentCount = jdbc.queryForObject(query, Integer.class, params);
-		return commentCount;
-	}
+        String query = "SELECT COUNT(*) FROM BOOK_COMMENT WHERE BOOK_REF=? and BOOK_COMMENT_REF is null";
+        Object[] params = {bookNo};
+        int commentCount = jdbc.queryForObject(query, Integer.class, params);
+        return commentCount;
+    }
 
 	public Admin selectOneAdmin(Admin admin, int adminNo) {
 		String query = "select * from admin_tbl where admin_no = ?";
@@ -551,21 +537,4 @@ public class BookDao {
 		}
 	}
 	
-	/*
-	// 판매점 위치 ajax 비동기처리
-	public List<CenterInventoryBook> selectAllCenterInventory(int bookNo) {
-		String query = "select admin_name, admin_addr, center_book_count, admin_tbl.admin_no from admin_tbl join center_inventory on (admin_tbl.admin_no = center_inventory.admin_no) join book on (book_no = book_no2) where book_no = ? and admin_type = 2";
-		Object[] params = {bookNo};
-		List<CenterInventoryBook> centerList = jdbc.query(query, centerInventoryBookRowMapper, params);
-		System.out.println(centerList.size());
-		return centerList;
-	}
-	 */
 }
-
-
-
-
-
-
-

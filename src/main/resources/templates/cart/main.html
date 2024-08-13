@@ -75,7 +75,7 @@ margin:50px
 
 
 					<td th:text="${c.bookName}"></td>
-					<td  th:text="${c.bookNo}" id="bookNo" hidden></td>
+					<td  th:text="${c.bookNo}" id="bookNo" class="bookNo" hidden></td>
 
 
 					<td>
@@ -90,7 +90,7 @@ margin:50px
 
 					<td th:text="${c.bookPrice}"></td>
 					<td>
-						<button>바로구매</button>
+						<button type="button" onclick="selNow(this);">바로구매</button>
 					</td>
 				</tr>
 				<tr>
@@ -139,7 +139,11 @@ margin:50px
 		<div class="clear"></div>
 	</main>
 	<script>
-	
+		function selNow(obj){
+			var bookNo = $(obj).closest("tr").find(".bookNo").text();
+			var bookCount = $(obj).closest("tr").find(".count").val();
+			location.href = "/cart/selNow?bookNo="+bookNo+"&bookCount="+bookCount;
+		}
 		function updateTotalCount() {
 		    let total = 0;
 		    

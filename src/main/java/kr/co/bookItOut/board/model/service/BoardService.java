@@ -103,7 +103,7 @@ public class BoardService {
 		int end = reqPage*numPerPage;
 		int start = end - numPerPage + 1;
 		List list=boardDao.searchBoard(type, keyword, start, end, option);
-		int totalCount=boardDao.selectBoardTotalCount();
+		int totalCount=boardDao.selectBoardSearchCount(type,keyword);
 		int totalPage = 0;
 		if(totalCount%numPerPage == 0) {
 			totalPage = totalCount/numPerPage;

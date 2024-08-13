@@ -182,7 +182,7 @@ public class MemberController {
 	
 	@PostMapping(value = "/searchId")
 	public String searchId(Member m, Model model) {
-			Member member = memberService.selectSearchPw(m);
+			Member member = memberService.selectSearchId(m);
 			String memberId;
 			
 			if(member == null) {
@@ -196,7 +196,7 @@ public class MemberController {
 	
 	@PostMapping(value = "/searchPw")
 	public String searchPw(Member m, Model model) {
-			Member member = memberService.selectSearchId(m);
+			Member member = memberService.selectSearchPw(m);
 			String memberPw;
 			
 			if(member == null) {

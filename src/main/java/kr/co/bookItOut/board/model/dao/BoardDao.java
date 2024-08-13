@@ -297,4 +297,33 @@ public class BoardDao {
 		int result = jdbc.queryForObject(query, Integer.class, params);
 		return result;
 	}
+
+	public int selectBoardSearchCount(String type, String keyword) {
+		String query = "";
+		if(type.equals("none")) {
+			query = "select count(*) from board";
+		}else if (type.equals("title")) {
+			query = "select count(*) from board where board_title like '%'||?||'%'";
+			Object[] params = { keyword };
+			int result=jdbc.queryForObject(query, Integer.class, params);
+			return result;
+		}else if (type.equals("writer")) {
+			query = "select count(*) from board where board_writer like '%'||?||'%'";
+			Object[] params = { keyword };
+			int result = jdbc.queryForObject(query, Integer.class, params);
+			return result;
+		}else if (type.equals("titleContent")) {
+			query = "select count(*) from board where board_content like '%'||?||'%' or board_title like '%'||?||'%'";
+			Object[] params = { keyword, keyword };
+			int result = jdbc.queryForObject(query, Integer.class, params);
+			return result;
+		} else if (type.equals("content")) {
+			query = "select count(*) from board where board_content like '%'||?||'%'";
+			Object[] params = { keyword };
+			int result=jdbc.queryForObject(query, Integer.class, params);
+			return result;
+		}
+		int result=jdbc.queryForObject(query, Integer.class);
+		return result;
+	}
 }
