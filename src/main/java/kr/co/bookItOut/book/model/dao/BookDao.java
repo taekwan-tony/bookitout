@@ -117,6 +117,11 @@ public class BookDao {
 		return totalCount;
 	}
 
+	public int selectBookTotalCountFore() {
+		String query = "select count(*) from book where book_type = '해외도서'";
+		int totalCount = jdbc.queryForObject(query, Integer.class);
+		return totalCount;
+	}
 	public List selectGenreOneBookNoList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' order by book_no desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
