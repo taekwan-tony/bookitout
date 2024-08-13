@@ -514,6 +514,13 @@ public class BookDao {
 		List<CenterMap> centerMap = jdbc.query(query, centerMapRowMapper, params);
 		return centerMap;
 	}
+
+	public int selectBookCommentCount(int bookNo) {
+		String query = "SELECT COUNT(*) FROM BOOK_COMMENT WHERE BOOK_REF=? and BOOK_COMMENT_REF is null";
+		Object[] params = {bookNo};
+		int commentCount = jdbc.queryForObject(query, Integer.class, params);
+		return commentCount;
+	}
 	
 	/*
 	// 판매점 위치 ajax 비동기처리
