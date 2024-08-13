@@ -118,60 +118,62 @@ public class BoardDao {
 
 	public List searchBoard(String type, String keyword, int start, int end, String option) {
 		String query = "";
-		if(type.equals("none")) {
+		if(type.equals("1")) {
 			if(option.equals("new")) {				
 				query = "select * from (select rownum as rnum, n.* from (select * from board order by 1 desc)n) where rnum between ? and ? ";
 			}else if(option.equals("old")){
 				query = "select * from (select rownum as rnum, n.* from (select * from board order by 1)n) where rnum between ? and ? ";
 			}else if(option.equals("readCount")){
 				query = "select * from (select rownum as rnum, n.* from (select * from board order by read_count desc)n) where rnum between ? and ? ";
-			}
+			}/*else if(option.equals("comment"))){
+				query = "select * from (select rownum as rnum, n.* from (select * from board order by 1 desc)n) where rnum between ? and ? ";
+			}*/
 			Object[] params = { start, end };
 			List list = jdbc.query(query, boardRowMapper, params);
 			return list;
-		} else if (type.equals("title")) {
+		} else if (type.equals("2")) {
 			if(option.equals("new")) {	
 				query = "select * from (select rownum as rnum, n.* from (select * from board where board_title like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
 			}else if(option.equals("old")){
 				query = "select * from (select rownum as rnum, n.* from (select * from board where board_title like '%'||?||'%' order by 1)n) where rnum between ? and ? ";
 			}else if(option.equals("readCount")){
 				query = "select * from (select rownum as rnum, n.* from (select * from board where board_title like '%'||?||'%' order by read_count desc)n) where rnum between ? and ? ";
-			}else if(option.equals(type)){
+			}/*else if(option.equals("comment"))){
 				query = "select * from (select rownum as rnum, n.* from (select * from board where board_title like '%'||?||'%' order by board_title)n) where rnum between ? and ? ";
-			}	
-		} else if (type.equals("writer")) {
+			}*/
+		} else if (type.equals("3")) {
 			if(option.equals("new")) {	
 				query = "select * from (select rownum as rnum, n.* from (select * from board where board_writer like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
 			}else if(option.equals("old")){
 				query = "select * from (select rownum as rnum, n.* from (select * from board where board_writer like '%'||?||'%' order by 1)n) where rnum between ? and ? ";
 			}else if(option.equals("readCount")){
 				query = "select * from (select rownum as rnum, n.* from (select * from board where board_writer like '%'||?||'%' order by read_count desc)n) where rnum between ? and ? ";
-			}else if(option.equals(type)){
+			}/*else if(option.equals("comment")){
 				query = "select * from (select rownum as rnum, n.* from (select * from board where board_writer like '%'||?||'%' order by board_writer)n) where rnum between ? and ? ";
-			}	
-		} else if (type.equals("titleContent")) {
+			}*/
+		} else if (type.equals("4")) {
 			if(option.equals("new")) {	
 				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' or board_title like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
 			}else if(option.equals("old")){
 				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' or board_title like '%'||?||'%' order by 1)n) where rnum between ? and ? ";
 			}else if(option.equals("readCount")){
 				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' or board_title like '%'||?||'%' order by read_count desc)n) where rnum between ? and ? ";
-			}else if(option.equals(type)){
+			}/*else if(option.equals("comment"))){
 				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' or board_title like '%'||?||'%' order by board_title)n) where rnum between ? and ? ";
-			}	
+			}*/	
 			Object[] params = { keyword, keyword, start, end };
 			List list = jdbc.query(query, boardRowMapper, params);
 			return list;
-		} else if (type.equals("content")) {
+		} else if (type.equals("5")) {
 			if(option.equals("new")) {	
 				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
 			}else if(option.equals("old")){
 				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' order by 1)n) where rnum between ? and ? ";
 			}else if(option.equals("readCount")){
 				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' order by read_count desc)n) where rnum between ? and ? ";
-			}else if(option.equals(type)){
+			}/*else if(option.equals("comment"))){
 				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' order by board_content)n) where rnum between ? and ? ";
-			}	
+			}*/
 		}
 		Object[] params = { keyword, start, end };
 		List list = jdbc.query(query, boardRowMapper, params);
@@ -300,24 +302,24 @@ public class BoardDao {
 
 	public int selectBoardSearchCount(String type, String keyword) {
 		String query = "";
-		if(type.equals("none")) {
+		if(type.equals("1")) {
 			query = "select count(*) from board";
-		}else if (type.equals("title")) {
+		}else if (type.equals("2")) {
 			query = "select count(*) from board where board_title like '%'||?||'%'";
 			Object[] params = { keyword };
 			int result=jdbc.queryForObject(query, Integer.class, params);
 			return result;
-		}else if (type.equals("writer")) {
+		}else if (type.equals("3")) {
 			query = "select count(*) from board where board_writer like '%'||?||'%'";
 			Object[] params = { keyword };
 			int result = jdbc.queryForObject(query, Integer.class, params);
 			return result;
-		}else if (type.equals("titleContent")) {
+		}else if (type.equals("4")) {
 			query = "select count(*) from board where board_content like '%'||?||'%' or board_title like '%'||?||'%'";
 			Object[] params = { keyword, keyword };
 			int result = jdbc.queryForObject(query, Integer.class, params);
 			return result;
-		} else if (type.equals("content")) {
+		} else if (type.equals("5")) {
 			query = "select count(*) from board where board_content like '%'||?||'%'";
 			Object[] params = { keyword };
 			int result=jdbc.queryForObject(query, Integer.class, params);
