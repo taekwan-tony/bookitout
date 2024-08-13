@@ -117,11 +117,58 @@ public class BookDao {
 		return totalCount;
 	}
 
+	//국내 문학
+	public int selectGenreTwoBookNoListTwo() {
+		String query = "select count(*) from book where book_type = '국내도서' and book_genre = '문학'";		
+		int totalCount = jdbc.queryForObject(query, Integer.class);
+		return totalCount;
+	}
+	//국내 재테크
+	public int selectGenreTwoBookNoListThree() {
+		String query = "select count(*) from book where book_type = '국내도서' and book_genre = '재테크'";		
+		int totalCount = jdbc.queryForObject(query, Integer.class);
+		return totalCount;
+	}
+	//국내 기타
+	public int selectGenreTwoBookNoListFour() {
+		String query = "select count(*) from book where book_type = '국내도서' and book_genre = '기타'";		
+		int totalCount = jdbc.queryForObject(query, Integer.class);
+		return totalCount;
+	}
+	
+	
+	//해외
+
 	public int selectBookTotalCountFore() {
 		String query = "select count(*) from book where book_type = '해외도서'";
 		int totalCount = jdbc.queryForObject(query, Integer.class);
 		return totalCount;
 	}
+
+	//해외 문학
+	public int selectGenreFiveTwoBookNoListTwo() {
+		String query = "select count(*) from book where book_type = '해외도서' and book_genre = '문학'";		
+		int totalCount = jdbc.queryForObject(query, Integer.class);
+		return totalCount;
+	}
+	//해외 재테크
+	public int selectGenreFiveTwoBookNoListThree() {
+		String query = "select count(*) from book where book_type = '해외도서' and book_genre = '재테크'";		
+		int totalCount = jdbc.queryForObject(query, Integer.class);
+		return totalCount;
+	}
+	
+
+	//해외 기타
+	public int selectGenreFiveTwoBookNoListFour() {
+		String query = "select count(*) from book where book_type = '해외도서' and book_genre = '기타'";		
+		int totalCount = jdbc.queryForObject(query, Integer.class);
+		return totalCount;
+	}
+	
+	
+
+
 	public List selectGenreOneBookNoList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' order by book_no desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
@@ -536,5 +583,24 @@ public class BookDao {
 			return (Admin)list.get(0);
 		}
 	}
+
 	
+
 }
+
+	/*
+	// 판매점 위치 ajax 비동기처리
+	public List<CenterInventoryBook> selectAllCenterInventory(int bookNo) {
+		String query = "select admin_name, admin_addr, center_book_count, admin_tbl.admin_no from admin_tbl join center_inventory on (admin_tbl.admin_no = center_inventory.admin_no) join book on (book_no = book_no2) where book_no = ? and admin_type = 2";
+		Object[] params = {bookNo};
+		List<CenterInventoryBook> centerList = jdbc.query(query, centerInventoryBookRowMapper, params);
+		System.out.println(centerList.size());
+		return centerList;
+	}
+	 */
+
+
+
+
+
+

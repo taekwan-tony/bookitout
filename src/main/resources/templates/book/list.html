@@ -217,11 +217,12 @@
 		<section class="section book-list-wrap">
 			<div class="book-list">
 				<div class="list-header">
-					<p><a class="list kor" href="/book/list?reqPage=1&type=1&genre=1">국내 도서</a></p>
+					<p><a class="list kor" href="/book/list?reqPage=1&type=1&genre=1&group=1">국내 도서</a></p> 
+					<!-- <p><a class="list kor" href="/book/list?reqPage=1&type=1&genre=1">국내 도서</a></p> --> 
 					<ul>
-						<li><a class="list grey" href="/book/list?reqPage=1&type=1&genre=2">문학</a></li>
-						<li><a class="list grey" href="/book/list?reqPage=1&type=1&genre=3">재테크</a></li>
-						<li><a class="list grey" href="/book/list?reqPage=1&type=1&genre=4">기타</a></li>
+						<li><a class="list grey" href="/book/list?reqPage=1&type=1&genre=2&group=1">문학</a></li>
+						<li><a class="list grey" href="/book/list?reqPage=1&type=1&genre=3&group=1">재테크</a></li>
+						<li><a class="list grey" href="/book/list?reqPage=1&type=1&genre=4&group=1">기타</a></li>
 					</ul>
 				</div>
 
@@ -230,11 +231,11 @@
 						<!--  <p>이 분야에 <span th:text="${list.size()}"></span>개의 상품이 있습니다.</p> -->
 
 						<ul class="array-title">
-							<li><a class="list" th:href="@{/book/list(reqPage=1,type=2,genre=${genre})}">상품명순</a></li>
-							<li><a class="list" th:href="@{/book/list(reqPage=1,type=3,genre=${genre})}">출간일순</a></li>
-							<li><a class="list" th:href="@{/book/list(reqPage=1,type=4,genre=${genre})}">등록일순</a></li>
-							<li><a class="list" th:href="@{/book/list(reqPage=1,type=5,genre=${genre})}">저가격순</a></li>
-							<li><a class="list" th:href="@{/book/list(reqPage=1,type=6,genre=${genre})}">고가격순</a></li>
+							<li><a class="list" th:href="@{/book/list(reqPage=1,type=2,genre=${genre},group=1)}">상품명순</a></li>
+							<li><a class="list" th:href="@{/book/list(reqPage=1,type=3,genre=${genre},group=1)}">출간일순</a></li>
+							<li><a class="list" th:href="@{/book/list(reqPage=1,type=4,genre=${genre},group=1)}">등록일순</a></li>
+							<li><a class="list" th:href="@{/book/list(reqPage=1,type=5,genre=${genre},group=1)}">저가격순</a></li>
+							<li><a class="list" th:href="@{/book/list(reqPage=1,type=6,genre=${genre},group=1)}">고가격순</a></li>
 						</ul>
 					</div>
 
@@ -266,9 +267,10 @@
 											<span class="publication-date" th:text="${book.publicationDate}"></span>
 										</div>
 										<div class="book-third">
-											<span class="book-price" th:text="${book.bookPrice}"></span>
+											<span class="book-price" th:text="${book.bookPrice} + ' 원'"></span>
 
-											<!-- <span  class="enroll-date" th:text="${book.enrollDate}"></span> -->
+											<!-- <span  class="enroll-date" th:text="${book.enrollDate}"></span> 												
+											-->
 										</div>
 									</div>
 								</td>
