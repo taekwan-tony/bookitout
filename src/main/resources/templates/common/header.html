@@ -29,10 +29,6 @@
                         </h1>
                     </div>
                     <div class="search">
-                        <input type="text" name="search">
-                        <button class="search-btn" type="button">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
                     </div>
                     <div class="lnb">
                     <th:block th:if="${session.member == null and session.admin == null}">
@@ -68,13 +64,13 @@
                         <th:block th:if="${session.admin!=null}">
                         <ul>
                             <li>
-                                <a href="#">장바구니</a>
-                            </li>
-                            <li>
-                                <a href="/admin/myPage" th:text="${session.admin.adminName}"></a>
+                                <a href="/admin/adminIndex?rePage=1">관리자페이지</a>
                             </li>
                             <li>
                                 <a href="/admin/logout">로그아웃</a>
+                            </li>
+                            <li>
+                                <a href="/FAQ/customerMain">고객센터</a>
                             </li>
                         </ul>
                         </th:block>

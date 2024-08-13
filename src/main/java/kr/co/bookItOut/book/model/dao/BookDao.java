@@ -508,7 +508,7 @@ public class BookDao {
 		return list;
 	}
 	public List<Book> selectFiveBook() {
-		String query = "select * from (select rownum as rnum, b.* from (select * from book)b) where rnum between 1 and 5";
+		String query = "select * from (select rownum as rnum, b.* from (select * from book order by book_genre desc)b) where rnum between 1 and 5";
 		List list = jdbc.query(query, bookRowMapper);
 		return list;
 	}
