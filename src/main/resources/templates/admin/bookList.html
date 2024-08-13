@@ -189,7 +189,7 @@
               						<input type="text" name="bookPrice" th:value=${book.bookPrice}>
               					</td>
               					<td>
-	              					<button type="button" class="btn-type2 btn orderAdmin" id="orderAdmin2" th:onclick="orderAdminBook(this, [[${book.bookNo}]]);">발주창</button>
+	              					<button type="button" class="btn-type2 btn orderAdmin" id="orderAdmin" th:onclick="orderAdminBook(this, [[${book.bookNo}]]);">발주창</button>
               					</td>
               					<td>
               						
@@ -290,11 +290,9 @@
   //-발주창
    function orderAdminBook(obj, bookNo){
     	
-    	location.href="/admin/orderAdmin2?rePage=1";
+    	location.href="/admin/orderAdmin2?bookNo="+bookNo;
     }
-    
      
-    
     
     </script>
 </body>

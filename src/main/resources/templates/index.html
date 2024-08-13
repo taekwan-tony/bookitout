@@ -10,6 +10,22 @@
 	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
+<style>
+	.main-second-wrap>div:first-child{
+		width: 1200px;
+		margin : 0 auto;
+		margin-top : 50px;
+	}
+ 	.main-second-wrap>div>div{
+		width: 1200px;
+		margin : 50px auto;
+	}
+
+ 	.second>.swiper-slide>a>img{
+ 		width: 300px;
+ 		
+ 	}
+ </style>
 <body>
 	<th:block th:include="common/header"></th:block>
     
@@ -43,49 +59,40 @@
                 <div class="swiper-button-next"></div>
             </div>
         </div>
-        
-        <div class="clear"></div>
-        
-        <div class="pagination">
-            <ul>
-                <!-- <li><a class="page-item" href="#"><span><i class="fa-solid fa-angles-left"></i></span></a></li> -->
-                <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-left"></i></span></a></li>
-                <li><a class="page-item active-page" href="#">1</a></li>
-                <li><a class="page-item" href="#">2</a></li>
-                <li><a class="page-item" href="#">3</a></li>
-                <li><a class="page-item" href="#">4</a></li>
-                <li><a class="page-item" href="#">5</a></li>
-                <li><a class="page-item" href="#">6</a></li>
-                <li><a class="page-item" href="#">7</a></li>
-                <li><a class="page-item" href="#">8</a></li>
-                <li><a class="page-item" href="#">9</a></li>
-                <li><a class="page-item" href="#">10</a></li>
-                <li><a class="page-item page-btn" href="#"><span><i class="fa-solid fa-angle-right"></i></span></a></li>
-                <!-- <li><a class="page-item" href="#"><span><i class="fa-solid fa-angles-right"></i></span></a></li> -->
-            </ul>
+        <!-- 조회 순   -->
+        <div class="main-second-wrap">
+	        <div>
+	        	<h2>급상승! 많이 보고 있는 상품!</h2>
+	        </div>
+	        <div class="main-visual-wrap">
+	            <div class="swiper2">
+	                <!-- Additional required wrapper -->
+	                <div class="swiper-wrapper second">
+	                    <!-- Slides -->
+	                    <th:block th:each="b : ${bList}">
+	                    <div class="swiper-slide">
+			                  <a href="javascript:void(0)">
+			                       <img th:src="@{/book/{filename}(filename=${b.bookImg})}" alt="">
+			                  </a>
+	                    </div>
+	                    </th:block>
+	                    
+	                </div>
+	                <!-- If we need pagination -->
+	                <div class="swiper2-pagination"></div>
+	
+	                <!-- If we need navigation buttons -->
+	                <div class="swiper2-button-prev"></div>
+	                <div class="swiper2-button-next"></div>
+	            </div>
+	        </div>
         </div>
         
-        <div class="clear"></div>
         
-        <div class="btnBox">
-            <button class="btn-type1 btn">버튼1</button>
-            <button class="btn-type2 btn">버튼2</button>
-            <button class="btn-type3 btn">버튼3</button>
-            <button class="btn-type4 btn">버튼4</button>
-        </div>
-        
-        <div class="clear"></div>
-
-        <div class="select">
-            <select>
-                <option>옵션1</option>
-                <option>옵션2</option>
-                <option>옵션3</option>
-            </select>
-        </div>
     </main>
     
     <script src="js/swiper.js"></script>
+    <script src="js/swiper2.js"></script>
 	<th:block th:include="common/footer"></th:block>
 </body>
 </html>

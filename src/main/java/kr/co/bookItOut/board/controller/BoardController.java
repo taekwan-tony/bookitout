@@ -59,9 +59,9 @@ public class BoardController {
 	@ResponseBody
 	@PostMapping(value="/editorImage", produces = "plain/text;charset=utf-8")
 	public String editorImage(MultipartFile upfile) {
-		String savepath = root+"/editor/";
+		String savepath = root+"/board/editor/";
 		String filepath = fileUtils.upload(savepath, upfile);
-		return "/board/editor"+filepath;
+		return "/board/editor/"+filepath;
 	}
 	@PostMapping(value="/write")
 	public String writer(Board b, MultipartFile[] upfile, Model model) {

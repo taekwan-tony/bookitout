@@ -20,6 +20,7 @@
 
 		.book-list {
 			overflow: hidden;
+			margin-bottom: 30px;
 		}
 
 		.list-header {
@@ -91,7 +92,7 @@
 
 		.book-info {
 			padding-top: 20px;
-			height: 790px;
+			height: 780px;
 		}
 
 		.chech-box {
@@ -189,6 +190,10 @@
 			margin-bottom: 10px;
 		}
 
+		.pagination {
+			max-width: 425px !important;
+		}
+
 		.pagination>ul {
 			display: block;
 		}
@@ -222,7 +227,7 @@
 
 				<div class="list-contect">
 					<div class="list-array-title">
-						 <!--  <p>이 분야에 <span th:text="${list.size()}"></span>개의 상품이 있습니다.</p> -->
+						<!--  <p>이 분야에 <span th:text="${list.size()}"></span>개의 상품이 있습니다.</p> -->
 
 						<ul class="array-title">
 							<li><a class="list" th:href="@{/book/list(reqPage=1,type=2,genre=${genre})}">상품명순</a></li>
@@ -236,19 +241,25 @@
 					<div class="book-info">
 						<table class="book-info-tbl">
 							<tr th:each="book : ${list}">
+							<!--  
 								<td class="check-box" style="width:5%; vertical-align: baseline;">
-									<input type="checkbox" class="checkbox" name="checkbox" id="checkbox" th:onclick="selectBook();">
-								</td>
+									<input type="checkbox" class="checkbox" name="checkbox" id="checkbox"
+										th:onclick="selectBook();">
+								</td> -->
 
 								<td style="width:20%;">
-								<a th:href="@{/book/detail?(bookNo=${book.bookNo})}">
-									<img id=book_img th:src="@{/book/{filename}(filename=${book.bookImg})}" style="cursor:pointer;">
-								</a>
+									<a th:href="@{/book/detail?(bookNo=${book.bookNo})}">
+
+										<img id=book_img th:src="@{/book/{filename}(filename=${book.bookImg})}"
+											style="cursor:pointer;">
+									</a>
 								</td>
 
 								<td style="vertical-align: baseline;">
 									<div class="book-details">
-										<div class="book-first b-name"><a th:href="@{/book/detail?(bookNo=${book.bookNo})}" th:text="${book.bookName}"></a></div>
+										<div class="book-first b-name"><a
+												th:href="@{/book/detail?(bookNo=${book.bookNo})}"
+												th:text="${book.bookName}"></a></div>
 										<div class="book-second">
 											<span class="book-writer" th:text="${book.bookWriter}"></span>
 											<span class="book-publisher" th:text="${book.bookPublisher}"></span>
@@ -279,14 +290,15 @@
 
 								</td>
 							</tr>
-							
+							<!--  
 							<tr>
 								<td>
 									<button class="btn-list list"  type="button" id=selectCart>선택??</button>
 								</td>
 							</tr>
+							-->
 						</table>
-											
+
 					</div>
 
 
@@ -295,6 +307,8 @@
 				<div class=clear></div>
 
 				<div class="pagination" id="pageNavi" th:utext="${pageNavi}"></div>
+
+				<div class=clear></div>
 
 			</div>
 		</section>
@@ -387,11 +401,11 @@
 		}
 
 		function nowPay(bookNo) {
-			location.href = "/cart/nowPay?bookNo="+bookNo;
+			location.href = "/cart/nowPay?bookNo=" + bookNo;
 		}
-		
-		
-		
+
+
+
 		/*
 		$("#selectCart").on("click", function(){
 			const checked = $(".checkbox:checked");

@@ -7,6 +7,9 @@
 <script src="/js/jquery-3.7.1.js"></script>
 	<script src="/js/sweetalert.min.js"></script>
 	<style>
+	tbody{
+		
+	}
 	 .bookTbl tbody td input{
 	 	width : 100%;
 	 	border: none;
@@ -19,6 +22,37 @@
 	}
 	tbody tbody tr td div div{
 		padding: 10px 0px!important ;
+	}
+	.tab-btn{
+		border:none;
+		background : none;
+	}
+	.tab-ul{
+		display: flex;
+		align-items : center;
+		justify-content : left;
+		height:44px;
+		border-bottom:1px solid black;
+	}
+	.tab-ul>li{
+		border:1px solid var(--gray2);
+		border-top-left-radius : 10px;
+		border-top-right-radius : 10px;
+		min-width: 160px;
+		padding : 0;
+		text-align:center;
+		height:100%;
+		border-bottom:1px solid black;
+		background-color: var(--color2);
+	}
+	.tab-ul>li>button{
+		width:100%;
+		height:100%;
+	}
+	.tab-ul>li>button>span{
+		line-height:46px;
+		font-size:20px;
+		font-family:Tenada;
 	}
 	
 	
@@ -156,7 +190,7 @@
 							<ul class="tab-ul" th:case="승인">
 									<li class="tab-item ui-state-active">
 										<button for="type1" class="tab-btn">
-											<span><a id="type1" href="/admin/orderList?type=1&reqPage=1">전체</a></span>
+											<span><a id="type1" href="/admin/orderList?type=1&reqPage=1">발주중</a></span>
 										</button>
 									</li>
 									<li class="tab-item ui-state-active">
@@ -174,34 +208,48 @@
 								<table class="bookTbl">
 	                        <thead>
 	                            <tr>
-	              					<th style="width: 3%">발주번호</th>
-	              					<th style="width: 7%">매장명</th>
-	              					<th style="width: 7%">책이름</th>
-	              					<th style="width: 9%">책저자 </th>
-	              					<th style="width: 7%">출판사</th>
-	              					<th style="width: 9%">현수량</th>
-	              					<th style="width: 9%">발주수량</th>
-	              					<th style="width: 8%">발주승인여부</th>
+	              					<th style="width: 10%">발주번호</th>
+	              					<th style="width: 10%">매장번호</th>
+	              					<th style="width: 20%">책이름</th>
+	              					<th style="width: 15%">책저자 </th>
+	              					<th style="width: 10%">발주수량</th>
+	              					<th style="width: 10%">가격</th>
+	              					<th style="width: 10%">발주날짜</th>
+	              					<th style="width: 10%">발주승인여부</th>
 	                            </tr>
 	                        </thead>
 	                        <tbody>                            
-	                            <tr th:each="CenterInventory :${Admin2BookList}"><!-- -->                            	
-	                            	<td th:text="${CenterInventory.bookNo}"></td>
-	              					<td th:text="${CenterInventory.bookType}"></td>
-	              					<td th:text="${CenterInventory.bookGenre}"></td>
-	              					<td th:text=${CenterInventory.bookName}></td>
-	             					<td th:text=${CenterInventory.bookWriter}></td>
-	              					<td th:text=${CenterInventory.bookPublisher}></td>
-		              				<td th:text="${CenterInventory.publicationDate}"></td>
-		              				<td th:text="${CenterInventory.enrollDate}"></td>
-		              				<td th:text="${CenterInventory.centerBookCount}"></td>
+	                            <tr th:each="order :${list}"><!-- -->                            	
+	                            	<td th:text="${order.orderNo}"></td>
+	              					<td th:text="${order.adminNo}"></td>
+	              					<td th:text="${order.bookName}"></td>
+		              				<td th:text="${order.bookWriter}"></td>
+		              				<td th:text="${order.orderQuntity}"></td>
+		              				<td th:text="${order.bookPrice}"></td>
+		              				<td th:text="${order.orderDate}"></td>
+		              				<td>
+			              				<div class="input-item">
+	  			 							<div class="select" th:switch="${order.orderCheck}">
+	  			 								<select name ="orderAllCheck" th:case="1">
+	  												<option selected value="1">발주중</option>
+	  												<option value="2">반려</option>
+	  												<option value="3">승인</option>
+	  											</select>
+	  											<select name ="orderAllCheck" th:case="2">
+	  												<option value="1">발주중</option>
+	  												<option selected value="2">반려</option>
+	  												<option value="3">승인</option>
+	  											</select>
+	  											<select name ="orderAllCheck" th:case="3">
+	  												<option value="1">발주중</option>
+	  												<option value="2">반려</option>
+	  												<option selected value="3">승인</option>
+	  											</select>
+	  			 							</div>
+	  			 						</div>
+		              				</td>
 	              					<td>
-	              						<input type="text" name="orderBookCount">
-	              					</td>
-	              						<td th:text="${CenterInventory.bookPrice}"></td>
-	              					<td>
-		              					<button type="submit" class="btn-type2 btn" id="orderButton">발주</button>
-		              					<!--<input type="hidden" name="centerBookNo" th:value="${CenterInventory.centerBookNo}">  -->                      
+		              					<button type="button" class="btn-type2 btn" id="orderButton">발주</button>
 	              					</td>
 	                            </tr>
 	                        </tbody>
@@ -233,7 +281,8 @@
     </div>
     
     <script>
-   	function	
+    
+   	
      
     
     

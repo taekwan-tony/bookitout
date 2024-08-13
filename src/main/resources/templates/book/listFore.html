@@ -5,182 +5,206 @@
 <title>해외 도서</title>
 <link rel="stylesheet" href="/css/main.css">
 <style>
-* {
-padding: 0;
-margin: 0;
-outline: none;
-}
-.content {
-    width: 1200px;
-    margin: 0 auto;
-}
-.book-list {
-    overflow: hidden;
-}
-.list-header {
-    width: 20%;
-    float: left;
-    margin-top: 25px;
-    background-color: #F8F4E1;
-    border-radius: 10px;
-    margin-right: 5%;
-}
-.list-header>p {
-    text-align: center;
-    font-weight: bold;
-    padding-top: 30px;
-}
-.list-header>ul {
-    text-align: center;
-    font-weight: bolder;
-    padding: 30px;
-    list-style-type: none;
-}
-.list-header li {
-    margin-top: 10px;
-    text-align: left;
-    padding-left: 30px;
-    color: #777777;
-}
-.list-contect {
-    width: 100%;
-    margin-top: 25px;
-}
-.image>img {
-    width: 100px;
-    height: 100px;
-}
-a {
-    list-style-type: none;
-}
-.list-array-title {
-    margin-top: 20px;
-}
-.list-array-title>p {
-    padding-bottom: 10px;
-}
-.array-title {
-    overflow: hidden;
-    list-style-type: none;
-    border-top: 1px solid #777777;
-    border-bottom: 1px solid #777777;
-}
-.array-title>li {
-    float: left;
-    margin: 5px 58px;
-}
+		* {
+			padding: 0;
+			margin: 0;
+			outline: none;
+		}
 
-.list-array {
-    overflow: hidden;
-}
-.book-info {
-    padding-top: 20px;
-    height: 790px;
-}
-.chech-box {
-    float: left;
-}
-img {
-    width: 120px;
-    height: 150px;
-    margin : 0px 15px;
-    background-color: #F8F4E1;
-}
-.list-book-content {
-    width: 300px;
-    float: left;
-}
+		.content {
+			width: 1200px;
+			margin: 0 auto;
+		}
 
-.book-info-tbl{
-	width: 75%;
-}
-.book-info-tbl>td {
-    height: 30px;
-}
-.check-box {
-    text-align: center;
-}
+		.book-list {
+			overflow: hidden;
+			margin-bottom: 30px;
+		}
 
-#listBuy {
-    background-color: #AF8F6F;
-    color:var(--white);
-    border: none;
-}
+		.list-header {
+			width: 20%;
+			float: left;
+			margin-top: 25px;
+			background-color: #F8F4E1;
+			border-radius: 10px;
+			margin-right: 5%;
+		}
 
-#listCart {
-    background-color: #AF8F6F;
-    color:var(--white);
-    border: none;
-}
+		.list-header>p {
+			text-align: center;
+			font-weight: bold;
+			padding-top: 30px;
+		}
 
-.book-details {
-    padding-top: 10px;
-}
-.book-first {
-    margin-bottom: 10px;
-}
-.book-second {
-    margin-bottom: 10px;
-}
-.book-publisher {
-    margin-left: 87px;
-}
-.publication-date {
-    margin-left: 70px;
-}
-.enroll-date {
-    margin-left: 70px;
-}
+		.list-header>ul {
+			text-align: center;
+			font-weight: bolder;
+			padding: 30px;
+			list-style-type: none;
+		}
 
-.btn-list {
-margin-bottom: 10px;
-}
-.list:hover {
-font-weight: bolder;
+		.list-header li {
+			margin-top: 10px;
+			text-align: left;
+			padding-left: 30px;
+			color: #777777;
+		}
 
-}
-.grey {
-color: #777777;
-font-size: 18px
-}
-.grey:hover {
-color:#000000;
-font-size: 19px
-}
-.fore{
-font-size: 21px
-}
-.fore:hover{
-font-size: 22px;
-}
-#bookCart {
-    margin-bottom: 10px;
-}
+		.list-contect {
+			width: 100%;
+			margin-top: 25px;
+		}
 
-.pagination>ul{
-display: block;
-}
-.b-name{
-font-size: 14pt;
-}
+		.image>img {
+			width: 100px;
+			height: 100px;
+		}
 
-span{
-font-size: 12pt;
-}
+		a {
+			list-style-type: none;
+		}
 
-/*
-.list-btn {
-    width: 70px;
-    height: 30px;
-    border-radius: 7px;
-    font-weight: bold;
-    margin-top: 20px;
-}
+		.list-array-title {
+			margin-top: 20px;
+		}
 
-.btn-list {
-margin-bottom: 10px;
-}
-*/
+		.list-array-title>p {
+			padding-bottom: 10px;
+		}
+
+		.array-title {
+			overflow: hidden;
+			list-style-type: none;
+			border-top: 1px solid #777777;
+			border-bottom: 1px solid #777777;
+		}
+
+		.array-title>li {
+			float: left;
+			margin: 5px 58px;
+		}
+
+		.list-array {
+			overflow: hidden;
+		}
+
+		.book-info {
+			padding-top: 20px;
+			height: 780px;
+		}
+
+		.chech-box {
+			float: left;
+		}
+
+		img {
+			width: 120px;
+			height: 150px;
+			margin-right: 15px;
+			background-color: #F8F4E1;
+		}
+
+		.list-book-content {
+			width: 300px;
+			float: left;
+		}
+
+		.book-info-tbl {
+			width: 75%;
+		}
+
+		.book-info-tbl>td {
+			height: 30px;
+		}
+
+		.check-box {
+			text-align: center;
+		}
+
+		#listBuy {
+			background-color: #AF8F6F;
+			color: var(--white);
+			border: none;
+		}
+
+		#listCart {
+			background-color: #AF8F6F;
+			color: var(--white);
+			border: none;
+		}
+
+		.book-details {
+			padding-top: 10px;
+		}
+
+		.book-first {
+			margin-bottom: 10px;
+		}
+
+		.book-second {
+			margin-bottom: 10px;
+		}
+
+		.book-publisher {
+			margin-left: 87px;
+		}
+
+		.publication-date {
+			margin-left: 70px;
+		}
+
+		.enroll-date {
+			margin-left: 70px;
+		}
+
+		.btn-list {
+			margin-bottom: 10px;
+		}
+
+		.list:hover {
+			font-weight: bolder;
+
+		}
+
+		.grey {
+			color: #777777;
+			font-size: 18px
+		}
+
+		.grey:hover {
+			color: #000000;
+			font-size: 19px
+		}
+
+		.fore {
+			font-size: 21px
+		}
+
+		.fore:hover {
+			font-size: 22px;
+		}
+
+		#bookCart {
+			margin-bottom: 10px;
+		}
+
+		.pagination{
+			max-width: 425px !important;
+		}
+		.pagination>ul {
+			display: block;
+		}
+
+		.b-name {
+			font-size: 13pt;
+		}
+
+		span {
+			font-size: 12pt;
+		}
+		
+
+
 </style>
 </head>
 <body>
@@ -219,8 +243,12 @@ margin-bottom: 10px;
                                 </td> -->   
 
                                 <td style="width:20%;">
-                                	<img id=book-img th:src="@{/book/{filename}(filename=${book.bookImg})}" >                                    
-                                </td>
+									<a th:href="@{/book/detail?(bookNo=${book.bookNo})}">
+
+										<img id=book_img th:src="@{/book/{filename}(filename=${book.bookImg})}"
+											style="cursor:pointer;">
+									</a>
+								</td>
 
                                 <td style="vertical-align: baseline;">
                                     <div class="book-details">

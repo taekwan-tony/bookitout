@@ -82,6 +82,9 @@
 		border: none;
 		background-color: #F8F4E1;
 	}
+	#boardTitle{
+		width: 100%;
+	}
 </style>
 <script src="/js/jquery-3.7.1.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -103,7 +106,7 @@
 							<th style="width: 15%;">제목</th>
 							<td>
 								<div class="input-item">
-									<input type="text" name="boardTitle" th:value="${b.boardTitle}">
+									<input type="text" name="boardTitle" id="boardTitle" th:value="${b.boardTitle}">
 									<input type="hidden" name="boardNo" th:value="${b.boardNo}">
 								</div>
 							</td>
