@@ -117,6 +117,11 @@ public class BookDao {
 		return totalCount;
 	}
 
+	public int selectBookTotalCountFore() {
+		String query = "select count(*) from book where book_type = '해외도서'";
+		int totalCount = jdbc.queryForObject(query, Integer.class);
+		return totalCount;
+	}
 	public List selectGenreOneBookNoList(int start, int end) {
 		String query = "select * from (select rownum as rnum, b.* from(select * from book where book_type = '국내도서' order by book_no desc)b) where rnum between ? and ?";
 		Object[] params = {start, end};
@@ -496,10 +501,14 @@ public class BookDao {
 		return likeCount;
 	}
 
-	public List<Book> selectThreeBook(int i) {
-		String query = "select * from (select rownum as rnum, b.* from (select * from book order by 1 desc)b) where rnum between ? and ?";
-		Object[] params = {i,i+3};
-		List list = jdbc.query(query, bookRowMapper,params);
+	public List<Book> selectThreeBook() {
+		String query = "select * from (select rownum as rnum, b.* from (select * from book order by 1 desc)b) where rnum between 1 and 4";
+		List list = jdbc.query(query, bookRowMapper);
+		return list;
+	}
+	public List<Book> selectFiveBook() {
+		String query = "select * from (select rownum as rnum, b.* from (select * from book order by book_genre desc)b) where rnum between 1 and 5";
+		List list = jdbc.query(query, bookRowMapper);
 		return list;
 	}
 	public List<CenterMap> selectOneMap(int adminNo) {
