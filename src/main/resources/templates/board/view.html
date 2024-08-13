@@ -163,7 +163,7 @@
 		margin-bottom: 50px;
 	}
 	.comment-title>*{
-		font-size: 24px;
+		font-size: 28px;
 		color: #74512D;
 		font-weight: bold;
 	}
@@ -249,6 +249,9 @@
 	}
 	#reContent{
 		width: 780px;
+	}
+	#manus{
+		font-size: 39px;
 	}
 </style>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -469,7 +472,7 @@
 				</th:block>
 			</div>
 			<div th:if="${b.commentList.size()==0}" class="noComment">
-			<span class="material-symbols-outlined">
+			<span class="material-symbols-outlined" id="manus">
 				speaker_notes_off
 			</span> 
 			<p>댓글이 없습니다. 첫 댓글을 작성해주세요.</p></div>
