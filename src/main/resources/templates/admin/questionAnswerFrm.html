@@ -71,92 +71,55 @@
 	<script src="/summernote/summernote-lite.js"></script>
 	<script src="/summernote/lang/summernote-ko-KR.js"></script>
 	<link rel="stylesheet" href="/summernote/summernote-lite.css">
-    <div class="nav1">
-        <div class="icons-menu">
-            <ul>
-                <li class="arrow">
-                    <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
-                </li>
-                <li class="icon1">
-                    <a href="/admin/adminIndex?rePage=1"><i class="fa-solid fa-house"></i></a>
-                </li>
-                <li class="icon1">
-                    <a href="/admin/bookListFrm?rePage=1"><i class="fa-solid fa-book-open"></i></a>
-                </li>
-                <li class="icon1">
-                    <a href="#"><i class="fa-solid fa-circle-user"></i></a>
-                </li>
-                <li class="icon1">
-                    <a href="#"><i class="fa-brands fa-android"></i></a>
-                </li>
-            </ul>
-        </div>
-        <div class="admin-menu">
-        <ul>
-            <li>
-                <h1 class="logo1">
-                    <a href="/admin/adminIndex?rePage=1">책키라웃 관리자</a>
-                </h1>
-            </li>
-            <li>
-            <a href="/admin/adminIndex?rePage=1">판매점 관리</a>
-            <ul class="sub-menu">
-                <li><a href="/admin/adminIndex?rePage=1">판매점 리스트</a></li>
-                <li><a href="/admin/insertAdminFrm">판매점 등록</a></li>
-                <li><a href="/admin/updatePwFrm">비밀번호 변경</a></li>
-            </ul>
-            </li>
-            <li>
-            <a href="/admin/bookListFrm">책 관리</a>
-            <ul class="sub-menu">
-                <li><a href="/admin/bookListFrm?rePage=1">책 리스트</a></li>
-                <li><a href="/admin/insertBookFrm">책 등록</a></li>
-                <li><a href="/admin/updateBookFrm">책 상세 정보 수정</a></li>
-            </ul>
-            </li>
-            <th:block th:if="${session.admin.adminType}==1">
-	            <li>
-	            <a href="/admin/questionAnswer?reqPage=1">1대1 문의</a>
-	            </li>
-	            <li>
-	            <a href="/FAQ/faqfrm?type=1&reqPage=1">FAQ</a>
-	            </li>
-	            <li>
-	            <a href="/notice/noticeFrm?reqPage=1">공지사항</a>
-	            </li>
-            </th:block>
-        </ul>
-        </div>
-    </div>
-    <!-- 네비 사이드 메뉴 끝 -->
-    <div class="wrap">
-        <!-- 헤더 -->
+   
+    <div class="wrap" style="width: 100%!important;">
+       <!-- 헤더 -->
         <div>
             <div class="main-header-wrap">
                 <div class="header-main1">
                     <div class="inner">
                         <div class="search">
-                            <input type="text" name="search" />
-                            <button class="search-btn" type="button">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
+                            <ul>
+            					<li>
+                					<th:block th:if="${session.admin.adminType}==2">
+                					<h1 class="logo1">
+                    					<a href="/admin/adminIndex?rePage=1">책키라웃  가맹점</a></h1>
+                    					</th:block>
+                    					<th:block th:if="${session.admin.adminType}==1">
+                					<h1 class="logo1">
+                    					<a href="/admin/adminIndex?rePage=1">책키라웃  총관리자</a></h1>
+                    					</th:block>
+           						 </li>
+                        	</ul>
                         </div>
                         <div class="lnb">
                             <ul>
-                            <li>
-                                <a href="/admin/adminIndex?rePage=1">판매점</a>
-                            </li>
-                            <li>
-                                <a href="/admin/updatePwFrm">비밀번호 변경</a>
-                            </li>
-                            <li>
-                                <a href="/admin/logout">로그아웃</a>
-                            </li>
+                            	<th:block th:if="${session.admin.adminType}==1">
+					            <li>
+					            <a href="/admin/questionAnswer?reqPage=1">1대1 문의</a>
+					            </li>
+					            <li>
+					            <a href="/FAQ/faqfrm?type=1&reqPage=1">FAQ</a>
+					            </li>
+					            <li>
+					            <a href="/notice/noticeFrm?reqPage=1">공지사항</a>
+					            </li>
+       						    </th:block>
+	                            <li>
+	                                <a href="/admin/adminIndex?rePage=1">판매점</a>
+	                            </li>
+	                            <li>
+	                            	<a href="/admin/bookListFrm?rePage=1">책리스트</a>
+	                            </li>
+	                            <li>
+	                                <a href="/admin/logout">로그아웃</a>
+	                            </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
+            <div ></div>
             <!-- 헤더 -->
         </div>
 

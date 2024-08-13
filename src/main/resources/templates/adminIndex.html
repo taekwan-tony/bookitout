@@ -91,15 +91,26 @@
                         </div>
                         <div class="lnb">
                             <ul>
-                            <li>
-                                <a href="/admin/adminIndex?rePage=1">판매점</a>
-                            </li>
-                            <li>
-                            	<a href="/admin/bookListFrm?rePage=1">책리스트</a>
-                            </li>
-                            <li>
-                                <a href="/admin/logout">로그아웃</a>
-                            </li>
+                            	<th:block th:if="${session.admin.adminType}==1">
+					            <li>
+					            <a href="/admin/questionAnswer?reqPage=1">1대1 문의</a>
+					            </li>
+					            <li>
+					            <a href="/FAQ/faqfrm?type=1&reqPage=1">FAQ</a>
+					            </li>
+					            <li>
+					            <a href="/notice/noticeFrm?reqPage=1">공지사항</a>
+					            </li>
+       						    </th:block>
+	                            <li>
+	                                <a href="/admin/adminIndex?rePage=1">판매점</a>
+	                            </li>
+	                            <li>
+	                            	<a href="/admin/bookListFrm?rePage=1">책리스트</a>
+	                            </li>
+	                            <li>
+	                                <a href="/admin/logout">로그아웃</a>
+	                            </li>
                             </ul>
                         </div>
                     </div>
