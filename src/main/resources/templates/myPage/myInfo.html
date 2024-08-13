@@ -127,8 +127,7 @@ a {
 					
 					
 					<tr>
-						 <img style="width: 200px;" id="previewImg"
-            			 th:src="@{/photo/{filename}(filename=${session.member.memberImg})}" alt="프로필 이미지">
+						 <img style="width: 200px;" id="previewImg" th:src="@{/photo/{filename}(filename=${session.member.memberImg})}" alt="프로필 이미지">
 					</tr>
 					<tr>
 						<td><input type="file" name="imageFile" accept=".jpg,.png,.jpeg" onchange="loadImg(this)"></td>
