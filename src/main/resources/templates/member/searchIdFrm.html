@@ -33,9 +33,9 @@
 }
 
 .radio {
-	display: flex;/
-    justify-content: center;
-    margin:0;
+	display: flex; /
+	justify-content: center;
+	margin: 0;
 }
 
 .radio input[type=radio]+label {
@@ -44,11 +44,11 @@
 	height: 40px;
 	width: 50%;
 	line-height: 24px;
-	font-size:14px;
+	font-size: 14px;
 	box-sizing: border-box;
 	padding: 5px;
 	border-bottom: 2px solid black;
-	color : gray;
+	color: gray;
 }
 
 .radio {
@@ -60,43 +60,45 @@
 	font-weight: bolder;
 	border-bottom: none;
 	font-size: 17px;
-	color : black;
+	color: black;
 }
-#consumer+label{
+
+#consumer+label {
 	border-right: 2px solid black;
 }
 
-.input-wrap{
- padding: 15px;
+.input-wrap {
+	padding: 15px;
 }
 
-.input-item>input{
+.input-item>input {
 	width: 300px;
 	height: 30px;
-	border : 1px solid gray;
+	border: 1px solid gray;
 	border-radius: 3px;
-	padding-left : 7px;
+	padding-left: 7px;
 }
 
-.input-item>input:focus{
+.input-item>input:focus {
 	width: 300px;
-	outline:none;
+	outline: none;
 }
-button{
+
+button {
 	width: 100px;
 	height: 30px;
-	border: 1px solid var(--color2);
-    background-color: var(--white);
-    color: var(--color2);
+	border: 1px solid var(- -color2);
+	background-color: var(- -white);
+	color: var(- -color2);
 }
 
-#submit{
+#submit {
 	margin-top: 10px;
 	width: 100px;
 	height: 30px;
-	border: 1px solid var(--color2);
-    background-color: var(--color2);
-    color: var(--white);
+	border: 1px solid var(- -color2);
+	background-color: var(- -color2);
+	color: var(- -white);
 }
 </style>
 </head>
@@ -107,22 +109,22 @@ button{
 			<a href="/">책키라웃</a>
 		</h1>
 		<div class="center">
-			<h1>아이디 찾기</h1>
+			<h1>아이디 찾기</h1> <h1 style="line-height:40px;">|</h1> <h1> <a href="/member/searchPwFrm">비밀번호찾기</a></h1>
 		</div>
 	</header>
 	<main class="content">
 		<div class="clear"></div>
 		<div class="search-wrap">
-		
-		
-				<form action="/member/searchId" method="post" autocomplete="off">
-			<section class="section searchId">
+
+			
+			<form action="/member/searchId" method="post" autocomplete="off">
+				<section class="section searchId">
 
 
 
 
 					<div class="input-wrap">
-						<h1 style="margin-bottom:40px;">아이디 찾기</h1>
+						<h1 style="margin-bottom: 40px;">아이디 찾기</h1>
 
 						<div class="input-title">
 							<label for="memberName">이름</label>
@@ -140,7 +142,8 @@ button{
 						<div class="input-item">
 							<input type="text" name="memberMail" id="memberMail"
 								placeholder="메일주소 입력">
-							<button type="button" class="mail-btn" id="mail-btn">인증코드 발송</button>
+							<button type="button" class="mail-btn" id="mail-btn">인증코드
+								발송</button>
 						</div>
 					</div>
 					<div class="input-wrap">
@@ -151,73 +154,70 @@ button{
 							<input type="text" id="check" placeholder="인증번호 입력">
 							<button type="button" class="check-btn">인증하기</button>
 						</div>
-					<input type="submit" value="아이디 찾기" id="submit" onclick="return checkValue();">
+						<input type="submit" value="아이디 찾기" id="submit"
+							onclick="return checkValue();">
 					</div>
-
-
-				</form>
+			</form>
 			</section>
 		</div>
 		<div class="clear"></div>
 	</main>
 	<script>
-	
-	let name = null;
-	let mail = 0;
-	let mailCode = null;
-	$("#mail-btn").on("click",function(){
-		const receiver = $("#memberMail").val();
-		$.ajax({
-			url : "/member/sendCode",
-			data : {receiver : receiver},
-			type : "post",
-			success : function(data){
-				console.log(data);
-				mailCode = data;
-			},
-			error : function(){
-				console.log("에러");
-			}
+		let name = null;
+		let mail = 0;
+		let mailCode = null;
+		$("#mail-btn").on("click", function() {
+			const receiver = $("#memberMail").val();
+			$.ajax({
+				url : "/member/sendCode",
+				data : {
+					receiver : receiver
+				},
+				type : "post",
+				success : function(data) {
+					console.log(data);
+					mailCode = data;
+				},
+				error : function() {
+					console.log("에러");
+				}
+			});
+			alert("메일이 발송되었습니다.");
 		});
-		alert("메일이 발송되었습니다.");
-	});
-    
 
-    $(".check-btn").on("click",function(){
-         const authCode = $("#check").val();
-         if(authCode == mailCode){
-            alert("인증되었습니다.");
-            $("#check").text("인증완료");
-            
-            $("#memberMail").prop("readonly", true);
-            $("#mail-btn").prop("disabled", true);
-            $("#check").prop("readonly", true);
-            $(".check-btn").prop("disabled", true);
-            
-            mail = 1;
-         }else{
-            alert("인증번호를 확인하세요.");
-         }
-         
-       });
-    
-    function checkValue(){
-    	 const memberName = $("#memberName").val();
-    	    
-    	    // memberName이 비어 있는지 확인
-    	    if (!memberName) {
-    	        alert("이름을 입력해주세요.");
-    	        return false; // 폼 제출을 중단
-    	    }else if(mail == 0){
-    	    	alert("메일인증을 완료해주세요.");
-    	        return false; // 폼 제출을 중단
-    	    }else{
-    	    	return true;
-    	    }
-    	    
-    	    
-    }
-    
+		$(".check-btn").on("click", function() {
+			const authCode = $("#check").val();
+			if (authCode == mailCode) {
+				alert("인증되었습니다.");
+				$("#check").text("인증완료");
+
+				$("#memberMail").prop("readonly", true);
+				$("#mail-btn").prop("disabled", true);
+				$("#check").prop("readonly", true);
+				$(".check-btn").prop("disabled", true);
+
+				mail = 1;
+			} else {
+				alert("인증번호를 확인하세요.");
+			}
+
+		});
+
+		function checkValue() {
+			const memberName = $("#memberName").val();
+
+			// memberName이 비어 있는지 확인
+			if (!memberName) {
+				alert("이름을 입력해주세요.");
+				return false; // 폼 제출을 중단
+			} else if (mail == 0) {
+				alert("메일인증을 완료해주세요.");
+				return false; // 폼 제출을 중단
+			} else {
+				return true;
+			}
+
+		}
 	</script>
 
 
