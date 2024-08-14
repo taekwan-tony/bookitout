@@ -52,10 +52,18 @@
                 <div class="header-main1">
                     <div class="inner">
                         <div class="search">
-                            <input type="text" name="search" />
-                            <button class="search-btn" type="button">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
+                           <ul>
+            					<li>
+                					<th:block th:if="${session.admin.adminType}==2">
+                					<h1 class="logo1">
+                    					<a href="/admin/adminIndex?rePage=1">책키라웃  가맹점</a></h1>
+                    					</th:block>
+                    					<th:block th:if="${session.admin.adminType}==1">
+                					<h1 class="logo1">
+                    					<a href="/admin/adminIndex?rePage=1">책키라웃  총관리자</a></h1>
+                    					</th:block>
+           						 </li>
+                        	</ul>
                         </div>
                         <div class="lnb">
                             <ul>

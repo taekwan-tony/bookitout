@@ -90,8 +90,8 @@ public class AdminDao {
 		String query = "select * from " + 
 				"(select rownum as rnum, b.* from " + 
 				"(SELECT * FROM book " + 
-				"left JOIN center_inventory ON book.book_no = center_inventory.book_no2 " + 
-				"left JOIN admin_tbl ON center_inventory.admin_no = admin_tbl.admin_no " + 
+				" JOIN center_inventory ON book.book_no = center_inventory.book_no2 " + 
+				" JOIN admin_tbl ON center_inventory.admin_no = admin_tbl.admin_no " + 
 				"WHERE admin_tbl.admin_no = ? order by book.book_no desc)b) where rnum between ? and ?";
 		Object[] params = {admin.getAdminNo(),start,end};
 		List list = jdbc.query(query,adminCenterBookRowMapper,params);
@@ -141,7 +141,7 @@ public class AdminDao {
 	}
 	//-삭제
 	public int deleteBook(int bookNo) {
-		String query = "delete from (select * from book left join center_inventory on (book_no = book_no2) where book_no=?";
+		String query = "delete from (select * from book join center_inventory on (book_no = book_no2)) where book_no=?";
 		Object[] params = {bookNo};
 		int result = jdbc.update(query,params);
 		return result;
@@ -256,6 +256,7 @@ public class AdminDao {
 			"JOIN admin_tbl ON order_tbl.admin_no = admin_tbl.admin_no order by order_check asc)o) where rnum between ? and ?";
 		Object[] params = {start,end};
 		List list = jdbc.query(query,adminOrderBookRowMapper,params);
+		
 		return list;
 	}
 	public int selectOrderListTotoalCount() {
@@ -273,6 +274,7 @@ public class AdminDao {
 		String query =  "update order_tbl set order_check=? where order_no=?";
 		Object[] params = {orderAllCheck,orderNo};
 		int result = jdbc.update(query,params);
+		System.out.println("list+"+result);
 		return result;
 	}
 	@Transactional
