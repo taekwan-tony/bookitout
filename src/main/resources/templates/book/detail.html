@@ -349,13 +349,15 @@
 		                // console.log(data);
 		            	// console.log(typeof data);
 		                // console.log(data.length);
-		                for(let i = 0; i < data.length; i++){
+		                
 		                    const h2 = $("<h2></h2>");
 		                    const h2Span1 = $("<span>");
 		                    h2Span1.text("재고명 : ")
 		                    const h2Span2 = $("<span>");
-		                    h2Span2.append(data[i].bookName);
+		                    h2Span2.append(data[0].bookName);
 		                    h2.append(h2Span1).append(h2Span2);
+		                    $("#modal-data-wrap").append(h2);
+		                for(let i = 0; i < data.length; i++){
 		                    
 		                    //h2.text();
 		                    
@@ -433,7 +435,6 @@
 		                    table.append(thead);
 		                    table.append(tbody);
 
-		                    $("#modal-data-wrap").append(h2);
 		                    $("#modal-data-wrap").append(table);
 		                }
 		            },
