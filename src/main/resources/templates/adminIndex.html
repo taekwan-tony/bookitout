@@ -102,9 +102,11 @@
 					            <a href="/notice/noticeFrm?reqPage=1">공지사항</a>
 					            </li>
        						    </th:block>
+       						    <th:block th:if="${session.admin.adminType}==2">
 	                            <li>
 	                                <a href="/admin/adminIndex?rePage=1">판매점</a>
 	                            </li>
+	                            </th:block>
 	                            <li>
 	                            	<a href="/admin/bookListFrm?rePage=1">책리스트</a>
 	                            </li>
