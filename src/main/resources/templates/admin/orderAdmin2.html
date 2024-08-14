@@ -106,7 +106,7 @@
               						<td th:text="${order.bookPrice}"></td>
               					<td>
 	              					<button type="submit" class="btn-type2 btn" id="orderButton">확인</button>
-	              					<input type="hidden" name="centerBookNo" th:value="${order.centerBookNo}">
+	              					<input type="hidden" name="centerBookNo" th:value="${order.bookNo}">
               					</td>
                             </tr>
                         </tbody>
@@ -135,12 +135,6 @@
                 <i style=" --fa-bounce-start-scale-x: 1; --fa-bounce-start-scale-y: 1; --fa-bounce-jump-scale-x: 1; --fa-bounce-jump-scale-y: 1; --fa-bounce-land-scale-x: 1; --fa-bounce-land-scale-y: 1; --fa-bounce-rebound: 0;" class="fa-solid fa-angles-up fa-bounce" ></i>
             </button>
         </div>
-    <th:block th:if="${session.admin.adminType}==1">
-    <div class="wrap">
-    </th:block>
-     <th:block th:if="${session.admin.adminType}==2">
-    <div class="wrap" style="width: 100%!important;">
-    </th:block>
     
     <script>
     

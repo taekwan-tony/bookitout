@@ -205,8 +205,11 @@ public class AdminDao {
 	}
 		
 	public int inserOrderAdmin(int centerBookNo,int orderBookCount,Admin admin) {
-		String query = "insert into order_tbl values(order_tbl_seq.nextval,?,to_char(sysdate,'yyyy-mm-dd'),1,?,?)";
-		Object[] params = {orderBookCount,admin.getAdminNo(),centerBookNo};
+		String query = "insert into order_tbl values(order_tbl_seq.nextval,1,to_char(sysdate,'yyyy-mm-dd'),1,?,?)";
+		System.out.println(centerBookNo);
+		System.out.println(orderBookCount);
+		System.out.println(admin);
+		Object[] params = {admin.getAdminNo(),centerBookNo};
 		int result = jdbc.update(query,params);
 		System.out.println(result);
 		return result;
@@ -241,8 +244,8 @@ public class AdminDao {
 	public AdminCenterBook selectOneOrder(int bookNo, Admin admin) {
 		String query = "SELECT * " + 
 				"FROM book " + 
-				"JOIN center_inventory ON book.book_no = center_inventory.book_no2 " + 
-				"JOIN admin_tbl ON center_inventory.admin_no = admin_tbl.admin_no " + 
+				"left JOIN center_inventory ON book.book_no = center_inventory.book_no2 " + 
+				"left JOIN admin_tbl ON center_inventory.admin_no = admin_tbl.admin_no " + 
 				"WHERE admin_tbl.admin_no = ? and book.book_no= ?";
 		Object[] params = {admin.getAdminNo(),bookNo};
 		List list = jdbc.query(query,adminCenterBookRowMapper,params);

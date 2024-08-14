@@ -254,6 +254,7 @@ public class AdminController {
 	 	//판매자가 값을 총관리자에게 보내주기
 	 	@GetMapping(value = "/centerInventoryOrder")
 	 	public String centerInventoryOrder(int centerBookNo, int orderBookCount ,Model model,@SessionAttribute(required=false) Admin admin) {
+	 		System.out.println(centerBookNo);
 	 		int result = adminService.insertOrderAdmin(centerBookNo,orderBookCount,admin);
 	 		if( result>0) {model.addAttribute("title","완료");
 			model.addAttribute("msg","발주완료");
@@ -274,6 +275,7 @@ public class AdminController {
 	 	//판매자가 보는 화면 
 	 	@GetMapping(value = "/orderList")
 	 	public String orderList(@SessionAttribute(required =false) Admin admin, int type ,int reqPage,Model model ) {
+	 		System.out.println(admin);
 	 		String click = null;
 	 		switch(type) {
 	 		case 1 : 
