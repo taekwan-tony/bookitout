@@ -121,11 +121,11 @@ public class BoardDao {
 		String query = "";
 		if(type.equals("1")) {
 			if(option.equals("new")) {				
-				query = "select * from (select rownum as rnum, n.* from (select * from board order by 1 desc)n) where rnum between ? and ? ";
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' or board_title like '%'||?||'%' or board_writer like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
 			}else if(option.equals("old")){
-				query = "select * from (select rownum as rnum, n.* from (select * from board order by 1)n) where rnum between ? and ? ";
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' or board_title like '%'||?||'%' or board_writer like '%'||?||'%' order by 1)n) where rnum between ? and ? ";
 			}else if(option.equals("readCount")){
-				query = "select * from (select rownum as rnum, n.* from (select * from board order by read_count desc)n) where rnum between ? and ? ";
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' or board_title like '%'||?||'%' or board_writer like '%'||?||'%' order by read_count desc)n) where rnum between ? and ? ";
 			}/*else if(option.equals("comment")){
 				query = "SELECT board.BOARD_NO from board join BOARD_COMMENT on (BOARD.BOARD_NO=BOARD_COMMENT.BOARD_REF) GROUP BY BOARD.BOARD_NO order by COUNT(*) desc";
 				List<Board> list = jdbc.query(query, boardRowMapper);
@@ -140,7 +140,7 @@ public class BoardDao {
 				}
 				return list;
 			}*/
-			Object[] params = { start, end };
+			Object[] params = { keyword, keyword, keyword, start, end };
 			List list = jdbc.query(query, boardRowMapper, params);
 			return list;
 		} else if (type.equals("2")) {
