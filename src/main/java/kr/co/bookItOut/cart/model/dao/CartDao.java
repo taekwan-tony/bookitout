@@ -40,12 +40,6 @@ public class CartDao {
 		return result;
 	}
 	
-	public int insertCart1(int bookNo, int memberNo, int bookCount) {
-		String query = "insert into cart_tbl values (CART_SEQ.nextval,?,?,?)";
-		Object[] params = { bookNo, bookCount,memberNo };
-		int result = jdbc.update(query, params);
-		return result;
-	}
 	
 	public int insertCart(int bookNo, int memberNo, int count) {
 		String query = "insert into cart_tbl values (CART_SEQ.nextval,?,?,?)";
@@ -79,6 +73,15 @@ public class CartDao {
 		
 		String query = "delete from cart_tbl WHERE book_no = ? AND member_no = ?";
 		Object[] params = { b.getBookNo(), memberNo };
+		int result = jdbc.update(query, params);
+
+		return result;
+	}
+	
+public int cartDel(int bookNo, int memberNo) {
+		
+		String query = "delete from cart_tbl WHERE book_no = ? AND member_no = ?";
+		Object[] params = { bookNo, memberNo };
 		int result = jdbc.update(query, params);
 
 		return result;
@@ -169,6 +172,14 @@ public class CartDao {
 		String query = "select max(cart_no) from cart_tbl";
 		int cartNo = jdbc.queryForObject(query, Integer.class);
 		return cartNo;
+	}
+
+
+	public int insertCart1(int bookNo, int memberNo, int bookCount) {
+		String query = "insert into cart_tbl values (CART_SEQ.nextval,?,?,?)";
+		Object[] params = { bookNo, bookCount, memberNo };
+		int result = jdbc.update(query, params);
+		return result;
 	}
 
 }
