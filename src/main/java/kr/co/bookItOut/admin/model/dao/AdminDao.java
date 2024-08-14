@@ -116,7 +116,7 @@ public class AdminDao {
 	//-책 리스트 끝
 	//-책 등록//
 	public int insertBook(Book book ,Admin admin) {
-		String qurey = "insert into book values(book_seq.nextval,?,?,?,?,?,to_char(sysdate,'yyyy-mm-dd'),?,?,?,?,?,?,?,0)";
+		String qurey = "insert into book values(book_seq.nextval,?,?,?,?,?,to_char(sysdate,'yyyy-mm-dd'),?,?,?,?,?,?,0)";
 //				"insert all " + 
 //				"into admin_tbl(admin_no) values (?);" + 
 //				"into center_inventory(center_book_count,) values(1);" + 
@@ -129,7 +129,7 @@ public class AdminDao {
 							book.getBookName(),book.getBookWriter(),
 							book.getBookPrice(),book.getBookPublisher(),
 							book.getPublicationDate(),book.getBookImg(),
-							admin.getAdminNo(),book.getBookDetailContent(),
+							book.getBookDetailContent(),
 							book.getBookDetailWriter(),book.getBookDetailImg(),
 							book.getBookType(),book.getBookGenre()};
 		int result = jdbc.update(qurey,params);
@@ -141,7 +141,7 @@ public class AdminDao {
 	}
 	//-삭제
 	public int deleteBook(int bookNo) {
-		String query = "delete from (select * from book left join center_inventory on (book_no = book_no2) where book_no=?";
+		String query = "delete from (select * from book join center_inventory on (book_no = book_no2)) where book_no=?";
 		Object[] params = {bookNo};
 		int result = jdbc.update(query,params);
 		return result;
@@ -207,8 +207,8 @@ public class AdminDao {
 	public int inserOrderAdmin(int centerBookNo,int orderBookCount,Admin admin) {
 		String query = "insert into order_tbl values(order_tbl_seq.nextval,?,to_char(sysdate,'yyyy-mm-dd'),1,?,?)";
 		Object[] params = {orderBookCount,admin.getAdminNo(),centerBookNo};
-		
 		int result = jdbc.update(query,params);
+		System.out.println(result);
 		return result;
 	}
 	public int selectOrderTotoalCount(Admin admin,int type) {
@@ -227,6 +227,7 @@ public class AdminDao {
 				"WHERE admin_tbl.admin_no = ? and order_check=?)o) where rnum between ? and ?";
 		Object[] params = {admin.getAdminNo(),type,start,end};
 		List list = jdbc.query(query,adminOrderBookRowMapper,params);
+		System.out.println(list);
 		return list;
 	}
 	//가맹점 발주버튼 눌렀을때 
@@ -256,6 +257,7 @@ public class AdminDao {
 			"JOIN admin_tbl ON order_tbl.admin_no = admin_tbl.admin_no order by order_check asc)o) where rnum between ? and ?";
 		Object[] params = {start,end};
 		List list = jdbc.query(query,adminOrderBookRowMapper,params);
+		
 		return list;
 	}
 	public int selectOrderListTotoalCount() {
@@ -273,6 +275,7 @@ public class AdminDao {
 		String query =  "update order_tbl set order_check=? where order_no=?";
 		Object[] params = {orderAllCheck,orderNo};
 		int result = jdbc.update(query,params);
+		System.out.println("list+"+result);
 		return result;
 	}
 	@Transactional

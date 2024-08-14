@@ -317,7 +317,7 @@ public class AdminController {
 			return "common/msg";
 			}else {
 				model.addAttribute("title","수정실패!");
-				model.addAttribute("msg","책 수정에 실패 했습니다");
+				model.addAttribute("msg"," 발주에 실패 했습니다");
 				model.addAttribute("icon","error");	
 				model.addAttribute("loc","/admin/order?reqPage=1");
 			}
