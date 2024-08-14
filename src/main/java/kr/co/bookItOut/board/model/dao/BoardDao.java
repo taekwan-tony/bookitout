@@ -1,5 +1,6 @@
 package kr.co.bookItOut.board.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,15 +121,26 @@ public class BoardDao {
 		String query = "";
 		if(type.equals("1")) {
 			if(option.equals("new")) {				
-				query = "select * from (select rownum as rnum, n.* from (select * from board order by 1 desc)n) where rnum between ? and ? ";
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' or board_title like '%'||?||'%' or board_writer like '%'||?||'%' order by 1 desc)n) where rnum between ? and ? ";
 			}else if(option.equals("old")){
-				query = "select * from (select rownum as rnum, n.* from (select * from board order by 1)n) where rnum between ? and ? ";
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' or board_title like '%'||?||'%' or board_writer like '%'||?||'%' order by 1)n) where rnum between ? and ? ";
 			}else if(option.equals("readCount")){
-				query = "select * from (select rownum as rnum, n.* from (select * from board order by read_count desc)n) where rnum between ? and ? ";
-			}/*else if(option.equals("comment"))){
-				query = "select * from (select rownum as rnum, n.* from (select * from board order by 1 desc)n) where rnum between ? and ? ";
+				query = "select * from (select rownum as rnum, n.* from (select * from board where board_content like '%'||?||'%' or board_title like '%'||?||'%' or board_writer like '%'||?||'%' order by read_count desc)n) where rnum between ? and ? ";
+			}/*else if(option.equals("comment")){
+				query = "SELECT board.BOARD_NO from board join BOARD_COMMENT on (BOARD.BOARD_NO=BOARD_COMMENT.BOARD_REF) GROUP BY BOARD.BOARD_NO order by COUNT(*) desc";
+				List<Board> list = jdbc.query(query, boardRowMapper);
+				List<Integer> noList=new ArrayList<Integer>(); 
+				for (int i = 0; i < list.size(); i++) {
+					noList.set(i,list.get(i).getBoardNo());					
+				}
+				for (int i : noList) {
+					String que="SELECT * FROM BOARD WHERE BOARD_NO=?";
+					Object[] params = {i};
+					List finList = jdbc.query(query, boardCommentRowMapper, params);
+				}
+				return list;
 			}*/
-			Object[] params = { start, end };
+			Object[] params = { keyword, keyword, keyword, start, end };
 			List list = jdbc.query(query, boardRowMapper, params);
 			return list;
 		} else if (type.equals("2")) {
@@ -149,7 +161,7 @@ public class BoardDao {
 			}else if(option.equals("readCount")){
 				query = "select * from (select rownum as rnum, n.* from (select * from board where board_writer like '%'||?||'%' order by read_count desc)n) where rnum between ? and ? ";
 			}/*else if(option.equals("comment")){
-				query = "select * from (select rownum as rnum, n.* from (select * from board where board_writer like '%'||?||'%' order by board_writer)n) where rnum between ? and ? ";
+				query = "SELECT board.BOARD_NO from board join BOARD_COMMENT on (BOARD.BOARD_NO=BOARD_COMMENT.BOARD_REF) GROUP BY BOARD.BOARD_NO order by COUNT(*) desc";
 			}*/
 		} else if (type.equals("4")) {
 			if(option.equals("new")) {	
