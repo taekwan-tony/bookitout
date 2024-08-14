@@ -28,7 +28,15 @@ public class BoardService {
 		int numPerPage=10;
 		int end=reqPage*numPerPage;
 		int start=end-numPerPage+1;
-		List list=boardDao.selectBoardList(start, end);
+		List<Board> list= (List<Board>)boardDao.selectBoardList(start, end);
+		List<Integer> noList=new ArrayList<Integer>();
+		for (int i = 0; i < list.size(); i++) {
+			noList.add(list.get(i).getBoardNo());
+		}
+		for (int i = 0; i < noList.size(); i++) {
+			List<BoardComment> commentList = boardDao.selectCommentNeoList(noList.get(i));
+			list.get(i).setCommentList(commentList);
+		}
 		int totalCount= boardDao.selectBoardTotalCount();
 		int totalPage=0;
 		if(totalCount%numPerPage==0) {

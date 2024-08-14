@@ -123,6 +123,9 @@
 	td:nth-child(2) {
 		text-align: left;
 	}
+	.title{
+		font-weight: bold;
+	}
 </style>
 </head>
 <body>
@@ -215,11 +218,15 @@
 						<th style="width:10%;">조회수</th>
 					</tr>
 					<tr th:each="board : ${list}">
-						<td th:text="${board.boardNo}"></td>
-						<td><a th:href="@{/board/view(boardNo=${board.boardNo})}" th:text="${board.boardTitle}"></a></td>
-						<td th:text="${board.boardWriter}"></td>
-						<td th:text="${board.regDate}"></td>
-						<td th:text="${board.readCount}"></td>
+					<th:block th:each="bcn : ${bcList}">
+						<th:block th:if="${bcn.boardNo==board.boardNo}"> 
+							<td th:text="${board.boardNo}"></td>
+							<td><a th:href="@{/board/view(boardNo=${board.boardNo})}" class="title" th:text="${board.boardTitle}"></a> <a th:text="'('+${bcn.listSize}+')'"></a></td>
+							<td th:text="${board.boardWriter}"></td>
+							<td th:text="${board.regDate}"></td>
+							<td th:text="${board.readCount}"></td>
+						</th:block>
+					</th:block>	
 					</tr>
 				</table>
 			</div>

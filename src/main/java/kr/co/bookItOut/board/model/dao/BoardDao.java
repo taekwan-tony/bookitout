@@ -340,4 +340,17 @@ public class BoardDao {
 		int result=jdbc.queryForObject(query, Integer.class);
 		return result;
 	}
+
+	public List<BoardComment> selectBoardCommentList() {
+		String query = "select * from board";
+		List list = jdbc.query(query, boardCommentRowMapper);
+		return (List<BoardComment>)list;
+	}
+
+	public List<BoardComment> selectCommentNeoList(int boardNo) {
+		String query = "select * from board_comment where board_ref=? and board_comment_ref is null";
+		Object[] params = {boardNo};
+		List list = jdbc.query(query, boardCommentRowMapper,params);
+		return (List<BoardComment>)list;
+	}
 }

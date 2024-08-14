@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletResponse;
 import kr.co.bookItOut.board.model.dao.BoardDao;
+import kr.co.bookItOut.board.model.dto.BC;
 import kr.co.bookItOut.board.model.dto.Board;
 import kr.co.bookItOut.board.model.dto.BoardComment;
 import kr.co.bookItOut.board.model.dto.BoardCommentLikeCount;
@@ -44,7 +45,14 @@ public class BoardController {
 	@GetMapping(value="/list")
 	public String list(Model model, int reqPage) {
 		BoardListData bld = boardService.selectBoardList(reqPage);
+		List<BC> bcList=new ArrayList<BC>();
+		List<Board>list=(List<Board>)bld.getList();
+		for ( Board b : list) {
+			BC bc=new BC(b.getBoardNo(), b.getCommentList().size());
+			bcList.add(bc);
+		}
 		model.addAttribute("list" ,bld.getList());
+		model.addAttribute("bcList" , bcList);
 		model.addAttribute("pageNavi" ,bld.getPageNavi());
 		return "board/list";
 	}
