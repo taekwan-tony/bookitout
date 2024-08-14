@@ -307,16 +307,16 @@ public OrderListData selectAllOrder(Admin admin, int type, int reqPage) {
 	String pageNavi = "<div class='pagination'><ul>";
 	if(pageNo !=1) {
 		pageNavi += "<li>";
-		pageNavi += "<a class ='page-item page-btn' href='/admin/OrderAdmin1?type="+type+"&reqPage="+(pageNo-1)+"'>";
+		pageNavi += "<a class ='page-item page-btn' href='/admin/orderAdmin1?type="+type+"&reqPage="+(pageNo-1)+"'>";
 		pageNavi += "<span><i class='fa-solid fa-angle-left'></i></span>";
 		pageNavi += "</a></li>";
 	}
 	for(int i =0;i<pageNaviSize;i++) {
 		pageNavi += "<li>";
 		if(pageNo==reqPage) {
-			pageNavi += "<a class ='page-item active-page' href='/admin/OrderAdmin1?type="+type+"&reqPage="+pageNo+"'>";
+			pageNavi += "<a class ='page-item active-page' href='/admin/orderAdmin1?type="+type+"&reqPage="+pageNo+"'>";
 		}else {
-			pageNavi += "<a class ='page-item' href='/admin/OrderAdmin1?type="+type+"&reqPage="+pageNo+"'>";
+			pageNavi += "<a class ='page-item' href='/admin/orderAdmin1?type="+type+"&reqPage="+pageNo+"'>";
 		}
 		pageNavi += pageNo;
 		pageNavi += "</a></li>";
@@ -327,7 +327,7 @@ public OrderListData selectAllOrder(Admin admin, int type, int reqPage) {
 	}
 	if(pageNo <= totalPage) {
 		pageNavi += "<li>";
-		pageNavi += "<a class ='page-item page-btn' href='/admin/OrderAdmin1?type="+type+"&reqPage="+pageNo+"'>";
+		pageNavi += "<a class ='page-item page-btn' href='/admin/orderAdmin1?type="+type+"&reqPage="+pageNo+"'>";
 		pageNavi += "<span><i class='fa-solid fa-angle-right'></i></span>";
 		pageNavi += "</a></li>";
 	}

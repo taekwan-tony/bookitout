@@ -90,8 +90,8 @@ public class AdminDao {
 		String query = "select * from " + 
 				"(select rownum as rnum, b.* from " + 
 				"(SELECT * FROM book " + 
-				"left JOIN center_inventory ON book.book_no = center_inventory.book_no2 " + 
-				"left JOIN admin_tbl ON center_inventory.admin_no = admin_tbl.admin_no " + 
+				" JOIN center_inventory ON book.book_no = center_inventory.book_no2 " + 
+				" JOIN admin_tbl ON center_inventory.admin_no = admin_tbl.admin_no " + 
 				"WHERE admin_tbl.admin_no = ? order by book.book_no desc)b) where rnum between ? and ?";
 		Object[] params = {admin.getAdminNo(),start,end};
 		List list = jdbc.query(query,adminCenterBookRowMapper,params);

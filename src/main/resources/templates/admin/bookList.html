@@ -31,10 +31,18 @@
                 <div class="header-main1">
                     <div class="inner">
                         <div class="search">
-                            <input type="text" name="search" />
-                            <button class="search-btn" type="button">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
+                          <ul>
+            					<li>
+                					<th:block th:if="${session.admin.adminType}==2">
+                					<h1 class="logo1">
+                    					<a href="/admin/adminIndex?rePage=1">책키라웃  가맹점</a></h1>
+                    					</th:block>
+                    					<th:block th:if="${session.admin.adminType}==1">
+                					<h1 class="logo1">
+                    					<a href="/admin/adminIndex?rePage=1">책키라웃  총관리자</a></h1>
+                    					</th:block>
+           						 </li>
+                        	</ul>
                         </div>
                         <div class="lnb">
                             <ul>
@@ -79,9 +87,7 @@
               					<th style="width: 8%">판매가격</th>
               					<th:block th:if="${session.admin.adminType}==1">
               					<th style="width: 6%">발주</th>
-              					</th:block>
               					<th style="width: 6%">수정/상세수정</th> 
-              					<th:block th:if="${session.admin.adminType}==1">
               					<th style="width: 6%">삭제</th>
               					</th:block>
                             </tr>
@@ -140,13 +146,11 @@
               					<td>
 	              					<button type="button" class="btn-type2 btn orderAdmin" id="orderAdmin" th:onclick="orderAdminBook(this, [[${book.bookNo}]]);">발주창</button>
               					</td>
-              					</th:block>
               					<td>
 	              					<button type="button" class="btn-type2 btn updateBook" id="updateBook" th:onclick="updateBook1(this, [[${book.bookNo}]]);">수정</button>
 	              					<!-- <a href="/admin/updateDetail" class="btn-type2 btn">상세</a> 이런식으로 넣어줘도 됨 -->
 	              					<button type="button" class="btn-type2 btn updateDetail" id="updateDetail" th:onclick="updateDetail1(this, [[${book.bookNo}]]);">상세</button>
               					</td>
-              					<th:block th:if="${session.admin.adminType}==1">
               					<td>
               						<button type="button"  class="btn-type2 btn" th:onclick="bookDelete([[${book.bookNo}]]);">삭제</button>
               					</td>
