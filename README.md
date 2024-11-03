@@ -1,32 +1,62 @@
+
+# 프로젝트 제목
+---
 Bookitout - 도서 쇼핑몰 웹사이트
+
+# 소개
+---
 Bookitout는 사용자들이 원하는 도서를 쉽게 찾아볼 수 있도록 설계된 도서 쇼핑몰 웹사이트입니다. 고객센터 기능과 챗봇 API 연동을 통해 사용자 지원을 강화했으며, 다양한 정보 제공과 관리가 가능한 CRUD 기능을 구현했습니다.
 
-프로젝트 개요
+
+#  프로젝트 개요
+---
 기여도: 25%
 참여 인원: 6명
 작업 기간: 2024년 7월 - 2024년 8월
 
-주요 기능
-고객센터 및 챗봇 API 연동
-1:1 문의, FAQ 및 공지사항 CRUD 기능
-검색 기능과 페이지 처리
 
-기술 스택
-프로그래밍 언어: Java, HTML5, JQuery, CSS, AJAX, JavaScript
-프레임워크: Spring Framework
-데이터베이스: Oracle 11g
-개발 도구: Eclipse, Visual Studio Code
+# 주요 기능
+---
+ ※ 담당기능 ● 표시
+ 
+ ○ 회원기능
+   1. 회원가입 및 로그인 기능
+   2. 마이페이지
+   3. 장바구니 및 구매내역
+ 
+ ○ 게시판
+   1. 게시판 글쓰기/댓글 좋아요 기능 구현
+   2. 제목, 제목+내용 검색 기능 구현
+ 
+ ○ 메인 페이지 및 상세 기능
+   1. 카테고리별 페이지 처리 구현
+   2. 상세페이지 (댓글/답글/댓글좋아요 처리)
+   3. 재고 위치(네이버 지도 Api) 구현
+   
+ ● 고객센터(1:1문의/FAQ(자주묻는질문)/공지사항)
+   1. 고객센터 메인페이지 설계
+   2. 1:1문의 신청 및 관리자
+   3. 문의 답변 처리(Email Api)
+   4. FAQ, 공지사항 제목 검색 기능 및 카테고리별 조회
+   5. 사진 업로드 가능
+   6. ChatBot Api 활용
+ 
+ ○ 관리자기능
+   1. 오프라인 판매점 등록/수정/삭제
+   2. 책 등록/수정
+   3. 판매점 도서 리스트 및 재고 구현
+   4. 도서 발주 시스템 구현
 
-설치 및 실행 방법
-저장소를 클론합니다:
-bash
-코드 복사
-git clone https://github.com/taekwan-tony/bookitout.git
-프로젝트를 개발 환경 (Eclipse 또는 Visual Studio Code)에서 엽니다.
-필요한 데이터베이스 및 환경 설정을 완료합니다.
-프로젝트를 실행하고 웹 브라우저에서 http://localhost:포트번호로 접속합니다.
 
-기여 방법
-이슈를 확인하고 참여하고 싶은 작업을 선택합니다.
-새로운 브랜치를 생성하여 작업을 진행합니다.
-작업 완료 후 Pull Request를 제출합니다.
+# 기술 스택
+---
+  - 운영체제 : Window OS
+  - 사용언어 : Front - HTML5, JQuery, CSS3, AJAX, javascript
+            : Back - JAVA, JSP&Servlet
+  - FrameWork/Library : Spring Framework
+  - DB : Oracle 11 g
+  - Tool : Visual Studio Code, Eclipse
+  - WAS  : Apache Tomcat
+  - Collaboration : GitHub, Slack
+  - API : SummerNote, Email, ChatBot(채널톡)
+
